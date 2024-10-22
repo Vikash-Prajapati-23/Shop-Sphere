@@ -1,0 +1,27 @@
+.foot-list {
+    list-style: none;
+}
+
+.footer-left {
+    border-right: 1px solid lightgrey;
+}
+
+.foot-items {
+    /* margin-right: 4rem; */
+}
+
+.foot-icons {
+    margin-right: 1rem;
+    font-size: x-large;
+}
+
+
+
+.form-title{
+    margin-left: 1rem;
+}
+
+.con-item-right{
+    border-right: 1px solid lightgray;
+}
+
