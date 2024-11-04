@@ -1,20 +1,11 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./Style/Navbar.css";
-import Home from "../Home/Home";
-import AboutUs from "../AboutUs/AboutUs";
-import Categories from "../Categories/Categories";
-import Men from "../Men/Men";
-import Women from "../Women/Women";
-import Kid from "../Kid/Kid";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-danger">
+    <nav className="navbar navbar-expand-lg bg-body-danger bg-danger">
       <div className="container-fluid">
-        {/* <a className="navbar-brand" href="#">
-          Shopsphare 
-        </a> */}
         <button
           className="navbar-toggler"
           type="button"
@@ -28,42 +19,42 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item mx-2">
-              <a className="nav-link active mt-2" aria-current="page" href="#">
-                <Home />
-              </a>
+            <li className="nav-item ">
+              <Link className="nav-link active " aria-current="page" to="/">
+                Home
+              </Link>
             </li>
-            <li className="nav-item mx-2">
-              <a className="nav-link active mt-2" href="#">
+            <li className="nav-item ">
+              <Link className="nav-link active" to="/AboutUs">
                 {/* <AboutUs /> */}
                 About Us
-              </a>
+              </Link>
             </li>
-            <li className="nav-item mx-2 dropdown">
-              <a
+            <li className="nav-item dropdown">
+              <Link
                 className="nav-link active dropdown-toggle"
-                href="#"
+                to="/Categories"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="true"
               >
-                <Categories />
-              </a>
+                Categories
+              </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <Men />
-                  </a>
+                  <Link className="dropdown-item" to="/Men">
+                    Men
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <Women />
-                  </a>
+                  <Link className="dropdown-item" to="/Women">
+                    Women
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <Kid />
-                  </a>
+                  <Link className="dropdown-item" to="/Kid">
+                    Kid
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -85,10 +76,13 @@ const Navbar = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
-            
           </form>
           <ul className="list-group">
-            <li className="nav-item list-item nav-login mt-2 mx-2"><a href="#">Log in</a></li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link active " to="/LogInSignUp">
+                Log In
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
