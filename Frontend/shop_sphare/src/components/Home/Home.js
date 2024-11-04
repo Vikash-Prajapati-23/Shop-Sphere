@@ -1,12 +1,15 @@
-import React from 'react'
-import './Style/Home.css'
+import React from "react";
+import "./Style/Home.css";
+import Carousel from "../Carousel/Carousel";
+import Products from "../Products/Products";
 
-const Home = () => {
-  return (
+export const Home = () => {
+  
+  return(
     <div>
-      Home
+      <Carousel />
+      <Products />
     </div>
   )
-}
-
-export default Home
+};
+export default Home;
