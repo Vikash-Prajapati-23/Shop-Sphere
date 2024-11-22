@@ -20,19 +20,19 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item ">
-              <Link className="nav-link active " aria-current="page" to="/">
+              <Link className="nav-link active fw-bold" aria-current="page" to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item ">
-              <Link className="nav-link active" to="/AboutUs">
+            <li className="nav-item mx-3">
+              <Link className="nav-link active fw-bold" to="/AboutUs">
                 {/* <AboutUs /> */}
                 About Us
               </Link>
             </li>
             <li className="nav-item dropdown">
               <Link
-                className="nav-link active dropdown-toggle"
+                className="nav-link active dropdown-toggle fw-bold"
                 to="/Categories"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -77,10 +77,20 @@ const Navbar = () => {
               </button>
             </div>
           </form>
-          <ul className="list-group">
+          <ul className="navbar-nav list-group d-flex">
             <li className="nav-item mx-2">
-              <Link className="nav-link active " to="/LogInSignUp">
+              <Link className="nav-link active fw-bold" to="/LogInSignUp">
                 Log In
+              </Link>
+            </li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link active " to="/WishList">
+                <i class="fa-solid fa-heart"></i>
+              </Link>
+            </li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link active " to="/Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
               </Link>
             </li>
           </ul>

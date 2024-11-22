@@ -1,5 +1,6 @@
 import React from "react";
 import './Style/Card.css'
+import Button from "../Button/Button";
 
 
 const Card = (props) => {
@@ -18,9 +19,7 @@ const Card = (props) => {
           </p>
           <p>{price}</p>
           <p>{rating}</p>
-          {/* <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a> */}
+          <Button btnName={"Add to Cart"} />
         </div>
       </div>
     </div>

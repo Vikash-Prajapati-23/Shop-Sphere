@@ -8,11 +8,9 @@ import Home from "./components/Home/Home";
 import Men from "./components/Men/Men";
 import Kid from "./components/Kid/Kid";
 import Women from "./components/Women/Women";
-import ContactUs from "./components/ContactUs/ContactUs";
+// import ContactUs from "./components/ContactUs/ContactUs";
 import AboutUs from "./components/AboutUs/AboutUs";
 import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
-
-
 
 function App() {
   return (
