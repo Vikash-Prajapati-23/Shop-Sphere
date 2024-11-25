@@ -30,7 +30,7 @@ const Products = () => {
         fetchMoreProducts();
       }
     } else {
-      current.scrollLeft -= 300;
+      current.scrollLeft -= 900;
     }
   };
 
