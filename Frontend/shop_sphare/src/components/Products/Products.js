@@ -4,21 +4,17 @@ import Card from "../Card/Card";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [limit, setLimit] = useState(4);
   const productContainerRef = useRef(null);
 
   const fetchProducts = async () => {
-    const url = await fetch(`https://fakestoreapi.com/products?limit=${limit}`);
+    const url = await fetch(`https://fakestoreapi.com/products?`);
     const data = await url.json();
     setProducts(data);
   };
 
   const fetchMoreProducts = async () => {
-    const url = await fetch(
-      `https://fakestoreapi.com/products?limit=${limit + 4}`
-    );
+    const url = await fetch(`https://fakestoreapi.com/products?`);
     const newProducts = await url.json();
-    setLimit(limit + 4);
     setProducts((prevProducts) => [...prevProducts, ...newProducts]);
   };
 
