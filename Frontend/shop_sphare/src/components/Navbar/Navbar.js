@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
 
 const Navbar = () => {
@@ -20,7 +20,11 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item ">
-              <Link className="nav-link active fw-bold" aria-current="page" to="/">
+              <Link
+                className="nav-link active fw-bold"
+                aria-current="page"
+                to="/"
+              >
                 Home
               </Link>
             </li>
@@ -85,12 +89,12 @@ const Navbar = () => {
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link active " to="/WishList">
-                <i class="fa-solid fa-heart"></i>
+                <i className="fa-solid fa-heart"></i>
               </Link>
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link active " to="/Cart">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i className="fa-solid fa-cart-shopping"></i>
               </Link>
             </li>
           </ul>

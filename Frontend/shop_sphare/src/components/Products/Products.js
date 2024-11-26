@@ -30,7 +30,7 @@ const Products = () => {
         fetchMoreProducts();
       }
     } else {
-      current.scrollLeft -= 900;
+      current.scrollLeft -= 300;
     }
   };
 
@@ -57,7 +57,8 @@ const Products = () => {
           {products.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id}>
               <Card
-                title={product.title}
+                category={product.category}
+                title={product.title?product.title.slice(0, 20):"No Title"}
                 id={product.id}
                 image={product.image}
                 price={product.price}
