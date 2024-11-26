@@ -11,14 +11,15 @@ const Card = (props) => {
     <div className="m-3">
       <div className="card" style={{width: "18rem"}}>
       <div className="text-center m-2">{category}</div>
-        <img src={image} style={{height: "140px", objectFit: "scale-down", margin: "5px"}} className="card-img-top" alt="Image" />
+        <img src={image} style={{height: "140px", objectFit: "scale-down"}} className="card-img-top " alt="Image" />
         <div className="card-body">
           <h5 className="card-title">{title}...</h5>
-          <p className="card-text">
-            {description}
+          <p>Price = ${price}</p>
+          <p >
+            <span style={{color: "gold",fontSize: "1.3rem"}}>★ </span>
+            <span>{rating.rate}</span>
           </p>
-          <p>${price}</p>
-          <p>{rating}</p>
+          <p>Reviews {rating.count}</p>
           <Button btnName={"Add to Cart"} />
         </div>
       </div>
