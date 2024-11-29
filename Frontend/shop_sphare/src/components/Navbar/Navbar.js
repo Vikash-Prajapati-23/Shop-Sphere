@@ -60,6 +60,21 @@ const Navbar = () => {
                     Kid
                   </Link>
                 </li>
+                <li>
+                  <Link className="dropdown-item" to="/Electronics">
+                    Electronics
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/Jewelery">
+                  Jewelery
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/Electronics">
+                    Electronics
+                  </Link>
+                </li>
               </ul>
             </li>
           </ul>

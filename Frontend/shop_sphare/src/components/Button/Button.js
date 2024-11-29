@@ -1,10 +1,10 @@
 import React from 'react'
 import './Style/Button.css'
 
-const Button = (props) => {
+const Button = ({className, onClick, btnName}) => {
   return (
     <div>
-      <button className="btn btn-success" type="submit">{props.btnName}</button>
+      <button className={className} onClick={onClick} type="submit">{btnName}</button>
     </div>
   )
 }

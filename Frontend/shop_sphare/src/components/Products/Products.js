@@ -12,11 +12,9 @@ const Products = () => {
     setProducts(data);
   };
 
-  const fetchMoreProducts = async () => {
-    const url = await fetch(`https://fakestoreapi.com/products?`);
-    const newProducts = await url.json();
-    setProducts((prevProducts) => [...prevProducts, ...newProducts]);
-  };
+  const getData = (product) => {
+    console.log(product)
+  }
 
   useEffect(() => {
     fetchProducts();
@@ -27,7 +25,7 @@ const Products = () => {
     if (direction === "next") {
       current.scrollLeft += 300;
       if (current.scrollLeft + current.clientWidth >= current.scrollWidth) {
-        fetchMoreProducts();
+        fetchProducts();
       }
     } else {
       current.scrollLeft -= 300;
@@ -36,7 +34,7 @@ const Products = () => {
 
   return (
     <div className="container card my-3">
-      <h3 className="text-center mt-3">Products you may like!</h3>
+      <h3 className="text-center mt-2">Products you may like!</h3>
       <div className="position-relative">
         <button
           className="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
@@ -57,6 +55,7 @@ const Products = () => {
           {products.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id}>
               <Card
+                getData={() => getData(product)}
                 category={product.category}
                 title={product.title?product.title.slice(0, 20):"No Title"}
                 id={product.id}

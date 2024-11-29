@@ -14,32 +14,22 @@ const Men = () => {
     setMenProduct(newUrl);
   };
 
-  // const fetchMoreMenProducts = async () => {
-  //   const url = await fetch(
-  //     `https://fakestoreapi.com/products?limit=${limit}`
-  //   );
-  //   setLimit(10);
-  //   const newProducts = await url.json();
-  //   setLimit(limit + 4);
-  //   setMenProduct(newProducts);
-  // };
-
   useEffect(() => {
     manProduct();
-    // fetchMoreMenProducts();
   }, []);
 
   return (
-    <div>
-      <h3 className="text-center m-md-3">Men's clothing</h3>
-      <div className="container card my-3">
+    <div className="card m-3">
+      <h3 className="text-center m-md-2">Men's clothing</h3>
+      <div className="d-flex overflow-auto caro-hight">
         {menProduct.map((product) => (
           <div className="" key={product.id}>
             <Card
-              title={product.title}
+              title={product.title?product.title.slice(0, 20):"No Title"}
               id={product.id}
               image={product.image}
               price={product.price}
+              rating={product.rating}
               // category={product.category}
             />
           </div>

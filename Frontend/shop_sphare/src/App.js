@@ -11,6 +11,8 @@ import Women from "./components/Women/Women";
 // import ContactUs from "./components/ContactUs/ContactUs";
 import AboutUs from "./components/AboutUs/AboutUs";
 import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
+import Electronics from "./components/Electronics/Electronics";
+import Jewelery from "./components/Jewelery/Jewelery";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/Men" element={<Men />} />
           <Route path="/Kid" element={<Kid />} />
           <Route path="/Women" element={<Women />} />
+          <Route path="/Electronics" element={<Electronics />} />
+          <Route path="/Jewelery" element={<Jewelery />} />
           {/* <Route path="/Home" element={<Home />} /> */}
           {/* <Route path="/signup" element={<LogInSignUp />} /> */}
           {/* You can add more routes here */}
