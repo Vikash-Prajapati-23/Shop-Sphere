@@ -6,6 +6,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-danger bg-danger">
       <div className="container-fluid">
+      <a className="navbar-brand"><img src="./images/logo1.png" style={{borderRadius: "50%", height: "4rem"}} alt="" /></a>
         <button
           className="navbar-toggler"
           type="button"

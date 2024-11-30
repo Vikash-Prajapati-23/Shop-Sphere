@@ -17,21 +17,23 @@ const Women = () => {
   }, []);
 
   return (
-    <div className="card m-3">
-      <h3 className="text-center m-md-2">Women's Clothing</h3>
-      <div className="d-flex overflow-auto caro-hight">
-        {woMenProduct.map((product) => (
-          <div className="" key={product.id}>
-            <Card
-              title={product.title}
-              id={product.id}
-              image={product.image}
-              price={product.price}
-              rating={product.rating}
-              // category={product.category}
-            />
-          </div>
-        ))}
+    <div className="container">
+      <div className="card m-3">
+        <h3 className="text-center m-md-2">Women's Clothing</h3>
+        <div className="d-flex overflow-auto caro-hight">
+          {woMenProduct.map((product) => (
+            <div className="" key={product.id}>
+              <Card
+                title={product.title ? product.title.slice(0, 20) : "No Title."}
+                id={product.id}
+                image={product.image}
+                price={product.price}
+                rating={product.rating}
+                // category={product.category}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
