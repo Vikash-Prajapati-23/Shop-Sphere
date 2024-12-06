@@ -11,6 +11,8 @@ const Card = ({
   category,
   rating,
   getData,
+  showAlert,
+  type,
 }) => {
   // let {title, description, image, id, price, category, rating, getData} = props;
 
@@ -34,12 +36,12 @@ const Card = ({
           <p className="mb-1">Reviews {rating.count}</p>
           <div className="btns d-flex justify-content-between">
             <Button
-              onClick={getData}
+              onClick={showAlert}
               className={"btn btn-success"}
               btnName={"Wishlist"}
             />
             <Button
-              onClick={getData}
+              onClick={showAlert}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
             />

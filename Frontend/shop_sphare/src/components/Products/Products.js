@@ -16,6 +16,10 @@ const Products = () => {
     console.log(product)
   }
 
+  const alert = () => {
+    
+  }
+
   useEffect(() => {
     fetchProducts();
   }, []);

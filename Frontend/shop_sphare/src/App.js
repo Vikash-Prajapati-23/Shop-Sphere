@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -13,14 +13,19 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
 import Electronics from "./components/Electronics/Electronics";
 import Jewelery from "./components/Jewelery/Jewelery";
+import Alert from "./components/Alert/Alert";
 
 function App() {
+
+  const [alert, setAlert] = useState()
+
   return (
     <>
       <Router>
         <Navbar />
         {/* <ContactUs /> */}
         {/* <Home /> */}
+        <Alert alertMessage="Hiiii" type="success" />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/AboutUs" element={<AboutUs />} />
