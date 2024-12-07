@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Style/Alert.css";
-import Button from "../Button/Button";
 
-const Alert = (props) => {
+const Alert = ({alert}) => {
   return (
     <>
       <div className="live">
-      {props.alert && (
+      {alert && (
         <div
-          className={`alert alert-${props.alert.type} m-3 alert-dismissible fade show`}
+          className={`alert alert-${alert.type} m-3 alert-dismissible fade show`}
           role="alert"
         >
-          <strong>{props.alert.message}</strong>
+          <strong>{alert.message}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         )}
       </div>

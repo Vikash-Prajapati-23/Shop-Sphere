@@ -36,12 +36,12 @@ const Card = ({
           <p className="mb-1">Reviews {rating.count}</p>
           <div className="btns d-flex justify-content-between">
             <Button
-              onClick={showAlert}
+              onClick={() => showAlert("Added to Wishlist!", "success")}
               className={"btn btn-success"}
               btnName={"Wishlist"}
             />
             <Button
-              onClick={showAlert}
+              onClick={() => showAlert("Added to cart!", "success")}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
             />

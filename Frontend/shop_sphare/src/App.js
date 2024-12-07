@@ -21,12 +21,12 @@ function App() {
 
   const showAlert = (message, type) => {
     setAlert({
-      msg: message,
+      message: message,
       type: type
     });
     setTimeout(() => {
       setAlert(null);
-    }, 1500);
+    },3000);
   }
 
   return (
@@ -35,7 +35,7 @@ function App() {
         <Navbar />
         {/* <ContactUs /> */}
         {/* <Home /> */}
-        <Alert alert={alert} showAlert={showAlert} />
+        <Alert alert={alert} />
         <Routes>
           <Route path="/" element={<Home showAlert={showAlert} />} />
           <Route path="/AboutUs" element={<AboutUs />} />
