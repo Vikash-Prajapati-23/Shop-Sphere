@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Style/Products.css";
 import Card from "../Card/Card";
 
-const Products = () => {
+const Products = (props) => {
   const [products, setProducts] = useState([]);
   const productContainerRef = useRef(null);
 
@@ -14,10 +14,7 @@ const Products = () => {
 
   const getData = (product) => {
     console.log(product)
-  }
-
-  const alert = () => {
-    
+    props.showAlert("Hellow", "success")
   }
 
   useEffect(() => {

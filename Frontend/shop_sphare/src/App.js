@@ -17,7 +17,17 @@ import Alert from "./components/Alert/Alert";
 
 function App() {
 
-  const [alert, setAlert] = useState()
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500);
+  }
 
   return (
     <>
@@ -25,9 +35,9 @@ function App() {
         <Navbar />
         {/* <ContactUs /> */}
         {/* <Home /> */}
-        <Alert alertMessage="Hiiii" type="success" />
+        <Alert alert={alert} showAlert={showAlert} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home showAlert={showAlert} />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/LoginSignup" element={<LogInSignUp />} />
           <Route path="/Men" element={<Men />} />
