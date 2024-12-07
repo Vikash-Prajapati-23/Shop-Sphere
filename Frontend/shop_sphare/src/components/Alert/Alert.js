@@ -4,14 +4,12 @@ import "./Style/Alert.css";
 const Alert = ({alert}) => {
   return (
     <>
-      <div className="live">
+      <div className=" ">
       {alert && (
         <div
-          className={`alert alert-${alert.type} m-3 alert-dismissible fade show`}
-          role="alert"
+          className={`alert alert-overlay alert-${alert.type} modal-alert`}
         >
-          <strong>{alert.message}</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong className="alert-msg text-center">{alert.message}</strong>
         </div>
         )}
       </div>
