@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Style/Men.css";
 import Card from "../Card/Card";
 
-const Men = () => {
+const Men = ({showAlert}) => {
   const [menProduct, setMenProduct] = useState([]);
   // const [limit, setLimit] = useState();
 
@@ -30,7 +30,7 @@ const Men = () => {
               image={product.image}
               price={product.price}
               rating={product.rating}
-              // category={product.category}
+              showAlert={showAlert}
             />
           </div>
         ))}

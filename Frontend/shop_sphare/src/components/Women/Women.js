@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Style/Women.css";
 import Card from "../Card/Card";
 
-const Women = () => {
+const Women = ({showAlert}) => {
   const [woMenProduct, setWoMenProduct] = useState([]);
 
   const woManProduct = async () => {
@@ -29,7 +29,7 @@ const Women = () => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
-                // category={product.category}
+                showAlert={showAlert}
               />
             </div>
           ))}

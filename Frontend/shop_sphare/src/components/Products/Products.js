@@ -14,7 +14,6 @@ const Products = ({showAlert}) => {
 
   const getData = (product) => {
     console.log(product)
-    showAlert("Hellow", "success")
   }
 
   useEffect(() => {

@@ -40,11 +40,11 @@ function App() {
           <Route path="/" element={<Home showAlert={showAlert} />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/LoginSignup" element={<LogInSignUp />} />
-          <Route path="/Men" element={<Men />} />
-          <Route path="/Kid" element={<Kid />} />
-          <Route path="/Women" element={<Women />} />
-          <Route path="/Electronics" element={<Electronics />} />
-          <Route path="/Jewelery" element={<Jewelery />} />
+          <Route path="/Men" element={<Men showAlert={showAlert} />} />
+          <Route path="/Kid" element={<Kid showAlert={showAlert} />} />
+          <Route path="/Women" element={<Women showAlert={showAlert} />} />
+          <Route path="/Electronics" element={<Electronics showAlert={showAlert} />} />
+          <Route path="/Jewelery" element={<Jewelery showAlert={showAlert} />} />
           {/* <Route path="/Home" element={<Home />} /> */}
           {/* <Route path="/signup" element={<LogInSignUp />} /> */}
           {/* You can add more routes here */}

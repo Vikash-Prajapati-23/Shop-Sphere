@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Style/Jewelery.css";
 import Card from "../Card/Card";
 
-const Jewelery = () => {
+const Jewelery = ({showAlert}) => {
     const [jeweleryProduct, setJeweleryProduct] = useState([]);
 
     const fetchJeweleryProducts = async () => {
@@ -30,6 +30,7 @@ const Jewelery = () => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
+                showAlert={showAlert}
               />
             </div>
           ))}
