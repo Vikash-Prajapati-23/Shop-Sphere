@@ -18,7 +18,6 @@ const Products = ({showAlert}) => {
     const url2 = await fetch(`https://fakestoreapi.com/products/${product.id}`);
     const response = await url2.json();
     setsingleProduct(response);
-    console.log(product)
   }
 
   useEffect(() => {
