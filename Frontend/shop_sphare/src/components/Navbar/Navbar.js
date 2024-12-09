@@ -6,7 +6,13 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-danger bg-danger">
       <div className="container-fluid">
-      <a className="navbar-brand"><img src="./images/logo1.png" style={{borderRadius: "50%", height: "4rem"}} alt="" /></a>
+        <a className="navbar-brand">
+          <img
+            src="./images/logo1.png"
+            style={{ borderRadius: "50%", height: "4rem" }}
+            alt=""
+          />
+        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -19,7 +25,7 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item ">
               <Link
                 className="nav-link active fw-bold"
@@ -68,7 +74,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/Jewelery">
-                  Jewelery
+                    Jewelery
                   </Link>
                 </li>
                 <li>
@@ -105,12 +111,16 @@ const Navbar = () => {
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link active " to="/WishList">
-                <i className="fa-solid fa-heart"></i>
+                <i className="fa-solid fa-heart wishlist-icon"></i>
               </Link>
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link active " to="/Cart">
-                <i className="fa-solid fa-cart-shopping"></i>
+                <i className="fa-solid fa-cart-shopping cart-icon"></i>
+                <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
+                  9
+                  <span className="visually-hidden">unread messages</span>
+                </span>
               </Link>
             </li>
           </ul>

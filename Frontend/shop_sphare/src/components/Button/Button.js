@@ -6,7 +6,6 @@ const Button = ({ className, onClick, btnName, type }) => {
     <div>
       <button
         className={className}
-        // id={id}
         onClick={onClick}
         type={type}
       >

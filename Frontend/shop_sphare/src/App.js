@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -16,18 +16,17 @@ import Jewelery from "./components/Jewelery/Jewelery";
 import Alert from "./components/Alert/Alert";
 
 function App() {
-
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
     setAlert({
       message: message,
-      type: type
+      type: type,
     });
     setTimeout(() => {
       setAlert(null);
-    },3000);
-  }
+    }, 3000);
+  };
 
   return (
     <>
@@ -43,11 +42,14 @@ function App() {
           <Route path="/Men" element={<Men showAlert={showAlert} />} />
           <Route path="/Kid" element={<Kid showAlert={showAlert} />} />
           <Route path="/Women" element={<Women showAlert={showAlert} />} />
-          <Route path="/Electronics" element={<Electronics showAlert={showAlert} />} />
-          <Route path="/Jewelery" element={<Jewelery showAlert={showAlert} />} />
-          {/* <Route path="/Home" element={<Home />} /> */}
-          {/* <Route path="/signup" element={<LogInSignUp />} /> */}
-          {/* You can add more routes here */}
+          <Route
+            path="/Electronics"
+            element={<Electronics showAlert={showAlert} />}
+          />
+          <Route
+            path="/Jewelery"
+            element={<Jewelery showAlert={showAlert} />}
+          />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}

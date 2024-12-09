@@ -10,15 +10,16 @@ const Card = ({
   price,
   category,
   rating,
-  getData,
+  // getData,
   showAlert,
   type,
+  fetchSingleProduct,
 }) => {
   // let {title, description, image, id, price, category, rating, getData} = props;
 
   return (
-    <div className="m-3">
-      <div className="card" style={{ width: "18rem" }}>
+    <div className="m-3 card-comp" onClick={fetchSingleProduct}>
+      <div className="card card-style">
         <div className="text-center m-2">{category}</div>
         <img
           src={image}
@@ -36,12 +37,18 @@ const Card = ({
           <p className="mb-1">Reviews {rating.count}</p>
           <div className="btns d-flex justify-content-between">
             <Button
-              onClick={() => showAlert("Added to Wishlist!", "success")}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent propagation to the card
+                showAlert("Added to Wishlist!", "success");
+              }}
               className={"btn btn-success"}
               btnName={"Wishlist"}
             />
             <Button
-              onClick={() => showAlert("Added to cart!", "success")}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent propagation to the card
+                showAlert("Added to cart!", "success");
+              }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
             />

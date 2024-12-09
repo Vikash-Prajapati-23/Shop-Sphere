@@ -3,7 +3,9 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 
 const Products = ({showAlert}) => {
+
   const [products, setProducts] = useState([]);
+  const [singleProduct, setsingleProduct] = useState(null)
   const productContainerRef = useRef(null);
 
   const fetchProducts = async () => {
@@ -12,13 +14,16 @@ const Products = ({showAlert}) => {
     setProducts(data);
   };
 
-  const getData = (product) => {
+  const fetchSingleProduct = async (product) => {
+    const url2 = await fetch(`https://fakestoreapi.com/products/${product.id}`);
+    const response = await url2.json();
+    setsingleProduct(response);
     console.log(product)
   }
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   const scroll = (direction) => {
     const { current } = productContainerRef;
@@ -55,7 +60,7 @@ const Products = ({showAlert}) => {
           {products.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id}>
               <Card
-                getData={() => getData(product)}
+                // getData={() => getData(product)}
                 category={product.category}
                 title={product.title?product.title.slice(0, 20):"No Title"}
                 id={product.id}
@@ -63,6 +68,7 @@ const Products = ({showAlert}) => {
                 price={product.price}
                 rating={product.rating}
                 showAlert={showAlert}
+                fetchSingleProduct={() => fetchSingleProduct(product)}
               />
             </div>
           ))}
