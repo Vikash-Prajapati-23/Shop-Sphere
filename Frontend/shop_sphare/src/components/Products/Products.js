@@ -59,7 +59,6 @@ const Products = ({showAlert}) => {
           {products.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id}>
               <Card
-                // getData={() => getData(product)}
                 category={product.category}
                 title={product.title?product.title.slice(0, 20):"No Title"}
                 id={product.id}

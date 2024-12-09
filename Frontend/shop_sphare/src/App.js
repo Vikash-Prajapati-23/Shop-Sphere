@@ -14,6 +14,7 @@ import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
 import Electronics from "./components/Electronics/Electronics";
 import Jewelery from "./components/Jewelery/Jewelery";
 import Alert from "./components/Alert/Alert";
+import SingleProduct from "./components/SingleProduct/SingleProduct";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -50,6 +51,7 @@ function App() {
             path="/Jewelery"
             element={<Jewelery showAlert={showAlert} />}
           />
+          <Route path="/SingleProduct" element={<SingleProduct />} />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}
