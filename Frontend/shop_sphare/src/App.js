@@ -16,7 +16,7 @@ import Jewelery from "./components/Jewelery/Jewelery";
 import Alert from "./components/Alert/Alert";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 
-function App({fetchSingleProduct}) {
+function App({handleCardClick}) {
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
@@ -51,7 +51,7 @@ function App({fetchSingleProduct}) {
             path="/Jewelery"
             element={<Jewelery showAlert={showAlert} />}
           />
-          <Route path="/SingleProduct/:id" element={<SingleProduct />} />
+          <Route path="/SingleProduct/:id" element={<SingleProduct showAlert={showAlert} />} />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}

@@ -24,7 +24,7 @@ const Men = ({ showAlert }) => {
         <h3 className="text-center m-md-2">Men's clothing</h3>
         <div className="d-flex overflow-auto caro-hight">
           {menProduct.map((product) => (
-            <div className="" key={product.id}>
+            <div className="" key={product.id} >
               <Card
                 title={product.title ? product.title.slice(0, 20) : "No Title"}
                 id={product.id}
