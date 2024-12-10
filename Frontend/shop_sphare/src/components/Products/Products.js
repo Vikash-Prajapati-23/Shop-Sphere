@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Style/Products.css";
 import Card from "../Card/Card";
 
@@ -7,6 +8,7 @@ const Products = ({showAlert}) => {
   const [products, setProducts] = useState([]);
   const [singleProduct, setsingleProduct] = useState(null)
   const productContainerRef = useRef(null);
+  const navigate = useNavigate(); // Added: Initialize navigate for routing.
 
   const fetchProducts = async () => {
     const url = await fetch(`https://fakestoreapi.com/products?`);
@@ -14,11 +16,16 @@ const Products = ({showAlert}) => {
     setProducts(data);
   };
 
-  const fetchSingleProduct = async (product) => {
-    const url2 = await fetch(`https://fakestoreapi.com/products/${product.id}`);
-    const response = await url2.json();
-    setsingleProduct(response);
-  }
+  // const fetchSingleProduct = async (product) => {
+  //   const url2 = await fetch(`https://fakestoreapi.com/products/${product.id}`);
+  //   const response = await url2.json();
+  //   setsingleProduct(response);
+  // }
+
+   // Added: Function to handle card click and navigate to SingleProduct with the product ID.
+   const handleCardClick = (product) => {
+    navigate(`/SingleProduct/${product.id}`); // Navigating to SingleProduct route with ID.
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -57,7 +64,7 @@ const Products = ({showAlert}) => {
           style={{ scrollBehavior: "smooth" }}
         >
           {products.map((product) => (
-            <div className="col-md-3 flex-shrink-0" key={product.id}>
+            <div className="col-md-3 flex-shrink-0" key={product.id}  onClick={() => handleCardClick(product)} >
               <Card
                 category={product.category}
                 title={product.title?product.title.slice(0, 20):"No Title"}
@@ -66,7 +73,7 @@ const Products = ({showAlert}) => {
                 price={product.price}
                 rating={product.rating}
                 showAlert={showAlert}
-                fetchSingleProduct={() => fetchSingleProduct(product)}
+                // fetchSingleProduct={() => fetchSingleProduct(product)}
               />
             </div>
           ))}

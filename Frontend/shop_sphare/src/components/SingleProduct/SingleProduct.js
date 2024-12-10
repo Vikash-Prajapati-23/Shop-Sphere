@@ -1,40 +1,53 @@
-import React, {useState, useEffect} from 'react'
-import "./Style/SingleProduct.css"
-import Card from '../Card/Card'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./Style/SingleProduct.css";
+import Card from "../Card/Card";
 
-const SingleProduct = ({fetchSingleProduct}) => {
+const SingleProduct = () => {
+  const [singleProduct, setsingleProduct] = useState(null);
+  const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
-  const [singleProduct, setsingleProduct] = useState(null)
-
-  const viewSingleProduct = async () => {
-    setsingleProduct(fetchSingleProduct);
-  }
+  // Added: Function to fetch product details using the extracted ID.
+  const fetchSingleProduct = async () => {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const data = await response.json();
+    setsingleProduct(data); // Update the product state with fetched data.
+  };
 
   useEffect(() => {
-    singleProduct();
+    fetchSingleProduct();
   }, []);
+
+  if (!singleProduct) {
+    return <div>Loading...</div>; // Added: Loading state to handle asynchronous fetch.
+  }
 
   return (
     <div className="container">
-      <div className="card m-3">
-        {/* <h3 className="text-center m-md-2">Women's Clothing</h3> */}
-        <div className="d-flex overflow-auto caro-hight">
-          {singleProduct.map((product) => (
-            <div className="" key={product.id}>
-              <Card
-                title={product.title ? product.title.slice(0, 20) : "No Title."}
-                id={product.id}
-                image={product.image}
-                price={product.price}
-                rating={product.rating}
-                onClick={() => fetchSingleProduct(product.id)}
-              />
-            </div>
-          ))}
+      <div className=" m-3">
+        <div className="d-flex">
+          <div className="prod-img">
+            <img
+              className="m-4"
+              src={singleProduct.image}
+              alt={singleProduct.title}
+              style={{ height: "350px", objectFit: "contain" }}
+            />
+          </div>
+          <div className="prod-info m-4">
+            <h3 className="m-md-3">{singleProduct.title}</h3>
+            <p className="m-md-3">{singleProduct.description}</p>
+            <p className="m-md-3 fw-bold">Price: ${singleProduct.price}</p>
+            <p className="m-md-3 fw-bold">
+              <span style={{ color: "gold", fontSize: "1.3rem" }}>★ </span>
+              <span>{singleProduct.rating.rate}</span>
+            </p>
+            <p className="m-md-3 fw-bold">Reviews {singleProduct.rating.count}</p>
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;

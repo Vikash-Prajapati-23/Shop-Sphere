@@ -16,7 +16,7 @@ import Jewelery from "./components/Jewelery/Jewelery";
 import Alert from "./components/Alert/Alert";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 
-function App() {
+function App({fetchSingleProduct}) {
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
@@ -51,7 +51,7 @@ function App() {
             path="/Jewelery"
             element={<Jewelery showAlert={showAlert} />}
           />
-          <Route path="/SingleProduct" element={<SingleProduct />} />
+          <Route path="/SingleProduct/:id" element={<SingleProduct />} />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}

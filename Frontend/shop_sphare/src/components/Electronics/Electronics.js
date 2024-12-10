@@ -18,6 +18,7 @@ const Electronics = ({showAlert}) => {
   });
 
   return (
+    <div className="container">
     <div className="card m-3">
       <h3 className="text-center m-md-2">Electronics</h3>
       <div className="d-flex overflow-auto caro-hight">
@@ -35,6 +36,7 @@ const Electronics = ({showAlert}) => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

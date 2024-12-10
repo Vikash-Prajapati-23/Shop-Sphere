@@ -18,6 +18,7 @@ const Jewelery = ({showAlert}) => {
     });
   
     return (
+      <div className="container">
       <div className="card m-3">
         <h3 className="text-center m-md-2">Jewelery</h3>
         <div className="d-flex overflow-auto caro-hight">
@@ -35,6 +36,7 @@ const Jewelery = ({showAlert}) => {
             </div>
           ))}
         </div>
+      </div>
       </div>
     );
 }
