@@ -127,7 +127,7 @@ const Products = ({ showAlert }) => {
           >
             <Card
               category={product.category}
-              title={product.title}
+              title={product?product.title.slice(0, 20):"No Title."}
               id={product.id}
               image={product.image}
               price={product.price}
