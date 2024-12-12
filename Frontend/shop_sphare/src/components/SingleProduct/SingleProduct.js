@@ -23,15 +23,15 @@ const SingleProduct = ({ showAlert }) => {
   }
 
   return (
-    <div className="container">
-      <div className=" m-3">
+    <div className="container mt-3">
+      <div className="m-3">
         <div className="d-flex">
-          <div className="prod-img">
+          <div className="prod-img m-4 ">
             <img
-              className="m-4"
+              className="m-4 prod-img"
               src={singleProduct.image}
               alt={singleProduct.title}
-              style={{ height: "350px", objectFit: "contain" }}
+              style={{ objectFit: "scal-down" }}
             />
           </div>
           <div className="prod-info m-4">

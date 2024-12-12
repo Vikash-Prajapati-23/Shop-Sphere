@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import "./Style/Products.css";
 import Card from "../Card/Card";
 
 const Products = ({ showAlert }) => {

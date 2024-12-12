@@ -1,0 +1,10 @@
+.prod-img{
+    /* object-fit: contain; */
+    height: 350px;
+    width: 30vw;
+}
+
+.prod-info{
+    width: 70vw;
+    text-align: justify;
+}
