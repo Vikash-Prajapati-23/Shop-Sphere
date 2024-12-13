@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 // import Error from './components/Error';
@@ -18,6 +19,7 @@ import SingleProduct from "./components/SingleProduct/SingleProduct";
 
 function App({handleCardClick}) {
   const [alert, setAlert] = useState(null);
+  // const navigate = useNavigate();
 
   const showAlert = (message, type) => {
     setAlert({
@@ -29,6 +31,10 @@ function App({handleCardClick}) {
     }, 3000);
   };
 
+  // const handleCardClick = (product) => {
+  //   navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+  // };
+
   return (
     <>
       <Router>
@@ -37,21 +43,21 @@ function App({handleCardClick}) {
         {/* <Home /> */}
         <Alert alert={alert} />
         <Routes>
-          <Route path="/" element={<Home showAlert={showAlert} />} />
+          <Route path="/" element={<Home showAlert={showAlert}  handleCardClick={handleCardClick}/>} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/LoginSignup" element={<LogInSignUp />} />
-          <Route path="/Men" element={<Men showAlert={showAlert} />} />
-          <Route path="/Kid" element={<Kid showAlert={showAlert} />} />
-          <Route path="/Women" element={<Women showAlert={showAlert} />} />
+          <Route path="/Men" element={<Men showAlert={showAlert} handleCardClick={handleCardClick}/>} />
+          <Route path="/Kid" element={<Kid showAlert={showAlert} handleCardClick={handleCardClick}/>} />
+          <Route path="/Women" element={<Women showAlert={showAlert} handleCardClick={handleCardClick}/>} />
           <Route
             path="/Electronics"
-            element={<Electronics showAlert={showAlert} />}
+            element={<Electronics showAlert={showAlert}  handleCardClick={handleCardClick}/>}
           />
           <Route
             path="/Jewelery"
-            element={<Jewelery showAlert={showAlert} />}
+            element={<Jewelery showAlert={showAlert} handleCardClick={handleCardClick}/>}
           />
-          <Route path="/SingleProduct/:id" element={<SingleProduct showAlert={showAlert} />} />
+          <Route path="/SingleProduct/:id" element={<SingleProduct showAlert={showAlert}  handleCardClick={handleCardClick}/>} />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}

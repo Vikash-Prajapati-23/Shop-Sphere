@@ -78,7 +78,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="card-footer text-body-secondary text-center bg-danger"> &copy; 2024 copyright || shopsphare.com</div>
+        <div className="card-footer text-body-secondary text-center bg-danger fw-bold"> &copy; 2024 copyright || shopsphare.com</div>
       </div>
       {/* Footer
        <ContactUs />

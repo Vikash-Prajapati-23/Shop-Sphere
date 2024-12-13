@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Style/Women.css";
 import Card from "../Card/Card";
 
-const Women = ({showAlert}) => {
+const Women = ({showAlert, handleCardClick}) => {
   const [woMenProduct, setWoMenProduct] = useState([]);
 
   const woManProduct = async () => {
@@ -22,15 +22,17 @@ const Women = ({showAlert}) => {
         <h3 className="text-center m-md-2">Women's Clothing</h3>
         <div className="d-flex overflow-auto caro-hight">
           {woMenProduct.map((product) => (
-            <div className="" key={product.id}>
+            <div className="" key={product.id}
+              >
               <Card
+                onClick={() => {handleCardClick(product)}}
                 title={product.title ? product.title.slice(0, 20) : "No Title."}
                 id={product.id}
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
                 showAlert={showAlert}
-              />
+              />  
             </div>
           ))}
         </div>
