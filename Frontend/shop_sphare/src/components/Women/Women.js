@@ -3,7 +3,7 @@ import "./Style/Women.css";
 import Card from "../Card/Card";
 
 const Women = ({showAlert, handleCardClick}) => {
-  const [woMenProduct, setWoMenProduct] = useState([]);
+  const [woMenProducts, setWoMenProduct] = useState([]);
 
   const woManProduct = async () => {
     const url = await fetch(
@@ -19,9 +19,9 @@ const Women = ({showAlert, handleCardClick}) => {
   return (
     <div className="container">
       <div className="card m-3">
-        <h3 className="text-center m-md-2">Women's Clothing</h3>
+        <h3 className="text-center m-md-2"> {woMenProducts.category} </h3>
         <div className="d-flex overflow-auto caro-hight">
-          {woMenProduct.map((product) => (
+          {woMenProducts.map((product) => (
             <div className="" key={product.id}
               >
               <Card
