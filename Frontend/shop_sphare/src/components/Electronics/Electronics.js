@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Style/Electronics.css";
 import Card from "../Card/Card";
+import Loading from '../Loading/Loading';
 
 const Electronics = ({showAlert}) => {
-  const [electricProduct, setElectricProduct] = useState([]);
+  const [electricProduct, setElectricProduct] = useState(null);
 
   const fetchElectricProducts = async () => {
     const url = await fetch(
@@ -16,6 +17,10 @@ const Electronics = ({showAlert}) => {
   useEffect(() => {
     fetchElectricProducts();
   });
+
+  if (!electricProduct) {
+    return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
+  }
 
   return (
     <div className="container">

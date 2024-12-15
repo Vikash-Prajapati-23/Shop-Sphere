@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Style/Women.css";
 import Card from "../Card/Card";
+import Loading from "../Loading/Loading";
 
 const Women = ({showAlert, handleCardClick}) => {
-  const [woMenProducts, setWoMenProduct] = useState([]);
+  const [woMenProduct, setWoMenProduct] = useState(null);
 
   const woManProduct = async () => {
     const url = await fetch(
@@ -16,12 +17,16 @@ const Women = ({showAlert, handleCardClick}) => {
     woManProduct();
   }, []);
 
+  if (!woMenProduct) {
+    return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
+  }
+
   return (
     <div className="container">
       <div className="card m-3">
-        <h3 className="text-center m-md-2"> {woMenProducts.category} </h3>
+        <h3 className="text-center m-md-2">{woMenProduct.category}</h3>
         <div className="d-flex overflow-auto caro-hight">
-          {woMenProducts.map((product) => (
+          {woMenProduct.map((product) => (
             <div className="" key={product.id}
               >
               <Card

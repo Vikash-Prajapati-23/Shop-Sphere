@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Style/Men.css";
 import Card from "../Card/Card";
+import Loading from '../Loading/Loading';
 
 const Men = ({ showAlert }) => {
-  const [menProduct, setMenProduct] = useState([]);
+  const [menProduct, setMenProduct] = useState(null);
   // const [limit, setLimit] = useState();
 
   const manProduct = async () => {
@@ -17,6 +18,10 @@ const Men = ({ showAlert }) => {
   useEffect(() => {
     manProduct();
   }, []);
+
+  if (!menProduct) {
+    return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
+  }
 
   return (
     <div className="container">
