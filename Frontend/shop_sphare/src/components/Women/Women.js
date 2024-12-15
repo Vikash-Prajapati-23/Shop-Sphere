@@ -24,7 +24,7 @@ const Women = ({showAlert, handleCardClick}) => {
   return (
     <div className="container">
       <div className="card m-3">
-        <h3 className="text-center m-md-2">{woMenProduct.category}</h3>
+        <h3 className="text-center m-md-2">Women's Clothing</h3>
         <div className="d-flex overflow-auto caro-hight">
           {woMenProduct.map((product) => (
             <div className="" key={product.id}

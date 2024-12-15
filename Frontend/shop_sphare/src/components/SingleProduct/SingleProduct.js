@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
+import Loading from '../Loading/Loading';
 
 const SingleProduct = ({ showAlert }) => {
   const [singleProduct, setsingleProduct] = useState(null);
@@ -19,7 +20,7 @@ const SingleProduct = ({ showAlert }) => {
   }, []);
 
   if (!singleProduct) {
-    return <div>Loading...</div>; // Added: Loading state to handle asynchronous fetch.
+    return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
   }
 
   return (
