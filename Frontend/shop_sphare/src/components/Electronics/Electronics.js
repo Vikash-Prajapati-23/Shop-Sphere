@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Style/Electronics.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 
 const Electronics = ({showAlert}) => {
   const [electricProduct, setElectricProduct] = useState(null);
+  const nevigate = useNavigate();
 
   const fetchElectricProducts = async () => {
     const url = await fetch(
@@ -13,6 +15,10 @@ const Electronics = ({showAlert}) => {
     const newProducts = await url.json();
     setElectricProduct(newProducts);
   };
+
+  const handleCardClickElectronics = (product) => {
+    nevigate(`/SingleProduct/${product.id}`);
+  }
 
   useEffect(() => {
     fetchElectricProducts();
@@ -28,7 +34,7 @@ const Electronics = ({showAlert}) => {
       <h3 className="text-center m-md-2">Electronics</h3>
       <div className="d-flex overflow-auto caro-hight">
         {electricProduct.map((product) => (
-          <div className="col-md-3 flex-shrink-0" key={product.id}>
+          <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => {handleCardClickElectronics(product)}}>
             <Card
               category={product.category}
               title={product.title ? product.title.slice(0, 20) : "No Title"}
