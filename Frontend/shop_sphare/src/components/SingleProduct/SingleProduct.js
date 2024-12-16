@@ -16,7 +16,7 @@ const SingleProduct = ({ showAlert }) => {
   };
 
   useEffect(() => {
-    fetchSingleProduct();
+    fetchSingleProduct(); 
   }, []);
 
   if (!singleProduct) {

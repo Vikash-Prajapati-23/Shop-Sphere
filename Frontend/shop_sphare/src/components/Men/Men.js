@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Style/Men.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 
 const Men = ({ showAlert }) => {
   const [menProduct, setMenProduct] = useState(null);
+  const nevigate = useNavigate();
   // const [limit, setLimit] = useState();
 
   const manProduct = async () => {
@@ -14,6 +16,10 @@ const Men = ({ showAlert }) => {
     const newUrl = await url.json();
     setMenProduct(newUrl);
   };
+
+  const handleCardClickMan = (product) => {
+    nevigate(`/SingleProduct/${product.id}`)
+  }
 
   useEffect(() => {
     manProduct();
@@ -29,7 +35,7 @@ const Men = ({ showAlert }) => {
         <h3 className="text-center m-md-2">Men's clothing</h3>
         <div className="d-flex overflow-auto caro-hight">
           {menProduct.map((product) => (
-            <div className="" key={product.id} >
+            <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickMan(product) }} >
               <Card
                 title={product.title ? product.title.slice(0, 20) : "No Title"}
                 id={product.id}
