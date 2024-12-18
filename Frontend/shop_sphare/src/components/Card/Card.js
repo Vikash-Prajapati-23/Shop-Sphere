@@ -14,6 +14,7 @@ const Card = ({
   showAlert,
   type,
   fetchSingleProduct,
+  fetchWishlistProduct,
 }) => {
   // let {title, description, image, id, price, category, rating, getData} = props;
 
@@ -40,6 +41,7 @@ const Card = ({
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
                 showAlert("Added to Wishlist!", "success");
+                fetchWishlistProduct();
               }}
               className={"btn btn-success"}
               btnName={"Wishlist"}

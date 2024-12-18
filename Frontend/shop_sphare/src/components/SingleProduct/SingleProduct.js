@@ -4,7 +4,7 @@ import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
 
-const SingleProduct = ({ showAlert }) => {
+const SingleProduct = ({ showAlert, fetchWishlistProduct }) => {
   const [singleProduct, setsingleProduct] = useState(null);
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
@@ -51,6 +51,7 @@ const SingleProduct = ({ showAlert }) => {
               <Button
                 onClick={() => {
                   showAlert("Added to wishlist", "btn text-bg-primary");
+                  fetchWishlistProduct();
                 }}
                 className={"btn btn-success"}
                 btnName={"Wishlist"}

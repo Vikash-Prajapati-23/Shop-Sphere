@@ -6,7 +6,7 @@ import Loading from '../Loading/Loading';
 
 const Products = ({ showAlert }) => {
   const [products, setProducts] = useState(null);
-  const [loadProduct, setloadProduct] = useState(false);
+  const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
   const navigate = useNavigate();
 
