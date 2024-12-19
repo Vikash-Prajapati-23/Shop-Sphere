@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Style/Alert.css";
+import { alertContext } from "../../App";
 
-const Alert = ({alert}) => {
+const Alert = () => {
+
+  const {alert} = useContext(alertContext)
+
   return (
     <>
       <div className=" ">

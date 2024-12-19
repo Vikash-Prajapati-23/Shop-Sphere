@@ -4,13 +4,12 @@ import Carousel from "../Carousel/Carousel";
 import Products from "../Products/Products";
 import Alert from "../Alert/Alert";
 
-const Home = ({showAlert}) => {
-  
+const Home = () => {
   return(
     <div>
       <Alert />
       <Carousel />
-      <Products showAlert={showAlert}/>
+      <Products />
     </div>
   )
 };

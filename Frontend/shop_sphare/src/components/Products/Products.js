@@ -4,7 +4,7 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 
-const Products = ({ showAlert }) => {
+const Products = () => {
   const [products, setProducts] = useState(null);
   const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
@@ -34,7 +34,6 @@ const Products = ({ showAlert }) => {
   return (
     <div className="container card my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
-      {/* {loadProduct && <Loading />} */}
       <div className="d-flex flex-wrap justify-content-start">
         {filteredProducts.map((product) => (
           <div
@@ -49,7 +48,6 @@ const Products = ({ showAlert }) => {
               image={product.image}
               price={product.price}
               rating={product.rating}
-              showAlert={showAlert}
             />
           </div>
         ))}

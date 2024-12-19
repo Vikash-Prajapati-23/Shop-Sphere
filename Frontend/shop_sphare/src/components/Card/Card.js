@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Style/Card.css";
 import Button from "../Button/Button";
+import { alertContext } from "../../App";
 
 const Card = ({
   title,
@@ -11,12 +12,14 @@ const Card = ({
   category,
   rating,
   // getData,
-  showAlert,
+  // showAlert,
   type,
   fetchSingleProduct,
   fetchWishlistProduct,
 }) => {
   // let {title, description, image, id, price, category, rating, getData} = props;
+
+  const usedAlert = useContext(alertContext);
 
   return (
     <div className="m-3 card-comp" onClick={fetchSingleProduct}>
@@ -40,7 +43,7 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                showAlert("Added to Wishlist!", "success");
+                usedAlert.showAlert("Added to wishlist.", "success");
                 fetchWishlistProduct();
               }}
               className={"btn btn-success"}
@@ -49,7 +52,9 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                showAlert("Added to cart!", "success");
+                if (usedAlert && usedAlert.showAlert) {
+                  usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
+                };
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}

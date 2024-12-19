@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -15,6 +15,9 @@ import Electronics from "./components/Electronics/Electronics";
 import Jewelery from "./components/Jewelery/Jewelery";
 import Alert from "./components/Alert/Alert";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
+
+// Creating context 
+const alertContext = createContext();
 
 function App({}) {
   const [alert, setAlert] = useState(null);
@@ -33,28 +36,30 @@ function App({}) {
     <>
       <Router>
         <Navbar />
+        <alertContext.Provider value={{alert, showAlert}}>  {/* Using provider to provide the value. */}
         {/* <ContactUs /> */}
         {/* <Home /> */}
-        <Alert alert={alert} />
+        <Alert />
         <Routes>
-          <Route path="/" element={<Home showAlert={showAlert} />} />
+          <Route path="/" element={<Home  />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/LoginSignup" element={<LogInSignUp />} />
-          <Route path="/Men" element={<Men showAlert={showAlert}/>} />
-          <Route path="/Kid" element={<Kid showAlert={showAlert}/>} />
-          <Route path="/Women" element={<Women showAlert={showAlert}/>} />
+          <Route path="/Men" element={<Men />} />
+          <Route path="/Kid" element={<Kid />} />
+          <Route path="/Women" element={<Women />} />
           <Route
             path="/Electronics"
-            element={<Electronics showAlert={showAlert} />}
+            element={<Electronics  />}
           />
           <Route
             path="/Jewelery"
-            element={<Jewelery showAlert={showAlert}/>}
+            element={<Jewelery />}
           />
-          <Route path="/SingleProduct/:id" element={<SingleProduct showAlert={showAlert} />} />
+          <Route path="/SingleProduct/:id" element={<SingleProduct />} />
         </Routes>
         {/* <LogInSignUp /> */}
         {/* <SignUp /> */}
+        </alertContext.Provider>
         <Footer />
       </Router>
     </>
@@ -62,3 +67,4 @@ function App({}) {
 }
 
 export default App;
+export {alertContext}
