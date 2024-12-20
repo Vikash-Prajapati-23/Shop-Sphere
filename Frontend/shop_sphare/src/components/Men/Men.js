@@ -4,7 +4,7 @@ import "./Style/Men.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 
-const Men = ({ showAlert }) => {
+const Men = () => {
   const [menProduct, setMenProduct] = useState(null);
   const nevigate = useNavigate();
   // const [limit, setLimit] = useState();
@@ -42,7 +42,6 @@ const Men = ({ showAlert }) => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
-                showAlert={showAlert}
               />
             </div>
           ))}

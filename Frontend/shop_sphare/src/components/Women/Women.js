@@ -4,7 +4,7 @@ import "./Style/Women.css";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 
-const Women = ({ showAlert, handleCardClick }) => {
+const Women = ({ handleCardClick }) => {
   const [woMenProduct, setWoMenProduct] = useState(null);
   const nevigate = useNavigate();
 
@@ -43,7 +43,6 @@ const Women = ({ showAlert, handleCardClick }) => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
-                showAlert={showAlert}
               />
             </div>
           ))}

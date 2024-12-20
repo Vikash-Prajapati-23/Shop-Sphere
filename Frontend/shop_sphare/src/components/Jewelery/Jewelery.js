@@ -4,7 +4,7 @@ import "./Style/Jewelery.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 
-const Jewelery = ({ showAlert }) => {
+const Jewelery = () => {
   const [jeweleryProduct, setJeweleryProduct] = useState(null);
   const nevigate = useNavigate();
 
@@ -42,7 +42,6 @@ const Jewelery = ({ showAlert }) => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
-                showAlert={showAlert}
               />
             </div>
           ))}

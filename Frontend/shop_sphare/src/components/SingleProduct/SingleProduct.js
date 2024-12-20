@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
+import { alertContext } from "../../App";
 
-const SingleProduct = ({ showAlert, fetchWishlistProduct }) => {
+const SingleProduct = ({ fetchWishlistProduct }) => {
   const [singleProduct, setsingleProduct] = useState(null);
+  const alert = useContext(alertContext);
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
   // Added: Function to fetch product details using the extracted ID.
@@ -50,7 +52,7 @@ const SingleProduct = ({ showAlert, fetchWishlistProduct }) => {
             <div className="prod-btn d-flex m-3">
               <Button
                 onClick={() => {
-                  showAlert("Added to wishlist", "btn text-bg-primary");
+                  alert.showAlert("Added to wishlist", "btn text-bg-primary");
                   fetchWishlistProduct();
                 }}
                 className={"btn btn-success"}
@@ -58,7 +60,7 @@ const SingleProduct = ({ showAlert, fetchWishlistProduct }) => {
               />
               <Button
                 onClick={() => {
-                  showAlert("Added to cart", "success");
+                  alert.showAlert("Added to cart", "success");
                 }}
                 className={"btn btn-success mx-3"}
                 btnName={"Add to cart"}

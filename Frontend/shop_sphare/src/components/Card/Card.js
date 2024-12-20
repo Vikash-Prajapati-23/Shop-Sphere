@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "./Style/Card.css";
 import Button from "../Button/Button";
 import { alertContext } from "../../App";
@@ -11,8 +11,6 @@ const Card = ({
   price,
   category,
   rating,
-  // getData,
-  // showAlert,
   type,
   fetchSingleProduct,
   fetchWishlistProduct,
@@ -52,9 +50,7 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                if (usedAlert && usedAlert.showAlert) {
-                  usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
-                };
+                usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
