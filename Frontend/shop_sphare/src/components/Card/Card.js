@@ -11,6 +11,8 @@ const Card = ({
   price,
   category,
   rating,
+  // getData,
+  // showAlert,
   type,
   fetchSingleProduct,
   fetchWishlistProduct,
@@ -50,7 +52,9 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
+                if (usedAlert && usedAlert.showAlert) {
+                  usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
+                };
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}

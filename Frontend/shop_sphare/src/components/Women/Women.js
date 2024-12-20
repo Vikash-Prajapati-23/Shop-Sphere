@@ -4,7 +4,7 @@ import "./Style/Women.css";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 
-const Women = ({ handleCardClick }) => {
+const Women = () => {
   const [woMenProduct, setWoMenProduct] = useState(null);
   const nevigate = useNavigate();
 
@@ -37,7 +37,6 @@ const Women = ({ handleCardClick }) => {
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickWomen(product) }}
             >
               <Card
-                onClick={() => { handleCardClick(product) }}
                 title={product.title ? product.title.slice(0, 20) : "No Title."}
                 id={product.id}
                 image={product.image}

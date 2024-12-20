@@ -10,7 +10,7 @@ const WishList = () => {
 
   // Added: Function to fetch product details using the extracted ID.
   const fetchWishlistProduct = async () => {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const response = await fetch(`https://fakestoreapi.com/carts`);
     const data = await response.json();
     setWishlistProduct(data); // Update the product state with fetched data.
   };
