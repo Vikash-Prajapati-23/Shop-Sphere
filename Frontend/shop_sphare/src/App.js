@@ -18,30 +18,30 @@ import SingleProduct from "./components/SingleProduct/SingleProduct";
 
 // Creating context 
 const alertContext = createContext();
-// const themeContext = createContext();
+const themeContext = createContext();
 
 function App() {
   const [alert, setAlert] = useState(null);
-  // const [mode, setMode] = useState(false);
+  const [mode, setMode] = useState(false);
 
-  // const toggleTheme = () => {
-  //   let sun = document.querySelector("sun");
-  //   let moon = document.querySelector("moon");
-  //   if (mode === false) {
-  //     setMode(true);
-  //     moon.classList.remove('hide');
-  //     sun.classList.add('hide');
-  //     document.body.style.backgroundColor = '#1E3A8A';
-  //     document.body.style.color = '#F5F5F5';
-  //   }
-  //   else {
-  //     setMode(false);
-  //     sun.classList.remove('hide');
-  //     moon.classList.add('hide');
-  //     document.body.style.backgroundColor = '#4169E1';
-  //     document.body.style.color = 'fff';
-  //   }
-  // }
+  const toggleTheme = () => {
+    let sun = document.querySelector(".sun");
+    let moon = document.querySelector(".moon");
+    if (mode === false) {
+      setMode(true);
+      moon.classList.remove('hide');
+      sun.classList.add('hide');
+      document.body.style.backgroundColor = '#1E3A8A';
+      document.body.style.color = '#F5F5F5';
+    }
+    else {
+      setMode(false);
+      sun.classList.remove('hide');
+      moon.classList.add('hide');
+      document.body.style.backgroundColor = '#4169E1';
+      document.body.style.color = 'fff';
+    }
+  }
 
   const showAlert = (message, type) => {
     setAlert({
@@ -56,7 +56,7 @@ function App() {
   return (
     <>
       <Router>
-        {/* <themeContext.Provider value={{ mode, toggleTheme }} > */}
+        <themeContext.Provider value={{ mode, toggleTheme }} >
           <Navbar />
           <alertContext.Provider value={{ alert, showAlert }}>  {/* Using provider to provide the value. */}
             {/* <ContactUs /> */}
@@ -83,7 +83,7 @@ function App() {
             {/* <SignUp /> */}
           </alertContext.Provider>
           <Footer />
-        {/* </themeContext.Provider> */}
+        </themeContext.Provider>
       </Router>
     </>
   );
@@ -91,4 +91,4 @@ function App() {
 
 export default App;
 export { alertContext }
-// export { themeContext }
+export { themeContext }

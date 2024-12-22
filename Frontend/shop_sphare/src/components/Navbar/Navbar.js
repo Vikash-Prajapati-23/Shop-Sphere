@@ -1,37 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
-// import { themeContext,  } from "../../App";
+import { themeContext,  } from "../../App";
 
 const Navbar = () => {
 
 
-  const [mode, setMode] = useState(false);
+  // const [mode, setMode] = useState(false);
   
-    const toggleTheme = () => {
-      let sun = document.querySelector(".sun");
-      let moon = document.querySelector(".moon");
-      if (mode === false) {
-        setMode(true);
-        moon.classList.remove('hide');
-        sun.classList.add('hide');
-        document.body.style.backgroundColor = '#1E3A8A';
-        document.body.style.color = '#F5F5F5';
-      }
-      else {
-        setMode(false);
-        sun.classList.remove('hide');
-        moon.classList.add('hide');
-        document.body.style.backgroundColor = '#4169E1';
-        document.body.style.color = 'fff';
-      }
-    }
+  //   const toggleTheme = () => {
+  //     let sun = document.querySelector(".sun");
+  //     let moon = document.querySelector(".moon");
+  //     if (mode === false) {
+  //       setMode(true);
+  //       moon.classList.remove('hide');
+  //       sun.classList.add('hide');
+  //       document.body.style.backgroundColor = '#1E3A8A';
+  //       document.body.style.color = '#F5F5F5';
+  //     }
+  //     else {
+  //       setMode(false);
+  //       sun.classList.remove('hide');
+  //       moon.classList.add('hide');
+  //       document.body.style.backgroundColor = '#4169E1';
+  //       document.body.style.color = 'fff';
+  //     }
+  //   }
 
 
-  // const toggleMode = useContext(themeContext);
+  const toggleMode = useContext(themeContext);
 
   return (
-    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${mode} navbar-bg-${mode}`}>
+    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} navbar-bg-${toggleMode.mode}`}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
@@ -137,12 +137,12 @@ const Navbar = () => {
           <ul className="navbar-nav list-group d-flex">
             <li className="nav-item ">
               <Link className="nav-link active fw-bold">
-                <span><i className="fa-solid fa-sun sun" onClick={toggleTheme} ></i></span>
+                <span><i className="fa-solid fa-sun sun" onClick={toggleMode.toggleTheme} ></i></span>
               </Link>
             </li>
             <li className="nav-item ">
               <Link className="nav-link active fw-bold">
-                <span><i className="fa-solid fa-moon moon hide" onClick={toggleTheme} ></i></span>
+                <span><i className="fa-solid fa-moon moon hide" onClick={toggleMode.toggleTheme} ></i></span>
               </Link>
             </li>
             <li className="nav-item me-2">
