@@ -1,3 +1,7 @@
+/* .nav-bg-color{
+    background-color: #4169E1;
+} */
+
 .cont-login{
     list-style: none;
     color: black;
@@ -9,4 +13,19 @@
 
 .wishlist-icon{
     font-size: 1.5rem;
+    color: red;
+}
+
+.sun{
+    cursor: pointer;
+    color: rgb(28, 28, 28);
+}
+
+.moon{
+    cursor: pointer;
+    color: rgb(28, 28, 28);
+}
+
+.hide{
+    display: none;
 }

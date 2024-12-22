@@ -1,16 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
+// import { themeContext,  } from "../../App";
 
 const Navbar = () => {
+
+
+  const [mode, setMode] = useState(false);
+  
+    const toggleTheme = () => {
+      let sun = document.querySelector(".sun");
+      let moon = document.querySelector(".moon");
+      if (mode === false) {
+        setMode(true);
+        moon.classList.remove('hide');
+        sun.classList.add('hide');
+        document.body.style.backgroundColor = '#1E3A8A';
+        document.body.style.color = '#F5F5F5';
+      }
+      else {
+        setMode(false);
+        sun.classList.remove('hide');
+        moon.classList.add('hide');
+        document.body.style.backgroundColor = '#4169E1';
+        document.body.style.color = 'fff';
+      }
+    }
+
+
+  // const toggleMode = useContext(themeContext);
+
   return (
-    <nav className="navbar sticky-sm-top sticky-top navbar-expand-lg bg-body-danger bg-danger">
+    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${mode} navbar-bg-${mode}`}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
             src="./images/logo1.png"
             style={{ borderRadius: "50%", height: "4rem" }}
-            alt=""
+            alt="Logo"
           />
         </a>
         <button
@@ -85,8 +112,8 @@ const Navbar = () => {
               </ul>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <div className="input-group">
+          <div className="d-flex" role="search">
+            <div className="input-group mx-3">
               <input
                 type="text"
                 className="form-control"
@@ -102,16 +129,30 @@ const Navbar = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
-          </form>
+          </div>
+          {/* <div className="theme mx-2">
+            
+            
+          </div> */}
           <ul className="navbar-nav list-group d-flex">
-            <li className="nav-item mx-2">
+            <li className="nav-item ">
+              <Link className="nav-link active fw-bold">
+                <span><i className="fa-solid fa-sun sun" onClick={toggleTheme} ></i></span>
+              </Link>
+            </li>
+            <li className="nav-item ">
+              <Link className="nav-link active fw-bold">
+                <span><i className="fa-solid fa-moon moon hide" onClick={toggleTheme} ></i></span>
+              </Link>
+            </li>
+            <li className="nav-item me-2">
               <Link className="nav-link active fw-bold" to="/LogInSignUp">
                 Log In
               </Link>
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link active " to="/WishList">
-                <i className="fa-solid fa-heart wishlist-icon"></i>
+                <i className="fa-solid fa-heart wishlist-icon "></i>
               </Link>
             </li>
             <li className="nav-item mx-2">
