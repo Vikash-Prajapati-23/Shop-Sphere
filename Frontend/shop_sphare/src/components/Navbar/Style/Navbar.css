@@ -1,10 +1,14 @@
-/* .nav-bg-color{
+.nav-bg-color{
     background-color: #4169E1;
-} */
+}
 
 .cont-login{
     list-style: none;
     color: black;
+}
+
+.theme-icon{
+    margin: auto;
 }
 
 .cart-icon{

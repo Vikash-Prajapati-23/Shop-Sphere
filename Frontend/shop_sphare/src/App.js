@@ -39,7 +39,7 @@ function App() {
       sun.classList.remove('hide');
       moon.classList.add('hide');
       document.body.style.backgroundColor = '#4169E1';
-      document.body.style.color = 'fff';
+      document.body.style.color = '#fff';
     }
   }
 

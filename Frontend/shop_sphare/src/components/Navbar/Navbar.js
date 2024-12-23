@@ -5,33 +5,10 @@ import { themeContext,  } from "../../App";
 
 const Navbar = () => {
 
-
-  // const [mode, setMode] = useState(false);
-  
-  //   const toggleTheme = () => {
-  //     let sun = document.querySelector(".sun");
-  //     let moon = document.querySelector(".moon");
-  //     if (mode === false) {
-  //       setMode(true);
-  //       moon.classList.remove('hide');
-  //       sun.classList.add('hide');
-  //       document.body.style.backgroundColor = '#1E3A8A';
-  //       document.body.style.color = '#F5F5F5';
-  //     }
-  //     else {
-  //       setMode(false);
-  //       sun.classList.remove('hide');
-  //       moon.classList.add('hide');
-  //       document.body.style.backgroundColor = '#4169E1';
-  //       document.body.style.color = 'fff';
-  //     }
-  //   }
-
-
   const toggleMode = useContext(themeContext);
 
   return (
-    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} navbar-bg-${toggleMode.mode}`}>
+    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} nav-bg-${toggleMode.mode} nav-bg-color`}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
@@ -130,20 +107,16 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          {/* <div className="theme mx-2">
-            
-            
-          </div> */}
           <ul className="navbar-nav list-group d-flex">
-            <li className="nav-item ">
-              <Link className="nav-link active fw-bold">
-                <span><i className="fa-solid fa-sun sun" onClick={toggleMode.toggleTheme} ></i></span>
-              </Link>
+            <li className="nav-item theme-icon">
+              {/* <li className="nav-link active fw-bold"> */}
+                <span><i className="fa-solid fa-sun sun nav-link active fw-bold" onClick={toggleMode.toggleTheme} ></i></span>
+              {/* </li> */}
             </li>
-            <li className="nav-item ">
-              <Link className="nav-link active fw-bold">
-                <span><i className="fa-solid fa-moon moon hide" onClick={toggleMode.toggleTheme} ></i></span>
-              </Link>
+            <li className="nav-item theme-icon">
+              {/* <li className="nav-link active fw-bold"> */}
+                <span><i className="fa-solid fa-moon moon hide nav-link active fw-bold" onClick={toggleMode.toggleTheme} ></i></span>
+              {/* </li> */}
             </li>
             <li className="nav-item me-2">
               <Link className="nav-link active fw-bold" to="/LogInSignUp">
