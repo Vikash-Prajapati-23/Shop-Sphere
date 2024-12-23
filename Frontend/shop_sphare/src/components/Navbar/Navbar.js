@@ -8,7 +8,7 @@ const Navbar = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} nav-bg-${toggleMode.mode} nav-bg-color`}>
+    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} nav-bg-${toggleMode.mode} `}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img

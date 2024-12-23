@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Style/Footer.css";
-import ContactUs from "../ContactUs/ContactUs";
-import AboutUs from '../AboutUs/AboutUs'
-import TermsConditions from "../TermsCondition/TermsConditions";
+import { themeContext } from "../../App";
 
 const Footer = () => {
+
+  const toggleTheme = useContext(themeContext);
+
   return (
-    <div className="Foot">
+    <div className={`Foot bg-${toggleTheme.toggleTheme}`}>
       <div className="card">
-        <div className="card-header text-center bg-danger">Made with &#128151; by team shopsphare!</div>
+        <div className={`card-header text-center bg-${toggleTheme.mode === false ? '#1E3A8A' : '#333333'}`}>Made with &#128151; by team shopsphare!</div>
         <div className="card-body container-fluid d-flex row">
           <div className="footer-left d-flex col-md-6">
             <div className="foot-items mx-auto">
@@ -78,7 +79,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="card-footer text-body-secondary text-center bg-danger fw-bold"> &copy; 2024 copyright || shopsphare.com</div>
+        <div className={`card-footer text-body-secondary text-center bg-${toggleTheme.mode === false ? '#1E3A8A' : '#333333'} fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
       </div>
       {/* Footer
        <ContactUs />

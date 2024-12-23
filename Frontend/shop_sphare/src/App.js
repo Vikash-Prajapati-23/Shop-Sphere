@@ -32,14 +32,16 @@ function App() {
       moon.classList.remove('hide');
       sun.classList.add('hide');
       document.body.style.backgroundColor = '#1E3A8A';
-      document.body.style.color = '#F5F5F5';
+      document.body.style.color = '#333333';
+      showAlert("Switch to Dark mode.", "bg-primary")
     }
     else {
       setMode(false);
       sun.classList.remove('hide');
       moon.classList.add('hide');
-      document.body.style.backgroundColor = '#4169E1';
-      document.body.style.color = '#fff';
+      document.body.style.backgroundColor = '#fff';
+      document.body.style.color = 'black';
+      showAlert("Switch to Light mode.", "bg-primary")
     }
   }
 
