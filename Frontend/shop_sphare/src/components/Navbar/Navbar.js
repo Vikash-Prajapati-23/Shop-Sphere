@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
-import { themeContext,  } from "../../App";
+import { themeContext, } from "../../App";
 
 const Navbar = () => {
 
@@ -109,14 +109,14 @@ const Navbar = () => {
           </div>
           <ul className="navbar-nav list-group d-flex">
             <li className="nav-item theme-icon">
-              {/* <li className="nav-link active fw-bold"> */}
-                <span><i className="fa-solid fa-sun sun nav-link active fw-bold" onClick={toggleMode.toggleTheme} ></i></span>
-              {/* </li> */}
+              <span class="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
+                light_mode
+              </span>
             </li>
             <li className="nav-item theme-icon">
-              {/* <li className="nav-link active fw-bold"> */}
-                <span><i className="fa-solid fa-moon moon hide nav-link active fw-bold" onClick={toggleMode.toggleTheme} ></i></span>
-              {/* </li> */}
+              <span class="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
+                dark_mode
+              </span>
             </li>
             <li className="nav-item me-2">
               <Link className="nav-link active fw-bold" to="/LogInSignUp">
