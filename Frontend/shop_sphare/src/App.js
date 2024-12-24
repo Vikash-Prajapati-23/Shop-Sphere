@@ -39,7 +39,7 @@ function App() {
       setMode(false);
       sun.classList.remove('hide');
       moon.classList.add('hide');
-      document.body.style.backgroundColor = '#fff';
+      document.body.style.backgroundColor = '#F8F9FA';
       document.body.style.color = 'black';
       showAlert("Switch to Light mode.", "bg-primary")
     }

@@ -4,13 +4,13 @@ import { themeContext } from "../../App";
 
 const Footer = () => {
 
-  const toggleTheme = useContext(themeContext);
+  const toggleMode = useContext(themeContext);
 
   return (
-    <div className={`Foot bg-${toggleTheme.toggleTheme}`}>
-      <div className="card">
-        <div className={`card-header text-center bg-${toggleTheme.mode === false ? '#1E3A8A' : '#333333'}`}>Made with &#128151; by team shopsphare!</div>
-        <div className="card-body container-fluid d-flex row">
+    <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", txt_clr: toggleMode.mode === true ? "black" : "#fff" }} >
+      <div className="card txt-clr">
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff" }} className={`card-header text-center text-${toggleMode.mode}`}>Made with &#128151; by team shopsphare!</div>
+        <div className={`card-body container-fluid d-flex row text-${toggleMode.mode}`}>
           <div className="footer-left d-flex col-md-6">
             <div className="foot-items mx-auto">
               <h6>About</h6>
@@ -63,9 +63,9 @@ const Footer = () => {
 
           <div className="footer-right d-flex col-md-6">
             <div className="contact-foot foot-items mx-auto">
-            <h5>Reach Us</h5>
-            <p>Shop Sphare PVT LTD</p>
-            <p>IIT boral, Future Institute Of Techonology</p>
+              <h5>Reach Us</h5>
+              <p>Shop Sphare PVT LTD</p>
+              <p>IIT boral, Future Institute Of Techonology</p>
             </div>
 
             <div className="contact-foot foot-items mx-auto ms-4">
@@ -79,7 +79,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className={`card-footer text-body-secondary text-center bg-${toggleTheme.mode === false ? '#1E3A8A' : '#333333'} fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff" }} className={`card-footer text-body-secondary text-center fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
       </div>
       {/* Footer
        <ContactUs />

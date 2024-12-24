@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
-import { themeContext, } from "../../App";
+import { themeContext } from "../../App";
 
 const Navbar = () => {
 
   const toggleMode = useContext(themeContext);
 
   return (
-    <nav className={`navbar sticky-sm-top sticky-top navbar-expand-lg navbar-${toggleMode.mode} nav-bg-${toggleMode.mode} `}>
+    <nav style={{backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff"}} className={`navbar sticky-sm-top sticky-top navbar-expand-lg `}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
@@ -109,12 +109,12 @@ const Navbar = () => {
           </div>
           <ul className="navbar-nav list-group d-flex">
             <li className="nav-item theme-icon">
-              <span class="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
+              <span className="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
                 light_mode
               </span>
             </li>
             <li className="nav-item theme-icon">
-              <span class="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
+              <span className="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
                 dark_mode
               </span>
             </li>
