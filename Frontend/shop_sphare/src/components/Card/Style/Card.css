@@ -1,7 +1,10 @@
 .card-comp{
     cursor: pointer;
+    border: 1px solid darkgray;
+    border-radius: 0.3rem;
 }
 
 .card-style{
-    width: 18rem;
+    width: 100%;
+    /* width: 18rem; */
 }

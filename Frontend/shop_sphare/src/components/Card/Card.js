@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./Style/Card.css";
 import Button from "../Button/Button";
-import { alertContext } from "../../App";
+import { alertContext, themeContext } from "../../App";
 
 const Card = ({
   title,
@@ -20,10 +20,11 @@ const Card = ({
   // let {title, description, image, id, price, category, rating, getData} = props;
 
   const usedAlert = useContext(alertContext);
+  const toggleMode = useContext(themeContext);
 
   return (
-    <div className="m-3 card-comp" onClick={fetchSingleProduct}>
-      <div className="card card-style">
+    <div style={{ backgroundColor: toggleMode.mode === true ? "#fff" : "#fff", border: toggleMode.mode === true ? "1px solid darkgrey" : "1px solid black" }} className="m-3 card-comp" onClick={fetchSingleProduct}>
+      <div className=" card-style">
         <div className="text-center m-2">{category}</div>
         <img
           src={image}
@@ -31,7 +32,7 @@ const Card = ({
           className="card-img-top "
           alt="Image"
         />
-        <div className="card-body">
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#2C2C2C" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="card-body">
           <h5 className="card-title">{title}...</h5>
           <p className="mb-1">Price = ${price}</p>
           <p className="mb-1">
