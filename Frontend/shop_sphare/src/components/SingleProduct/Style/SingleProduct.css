@@ -1,10 +1,20 @@
-.prod-img{
+.prod-img {
     /* object-fit: contain; */
     height: 350px;
     width: 30vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--image-bg);
+    /* Define this variable dynamically */
+    border-radius: 10px;
+    /* Optional */
 }
 
-.prod-info{
+.prod-info {
     width: 70vw;
     text-align: justify;
+    /* max-width: 100%;
+  max-height: 100%; */
+  object-fit: contain;
 }

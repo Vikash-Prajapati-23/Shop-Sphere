@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
-import { alertContext } from "../../App";
+import { alertContext, themeContext } from "../../App";
 
 const SingleProduct = ({ fetchWishlistProduct }) => {
   const [singleProduct, setsingleProduct] = useState(null);
   const alert = useContext(alertContext);
+  const toggleMode = useContext(themeContext);
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
   // Added: Function to fetch product details using the extracted ID.
@@ -26,15 +27,19 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
   }
 
   return (
-    <div className="container mt-3">
+    <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container card mt-3 mb-3">
       <div className="m-3">
         <div className="d-flex">
-          <div className="prod-img m-4 ">
+          <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="prod-img m-4 ">
             <img
               className="m-4 prod-img"
               src={singleProduct.image}
               alt={singleProduct.title}
-              style={{ objectFit: "scal-down" }}
+              // style={{ objectFit: "scal-down" }}
+              // style={{
+              //   objectFit: "contain",
+              //   mixBlendMode: toggleMode.mode ? "darken" : "normal", // Adjust blending
+              // }}
             />
           </div>
           <div className="prod-info m-4">
