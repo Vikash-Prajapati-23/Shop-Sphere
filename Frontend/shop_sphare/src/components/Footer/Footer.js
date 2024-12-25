@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./Style/Footer.css";
 import { themeContext } from "../../App";
 
@@ -7,10 +8,10 @@ const Footer = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", txt_clr: toggleMode.mode === true ? "black" : "#fff" }} >
+    // <div>
       <div className="card txt-clr">
-        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff" }} className={`card-header text-center text-${toggleMode.mode}`}>Made with &#128151; by team shopsphare!</div>
-        <div className={`card-body container-fluid d-flex row text-${toggleMode.mode}`}>
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-header text-center fw-bold`}>Made with &#128151; by team shopsphare!</div>
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#121212" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-body container-fluid d-flex row `}>
           <div className="footer-left d-flex col-md-6">
             <div className="foot-items mx-auto">
               <h6>About</h6>
@@ -79,12 +80,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff" }} className={`card-footer text-body-secondary text-center fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-footer text-center fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
       </div>
-      {/* Footer
-       <ContactUs />
-       <TermsConditions /> */}
-    </div>
+      
   );
 };
 

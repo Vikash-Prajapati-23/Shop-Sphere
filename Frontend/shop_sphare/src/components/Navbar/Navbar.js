@@ -8,7 +8,7 @@ const Navbar = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    <nav style={{backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff"}} className={`navbar sticky-sm-top sticky-top navbar-expand-lg `}>
+    <nav style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`navbar sticky-sm-top sticky-top navbar-expand-lg `}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
@@ -28,10 +28,11 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item ">
               <Link
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link active fw-bold"
                 aria-current="page"
                 to="/"
@@ -40,13 +41,15 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item mx-3">
-              <Link className="nav-link active fw-bold" to="/AboutUs">
+              <Link
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/AboutUs">
                 {/* <AboutUs /> */}
                 About Us
               </Link>
             </li>
             <li className="nav-item dropdown">
               <Link
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link active dropdown-toggle fw-bold"
                 to="/Categories"
                 role="button"
@@ -109,17 +112,20 @@ const Navbar = () => {
           </div>
           <ul className="navbar-nav list-group d-flex">
             <li className="nav-item theme-icon">
-              <span className="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
+              <span
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
                 light_mode
               </span>
             </li>
             <li className="nav-item theme-icon">
-              <span className="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
+              <span
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
                 dark_mode
               </span>
             </li>
             <li className="nav-item me-2">
-              <Link className="nav-link active fw-bold" to="/LogInSignUp">
+              <Link
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/LogInSignUp">
                 Log In
               </Link>
             </li>
@@ -129,7 +135,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item mx-2">
-              <Link className="nav-link active " to="/Cart">
+              <Link
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active " to="/Cart">
                 <i className="fa-solid fa-cart-shopping cart-icon"></i>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
                   9

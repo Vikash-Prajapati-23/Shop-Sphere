@@ -31,7 +31,7 @@ function App() {
       setMode(true);
       moon.classList.remove('hide');
       sun.classList.add('hide');
-      document.body.style.backgroundColor = '#1E3A8A';
+      document.body.style.backgroundColor = '#121212';
       document.body.style.color = '#333333';
       showAlert("Switch to Dark mode.", "bg-primary")
     }
