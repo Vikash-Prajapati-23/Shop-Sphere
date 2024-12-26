@@ -35,7 +35,6 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
               className="m-4 prod-img"
               src={singleProduct.image}
               alt={singleProduct.title}
-              // style={{ objectFit: "scal-down" }}
               // style={{
               //   objectFit: "contain",
               //   mixBlendMode: toggleMode.mode ? "darken" : "normal", // Adjust blending

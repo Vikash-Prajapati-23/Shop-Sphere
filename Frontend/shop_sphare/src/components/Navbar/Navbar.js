@@ -8,7 +8,7 @@ const Navbar = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    <nav style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`navbar sticky-sm-top sticky-top navbar-expand-lg `}>
+    <nav style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black", boxShadow: toggleMode.mode ? "rgba(192, 189, 189, 0.61) 0px 15px 10px -10px" : "rgba(96, 95, 95, 0.65) 0px 15px 10px -10px" }} className={`navbar sticky-sm-top sticky-top navbar-expand-lg`}>
       <div className="container-fluid">
         <a className="navbar-brand">
           <img
@@ -102,7 +102,7 @@ const Navbar = () => {
                 aria-describedby="button-addon2"
               />
               <button
-                className="btn btn-light"
+                className="btn btn-secondary"
                 type="button"
                 id="button-addon2"
               >

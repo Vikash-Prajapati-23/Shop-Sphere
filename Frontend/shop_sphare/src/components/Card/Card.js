@@ -5,15 +5,10 @@ import { alertContext, themeContext } from "../../App";
 
 const Card = ({
   title,
-  description,
   image,
-  id,
   price,
   category,
   rating,
-  // getData,
-  // showAlert,
-  type,
   fetchSingleProduct,
   fetchWishlistProduct,
 }) => {
@@ -23,9 +18,9 @@ const Card = ({
   const toggleMode = useContext(themeContext);
 
   return (
-    <div style={{ backgroundColor: toggleMode.mode === true ? "#fff" : "#fff", border: toggleMode.mode === true ? "1px solid darkgrey" : "1px solid black" }} className="m-3 card-comp" onClick={fetchSingleProduct}>
-      <div className=" card-style">
-        <div className="text-center m-2">{category}</div>
+    <div style={{ border: toggleMode.mode === true ? "1px solid darkgrey" : "", boxShadow: toggleMode.mode === true ? "rgba(172, 169, 169, 0.5) 0px 0px 5px 2px" : "rgba(9, 9, 9, 0.15) 0px 0px 10px 2px" }} className="m-3 card-comp" onClick={fetchSingleProduct}>
+      <div className="card card-style">
+        <div style={{ color: toggleMode.mode === true ? "#33333" : "black" }} className="text-center m-2">{category}</div>
         <img
           src={image}
           style={{ height: "140px", objectFit: "scale-down" }}
