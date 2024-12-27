@@ -33,15 +33,15 @@ function App() {
       sun.classList.add('hide');
       document.body.style.backgroundColor = '#121212';
       document.body.style.color = '#333333';
-      showAlert("Switch to Dark mode.", "success")
+      showAlert("Switch to Dark mode.", "green")
     }
     else {
       setMode(false);
-      showAlert("Switch to Light mode.", "primary")
       sun.classList.remove('hide');
       moon.classList.add('hide');
       document.body.style.backgroundColor = '#EAECED';
       document.body.style.color = '#fff';
+      showAlert("Switch to Light mode.", "blue")
     }
   }
 
