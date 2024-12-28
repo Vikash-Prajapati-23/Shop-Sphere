@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Style/AboutUs.css";
+import { themeContext } from "../../App";
 
 const AboutUs = () => {
+
+  const toggleMode = useContext(themeContext);
+
   return (
-    <div className="m-5">
+    <div style={{backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="m-5">
       <h2 className="about-head text-center">Welcome to Shop Sphare!</h2>
       <p>
         At Shop Sphare, we believe that shopping should be more than just a
@@ -74,7 +78,6 @@ const AboutUs = () => {
               <div className="about-team-member col">
                 <img
                   className="container-fluid"
-                  // style={{ height: "200px", width: "200px" }}
                   src="./images/7.jpeg"
                   alt=""
                 />
@@ -83,7 +86,6 @@ const AboutUs = () => {
               <div className="about-team-member col">
                 <img
                   className="container-fluid"
-                  // style={{ height: "200px", width: "200px" }}
                   src="./images/9.jpeg"
                   alt=""
                 />
@@ -92,7 +94,6 @@ const AboutUs = () => {
               <div className="about-team-member col">
                 <img
                   className="container-fluid"
-                  // style={{ height: "200px", width: "200px" }}
                   src="./images/10.jpeg"
                   alt=""
                 />
@@ -101,7 +102,6 @@ const AboutUs = () => {
               <div className="about-team-member col">
                 <img
                   className="container-fluid"
-                  // style={{ height: "200px", width: "200px" }}
                   src="./images/11.jpeg"
                   alt=""
                 />

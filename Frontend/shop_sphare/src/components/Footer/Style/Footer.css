@@ -17,11 +17,11 @@
 
 .foot-headings{
     cursor: pointer;
+    font-weight: bolder;
 }
 
 .foot-headings:hover {
     color: rgb(236, 94, 17);
-    font-weight: bolder;
 }
 
 .form-title{
