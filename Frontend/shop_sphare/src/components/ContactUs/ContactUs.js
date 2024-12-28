@@ -39,7 +39,7 @@ const ContactUs = () => {
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
 
-      <div className="cont-item row container-fluid mt-3">
+      <div style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="cont-item row container-fluid mt-3">
         <form
           className="con-item-right col-md-6 my-2"
           ref={form}
