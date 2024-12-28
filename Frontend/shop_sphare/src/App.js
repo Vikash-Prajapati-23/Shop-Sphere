@@ -8,7 +8,7 @@ import Home from "./components/Home/Home";
 import Men from "./components/Men/Men";
 import Kid from "./components/Kid/Kid";
 import Women from "./components/Women/Women";
-// import ContactUs from "./components/ContactUs/ContactUs";
+import ContactUs from "./components/ContactUs/ContactUs";
 import AboutUs from "./components/AboutUs/AboutUs";
 import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
 import Electronics from "./components/Electronics/Electronics";
@@ -61,28 +61,19 @@ function App() {
         <themeContext.Provider value={{ mode, toggleTheme }} >
           <Navbar />
           <alertContext.Provider value={{ alert, showAlert }}>  {/* Using provider to provide the value. */}
-            {/* <ContactUs /> */}
-            {/* <Home /> */}
             <Alert />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/AboutUs" element={<AboutUs />} />
+              <Route path="/ContactUs" element={<ContactUs />} />
               <Route path="/LoginSignup" element={<LogInSignUp />} />
               <Route path="/Men" element={<Men />} />
               <Route path="/Kid" element={<Kid />} />
               <Route path="/Women" element={<Women />} />
-              <Route
-                path="/Electronics"
-                element={<Electronics />}
-              />
-              <Route
-                path="/Jewelery"
-                element={<Jewelery />}
-              />
+              <Route path="/Electronics" element={<Electronics />} />
+              <Route path="/Jewelery" element={<Jewelery />} />
               <Route path="/SingleProduct/:id" element={<SingleProduct />} />
             </Routes>
-            {/* <LogInSignUp /> */}
-            {/* <SignUp /> */}
           </alertContext.Provider>
           <Footer />
         </themeContext.Provider>

@@ -15,7 +15,14 @@
     font-size: x-large;
 }
 
+.foot-headings{
+    cursor: pointer;
+}
 
+.foot-headings:hover {
+    color: rgb(236, 94, 17);
+    font-weight: bolder;
+}
 
 .form-title{
     margin-left: 1rem;

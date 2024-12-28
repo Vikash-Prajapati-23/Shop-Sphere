@@ -3,12 +3,10 @@
   top: 5%;
   left: 40%;
   z-index: 9999;
-  /* Make sure it's above other content */
 }
 
 .alert-msg {
   font-size: x-large;
-
 }
 
 .modal-alert {
@@ -19,13 +17,11 @@
   text-align: center;
 }
 
-/* Success alert */
 .alert-green {
   background-color: #28a745;
   color: white;
 }
 
-/* Danger alert */
 .alert-blue {
   background-color: #2018ED;
   color: white;
