@@ -8,7 +8,6 @@ const Footer = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    // <div>
     <div className="card txt-clr">
       <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-header text-center fw-bold`}>Made with &#128151; by team shopsphare!</div>
       <div style={{ backgroundColor: toggleMode.mode === true ? "#121212" : "#EAECED", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-body container-fluid d-flex row `}>
@@ -18,7 +17,7 @@ const Footer = () => {
             <ul className="foot-list list-group">
               <li className="nav-item" >
                 <Link className="nav-link active" to={'/AboutUs'} >
-                  About Us
+                  About Shop Sphere
                 </Link>
               </li>
               <li className="nav-item" >
@@ -27,88 +26,88 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
+                <Link className="nav-link active" to={'/'} >
                   Carrers
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/'} >
+                  Shop Sphere Stories
                 </Link>
               </li>
             </ul>
           </div>
           <div className="foot-items mx-auto">
-            <h6 className="foot-headings" >About</h6>
+            <h6 className="foot-headings" >Help</h6>
             <ul className="foot-list list-group">
-            <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  About Us
+              <li className="nav-item" >
+                <Link className="nav-link active" to={'/'} >
+                  Payments
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/ContactUs'} >
-                  Contact Us
+                <Link className="nav-link active" to={'/'} >
+                  Shipping
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/'} >
+                  Cancellation & Returns
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/'} >
+                  FAQ
                 </Link>
               </li>
             </ul>
           </div>
           <div className="foot-items mx-auto">
-            <h6 className="foot-headings" >About</h6>
+            <h6 className="foot-headings" >Consumer Policy</h6>
             <ul className="foot-list list-group">
-            <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  About Us
+              <li className="nav-item" >
+                <Link className="nav-link active" to={'/'} >
+                  Cancellation & Returns
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/ContactUs'} >
-                  Contact Us
+                <Link className="nav-link active" to={'/'} >
+                  Security
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/'} >
+                  Terms of Use
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/#'} >
+                  Privacy
                 </Link>
               </li>
             </ul>
           </div>
           <div className="foot-items mx-auto">
-            <h6 className="foot-headings" >About</h6>
+            <h6 className="foot-headings" >Online Shopping</h6>
             <ul className="foot-list list-group">
-            <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  About Us
+              <li className="nav-item" >
+                <Link className="nav-link active" to={'/Men'} >
+                  Men
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/ContactUs'} >
-                  Contact Us
+                <Link className="nav-link active" to={'/Women'} >
+                  Women
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/Electronics'} >
+                  Electronics
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/AboutUs'} >
-                  Carrers
+                <Link className="nav-link active" to={'/Jewelery'} >
+                  Jewelery
                 </Link>
               </li>
             </ul>
@@ -118,7 +117,7 @@ const Footer = () => {
         <div className="footer-right d-flex col-md-6">
           <div className="contact-foot foot-items mx-auto">
             <h5 className="foot-headings" >Reach Us</h5>
-            <p>Shop Sphare PVT LTD</p>
+            <p>Shop Sphere PVT LTD</p>
             <p>IIT boral, Future Institute Of Techonology</p>
           </div>
 
@@ -135,7 +134,6 @@ const Footer = () => {
       </div>
       <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className={`card-footer text-center fw-bold`}> &copy; 2024 copyright || shopsphare.com</div>
     </div>
-
   );
 };
 

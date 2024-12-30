@@ -7,9 +7,9 @@ const AboutUs = () => {
   const toggleMode = useContext(themeContext);
 
   return (
-    <div style={{backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="m-5">
+    <div style={{backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="m-5 container">
       <h2 className="about-head text-center">Welcome to Shop Sphare!</h2>
-      <p>
+      <p className="" >
         At Shop Sphare, we believe that shopping should be more than just a
         transaction—it should be an experience. Our goal is to offer you the
         finest products, a seamless shopping journey, and customer service that
