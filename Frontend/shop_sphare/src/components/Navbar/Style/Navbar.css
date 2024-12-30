@@ -1,5 +1,9 @@
-.nav-bg-color{
-    background-color: #4169E1;
+.navs {
+    border: 2px solid #fff;
+}
+
+.navs:hover {
+    border-bottom: 2px solid orangered;
 }
 
 .cont-login{

@@ -29,8 +29,8 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
-            <li className="nav-item ">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between" data-bs-theme="dark">
+            <li className="nav-item navs">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link active fw-bold"
@@ -40,14 +40,14 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item mx-3">
+            <li className="nav-item navs ">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/AboutUs">
                 {/* <AboutUs /> */}
                 About Us
               </Link>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item navs dropdown">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link active dropdown-toggle fw-bold"
@@ -123,7 +123,7 @@ const Navbar = () => {
                 dark_mode
               </span>
             </li>
-            <li className="nav-item me-2">
+            <li className="nav-item navs me-2">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/LogInSignUp">
                 Log In
