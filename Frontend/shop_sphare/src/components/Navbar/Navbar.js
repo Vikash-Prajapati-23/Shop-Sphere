@@ -28,29 +28,30 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between" data-bs-theme="dark">
+        <div
+          className="collapse navbar-collapse" id="navbarSupportedContent"
+        >
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item navs">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                className="nav-link active fw-bold"
+                className="nav-link fw-bold"
                 aria-current="page"
                 to="/"
               >
                 Home
               </Link>
             </li>
-            <li className="nav-item navs ">
+            <li className="nav-item navs">
               <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/AboutUs">
-                {/* <AboutUs /> */}
+                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link fw-bold" to="/AboutUs">
                 About Us
               </Link>
             </li>
             <li className="nav-item navs dropdown">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                className="nav-link active dropdown-toggle fw-bold"
+                className="nav-link dropdown-toggle fw-bold"
                 to="/Categories"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -60,32 +61,32 @@ const Navbar = () => {
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item" to="/Men">
+                  <Link className="dropdown-item navs" to="/Men">
                     Men
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/Women">
+                  <Link className="dropdown-item navs" to="/Women">
                     Women
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/Kid">
+                  <Link className="dropdown-item navs" to="/Kid">
                     Kid
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/Electronics">
+                  <Link className="dropdown-item navs" to="/Electronics">
                     Electronics
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/Jewelery">
+                  <Link className="dropdown-item navs" to="/Jewelery">
                     Jewelery
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/Electronics">
+                  <Link className="dropdown-item navs" to="/Electronics">
                     Electronics
                   </Link>
                 </li>
@@ -93,7 +94,7 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="d-flex" role="search">
-            <div className="input-group mx-3">
+            <div className="input-group">
               <input
                 type="text"
                 className="form-control"
@@ -111,33 +112,40 @@ const Navbar = () => {
             </div>
           </div>
           <ul className="navbar-nav list-group d-flex">
-            <li className="nav-item theme-icon">
+            <li className="nav-item navs">
               <span
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >
                 light_mode
               </span>
             </li>
-            <li className="nav-item theme-icon">
+            <li className="nav-item navs">
               <span
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="material-symbols-outlined moon hide nav-link active " onClick={toggleMode.toggleTheme} >
                 dark_mode
               </span>
             </li>
-            <li className="nav-item navs me-2">
+            <li className="nav-item navs">
               <Link
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active fw-bold" to="/LogInSignUp">
                 Log In
               </Link>
             </li>
-            <li className="nav-item mx-2">
+            <li className="nav-item navs">
               <Link className="nav-link active " to="/WishList">
                 <i className="fa-solid fa-heart wishlist-icon "></i>
               </Link>
             </li>
-            <li className="nav-item mx-2">
+            <li className="nav-item navs">
               <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="nav-link active " to="/Cart">
-                <i className="fa-solid fa-cart-shopping cart-icon"></i>
+                style={{
+                  color: toggleMode.mode === true ? "#fff" : "black"
+                }}
+                className="nav-link active"
+                to="/Cart"
+              >
+                <span class="material-symbols-outlined">
+                  shopping_bag
+                </span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
                   9
                   <span className="visually-hidden">unread messages</span>

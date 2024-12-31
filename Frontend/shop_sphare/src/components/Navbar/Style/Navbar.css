@@ -1,9 +1,9 @@
-.navs {
-    border: 2px solid #fff;
-}
-
 .navs:hover {
     border-bottom: 2px solid orangered;
+}
+
+.navs{
+    margin: auto;
 }
 
 .cont-login{
@@ -15,9 +15,9 @@
     margin: auto;
 }
 
-.cart-icon{
-    font-size: 1.5rem;
-}
+/* .cart-icon{
+    font-size: 1.5rem; 
+} */
 
 .wishlist-icon{
     font-size: 1.5rem;
