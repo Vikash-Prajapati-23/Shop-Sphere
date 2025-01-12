@@ -111,7 +111,7 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          <ul className="navbar-nav list-group d-flex">
+          <ul className="navbar-nav justify-content-around list-group d-flex">
             <li className="nav-item navs">
               <span
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="material-symbols-outlined sun nav-link active " onClick={toggleMode.toggleTheme} >

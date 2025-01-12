@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import "./Style/Jewelery.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
+import { themeContext } from '../../App';
 
 const Jewelery = () => {
   const [jeweleryProduct, setJeweleryProduct] = useState(null);
   const nevigate = useNavigate();
+  const toggleMode = useContext(themeContext)
 
   const fetchJeweleryProducts = async () => {
     const url = await fetch(
@@ -29,8 +31,8 @@ const Jewelery = () => {
   }
 
   return (
-    <div className="container">
-      <div className="card m-3">
+    <div className="container card my-3" style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} >
+      <div className=" m-3">
         <h3 className="text-center m-md-2">Jewelery</h3>
         <div className="d-flex overflow-auto caro-hight">
           {jeweleryProduct.map((product) => (

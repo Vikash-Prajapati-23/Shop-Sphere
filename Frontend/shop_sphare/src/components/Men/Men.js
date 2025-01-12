@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Style/Men.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
+import { themeContext } from "../../App";
 
 const Men = () => {
   const [menProduct, setMenProduct] = useState(null);
   const nevigate = useNavigate();
+  const toggleMode = useContext(themeContext)
   // const [limit, setLimit] = useState();
 
   const manProduct = async () => {
@@ -30,8 +32,8 @@ const Men = () => {
   }
 
   return (
-    <div className="container">
-      <div className="card m-3">
+    <div className="container card my-3" style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} >
+      <div className=" m-3">
         <h3 className="text-center m-md-2">Men's clothing</h3>
         <div className="d-flex overflow-auto caro-hight">
           {menProduct.map((product) => (
