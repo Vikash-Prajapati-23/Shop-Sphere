@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-// import Error from './components/Error';
+import TermsOfUse from "./components/TermsOfUse/TermsOfUse";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Men from "./components/Men/Men";
@@ -73,6 +73,7 @@ function App() {
               <Route path="/Electronics" element={<Electronics />} />
               <Route path="/Jewelery" element={<Jewelery />} />
               <Route path="/SingleProduct/:id" element={<SingleProduct />} />
+              <Route path="/TermsOfUse" element={<TermsOfUse />} />
             </Routes>
           </alertContext.Provider>
           <Footer />

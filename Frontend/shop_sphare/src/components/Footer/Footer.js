@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Style/Footer.css";
 import { themeContext } from "../../App";
 
@@ -76,7 +76,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="nav-item" >
-                <Link className="nav-link active" to={'/'} >
+                <Link className="nav-link active" to={'/TermsOfUse'} >
                   Terms of Use
                 </Link>
               </li>
