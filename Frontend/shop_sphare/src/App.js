@@ -61,7 +61,7 @@ function App() {
         <themeContext.Provider value={{ mode, toggleTheme }} >
           <Navbar />
           <alertContext.Provider value={{ alert, showAlert }}>  {/* Using provider to provide the value. */}
-            <Alert />
+            {/* <Alert /> */} 
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/AboutUs" element={<AboutUs />} />

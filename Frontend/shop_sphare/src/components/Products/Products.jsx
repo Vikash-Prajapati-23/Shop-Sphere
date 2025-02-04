@@ -36,7 +36,7 @@ const Products = () => {
   return (
     <div style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container  my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
-      <div className="d-flex flex-wrap justify-content-start">
+      <div className="d-flex flex-wrap justify-content-start"> 
         {filteredProducts.map((product) => (
           <div
             className="col-md-3 flex-shrink-0 my-2"
