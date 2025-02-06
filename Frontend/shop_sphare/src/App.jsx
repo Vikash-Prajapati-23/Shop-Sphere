@@ -1,24 +1,10 @@
 import React, { createContext, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-// import Navbar from "./components/Navbar/Navbar";
-// import TermsOfUse from "./components/TermsOfUse/TermsOfUse";
-// import Footer from "./components/Footer/Footer";
-// import Home from "./components/Home/Home";
-// import Men from "./components/Men/Men";
-// import Kid from "./components/Kid/Kid";
-// import Women from "./components/Women/Women";
-// import ContactUs from "./components/ContactUs/ContactUs";
-// import AboutUs from "./components/AboutUs/AboutUs";
-// import LogInSignUp from "./components/LogInSignUp/LogInSignUp";
-// import Electronics from "./components/Electronics/Electronics";
-// import Jewelery from "./components/Jewelery/Jewelery";
-// import Alert from "./components/Alert/Alert";
-// import SingleProduct from "./components/SingleProduct/SingleProduct";
-
 const Navbar = lazy(() => import("./components/Navbar/Navbar"))
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"))
 const Footer = lazy(() => import("./components/Footer/Footer"))
+const Cart = lazy(() => import("./components/Cart/Cart"))
 const Home = lazy(() => import("./components/Home/Home"))
 const Men = lazy(() => import("./components/Men/Men"))
 const Kid = lazy(() => import("./components/Kid/Kid"))
@@ -86,6 +72,7 @@ function App() {
                 <Route path="/ContactUs" element={<ContactUs />} />
                 <Route path="/LoginSignup" element={<LogInSignUp />} />
                 <Route path="/Men" element={<Men />} />
+                <Route path="/Cart" element={<Cart />} />
                 <Route path="/Kid" element={<Kid />} />
                 <Route path="/Women" element={<Women />} />
                 <Route path="/Electronics" element={<Electronics />} />

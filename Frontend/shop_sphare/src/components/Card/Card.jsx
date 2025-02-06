@@ -2,8 +2,11 @@ import React, { useContext } from "react";
 import "./Style/Card.css";
 import Button from "../Button/Button";
 import { alertContext, themeContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartSlice";
 
 const Card = ({
+  product,
   title,
   image,
   price,
@@ -16,6 +19,7 @@ const Card = ({
 
   const usedAlert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
+  const dispatch = useDispatch();
 
   return (
     <div style={{ border: toggleMode.mode === true ? "1px solid darkgrey" : "", boxShadow: toggleMode.mode === true ? "rgba(172, 169, 169, 0.5) 0px 0px 5px 2px" : "rgba(9, 9, 9, 0.15) 0px 0px 10px 2px" }} className="m-3 card-comp" onClick={fetchSingleProduct}>
@@ -51,6 +55,7 @@ const Card = ({
                 if (usedAlert && usedAlert.showAlert) {
                   usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
                 };
+                dispatch(addToCart({product}))
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
