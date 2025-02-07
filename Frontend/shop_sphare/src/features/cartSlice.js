@@ -4,6 +4,7 @@ const initialState = {
   cartItems: [],
   totalQuantity: 0,
   totalPrice: 0,
+  count: 0,
 };
 
 const cartSlice = createSlice({
@@ -14,8 +15,11 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find(item => item.id === action.payload.id);
       if (existingItem) {
         existingItem.quantity += 1;
+        state.count += 1;
       } else {
         state.cartItems.push({ ...action.payload, quantity: 1 });
+        state.count -= 1;
+
       }
       state.totalQuantity += 1;
       state.totalPrice += action.payload.price;

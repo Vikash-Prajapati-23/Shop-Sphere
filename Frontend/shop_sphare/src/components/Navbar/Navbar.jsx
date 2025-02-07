@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../../features/cartSlice";
+// import Products from "../Products/Products";
 
 const Navbar = () => {
 
   const toggleMode = useContext(themeContext);
+  // const dispatch = useDispatch();
+
 
   return (
     <nav style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black", boxShadow: toggleMode.mode ? "rgba(192, 189, 189, 0.61) 0px 15px 10px -10px" : "rgba(96, 95, 95, 0.65) 0px 15px 10px -10px" }} className={`navbar sticky-sm-top sticky-top navbar-expand-lg`}>
@@ -147,7 +152,7 @@ const Navbar = () => {
                   shopping_bag
                 </span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
-                  9
+                  {/* {dispatch(addToCart(count))} */} 1
                   <span className="visually-hidden">unread messages</span>
                 </span>
               </Link>

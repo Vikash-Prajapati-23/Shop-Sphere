@@ -22,13 +22,13 @@ const Card = ({
   const dispatch = useDispatch();
 
   return (
-    <div style={{ border: toggleMode.mode === true ? "1px solid darkgrey" : "", boxShadow: toggleMode.mode === true ? "rgba(172, 169, 169, 0.5) 0px 0px 5px 2px" : "rgba(9, 9, 9, 0.15) 0px 0px 10px 2px" }} className="m-3 card-comp" onClick={fetchSingleProduct}>
+    <div className={`m-3 card-comp ${toggleMode.mode ? "dark-mode" : "light-mode"}`}  onClick={fetchSingleProduct}>
       <div className="card card-style">
-        <div style={{ color: toggleMode.mode === true ? "#33333" : "black" }} className="text-center m-2">{category}</div>
+        {/* <div className={`text-center m-2 ${toggleMode.mode ? "dark-mode" : "light-mode"}`} >{category}</div> */}
         <img
           src={image}
           style={{ height: "140px", objectFit: "scale-down" }}
-          className="card-img-top "
+          className="card-img-top my-1"
           alt="Image"
         />
         <div style={{ backgroundColor: toggleMode.mode === true ? "#2C2C2C" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="card-body">

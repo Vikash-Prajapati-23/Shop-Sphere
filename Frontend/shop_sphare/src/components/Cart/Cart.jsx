@@ -1,5 +1,5 @@
 import React from 'react'
-// import './Style/Cart.css'
+import './Style/cart.css'
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../features/cartSlice";
 
@@ -9,13 +9,13 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div className='container text-center my-5' >
        <h2>Shopping Cart</h2>
       {cart.length === 0 ? <p>Cart is empty</p> : (
-        <ul>
+        <ul >
           {cart.map(item => (
-            <li key={item.id}>
-              {item.title} - ${item.price} (x{item.quantity})
+            <li className='cart-list ' key={item.id}>
+              {item.title} - ${item.price} (x{item.quantity}) 
               <button onClick={() => dispatch(removeFromCart(item))}>Remove</button>
             </li>
           ))}
