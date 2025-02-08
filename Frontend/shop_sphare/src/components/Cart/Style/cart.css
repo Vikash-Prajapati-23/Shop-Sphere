@@ -1,3 +1,15 @@
 .cart-list{
-    list-style: none
+    list-style: none;
+    border: 1px solid #131212;
+    padding: 1rem;
 }
+
+.cart-img{
+    height: "20px";
+    object-fit: scale-down;
+}
+
+/* .cart-item{
+    margin-left: auto;
+    margin-right: auto;
+} */
