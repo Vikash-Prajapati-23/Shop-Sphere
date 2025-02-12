@@ -9,13 +9,13 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className='container-fluid text-center my-5' >
+    <div className='container-fluid text-center my-5 ' >
       <h2>Shopping Cart</h2>
       <ul >
         {cart.length === 0 ? <p>Cart is empty</p> : (
           <div>
             {cart.map(item => (
-              <li className='cart-list text-center' key={item.id}>
+              <li className='cart-list text-center rounded' key={item.id}>
                 <img src={item.image} className='cart-img cart-item mx-5' />
                 <span className='cart-item mx-5' > {item.title} - ${item.price} (x{item.quantity}) </span>
                 <button className='cart-item mx-5'  onClick={() => dispatch(removeFromCart(item))}>Remove</button>
