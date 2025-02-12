@@ -148,7 +148,7 @@ const Navbar = () => {
                 className="nav-link active"
                 to="/Cart"
               >
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                   shopping_bag
                 </span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">

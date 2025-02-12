@@ -4,6 +4,8 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartSlice";
 
 const Products = () => {
   const [products, setProducts] = useState(null);
@@ -11,6 +13,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
   const navigate = useNavigate();
   const toggleMode = useContext(themeContext);
+  const dispatch = useDispatch();
 
   const fetchProducts = async () => {
     const response = await fetch(`https://fakestoreapi.com/products`);
@@ -24,6 +27,12 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const handleAddToCart = (id) => {
+    const product = products.find((product) => product.id === id);
+    // console.log("Added to cart: ", product.title); 
+    dispatch(addToCart({ product })); // Dispatch the action to add to cart.
+  };
 
   const handleCardClick = (product) => {
     navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
@@ -50,6 +59,7 @@ const Products = () => {
               image={product.image}
               price={product.price}
               rating={product.rating}
+              hadleAddToCart={() => handleAddToCart(product.id)} // Pass function reference
             />
           </div>
         ))}

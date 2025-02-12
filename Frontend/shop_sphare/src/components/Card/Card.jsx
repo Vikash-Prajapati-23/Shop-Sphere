@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import "./Style/Card.css";
 import Button from "../Button/Button";
 import { alertContext, themeContext } from "../../App";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cartSlice";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../../features/cartSlice";
 
 const Card = ({
   product,
+  id,
   title,
   image,
   price,
@@ -14,12 +15,13 @@ const Card = ({
   rating,
   fetchSingleProduct,
   fetchWishlistProduct,
+  hadleAddToCart,
 }) => {
   // let {title, description, image, id, price, category, rating, getData} = props;
 
   const usedAlert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <div className={`m-3 card-comp ${toggleMode.mode ? "dark-mode" : "light-mode"}`}  onClick={fetchSingleProduct}>
@@ -55,7 +57,8 @@ const Card = ({
                 if (usedAlert && usedAlert.showAlert) {
                   usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
                 };
-                dispatch(addToCart({product}))
+                // dispatch(addToCart({product}));
+                hadleAddToCart(id);
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}
