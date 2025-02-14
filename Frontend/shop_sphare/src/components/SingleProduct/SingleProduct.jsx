@@ -13,9 +13,17 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
 
   // Added: Function to fetch product details using the extracted ID.
   const fetchSingleProduct = async () => {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-    const data = await response.json();
-    setsingleProduct(data); // Update the product state with fetched data.
+    try {
+      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+      const data = await response.json();
+      setsingleProduct(data); // Update the product state with fetched data.
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      
+    }
+    // const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    // const data = await response.json();
+    // setsingleProduct(data); // Update the product state with fetched data.
   };
 
   useEffect(() => {

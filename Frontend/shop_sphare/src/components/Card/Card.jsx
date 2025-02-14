@@ -15,18 +15,15 @@ const Card = ({
   rating,
   fetchSingleProduct,
   fetchWishlistProduct,
-  hadleAddToCart,
+  handleAddToCart, // Corrected prop name
 }) => {
-  // let {title, description, image, id, price, category, rating, getData} = props;
-
   const usedAlert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
 
   return (
-    <div className={`m-3 card-comp ${toggleMode.mode ? "dark-mode" : "light-mode"}`}  onClick={fetchSingleProduct}>
+    <div className={`m-3 card-comp ${toggleMode.mode ? "dark-mode" : "light-mode"}`} onClick={fetchSingleProduct}>
       <div className="card card-style">
-        {/* <div className={`text-center m-2 ${toggleMode.mode ? "dark-mode" : "light-mode"}`} >{category}</div> */}
         <img
           src={image}
           style={{ height: "140px", objectFit: "scale-down" }}
@@ -56,9 +53,8 @@ const Card = ({
                 e.stopPropagation(); // Prevent propagation to the card
                 if (usedAlert && usedAlert.showAlert) {
                   usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
-                };
-                // dispatch(addToCart({product}));
-                hadleAddToCart(id);
+                }
+                handleAddToCart(product); // Pass the product object to the handleAddToCart function
               }}
               className={"btn btn-success"}
               btnName={"Add to Cart"}

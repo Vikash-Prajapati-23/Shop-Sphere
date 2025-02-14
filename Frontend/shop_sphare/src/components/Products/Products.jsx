@@ -4,16 +4,13 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cartSlice";
 
-const Products = () => {
+const Products = ({ handleCartAddition }) => {
   const [products, setProducts] = useState(null);
   const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
   const navigate = useNavigate();
   const toggleMode = useContext(themeContext);
-  const dispatch = useDispatch();
 
   const fetchProducts = async () => {
     const response = await fetch(`https://fakestoreapi.com/products`);
@@ -28,10 +25,8 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (id) => {
-    const product = products.find((product) => product.id === id);
-    // console.log("Added to cart: ", product.title); 
-    dispatch(addToCart({ product })); // Dispatch the action to add to cart.
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
   };
 
   const handleCardClick = (product) => {
@@ -45,7 +40,7 @@ const Products = () => {
   return (
     <div style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container  my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
-      <div className="d-flex flex-wrap justify-content-start"> 
+      <div className="d-flex flex-wrap justify-content-start">
         {filteredProducts.map((product) => (
           <div
             className="col-md-3 flex-shrink-0 my-2"
@@ -54,12 +49,12 @@ const Products = () => {
           >
             <Card
               category={product.category}
-              title={product?product.title.slice(0, 20):"No Title."}
+              title={product ? product.title.slice(0, 20) : "No Title."}
               id={product.id}
               image={product.image}
               price={product.price}
               rating={product.rating}
-              hadleAddToCart={() => handleAddToCart(product.id)} // Pass function reference
+              handleAddToCart={() => handleAddToCart(product)} // Pass function reference
             />
           </div>
         ))}
