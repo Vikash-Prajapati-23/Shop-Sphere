@@ -1,19 +1,22 @@
 import React from 'react';
-import './Style/cart.css';
+import "./Style/Cart.css";
 
 const Cart = ({ cart }) => {
   return (
     <div className='container-fluid text-center my-5'>
       <h2>Shopping Cart</h2>
-      <ul>
+      <ul >
         {cart.length === 0 ? <p>Cart is empty</p> : (
           <div>
             {cart.map((item) => (
-              <li className='cart-list text-center rounded' key={item.id}>
+              <li className='cart-list rounded m-2 d-flex' key={item.id} >
                 <img src={item.image} className='cart-img cart-item mx-5' alt={item.title} />
-                <span className='cart-item mx-5'>{item.title} - ${item.price} (x{item.quantity})</span>
-                {/* Uncomment and update the remove button functionality if needed */}
-                {/* <button className='cart-item mx-5' onClick={() => dispatch(removeFromCart({ id: item.id }))}>Remove</button> */}
+                <div className='cart-item mx-5'>{item.title ? item.title.slice(0, 25) : "No Title"} - ${item.price} (x{item.quantity})</div>
+                <button className='btn text-danger ' >
+                  <span className="material-symbols-outlined">
+                    delete
+                  </span>
+                </button>
               </li>
             ))}
             <div className='cart-total'>
