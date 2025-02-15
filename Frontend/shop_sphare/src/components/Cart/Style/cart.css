@@ -15,12 +15,17 @@
     object-fit: contain;
     border-radius: 5px;
 }
-/* 
-.cart-item {
-    margin-left: 100px;
-} */
+
+.bg-clr{
+    background-color: #fff;
+}
 
 .cart-total {
-    margin-top: 20px;
+    margin: 20px;
     font-weight: bold;
+}
+
+.border-radius{
+    border-radius: 50%;
+    height: 2.5rem;
 }
