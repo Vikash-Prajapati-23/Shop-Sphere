@@ -15,7 +15,6 @@ const Cart = ({ cart }) => {
                 <img src={item.image} className='cart-img cart-item mx-5' alt={item.title} />
 
                 <div className=' d-flex justify-content-between align-items-center'>
-
                   <div className='   justify-content-between '>
                     <pre className='cart-item '>{item.title.slice(0, 40) || "No Title"}...</pre>
                     <div className=' d-flex align-items-center'>
@@ -29,14 +28,11 @@ const Cart = ({ cart }) => {
                       <Button className='btn btn-danger fw-bold' btnName={"-"} />
                       <div className='d-flex align-items-center px-3 fw-bold' >{item.quantity}</div>
                       <Button className='btn btn-success fw-bold me-3' btnName={"+"} />
-                      <Button className='btn btn-success fw-bold ' btnName={"Move to wishlist"} />
+                      <Button className='btn btn-info fw-bold ' btnName={"Move to wishlist"} />
                     </div>
                   </div>
 
-                  <div className=' ms-5 align-items-center'>
-                    <div className='cart-item me-5'>${item.price} (x{item.quantity})</div>
-
-                  </div>
+                  <div className=' ms-5 align-items-centercart-item me-5 fw-bold '>${item.price} (x{item.quantity})</div>
 
                   <div className=' ms-5 align-items-center'>
                     <button className='btn text-danger ' >
@@ -45,12 +41,11 @@ const Cart = ({ cart }) => {
                       </span>
                     </button>
                   </div>
-
                 </div>
               </li>
             ))}
             <div className='cart-total d-flex justify-content-end'>
-              <span className=' mx-3 py-3'>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}</span>
+              <span className=' mx-3 py-3'>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
               <Button className='btn btn-primary fw-bold' btnName={"Place Order"} />
             </div>
           </div>
