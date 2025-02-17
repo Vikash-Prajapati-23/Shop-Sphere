@@ -1,6 +1,8 @@
 import React, { createContext, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -15,11 +17,11 @@ const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
 const LogInSignUp = lazy(() => import("./components/LogInSignUp/LogInSignUp"));
 const Electronics = lazy(() => import("./components/Electronics/Electronics"));
 const Jewelery = lazy(() => import("./components/Jewelery/Jewelery"));
-const Alert = lazy(() => import("./components/Alert/Alert"));
+// const Alert = lazy(() => import("./components/Alert/Alert"));
 const SingleProduct = lazy(() => import("./components/SingleProduct/SingleProduct"));
 
 // Creating context 
-const alertContext = createContext();
+// const alertContext = createContext();
 const themeContext = createContext();
 
 function App() {
@@ -40,7 +42,7 @@ function App() {
     console.log("Product added to cart:", product);
   };
 
-  const [alert, setAlert] = useState(null);
+  // const [alert, setAlert] = useState(null);
   const [mode, setMode] = useState(false);
   const [cartProductId, setCartProductId] = useState('');
 
@@ -53,34 +55,35 @@ function App() {
       sun.classList.add('hide');
       document.body.style.backgroundColor = '#121212';
       document.body.style.color = '#333333';
-      showAlert("Switch to Dark mode.", "green");
+      // showAlert("Switch to Dark mode.", "green");
     } else {
       setMode(false);
       sun.classList.remove('hide');
       moon.classList.add('hide');
       document.body.style.backgroundColor = '#EAECED';
       document.body.style.color = '#fff';
-      showAlert("Switch to Light mode.", "blue");
+      // showAlert("Switch to Light mode.", "blue");
     }
   };
 
-  const showAlert = (message, type) => {
-    setAlert({
-      message: message,
-      type: type,
-    });
-    setTimeout(() => {
-      setAlert(null);
-    }, 3000);
-  };
+  // const showAlert = (message, type) => {
+  //   setAlert({
+  //     message: message,
+  //     type: type,
+  //   });
+  //   setTimeout(() => {
+  //     setAlert(null);
+  //   }, 3000);
+  // };
 
   return (
     <>
       <Router>
         <themeContext.Provider value={{ mode, toggleTheme }}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Navbar />
-            <alertContext.Provider value={{ alert, showAlert }}>
+            <Navbar cart={cart} />
+            <Toaster />
+            {/* <alertContext.Provider value={{ alert, showAlert }}> */}
               <Routes>
                 <Route path="/" element={<Home setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />} />
                 <Route path="/AboutUs" element={<AboutUs />} />
@@ -95,7 +98,7 @@ function App() {
                 <Route path="/SingleProduct/:id" element={<SingleProduct handleCartAddition={handleCartAddition} />} />
                 <Route path="/TermsOfUse" element={<TermsOfUse />} />
               </Routes>
-            </alertContext.Provider>
+            {/* </alertContext.Provider> */}
             <Footer />
           </Suspense>
         </themeContext.Provider>
@@ -105,4 +108,4 @@ function App() {
 }
 
 export default App;
-export { alertContext, themeContext };
+export { themeContext };

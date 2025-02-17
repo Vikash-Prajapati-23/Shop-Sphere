@@ -4,6 +4,7 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Products = ({ handleCartAddition }) => {
   const [products, setProducts] = useState(null);
@@ -27,6 +28,7 @@ const Products = ({ handleCartAddition }) => {
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
+    toast.success(`Product added to cart! ${'🛒'}`);
   };
 
   const handleCardClick = (product) => {
@@ -40,6 +42,7 @@ const Products = ({ handleCartAddition }) => {
   return (
     <div style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container  my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
+      <Toaster />
       <div className="d-flex flex-wrap justify-content-start">
         {filteredProducts.map((product) => (
           <div

@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
+import Cart from "../Cart/Cart";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 // import Products from "../Products/Products";
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
 
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
@@ -152,7 +153,7 @@ const Navbar = () => {
                   shopping_bag
                 </span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
-                  {/* {dispatch(addToCart(count))} */} 1
+                  {cart.length}
                   <span className="visually-hidden">unread messages</span>
                 </span>
               </Link>

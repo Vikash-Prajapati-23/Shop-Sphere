@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
-import { alertContext, themeContext } from "../../App";
+import { themeContext } from "../../App";
+import toast, { Toaster } from 'react-hot-toast';
 
 const SingleProduct = ({ fetchWishlistProduct }) => {
   const [singleProduct, setsingleProduct] = useState(null);
-  const alert = useContext(alertContext);
+  // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
@@ -39,6 +40,7 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
       <div className="m-3">
         <div className="d-flex">
           <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="prod-img m-4 ">
+            <Toaster />
             <img
               className="m-4 prod-img"
               src={singleProduct.image}
@@ -64,15 +66,17 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
             <div className="prod-btn d-flex m-3">
               <Button
                 onClick={() => {
-                  alert.showAlert("Added to wishlist", "btn text-bg-primary");
+                  // alert.showAlert("Added to wishlist", "btn text-bg-primary");
                   fetchWishlistProduct();
+                  toast.success(`Product added to wishlist! ${'❤️'}`);
                 }}
                 className={"btn btn-success"}
                 btnName={"Wishlist"}
               />
               <Button
                 onClick={() => {
-                  alert.showAlert("Added to cart", "success");
+                  // alert.showAlert("Added to cart", "success");
+                  toast.success(`Product added to cart! ${'🛒'}`);
                 }}
                 className={"btn btn-success mx-3"}
                 btnName={"Add to cart"}
