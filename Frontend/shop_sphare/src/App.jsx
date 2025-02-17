@@ -28,7 +28,7 @@ function App() {
   const [mode, setMode] = useState(false);
   const [cartProductId, setCartProductId] = useState('');
   const [cart, setCart] = useState([]);
-  
+
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
     let moon = document.querySelector(".moon");
@@ -69,20 +69,20 @@ function App() {
         <themeContext.Provider value={{ mode, toggleTheme }}>
           <Suspense fallback={<div>Loading...</div>}>
             <Navbar cart={cart} />
-              <Routes>
-                <Route path="/" element={<Home setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />} />
-                <Route path="/AboutUs" element={<AboutUs />} />
-                <Route path="/ContactUs" element={<ContactUs />} />
-                <Route path="/LoginSignup" element={<LogInSignUp />} />
-                <Route path="/Men" element={<Men handleCartAddition={handleCartAddition} />} />
-                <Route path="/Cart" element={<Cart cart={cart} handleCartAddition={handleCartAddition} />} />
-                <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
-                <Route path="/Women" element={<Women handleCartAddition={handleCartAddition} />} />
-                <Route path="/Electronics" element={<Electronics handleCartAddition={handleCartAddition} />} />
-                <Route path="/Jewelery" element={<Jewelery handleCartAddition={handleCartAddition} />} />
-                <Route path="/SingleProduct/:id" element={<SingleProduct handleCartAddition={handleCartAddition} />} />
-                <Route path="/TermsOfUse" element={<TermsOfUse />} />
-              </Routes>
+            <Routes>
+              <Route path="/" element={<Home setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />} />
+              <Route path="/AboutUs" element={<AboutUs />} />
+              <Route path="/ContactUs" element={<ContactUs />} />
+              <Route path="/LoginSignup" element={<LogInSignUp />} />
+              <Route path="/Men" element={<Men handleCartAddition={handleCartAddition} />} />
+              <Route path="/Cart" element={<Cart cart={cart} setCart={setCart} handleCartAddition={handleCartAddition} />} />
+              <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
+              <Route path="/Women" element={<Women handleCartAddition={handleCartAddition} />} />
+              <Route path="/Electronics" element={<Electronics handleCartAddition={handleCartAddition} />} />
+              <Route path="/Jewelery" element={<Jewelery handleCartAddition={handleCartAddition} />} />
+              <Route path="/SingleProduct/:id" element={<SingleProduct handleCartAddition={handleCartAddition} />} />
+              <Route path="/TermsOfUse" element={<TermsOfUse />} />
+            </Routes>
             {/* </alertContext.Provider> */}
             <Footer />
           </Suspense>

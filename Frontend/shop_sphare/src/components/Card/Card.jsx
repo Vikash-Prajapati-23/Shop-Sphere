@@ -15,7 +15,7 @@ const Card = ({
   rating,
   fetchSingleProduct,
   fetchWishlistProduct,
-  handleAddToCart, // Corrected prop name
+  handleAddToCart, 
 }) => {
   // const usedAlert = useContext(alertContext);
   const toggleMode = useContext(themeContext);

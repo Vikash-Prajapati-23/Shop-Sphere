@@ -4,12 +4,11 @@ import Carousel from "../Carousel/Carousel";
 import Products from "../Products/Products";
 import Alert from "../Alert/Alert";
 
-const Home = ({ setCartProductId, handleCartAddition }) => {
+const Home = ({ setCartProductId, handleCartAddition, handleCartDeletion }) => {
   return(
     <div>
-      <Alert />
       <Carousel />
-      <Products setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />
+      <Products setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} handleCartDeletion={handleCartDeletion} />
     </div>
   )
 };

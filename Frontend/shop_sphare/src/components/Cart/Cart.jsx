@@ -2,7 +2,13 @@ import React from 'react';
 import "./Style/Cart.css";
 import Button from '../Button/Button';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, setCart }) => {
+
+  const handleProductDelete = (id) => {
+    const filteredCart = cart?.filter((item) => item?.id !== id);
+    setCart(filteredCart);
+  }
+
   return (
     <div className='container bg-clr my-5'>
       <h2 className='text-center py-4'>Shopping Cart</h2>
@@ -32,10 +38,10 @@ const Cart = ({ cart }) => {
                     </div>
                   </div>
 
-                  <div className=' ms-5 align-items-centercart-item me-5 fw-bold '>${item.price} (x{item.quantity})</div>
+                  <div className='ms-5 align-items-centercart-item me-5 fw-bold '>${item.price} (x{item.quantity})</div>
 
-                  <div className=' ms-5 align-items-center'>
-                    <button className='btn text-danger ' >
+                  <div className='ms-5 align-items-center'>
+                    <button onClick={() => handleProductDelete(item.id)} className='btn text-danger ' >
                       <span className="material-symbols-outlined">
                         delete
                       </span>

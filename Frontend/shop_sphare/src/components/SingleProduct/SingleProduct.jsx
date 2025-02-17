@@ -45,10 +45,6 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
               className="m-4 prod-img"
               src={singleProduct.image}
               alt={singleProduct.title}
-              // style={{
-              //   objectFit: "contain",
-              //   mixBlendMode: toggleMode.mode ? "darken" : "normal", // Adjust blending
-              // }}
             />
           </div>
           <div className="prod-info m-4">
