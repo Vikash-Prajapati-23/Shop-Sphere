@@ -8,6 +8,18 @@ const Cart = ({ cart, setCart }) => {
     const filteredCart = cart?.filter((item) => item?.id !== id);
     setCart(filteredCart);
   }
+  const handleProductIncrement = (id) => {
+    // Here, the ?. ensures that map() is only called if cart is not undefined or null.
+    // If cart is undefined or null, updatedCart will be undefined, and setCart(updatedCart) will not throw an error.
+    // Using cart?.map(...) ensures map() is not called on an undefined cart (avoiding runtime errors).
+    // Not using cart?.map(...) assumes cart is always defined, which can cause crashes if cart is ever undefined.
+    const updatedCart = cart?.map((item) => item.id === id ? { ...item, quantity: item.quantity + 1 } : item);
+    setCart(updatedCart);
+  }
+  const handleProductDecrement = (id) => {
+    const updateCart = cart?.map((item) => item.id === id ? { ...item, quantity: item.quantity - 1 } : item).filter((item) => item.quantity > 0);
+    setCart(updateCart);
+  }
 
   return (
     <div className='container bg-clr my-5'>
@@ -31,14 +43,16 @@ const Cart = ({ cart, setCart }) => {
                       <p className="fw-bold">Reviews {item.rating.count}</p>
                     </div>
                     <div className=' d-flex justify-content-between align-items-center'>
-                      <Button className='btn btn-danger fw-bold' btnName={"-"} />
+                      <Button onClick={() => handleProductDecrement(item.id)} className='btn btn-danger fw-bold' btnName={"-"} />
                       <div className='d-flex align-items-center px-3 fw-bold' >{item.quantity}</div>
-                      <Button className='btn btn-success fw-bold me-3' btnName={"+"} />
+                      <Button onClick={() => handleProductIncrement(item?.id)} className='btn btn-success fw-bold me-3' btnName={"+"} />
+                      {/* <a href='./wishlist' className='btn text-primary ' > */}
                       <Button className='btn btn-info fw-bold ' btnName={"Move to wishlist"} />
+                      {/* </a>/ */}
                     </div>
                   </div>
 
-                  <div className='ms-5 align-items-centercart-item me-5 fw-bold '>${item.price} (x{item.quantity})</div>
+                  <div className='ms-5 align-items-centercart-item me-5 fw-bold '>₹{item.price} (x{item.quantity})</div>
 
                   <div className='ms-5 align-items-center'>
                     <button onClick={() => handleProductDelete(item.id)} className='btn text-danger ' >
@@ -51,7 +65,7 @@ const Cart = ({ cart, setCart }) => {
               </li>
             ))}
             <div className='cart-total d-flex justify-content-end'>
-              <span className=' mx-3 py-3'>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
+              <span className=' mx-3 py-3'>Total: ₹{cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
               <Button className='btn btn-primary fw-bold' btnName={"Place Order"} />
             </div>
           </div>
