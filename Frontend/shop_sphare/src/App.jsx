@@ -1,7 +1,6 @@
 import React, { createContext, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import toast, { Toaster } from 'react-hot-toast';
 
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
@@ -83,7 +82,6 @@ function App() {
               <Route path="/SingleProduct/:id" element={<SingleProduct handleCartAddition={handleCartAddition} />} />
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
             </Routes>
-            {/* </alertContext.Provider> */}
             <Footer />
           </Suspense>
         </themeContext.Provider>

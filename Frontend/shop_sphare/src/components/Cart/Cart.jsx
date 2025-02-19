@@ -1,8 +1,16 @@
 import React from 'react';
 import "./Style/Cart.css";
 import Button from '../Button/Button';
+import { useNavigate } from "react-router-dom";
 
-const Cart = ({ cart, setCart }) => {
+
+const Cart = ({ cart, setCart, fetchSingleProduct }) => {
+
+  const navigate = useNavigate();
+  const handleCardClick = (product) => {
+    navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+  };
+
 
   const handleProductDelete = (id) => {
     const filteredCart = cart?.filter((item) => item?.id !== id);
@@ -21,6 +29,8 @@ const Cart = ({ cart, setCart }) => {
     setCart(updateCart);
   }
 
+
+
   return (
     <div className='container bg-clr my-5'>
       <h2 className='text-center py-4'>Shopping Cart</h2>
@@ -30,7 +40,7 @@ const Cart = ({ cart, setCart }) => {
             {cart.map((item) => (
               <li className='cart-container cart-list rounded m-2 py-3' key={item.id} >
 
-                <img src={item.image} className='cart-img cart-item mx-5' alt={item.title} />
+                <img src={item.image} className='cart-img cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
 
                 <div className=' d-flex justify-content-between align-items-center'>
                   <div className='   justify-content-between '>

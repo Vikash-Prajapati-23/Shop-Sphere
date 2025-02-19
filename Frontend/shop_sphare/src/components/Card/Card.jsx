@@ -17,7 +17,6 @@ const Card = ({
   fetchWishlistProduct,
   handleAddToCart, 
 }) => {
-  // const usedAlert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
 
@@ -42,7 +41,6 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                // usedAlert.showAlert("Added to wishlist.", "success");
                 fetchWishlistProduct();
               }}
               className={"btn btn-success"}
@@ -51,9 +49,6 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                // if (usedAlert && usedAlert.showAlert) {
-                //   usedAlert.showAlert("Added to Cart!", "success"); // Call the showAlert function
-                // }
                 handleAddToCart(product); // Pass the product object to the handleAddToCart function
               }}
               className={"btn btn-success"}
