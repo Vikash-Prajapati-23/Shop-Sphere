@@ -2,6 +2,7 @@ import React from 'react';
 import "./Style/Cart.css";
 import Button from '../Button/Button';
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Cart = ({ cart, setCart }) => {
@@ -9,6 +10,7 @@ const Cart = ({ cart, setCart }) => {
   const navigate = useNavigate();
   const handleCardClick = (product) => {
     navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    toast.success(`Product added to Wishlist! ${'❤️'}`);
   };
 
   const handleProductDelete = (id) => {
@@ -33,13 +35,14 @@ const Cart = ({ cart, setCart }) => {
   return (
     <div className='container bg-clr my-5'>
       <h2 className='text-center py-4'>Shopping Cart</h2>
+      <Toaster />
       <ul >
         {cart.length === 0 ? <div className='d-flex align-items-center justify-content-center gap-5 py-4'> <img src='./images/empty-cart.png' ></img> <h4> Your cart is empty.!</h4> </div> : (
           <ul>
             {cart.map((item) => (
               <li className='cart-container cart-list rounded m-2 py-3' key={item.id} >
-                     
-                <img src={item.image} className=' cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
+
+                <img src={item.image}  style={{height: "150px"}} className='cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
 
                 <div className=' d-flex justify-content-between align-items-center'>
                   <div className=' justify-content-between '>
@@ -55,9 +58,7 @@ const Cart = ({ cart, setCart }) => {
                       <Button onClick={() => handleProductDecrement(item.id)} className='btn btn-danger fw-bold' btnName={"-"} />
                       <div className='d-flex align-items-center px-3 fw-bold' >{item.quantity}</div>
                       <Button onClick={() => handleProductIncrement(item?.id)} className='btn btn-success fw-bold me-3' btnName={"+"} />
-                      {/* <a href='./wishlist' className='btn text-primary ' > */}
                       <Button className='btn btn-info fw-bold ' btnName={"Move to wishlist"} />
-                      {/* </a>/ */}
                     </div>
                   </div>
 

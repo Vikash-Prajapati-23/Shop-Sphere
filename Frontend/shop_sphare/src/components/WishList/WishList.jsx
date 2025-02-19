@@ -2,17 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Style/WishList.css";
 import Button from '../Button/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
-const WishList = ({ wishlist, setWishlist }) => {
+const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
   const handleProductDelete = (id) => {
     const filteredCart = wishlist?.filter((item) => item?.id !== id);
     setWishlist(filteredCart);
   }
 
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+    toast.success(`Product added to cart! ${'🛒'}`);
+  };
+
   return (
     <div className="wishlist-container bg-light my-5">
       <h2 className="pt-4 text-center" >Your Wishlist</h2>
+      <Toaster />
       <div>
         {wishlist.length === 0 ? <div className={"d-flex justify-content-center align-items-center"} >
           <img src={"./images/wish.gif"} alt="image" ></img>
@@ -46,9 +53,7 @@ const WishList = ({ wishlist, setWishlist }) => {
 
                     <p className="d-flex justify-content-start fw-bold"> ₹{product.price} </p>
 
-                    {/* <div className={"d-flex justify-content-between"} > */}
-                    <Button className='btn btn-success w-100' btnName={"Move to cart"} />
-                    {/* </div> */}
+                    <Button className='btn btn-success w-100' onClick={() => handleAddToCart(product.id)} btnName={"Move to cart"} />
                   </div>
 
                 </div>
