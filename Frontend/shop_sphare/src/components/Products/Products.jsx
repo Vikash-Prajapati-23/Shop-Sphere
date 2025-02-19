@@ -6,7 +6,7 @@ import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 import toast, { Toaster } from 'react-hot-toast';
 
-const Products = ({ handleCartAddition }) => {
+const Products = ({ handleCartAddition, handleWishList }) => {
   const [products, setProducts] = useState(null);
   const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
@@ -28,6 +28,11 @@ const Products = ({ handleCartAddition }) => {
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
+    toast.success(`Product added to cart! ${'🛒'}`);
+  };
+
+  const handleAddToWishList = (product) => {
+    handleWishList(product);
     toast.success(`Product added to cart! ${'🛒'}`);
   };
 
@@ -58,6 +63,7 @@ const Products = ({ handleCartAddition }) => {
               price={product.price}
               rating={product.rating}
               handleAddToCart={() => handleAddToCart(product)} // Pass function reference
+              handleAddToWishList={() => handleAddToWishList(product)} // Pass function reference
             />
           </div>
         ))}

@@ -6,7 +6,7 @@ import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 import toast, { Toaster } from 'react-hot-toast';
 
-const SingleProduct = ({ fetchWishlistProduct }) => {
+const SingleProduct = ({  }) => {   // fetchWishlistProduct
   const [singleProduct, setsingleProduct] = useState(null);
   // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
@@ -22,9 +22,6 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
       console.error("Error fetching data: ", error);
       
     }
-    // const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-    // const data = await response.json();
-    // setsingleProduct(data); // Update the product state with fetched data.
   };
 
   useEffect(() => {
@@ -63,7 +60,7 @@ const SingleProduct = ({ fetchWishlistProduct }) => {
               <Button
                 onClick={() => {
                   // alert.showAlert("Added to wishlist", "btn text-bg-primary");
-                  fetchWishlistProduct();
+                  // fetchWishlistProduct();
                   toast.success(`Product added to wishlist! ${'❤️'}`);
                 }}
                 className={"btn btn-success"}

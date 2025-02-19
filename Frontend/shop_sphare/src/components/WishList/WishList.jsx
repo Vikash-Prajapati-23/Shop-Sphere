@@ -1,39 +1,30 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Style/WishList.css";
 import Card from '../Card/Card'
 
-const WishList = () => {
-
-  const [wishlistProduct, setWishlistProduct] = useState(null);
-  const { id } = useParams(); // Added: Extract the product ID from the URL.;
-
-  // Added: Function to fetch product details using the extracted ID.
-  const fetchWishlistProduct = async () => {
-    const response = await fetch(`https://fakestoreapi.com/carts`);
-    const data = await response.json();
-    setWishlistProduct(data); // Update the product state with fetched data.
-  };
-
-  useEffect(() => {
-    fetchWishlistProduct();
-  }, []);
+const WishList = ({ cart, setCart }) => {
 
   return (
-    <div className="card m-3">
-      <h3>Your Wishlist</h3>
-      <div className="card">
-        {wishlistProduct.map((product) => {
-          <div className="card" key={product.id}>
-            <Card 
-              title={product?product.title.slice(0, 20):"No Title."}
-              id={product.id}
-              image={product.image}
-              price={product.price}
-              rating={product.rating}
-            />
+    <div className="wishlist-container bg-light my-5">
+      <h3 className="pt-4" >Your Wishlist</h3>
+      <div>
+        {cart.length === 0 ? <div className={"d-flex justify-content-center align-items-center"} >
+          <img src={"./images/wish.gif"} alt="image" ></img>
+          <h4>You havn't added anything to your wishlist.!</h4>
+        </div> : (
+          <div className="card" key={cart.id}>
+            {cart?.map((product) => {
+              <Card
+                title={product ? product.title.slice(0, 20) : "No Title."}
+                id={product.id}
+                image={product.image}
+                price={product.price}
+                rating={product.rating}
+              />
+            })}
           </div>
-        })}
+        )}
       </div>
     </div>
   );
