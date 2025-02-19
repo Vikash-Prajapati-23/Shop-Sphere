@@ -1,9 +1,18 @@
 .wishlist-container {
-    max-width: 80%;
+    max-width: 90%;
     margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
+}
+
+.close-btn {
+    position: absolute;
+    top: -2%;
+    right: 1%;
+}
+
+.card-img {
+    height: "150px";
+    width: "150px";
+    object-fit: scale-down;
+}

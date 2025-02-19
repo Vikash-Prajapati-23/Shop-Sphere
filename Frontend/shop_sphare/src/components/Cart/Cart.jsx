@@ -35,17 +35,17 @@ const Cart = ({ cart, setCart }) => {
       <h2 className='text-center py-4'>Shopping Cart</h2>
       <ul >
         {cart.length === 0 ? <div className='d-flex align-items-center justify-content-center gap-5 py-4'> <img src='./images/empty-cart.png' ></img> <h4> Your cart is empty.!</h4> </div> : (
-          <div>
+          <ul>
             {cart.map((item) => (
               <li className='cart-container cart-list rounded m-2 py-3' key={item.id} >
                      
-                <img src={item.image} className='cart-img cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
+                <img src={item.image} className=' cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
 
                 <div className=' d-flex justify-content-between align-items-center'>
-                  <div className='   justify-content-between '>
+                  <div className=' justify-content-between '>
                     <pre className='cart-item '>{item.title.slice(0, 40) || "No Title"}...</pre>
                     <div className=' d-flex align-items-center'>
-                      <p className="">
+                      <p>
                         <span className='fw-bold' style={{ color: "gold" }}>★ </span>
                         <span className='me-3' >{item.rating.rate}</span>
                       </p>
@@ -77,7 +77,7 @@ const Cart = ({ cart, setCart }) => {
               <span className=' mx-3 py-3'>Total: ₹{cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
               <Button className='btn btn-primary fw-bold' btnName={"Place Order"} />
             </div>
-          </div>
+          </ul>
         )}
       </ul>
     </div>

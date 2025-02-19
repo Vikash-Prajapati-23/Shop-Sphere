@@ -26,6 +26,7 @@ function App() {
   const [mode, setMode] = useState(false);
   const [cartProductId, setCartProductId] = useState('');
   const [cart, setCart] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
@@ -63,14 +64,14 @@ function App() {
 
   // Function to handle adding items to the wishlist
   const handleWishList = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
+    setWishlist((prevWishlist) => {
+      const existingProduct = prevWishlist.find((item) => item.id === product.id);
       if (existingProduct) {
-        return prevCart.map((item) =>
+        return prevWishlist.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevWishlist, { ...product, quantity: 1 }];
       }
     });
   };
@@ -95,7 +96,7 @@ function App() {
               <Route path="/Cart" element={<Cart handleW
               ishList={handleWishList} cart={cart} setCart={setCart} handleCartAddition={handleCartAddition} />} />
 
-              <Route path="/WishList" element={<WishList handleWishList={handleWishList} cart={cart} setCart={setCart} handleCartAddition={handleCartAddition} />} />
+              <Route path="/WishList" element={<WishList handleWishList={handleWishList} wishlist={wishlist} setWishlist={setWishlist} handleCartAddition={handleCartAddition} />} />
 
               <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
 
@@ -108,7 +109,7 @@ function App() {
               <Route path="/SingleProduct/:id" element={<SingleProduct handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
 
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
-              
+
             </Routes>
             <Footer />
           </Suspense>

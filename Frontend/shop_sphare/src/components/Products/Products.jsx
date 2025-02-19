@@ -33,7 +33,7 @@ const Products = ({ handleCartAddition, handleWishList }) => {
 
   const handleAddToWishList = (product) => {
     handleWishList(product);
-    toast.success(`Product added to cart! ${'🛒'}`);
+    toast.success(`Product added to Wishlist! ${'❤️'}`);
   };
 
   const handleCardClick = (product) => {

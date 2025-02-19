@@ -26,7 +26,7 @@ const Card = ({
         <img
           src={image}
           style={{ height: "140px", objectFit: "scale-down" }}
-          className="card-img-top my-1"
+          className="card-img-top my-2"
           alt="Image"
         />
         <div style={{ backgroundColor: toggleMode.mode === true ? "#2C2C2C" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="card-body">
