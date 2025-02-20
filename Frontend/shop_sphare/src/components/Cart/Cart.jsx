@@ -5,67 +5,72 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart, handleWishList }) => {
 
   const navigate = useNavigate();
   const handleCardClick = (product) => {
     navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
-    toast.success(`Product added to Wishlist! ${'❤️'}`);
   };
 
   const handleProductDelete = (id) => {
-    const filteredCart = cart?.filter((item) => item?.id !== id);
+    const filteredCart = cart?.filter((product) => product?.id !== id);
     setCart(filteredCart);
   }
+
   const handleProductIncrement = (id) => {
     // Here, the ?. ensures that map() is only called if cart is not undefined or null.
     // If cart is undefined or null, updatedCart will be undefined, and setCart(updatedCart) will not throw an error.
     // Using cart?.map(...) ensures map() is not called on an undefined cart (avoiding runtime errors).
     // Not using cart?.map(...) assumes cart is always defined, which can cause crashes if cart is ever undefined.
-    const updatedCart = cart?.map((item) => item.id === id ? { ...item, quantity: item.quantity + 1 } : item);
+    const updatedCart = cart?.map((product) => product.id === id ? { ...product, quantity: product.quantity + 1 } : product);
     setCart(updatedCart);
   }
+
   const handleProductDecrement = (id) => {
-    const updateCart = cart?.map((item) => item.id === id ? { ...item, quantity: item.quantity - 1 } : item).filter((item) => item.quantity > 0);
+    const updateCart = cart?.map((product) => product.id === id ? { ...product, quantity: product.quantity - 1 } : product).filter((product) => product.quantity > 0);
     setCart(updateCart);
   }
 
-
+  const handleAddToWishList = (product) => {
+    handleWishList(product);
+    toast.success(`Product added to Wishlist! ${'❤️'}`);
+    handleProductDelete(product.id);
+  };
 
   return (
     <div className='container bg-clr my-5'>
       <h2 className='text-center py-4'>Shopping Cart</h2>
       <Toaster />
       <ul >
-        {cart.length === 0 ? <div className='d-flex align-items-center justify-content-center gap-5 py-4'> <img src='./images/empty-cart.png' ></img> <h4> Your cart is empty.!</h4> </div> : (
+        {cart.length === 0 ? <div className='d-flex align-products-center justify-content-center gap-5 py-4'> <img src='./images/empty-cart.png' ></img> <h4> Your cart is empty.!</h4> </div> : (
           <ul>
-            {cart.map((item) => (
-              <li className='cart-container cart-list rounded m-2 py-3' key={item.id} >
+            {cart.map((product) => (
+              <li className='cart-container cart-list rounded m-2 py-3' key={product.id} >
 
-                <img src={item.image}  style={{height: "150px"}} className='cart-item mx-5' alt={item.title} onClick={() => handleCardClick(item)} />
+                <img src={product.image}  style={{height: "150px"}} className='cart-product mx-5' alt={product.title} onClick={() => handleCardClick(product)} />
 
-                <div className=' d-flex justify-content-between align-items-center'>
+                <div className=' d-flex justify-content-between align-products-center'>
                   <div className=' justify-content-between '>
-                    <pre className='cart-item '>{item.title.slice(0, 40) || "No Title"}...</pre>
-                    <div className=' d-flex align-items-center'>
+                    <pre className='cart-product '>{product.title?.slice(0, 20) || "No Title"}...</pre>
+                    <div className=' d-flex align-products-center'>
                       <p>
                         <span className='fw-bold' style={{ color: "gold" }}>★ </span>
-                        <span className='me-3' >{item.rating.rate}</span>
+                        <span className='me-3' >{product.rating.rate}</span>
                       </p>
-                      <p className="fw-bold">Reviews {item.rating.count}</p>
+                      <p className="fw-bold">Reviews {product.rating.count}</p>
                     </div>
-                    <div className=' d-flex justify-content-between align-items-center'>
-                      <Button onClick={() => handleProductDecrement(item.id)} className='btn btn-danger fw-bold' btnName={"-"} />
-                      <div className='d-flex align-items-center px-3 fw-bold' >{item.quantity}</div>
-                      <Button onClick={() => handleProductIncrement(item?.id)} className='btn btn-success fw-bold me-3' btnName={"+"} />
-                      <Button className='btn btn-info fw-bold ' btnName={"Move to wishlist"} />
+                    <div className=' d-flex justify-content-between align-products-center'>
+                      <Button onClick={() => handleProductDecrement(product.id)} className='btn btn-danger fw-bold' btnName={"-"} />
+                      <div className='d-flex align-products-center px-3 fw-bold' >{product.quantity}</div>
+                      <Button onClick={() => handleProductIncrement(product.id)} className='btn btn-success fw-bold me-3' btnName={"+"} />
+                      <Button className='btn btn-info fw-bold ' onClick={() => handleAddToWishList(product)} btnName={"Move to wishlist"} />
                     </div>
                   </div>
 
-                  <div className='ms-5 align-items-centercart-item me-5 fw-bold '>₹{item.price} (x{item.quantity})</div>
+                  <div className='ms-5 align-products-centercart-product me-5 fw-bold '>₹{product.price} (x{product.quantity})</div>
 
-                  <div className='ms-5 align-items-center'>
-                    <button onClick={() => handleProductDelete(item.id)} className='btn text-danger ' >
+                  <div className='ms-5 align-products-center'>
+                    <button onClick={() => handleProductDelete(product.id)} className='btn text-danger ' >
                       <span className="material-symbols-outlined">
                         delete
                       </span>
@@ -75,7 +80,7 @@ const Cart = ({ cart, setCart }) => {
               </li>
             ))}
             <div className='cart-total d-flex justify-content-end'>
-              <span className=' mx-3 py-3'>Total: ₹{cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
+              <span className=' mx-3 py-3'>Total: ₹{cart.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2)}</span>
               <Button className='btn btn-primary fw-bold' btnName={"Place Order"} />
             </div>
           </ul>

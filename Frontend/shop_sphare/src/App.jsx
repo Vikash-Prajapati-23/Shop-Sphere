@@ -94,9 +94,9 @@ function App() {
               <Route path="/Men" element={<Men handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
 
               <Route path="/Cart" element={<Cart handleW
-              ishList={handleWishList} cart={cart} setCart={setCart} handleCartAddition={handleCartAddition} />} />
+                ishList={handleWishList} cart={cart} setCart={setCart} handleWishList={handleWishList} />} />
 
-              <Route path="/WishList" element={<WishList handleWishList={handleWishList} wishlist={wishlist} setWishlist={setWishlist} handleCartAddition={handleCartAddition} />} />
+              <Route path="/WishList" element={<WishList wishlist={wishlist} setWishlist={setWishlist} handleCartAddition={handleCartAddition} />} />
 
               <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
 
