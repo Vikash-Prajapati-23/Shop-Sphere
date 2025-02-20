@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import "./Style/WishList.css";
 import Button from '../Button/Button';
 import toast, { Toaster } from 'react-hot-toast';
@@ -14,6 +13,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
   const handleAddToCart = (product) => {
     handleCartAddition(product);
     toast.success(`Product added to cart! ${'🛒'}`);
+    handleProductDelete(product.id);
   };
 
   return (
@@ -35,7 +35,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                       className="card-img card-img-top my-3"
                       alt="Image" />
                     <button onClick={() => handleProductDelete(product.id)}
-                      className='btn text-dark close-btn fs-2' >
+                      className='btn text-dark close-btn fs-2 shadow-none' >
                       ×
                     </button>
                   </div>
@@ -53,7 +53,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
                     <p className="d-flex justify-content-start fw-bold"> ₹{product.price} </p>
 
-                    <Button className='btn btn-success w-100' onClick={() => handleAddToCart(product.id)} btnName={"Move to cart"} />
+                    <Button className='btn btn-success w-100' onClick={() => handleAddToCart(product)} btnName={"Move to cart"} />
                   </div>
 
                 </div>
