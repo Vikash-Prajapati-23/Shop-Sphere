@@ -24,7 +24,7 @@ const Jewelery = () => {
 
   useEffect(() => {
     fetchJeweleryProducts();
-  });
+  }, []);  // Now it runs only once when the component mounts
 
   if (!jeweleryProduct) {
     return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
@@ -34,16 +34,11 @@ const Jewelery = () => {
     <div className="container card my-3" style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} >
       <div className=" m-3">
         <h3 className="text-center m-md-2">Jewelery</h3>
-        <div className="d-flex overflow-auto caro-hight">
+        <div className="d-flex flex-wrap">
           {jeweleryProduct.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickJewelery(product) }}>
               <Card
-                category={product.category}
-                title={product.title ? product.title.slice(0, 20) : "No Title"}
-                id={product.id}
-                image={product.image}
-                price={product.price}
-                rating={product.rating}
+                {...product}
               />
             </div>
           ))}

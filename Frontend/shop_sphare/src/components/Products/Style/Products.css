@@ -1,20 +1,3 @@
-/* .prod-image {
-  object-fit: contain;
-  height: 200px;
-  width: 100%;
-} */
-
-/* .d-flex.overflow-auto {
-  scroll-snap-type: x mandatory;
-  gap: 1rem;
-  padding: 1rem;
-} */
-
-/* .col-md-3 {
-  scroll-snap-align: start;
-} */
-
-/* Responsive breakpoints */
 @media (max-width: 768px) {
   .col-md-3 {
     width: 50%;

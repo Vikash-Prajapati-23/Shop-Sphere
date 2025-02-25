@@ -34,16 +34,12 @@ const Women = () => {
     <div className="container card my-3" style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} >
       <div className=" m-3">
         <h3 className="text-center m-md-2">Women's Clothing</h3>
-        <div className="d-flex overflow-auto caro-hight">
+        <div className="d-flex overflow-auto">
           {woMenProduct.map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickWomen(product) }}
             >
               <Card
-                title={product.title ? product.title.slice(0, 20) : "No Title."}
-                id={product.id}
-                image={product.image}
-                price={product.price}
-                rating={product.rating}
+                {...product}
               />
             </div>
           ))}

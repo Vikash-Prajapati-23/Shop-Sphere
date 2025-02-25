@@ -30,7 +30,7 @@ const Card = ({
           alt="Image"
         />
         <div style={{ backgroundColor: toggleMode.mode === true ? "#2C2C2C" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="card-body">
-          <h5 className="card-title">{title}...</h5>
+          <h5 className="card-title">{title ? title.slice(0, 20) : "No Title."}...</h5>
           <p className="mb-1">Price = ${price}</p>
           <p className="mb-1">
             <span style={{ color: "gold", fontSize: "1.3rem" }}>★ </span>
