@@ -45,7 +45,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
 
                 <img src={product.image} className='cart-product mx-5' alt={product.title} onClick={() => handleCardClick(product)} />
 
-                <div className=' d-flex justify-content-between align-products-center'>
+                <div className=' d-flex justify-content-between align-items-center'>
                   <div className=' justify-content-between '>
                     <pre className=' '> {product.title?.slice(0, 20) || "No Title"}... </pre>
                     <div className=' d-flex align-products-center'>

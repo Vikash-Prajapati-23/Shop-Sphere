@@ -4,7 +4,6 @@ import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
-import toast, { Toaster } from 'react-hot-toast';
 
 const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWishlistProduct
   const [singleProduct, setsingleProduct] = useState(null);
@@ -26,12 +25,10 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
-    toast.success(`Product added to cart! ${'🛒'}`);
   }
 
   const handleWishlist = (product) => {
     handleWishList(product);
-    toast.success(`Product added to Wishlist! ${'❤️'}`);
   }
 
   useEffect(() => {
@@ -47,7 +44,6 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
       <div className="m-3">
         <div className="d-flex">
           <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="prod-img m-4 ">
-            <Toaster />
             <img
               className="m-4 prod-img"
               src={singleProduct.image}

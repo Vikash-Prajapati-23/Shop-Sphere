@@ -5,13 +5,11 @@ import { themeContext } from "../../App";
 import Cart from "../Cart/Cart";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
-// import Products from "../Products/Products";
 
 const Navbar = ({ cart }) => {
 
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
-
 
   return (
     <nav style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black", boxShadow: toggleMode.mode ? "rgba(192, 189, 189, 0.61) 0px 15px 10px -10px" : "rgba(96, 95, 95, 0.65) 0px 15px 10px -10px" }} className={`navbar sticky-sm-top sticky-top navbar-expand-lg`}>
