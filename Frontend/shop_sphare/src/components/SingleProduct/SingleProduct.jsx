@@ -6,7 +6,7 @@ import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 import toast, { Toaster } from 'react-hot-toast';
 
-const SingleProduct = ({  }) => {   // fetchWishlistProduct
+const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWishlistProduct
   const [singleProduct, setsingleProduct] = useState(null);
   // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
@@ -20,12 +20,22 @@ const SingleProduct = ({  }) => {   // fetchWishlistProduct
       setsingleProduct(data); // Update the product state with fetched data.
     } catch (error) {
       console.error("Error fetching data: ", error);
-      
+
     }
   };
 
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+    toast.success(`Product added to cart! ${'🛒'}`);
+  }
+
+  const handleWishlist = (product) => {
+    handleWishList(product);
+    toast.success(`Product added to Wishlist! ${'❤️'}`);
+  }
+
   useEffect(() => {
-    fetchSingleProduct(); 
+    fetchSingleProduct();
   }, []);
 
   if (!singleProduct) {
@@ -59,17 +69,14 @@ const SingleProduct = ({  }) => {   // fetchWishlistProduct
             <div className="prod-btn d-flex m-3">
               <Button
                 onClick={() => {
-                  // alert.showAlert("Added to wishlist", "btn text-bg-primary");
-                  // fetchWishlistProduct();
-                  toast.success(`Product added to wishlist! ${'❤️'}`);
+                  handleWishlist(singleProduct)
                 }}
                 className={"btn btn-success"}
                 btnName={"Wishlist"}
               />
               <Button
                 onClick={() => {
-                  // alert.showAlert("Added to cart", "success");
-                  toast.success(`Product added to cart! ${'🛒'}`);
+                  handleAddToCart(singleProduct)
                 }}
                 className={"btn btn-success mx-3"}
                 btnName={"Add to cart"}

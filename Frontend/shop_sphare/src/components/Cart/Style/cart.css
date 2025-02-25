@@ -3,6 +3,13 @@
     grid-template-columns: auto 1fr;
 }
 
+.cart-product {
+    width: 150px;  /* Set a fixed width */
+    height: 150px; /* Set a fixed height */
+    object-fit: contain; /* Ensures images maintain aspect ratio and fill the container */
+}
+  
+
 .cart-list {
     list-style-type: none;
     padding: 10px;

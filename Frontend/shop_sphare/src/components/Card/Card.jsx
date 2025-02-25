@@ -15,7 +15,7 @@ const Card = ({
   rating,
   fetchSingleProduct,
   handleAddToCart, 
-  handleAddToWishList, 
+  handleWishlist, 
 }) => {
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                handleAddToWishList(product); // Pass the product object to the handleAddToWishList function
+                handleWishlist(product); // Pass the product object to the handleWishlist function
               }}
               className={"btn btn-success"}
               btnName={"Wishlist"}

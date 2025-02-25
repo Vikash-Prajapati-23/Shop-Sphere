@@ -1,6 +1,7 @@
 import React, { createContext, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -19,7 +20,6 @@ const Jewelery = lazy(() => import("./components/Jewelery/Jewelery"));
 const SingleProduct = lazy(() => import("./components/SingleProduct/SingleProduct"));
 
 // Creating context 
-// const alertContext = createContext();
 const themeContext = createContext();
 
 function App() {
@@ -37,14 +37,13 @@ function App() {
       sun.classList.add('hide');
       document.body.style.backgroundColor = '#121212';
       document.body.style.color = '#333333';
-      // showAlert("Switch to Dark mode.", "green");
-    } else {
+    } 
+    else {
       setMode(false);
       sun.classList.remove('hide');
       moon.classList.add('hide');
       document.body.style.backgroundColor = '#EAECED';
       document.body.style.color = '#fff';
-      // showAlert("Switch to Light mode.", "blue");
     }
   };
 
@@ -52,11 +51,13 @@ function App() {
   const handleCartAddition = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
+      toast.success(`Product added to cart! ${'🛒'}`);
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } else {
+      } 
+      else {
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
@@ -66,11 +67,13 @@ function App() {
   const handleWishList = (product) => {
     setWishlist((prevWishlist) => {
       const existingProduct = prevWishlist.find((item) => item.id === product.id);
+      toast.success(`Product added to Wishlist! ${'❤️'}`);
       if (existingProduct) {
         return prevWishlist.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } else {
+      } 
+      else {
         return [...prevWishlist, { ...product, quantity: 1 }];
       }
     });
@@ -82,6 +85,7 @@ function App() {
         <themeContext.Provider value={{ mode, toggleTheme }}>
           <Suspense fallback={<div>Loading...</div>}>
             <Navbar cart={cart} />
+            <Toaster />
             <Routes>
               <Route path="/" element={<Home handleWishList={handleWishList} setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />} />
 

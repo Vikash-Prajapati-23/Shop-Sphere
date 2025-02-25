@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 
-const Electronics = () => {
+const Electronics = ({ handleWishList, handleCartAddition }) => {
   const [electricProduct, setElectricProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -20,6 +20,14 @@ const Electronics = () => {
 
   const handleCardClickElectronics = (product) => {
     nevigate(`/SingleProduct/${product.id}`);
+  }
+
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+  }
+
+  const handleAddToWishlist = (product) => {
+    handleWishList(product);
   }
 
   useEffect(() => {
@@ -46,6 +54,8 @@ const Electronics = () => {
                 image={product.image}
                 price={product.price}
                 rating={product.rating}
+                handleAddToCart={() => handleAddToCart(product)}
+                handleAddToWishlist={() => handleAddToWishlist(product)}
               />
             </div>
           ))}

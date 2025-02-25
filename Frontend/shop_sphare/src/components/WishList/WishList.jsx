@@ -12,7 +12,6 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
-    toast.success(`Product added to cart! ${'🛒'}`);
     handleProductDelete(product.id);
   };
 

@@ -2,8 +2,6 @@ import React from 'react';
 import "./Style/Cart.css";
 import Button from '../Button/Button';
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast';
-
 
 const Cart = ({ cart, setCart, handleWishList }) => {
 
@@ -33,25 +31,23 @@ const Cart = ({ cart, setCart, handleWishList }) => {
 
   const handleAddToWishList = (product) => {
     handleWishList(product);
-    toast.success(`Product added to Wishlist! ${'❤️'}`);
     handleProductDelete(product.id);
   };
 
   return (
     <div className='container bg-clr my-5'>
       <h2 className='text-center py-4'>Shopping Cart</h2>
-      <Toaster />
       <ul >
         {cart.length === 0 ? <div className='d-flex align-products-center justify-content-center gap-5 py-4'> <img src='./images/empty-cart.png' ></img> <h4> Your cart is empty.!</h4> </div> : (
           <ul>
             {cart.map((product) => (
               <li className='cart-container cart-list rounded m-2 py-3' key={product.id} >
 
-                <img src={product.image}  style={{height: "150px"}} className='cart-product mx-5' alt={product.title} onClick={() => handleCardClick(product)} />
+                <img src={product.image} className='cart-product mx-5' alt={product.title} onClick={() => handleCardClick(product)} />
 
                 <div className=' d-flex justify-content-between align-products-center'>
                   <div className=' justify-content-between '>
-                    <pre className='cart-product '>{product.title?.slice(0, 20) || "No Title"}...</pre>
+                    <pre className=' '> {product.title?.slice(0, 20) || "No Title"}... </pre>
                     <div className=' d-flex align-products-center'>
                       <p>
                         <span className='fw-bold' style={{ color: "gold" }}>★ </span>
@@ -67,7 +63,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                     </div>
                   </div>
 
-                  <div className='ms-5 align-products-centercart-product me-5 fw-bold '>₹{product.price} (x{product.quantity})</div>
+                  <div className='ms-5 align-products-center me-5 fw-bold '>₹{product.price} (x{product.quantity})</div>
 
                   <div className='ms-5 align-products-center'>
                     <button onClick={() => handleProductDelete(product.id)} className='btn text-danger ' >
