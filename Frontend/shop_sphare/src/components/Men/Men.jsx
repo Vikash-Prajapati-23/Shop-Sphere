@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 
-const Men = () => {
+const Men = ({ handleCartAddition, handleWishList }) => {
   const [menProduct, setMenProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -18,6 +18,14 @@ const Men = () => {
     const newUrl = await url.json();
     setMenProduct(newUrl);
   };
+
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+  }
+
+  const handleWishlist = (product) => {
+    handleWishList(product);
+  }
 
   const handleCardClickMan = (product) => {
     nevigate(`/SingleProduct/${product.id}`)
@@ -40,6 +48,8 @@ const Men = () => {
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickMan(product) }} >
               <Card
                 {...product}
+                handleAddToCart={() => handleAddToCart(product)}
+                handleWishlist={() => handleWishlist(product)}
               />
             </div>
           ))}

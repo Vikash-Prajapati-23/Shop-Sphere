@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 
-const Women = () => {
+const Women = ({ handleCartAddition, handleWishList }) => {
   const [woMenProduct, setWoMenProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -16,7 +16,16 @@ const Women = () => {
     );
     const newUrl = await url.json();
     setWoMenProduct(newUrl);
-  };
+  }
+
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+  }
+
+  const handleWishlist = (product) => {
+    handleWishList(product);
+  }
+
 
   const handleCardClickWomen = (product) => {
     nevigate(`/SingleProduct/${product.id}`);
@@ -40,6 +49,8 @@ const Women = () => {
             >
               <Card
                 {...product}
+                handleAddToCart={() => handleAddToCart(product)}
+                handleWishlist={() => handleWishlist(product)}
               />
             </div>
           ))}

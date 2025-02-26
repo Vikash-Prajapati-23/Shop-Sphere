@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from '../../App';
 
-const Jewelery = () => {
+const Jewelery = ({ handleCartAddition, handleWishList }) => {
   const [jeweleryProduct, setJeweleryProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -17,6 +17,14 @@ const Jewelery = () => {
     const newProducts = await url.json();
     setJeweleryProduct(newProducts);
   };
+
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+  }
+
+  const handleWishlist = (product) => {
+    handleWishList(product);
+  }
 
   const handleCardClickJewelery = (product) => {
     nevigate(`/SingleProduct/${product.id}`);
@@ -39,6 +47,8 @@ const Jewelery = () => {
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => { handleCardClickJewelery(product) }}>
               <Card
                 {...product}
+                handleAddToCart={() => handleAddToCart(product)}
+                handleWishlist={() => handleWishlist(product)}
               />
             </div>
           ))}

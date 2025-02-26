@@ -15,10 +15,7 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
       `https://fakestoreapi.com/products/category/electronics`
     );
     const newProducts = await url.json();
-    if (JSON.stringify(newProducts) !== JSON.stringify(electricProduct)) {
-      setElectricProduct(newProducts);
-    }
-    // setElectricProduct(newProducts);
+    setElectricProduct(newProducts);
   };
 
   const handleCardClickElectronics = (product) => {
@@ -27,11 +24,11 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
-  };
+  }
 
-  // const handleAddToWishlist = (product) => {
-  //   handleWishList(product);
-  // };
+  const handleWishlist = (product) => {
+    handleWishList(product);
+  }
 
   useEffect(() => {
     fetchElectricProducts();
@@ -52,8 +49,8 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
             }}>
               <Card
                 {...product}
+                handleWishlist={() => handleWishlist(product)}
                 handleAddToCart={() => handleAddToCart(product)}
-                handleAddToWishlist={() => handleWishList(product)}
               />
             </div>
           ))}
