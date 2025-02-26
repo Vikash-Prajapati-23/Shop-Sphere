@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./Style/WishList.css";
 import Button from '../Button/Button';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
+
+  const navigate = useNavigate();
+  const handleCardClick = (product) => {
+    navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+  };
 
   const handleProductDelete = (id) => {
     const filteredCart = wishlist?.filter((item) => item?.id !== id);
@@ -30,9 +36,11 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                 <div className="p-3 " >
                   <div>
                     <img src={product.image}
-                      style={{ height: "150px", objectFit: "contain" }}
+                      style={{ height: "150px", objectFit: "contain", cursor: "pointer" }}
                       className="card-img card-img-top my-3"
-                      alt="Image" />
+                      alt="Image"
+                      onClick={() => handleCardClick(wishlist)}
+                    />
                     <button onClick={() => handleProductDelete(product.id)}
                       className='btn text-dark close-btn fs-2 shadow-none' >
                       ×
