@@ -27,11 +27,11 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
-  }
+  };
 
-  const handleAddToWishlist = (product) => {
-    handleWishList(product);
-  }
+  // const handleAddToWishlist = (product) => {
+  //   handleWishList(product);
+  // };
 
   useEffect(() => {
     fetchElectricProducts();
@@ -53,7 +53,7 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
               <Card
                 {...product}
                 handleAddToCart={() => handleAddToCart(product)}
-                handleAddToWishlist={() => handleAddToWishlist(product)}
+                handleAddToWishlist={() => handleWishList(product)}
               />
             </div>
           ))}
