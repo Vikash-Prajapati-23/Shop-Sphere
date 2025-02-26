@@ -52,7 +52,7 @@ function App() {
   const handleCartAddition = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-      toast.success(`Product added to cart! ${'🛒'}`);
+      toast.success(`Product added to cart! ${'🛒'}`, {id: "cart-toast"});
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -68,7 +68,7 @@ function App() {
   const handleWishList = (product) => {
     setWishlist((prevWishlist) => {
       const existingProduct = prevWishlist.find((item) => item.id === product.id);
-      toast.success(`Product added to Wishlist! ${'❤️'}`);
+      toast.success(`Product added to Wishlist! ${'❤️'}`, {id: "Wishlist-toast"});
       if (existingProduct) {
         return prevWishlist.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -112,7 +112,7 @@ function App() {
               <Route path="/Jewelery" element={<Jewelery handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
               <Route path="/SingleProduct/:id" element={<SingleProduct handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
-              
+
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
 
             </Routes>
