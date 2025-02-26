@@ -6,7 +6,7 @@ import Cart from "../Cart/Cart";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
-const Navbar = ({ cart }) => {
+const Navbar = ({ cart, setQuery }) => {
 
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
@@ -105,6 +105,7 @@ const Navbar = ({ cart }) => {
                 placeholder="Search Products"
                 aria-label="Search Products"
                 aria-describedby="button-addon2"
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
               />
               <button
                 className="btn btn-secondary"

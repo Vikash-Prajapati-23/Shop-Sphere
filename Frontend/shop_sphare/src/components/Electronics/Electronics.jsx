@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 
-const Electronics = ({ handleWishList, handleCartAddition }) => {
+const Electronics = ({ handleWishList, handleCartAddition, query }) => {
   const [electricProduct, setElectricProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -43,7 +43,7 @@ const Electronics = ({ handleWishList, handleCartAddition }) => {
       <div className=" m-3">
         <h3 className="text-center m-md-2">Electronics</h3>
         <div className="d-flex overflow-auto">
-          {electricProduct.map((product) => (
+          {electricProduct.filter((product) => product.title.toLowerCase().includes(query)).map((product) => (
             <div className="col-md-3 flex-shrink-0" key={product.id} onClick={() => {
               handleCardClickElectronics(product)
             }}>

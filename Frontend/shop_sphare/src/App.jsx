@@ -27,6 +27,7 @@ function App() {
   const [cartProductId, setCartProductId] = useState('');
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [query, setQuery] = useState('');
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
@@ -37,7 +38,7 @@ function App() {
       sun.classList.add('hide');
       document.body.style.backgroundColor = '#121212';
       document.body.style.color = '#333333';
-    } 
+    }
     else {
       setMode(false);
       sun.classList.remove('hide');
@@ -56,7 +57,7 @@ function App() {
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } 
+      }
       else {
         return [...prevCart, { ...product, quantity: 1 }];
       }
@@ -72,7 +73,7 @@ function App() {
         return prevWishlist.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } 
+      }
       else {
         return [...prevWishlist, { ...product, quantity: 1 }];
       }
@@ -84,10 +85,10 @@ function App() {
       <Router>
         <themeContext.Provider value={{ mode, toggleTheme }}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Navbar cart={cart} />
+            <Navbar cart={cart} setQuery={setQuery} />
             <Toaster />
             <Routes>
-              <Route path="/" element={<Home handleWishList={handleWishList} setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} />} />
+              <Route path="/" element={<Home handleWishList={handleWishList} setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} query={query} />} />
 
               <Route path="/AboutUs" element={<AboutUs />} />
 
@@ -95,7 +96,7 @@ function App() {
 
               <Route path="/LoginSignup" element={<LogInSignUp />} />
 
-              <Route path="/Men" element={<Men handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
+              <Route path="/Men" element={<Men handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
               <Route path="/Cart" element={<Cart handleW
                 ishList={handleWishList} cart={cart} setCart={setCart} handleWishList={handleWishList} />} />
@@ -104,14 +105,14 @@ function App() {
 
               <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
 
-              <Route path="/Women" element={<Women handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
+              <Route path="/Women" element={<Women handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
-              <Route path="/Electronics" element={<Electronics handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
+              <Route path="/Electronics" element={<Electronics handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
-              <Route path="/Jewelery" element={<Jewelery handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
+              <Route path="/Jewelery" element={<Jewelery handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
               <Route path="/SingleProduct/:id" element={<SingleProduct handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
-
+              
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
 
             </Routes>

@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 
-const Products = ({ handleCartAddition, handleWishList }) => {
+const Products = ({ handleCartAddition, handleWishList, query }) => {
   const [products, setProducts] = useState(null);
   const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
@@ -45,7 +45,7 @@ const Products = ({ handleCartAddition, handleWishList }) => {
     <div style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
       <div className="d-flex flex-wrap justify-content-start">
-        {filteredProducts.map((product) => (
+        {filteredProducts.filter((product) => product.title.toLowerCase().includes(query)).map((product) => (
           <div
             className="col-md-3 flex-shrink-0 my-2"
             key={product.id}
