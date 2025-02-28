@@ -10,7 +10,7 @@ const Cart = lazy(() => import("./components/Cart/Cart"));
 const WishList = lazy(() => import("./components/WishList/WishList"));
 const Home = lazy(() => import("./components/Home/Home"));
 const Men = lazy(() => import("./components/Men/Men"));
-const Kid = lazy(() => import("./components/Kid/Kid"));
+// const Kid = lazy(() => import("./components/Kid/Kid"));
 const Women = lazy(() => import("./components/Women/Women"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
@@ -103,7 +103,7 @@ function App() {
 
               <Route path="/WishList" element={<WishList wishlist={wishlist} setWishlist={setWishlist} handleCartAddition={handleCartAddition} />} />
 
-              <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} />
+              {/* <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} /> */}
 
               <Route path="/Women" element={<Women handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
 
