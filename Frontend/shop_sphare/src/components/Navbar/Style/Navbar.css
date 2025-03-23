@@ -4,6 +4,7 @@
 
 .navs{
     margin: auto;
+    border: 2px solid transparent;
 }
 
 .cont-login{

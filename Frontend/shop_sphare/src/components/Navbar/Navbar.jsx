@@ -21,7 +21,7 @@ const Navbar = ({ cart, setQuery }) => {
       }}
       className={`navbar sticky-sm-top sticky-top navbar-expand-lg`}
     >
-      <div className="container-fluid">
+      <div className="d-flex justify-content-between container">
         <a className="navbar-brand">
           <img
             src="./images/logo1.png"
