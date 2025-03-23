@@ -41,7 +41,7 @@ const Card = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card
-                handleWishlist(product); // Pass the product object to the handleWishlist function
+                handleWishlist(product);
               }}
               className={"btn btn-success"}
               btnName={"Wishlist"}

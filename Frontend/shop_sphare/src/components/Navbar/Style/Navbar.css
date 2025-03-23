@@ -37,3 +37,27 @@
 .hide{
     display: none;
 }
+
+.search_box {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.search-bar{
+    width: 100%;
+    border: none;
+    padding: 5px;
+    border-radius: 10%;
+    outline: none;
+}
+.search-btn {
+    padding: 3px 10px;
+    border: none;
+    border-radius: 10%;
+}
+
+@media only screen and (max-width: 400px){
+    .search_box{
+        display: none;
+    }
+}

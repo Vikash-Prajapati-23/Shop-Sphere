@@ -8,7 +8,7 @@ import { themeContext } from "../../App";
 const Products = ({ handleCartAddition, handleWishList, query }) => {
   const [products, setProducts] = useState(null);
   const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
-  const [filteredProducts, setFilteredProducts] = useState([]); // Added: State for filtered products.
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
   const toggleMode = useContext(themeContext);
 
