@@ -127,7 +127,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="d-lg-flex d-flex d-md-block gap-5 justify-content-center p-2 mt-3 mt-md-0 mt-lg-0">
+        <div className="d-md-block gap-5 justify-content-center p-2 mt-3 mt-md-0 mt-lg-0">
           <div className="contact-foot foot-items mx-auto">
             <h5 className="foot-headings">Reach Us</h5>
             <p>Shop Sphere PVT LTD</p>
