@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
@@ -7,6 +7,7 @@ import Cart from "../Cart/Cart";
 // import { addToCart } from "../../features/cartSlice";
 
 const Navbar = ({ cart, setQuery }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
 
@@ -19,19 +20,20 @@ const Navbar = ({ cart, setQuery }) => {
           ? "rgba(192, 189, 189, 0.61) 0px 15px 10px -10px"
           : "rgba(96, 95, 95, 0.65) 0px 15px 10px -10px",
       }}
-      className={`navbar sticky-sm-top sticky-top navbar-expand-lg`}
+      className={`navbar sticky-sm-top sticky-top p-0 navbar-expand-lg`}
     >
       <div className="d-flex justify-content-between container">
         <a className="navbar-brand">
           <img
             src="./images/logo1.png"
-            style={{ borderRadius: "50%", height: "4rem" }}
+            style={{ borderRadius: "50%", maxHeight: "60px" }}
             alt="Logo"
+            className="img-fluid "
           />
         </a>
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler fs-5 fs-md-3 p-1"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -41,6 +43,7 @@ const Navbar = ({ cart, setQuery }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item navs">
@@ -110,6 +113,9 @@ const Navbar = ({ cart, setQuery }) => {
 
           <div className="search_box d-flex" role="search">
             <input
+              style={{
+                color: toggleMode.mode === true ? "#fff" : "black",
+              }}
               type="text"
               className="search-bar"
               placeholder="Search Products"
@@ -142,13 +148,24 @@ const Navbar = ({ cart, setQuery }) => {
               </span>
             </li>
             <li className="nav-item navs">
-              <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                className="nav-link active fw-bold"
-                to="/LogInSignUp"
-              >
-                Log In
-              </Link>
+              {!isLoggedIn ? (
+                <Link
+                  style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+                  className="nav-link active fw-bold outli"
+                  to="/LogInSignUp"
+                >
+                  Log In
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsLoggedIn(true);
+                  }}
+                  className="nav-link active fw-bold"
+                >
+                  Log Out
+                </button>
+              )}
             </li>
             <li className="nav-item navs">
               <Link className="nav-link active " to="/WishList">

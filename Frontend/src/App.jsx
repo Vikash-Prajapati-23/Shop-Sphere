@@ -1,7 +1,7 @@
 import React, { createContext, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -17,34 +17,35 @@ const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
 const LogInSignUp = lazy(() => import("./components/LogInSignUp/LogInSignUp"));
 const Electronics = lazy(() => import("./components/Electronics/Electronics"));
 const Jewelery = lazy(() => import("./components/Jewelery/Jewelery"));
-const SingleProduct = lazy(() => import("./components/SingleProduct/SingleProduct"));
+const SingleProduct = lazy(() =>
+  import("./components/SingleProduct/SingleProduct")
+);
 
-// Creating context 
+// Creating context
 const themeContext = createContext();
 
 function App() {
   const [mode, setMode] = useState(false);
-  const [cartProductId, setCartProductId] = useState('');
+  const [cartProductId, setCartProductId] = useState("");
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
     let moon = document.querySelector(".moon");
     if (mode === false) {
       setMode(true);
-      moon.classList.remove('hide');
-      sun.classList.add('hide');
-      document.body.style.backgroundColor = '#121212';
-      document.body.style.color = '#333333';
-    }
-    else {
+      moon.classList.remove("hide");
+      sun.classList.add("hide");
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.color = "#333333";
+    } else {
       setMode(false);
-      sun.classList.remove('hide');
-      moon.classList.add('hide');
-      document.body.style.backgroundColor = '#EAECED';
-      document.body.style.color = '#fff';
+      sun.classList.remove("hide");
+      moon.classList.add("hide");
+      document.body.style.backgroundColor = "#EAECED";
+      document.body.style.color = "#fff";
     }
   };
 
@@ -52,13 +53,14 @@ function App() {
   const handleCartAddition = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-      toast.success(`Product added to cart! ${'🛒'}`, {id: "cart-toast"});
+      toast.success(`Product added to cart! ${"🛒"}`, { id: "cart-toast" });
       if (existingProduct) {
         return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
-      }
-      else {
+      } else {
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
@@ -67,14 +69,19 @@ function App() {
   // Function to handle adding items to the wishlist
   const handleWishList = (product) => {
     setWishlist((prevWishlist) => {
-      const existingProduct = prevWishlist.find((item) => item.id === product.id);
-      toast.success(`Product added to Wishlist! ${'❤️'}`, {id: "Wishlist-toast"});
+      const existingProduct = prevWishlist.find(
+        (item) => item.id === product.id
+      );
+      toast.success(`Product added to Wishlist! ${"❤️"}`, {
+        id: "Wishlist-toast",
+      });
       if (existingProduct) {
         return prevWishlist.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
-      }
-      else {
+      } else {
         return [...prevWishlist, { ...product, quantity: 1 }];
       }
     });
@@ -88,7 +95,17 @@ function App() {
             <Navbar cart={cart} setQuery={setQuery} />
             <Toaster />
             <Routes>
-              <Route path="/" element={<Home handleWishList={handleWishList} setCartProductId={setCartProductId} handleCartAddition={handleCartAddition} query={query} />} />
+              <Route
+                path="/"
+                element={
+                  <Home
+                    handleWishList={handleWishList}
+                    setCartProductId={setCartProductId}
+                    handleCartAddition={handleCartAddition}
+                    query={query}
+                  />
+                }
+              />
 
               <Route path="/AboutUs" element={<AboutUs />} />
 
@@ -96,25 +113,87 @@ function App() {
 
               <Route path="/LoginSignup" element={<LogInSignUp />} />
 
-              <Route path="/Men" element={<Men handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
+              <Route
+                path="/Men"
+                element={
+                  <Men
+                    handleWishList={handleWishList}
+                    handleCartAddition={handleCartAddition}
+                    query={query}
+                  />
+                }
+              />
 
-              <Route path="/Cart" element={<Cart handleW
-                ishList={handleWishList} cart={cart} setCart={setCart} handleWishList={handleWishList} />} />
+              <Route
+                path="/Cart"
+                element={
+                  <Cart
+                    handleW
+                    ishList={handleWishList}
+                    cart={cart}
+                    setCart={setCart}
+                    handleWishList={handleWishList}
+                  />
+                }
+              />
 
-              <Route path="/WishList" element={<WishList wishlist={wishlist} setWishlist={setWishlist} handleCartAddition={handleCartAddition} />} />
+              <Route
+                path="/WishList"
+                element={
+                  <WishList
+                    wishlist={wishlist}
+                    setWishlist={setWishlist}
+                    handleCartAddition={handleCartAddition}
+                  />
+                }
+              />
 
               {/* <Route path="/Kid" element={<Kid handleCartAddition={handleCartAddition} />} /> */}
 
-              <Route path="/Women" element={<Women handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
+              <Route
+                path="/Women"
+                element={
+                  <Women
+                    handleWishList={handleWishList}
+                    handleCartAddition={handleCartAddition}
+                    query={query}
+                  />
+                }
+              />
 
-              <Route path="/Electronics" element={<Electronics handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
+              <Route
+                path="/Electronics"
+                element={
+                  <Electronics
+                    handleWishList={handleWishList}
+                    handleCartAddition={handleCartAddition}
+                    query={query}
+                  />
+                }
+              />
 
-              <Route path="/Jewelery" element={<Jewelery handleWishList={handleWishList} handleCartAddition={handleCartAddition} query={query} />} />
+              <Route
+                path="/Jewelery"
+                element={
+                  <Jewelery
+                    handleWishList={handleWishList}
+                    handleCartAddition={handleCartAddition}
+                    query={query}
+                  />
+                }
+              />
 
-              <Route path="/SingleProduct/:id" element={<SingleProduct handleWishList={handleWishList} handleCartAddition={handleCartAddition} />} />
+              <Route
+                path="/SingleProduct/:id"
+                element={
+                  <SingleProduct
+                    handleWishList={handleWishList}
+                    handleCartAddition={handleCartAddition}
+                  />
+                }
+              />
 
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
-
             </Routes>
             <Footer />
           </Suspense>

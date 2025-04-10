@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Style/WishList.css";
 import Button from '../Button/Button';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 
 const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
@@ -27,7 +27,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
       <Toaster />
       <div>
         {wishlist.length === 0 ? <div className={"d-flex justify-content-center align-items-center"} >
-          <img src={"./images/wish.gif"} alt="image" ></img>
+          <img src={"./images/wish.gif"} alt="" ></img>
           <h4>Your wishlist is empty.!</h4>
         </div> : (
           <div className={"my-3 d-flex flex-wrap justify-content-center gap-3"} >
@@ -38,7 +38,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                     <img src={product.image}
                       style={{ height: "150px", objectFit: "contain", cursor: "pointer" }}
                       className="card-img card-img-top my-3"
-                      alt="Image"
+                      alt=""
                       onClick={() => handleCardClick(wishlist)}
                     />
                     <button onClick={() => handleProductDelete(product.id)}
