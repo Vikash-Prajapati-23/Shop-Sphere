@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./Style/LogInSignUp.css";
 
 const LogInSignUp = () => {
-  // State to track which form to display
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -18,7 +17,6 @@ const LogInSignUp = () => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
       });
-      
       const signUp = await createSignup.json();
       if (signUp.ok) {
         alert(signUp.message);
@@ -27,6 +25,26 @@ const LogInSignUp = () => {
       }
     } catch (error) {
       alert({ error: error.message });
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userLogin = await fetch("http://localhost:3001/api/auth/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const loggedInUser = await userLogin.json();
+      if (loggedInUser.ok) {
+        setIsLogin(false);
+        alert(loggedInUser.message);
+      } else {
+        alert(loggedInUser.message);
+      }
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -39,9 +57,9 @@ const LogInSignUp = () => {
   };
 
   // Toggle between Log In and Sign Up
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
+  // const toggleForm = () => {
+  //   setIsLogin(!isLogin);
+  // };
 
   return (
     <div className="my-5 p-4">
@@ -70,12 +88,15 @@ const LogInSignUp = () => {
         <div className="card-body">
           {/* Toggle between Log In and Sign Up forms based on isLogin */}
           {isLogin ? (
-            <LoginForm handleInputChange={handleInputChange} />
+            <LoginForm
+              handleInputChange={handleInputChange}
+              handleLogin={handleLogin}
+              formData={formData}
+            />
           ) : (
             <SignUpForm
               handleSignup={handleSignup}
               formData={formData}
-              setFormData={setFormData}
               handleInputChange={handleInputChange}
             />
           )}
@@ -84,62 +105,6 @@ const LogInSignUp = () => {
     </div>
   );
 };
-
-// Log In Form Component
-const LoginForm = () => (
-  <div className="login mx-4">
-    <div className="input-group flex-nowrap">
-      <span className="input-group-text" id="addon-wrapping">
-        <i className="fa-solid fa-user"></i>
-      </span>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Username or Email id"
-        aria-label="Username"
-        aria-describedby="addon-wrapping"
-      />
-    </div>
-
-    <div className="input-group flex-nowrap my-3">
-      <span className="input-group-text" id="addon-wrapping">
-        <i className="fa-solid fa-lock"></i>
-      </span>
-      <input
-        type="password"
-        className="form-control"
-        placeholder="Password"
-        aria-label="Password"
-        aria-describedby="addon-wrapping"
-      />
-    </div>
-
-    <div className="rem-forget d-flex justify-content-between mb-2">
-      <div className="log-remember">
-        <div className="form-check">
-          <input
-            className="form-check-input Remember"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label
-            className="form-check-label Remember"
-            htmlFor="flexCheckDefault"
-          >
-            Remember me
-          </label>
-        </div>
-      </div>
-
-      <div className="log-forget">
-        <a href="#">Forgot password</a>
-      </div>
-    </div>
-
-    <button className="btn btn-success log-btn">Submit</button>
-  </div>
-);
 
 // Sign Up Form Component
 const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
@@ -198,6 +163,72 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
 
       <button type="submit" className="btn btn-success log-btn">
         Sign Up
+      </button>
+    </form>
+  </div>
+);
+
+// Log In Form Component
+const LoginForm = ({ handleLogin, formData, handleInputChange }) => (
+  <div className="login mx-4">
+    <form onSubmit={handleLogin}>
+      <div className="input-group flex-nowrap">
+        <span className="input-group-text" id="addon-wrapping">
+          <i className="fa-solid fa-user"></i>
+        </span>
+        <input
+          type="text"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          className="form-control"
+          placeholder="Email id"
+          aria-label="Email"
+          aria-describedby="addon-wrapping"
+        />
+      </div>
+
+      <div className="input-group flex-nowrap my-3">
+        <span className="input-group-text" id="addon-wrapping">
+          <i className="fa-solid fa-lock"></i>
+        </span>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          className="form-control"
+          placeholder="Password"
+          aria-label="Password"
+          aria-describedby="addon-wrapping"
+        />
+      </div>
+
+      <div className="rem-forget d-flex justify-content-between mb-2">
+        <div className="log-remember">
+          <div className="form-check">
+            <input
+              className="form-check-input Remember"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label
+              className="form-check-label Remember"
+              htmlFor="flexCheckDefault"
+            >
+              Remember me
+            </label>
+          </div>
+        </div>
+
+        <div className="log-forget">
+          <a href="#">Forgot password</a>
+        </div>
+      </div>
+
+      <button type="submit" className="btn btn-success log-btn">
+        Submit
       </button>
     </form>
   </div>
