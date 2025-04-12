@@ -22,7 +22,7 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
         }
       );
       const signUp = await createSignup.json();
-      if (signUp.ok) {
+      if (createSignup.ok) {
         toast.success(signUp.message);
       } else {
         toast.error(signUp.message);

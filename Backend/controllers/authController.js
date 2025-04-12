@@ -1,6 +1,7 @@
-const auth = require("../models/authModels");
+import { auth } from '../models/authModels.js';
+import bcrypt from "bcryptjs";
 
-async function handleCreateSignup(req, res) {
+export async function handleCreateSignup(req, res) {
   const { userName, email, password } = req.body;
 
   try {
@@ -9,8 +10,12 @@ async function handleCreateSignup(req, res) {
       return res.status(400).json({ message: "Email already exists." });
     }
 
-    const newUser = await auth.create({ userName, email, password });
-    return res.status(201).json({
+    // Hash password before storing it on Database.
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash( password, salt );
+
+    const newUser = await auth.create({ userName, email, password: hashPassword });
+    return res.status(200).json({
       message: "Sign Up successfully.. !",
       user: {
         id: newUser._id,
@@ -23,13 +28,19 @@ async function handleCreateSignup(req, res) {
   }
 }
 
-async function handleCreateLogin(req, res) {
+export async function handleCreateLogin(req, res) {
   const { email, password } = req.body;
 
   try {
-    const user = await auth.findOne({ email, password });
+    const user = await auth.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "Invalid Email or Password." });
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    // Compare input password with the hashed one stored on Database.
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password." });
     }
 
     return res.status(200).json({
@@ -37,17 +48,12 @@ async function handleCreateLogin(req, res) {
       user: {
         id: user._id,
         email: user.email,
-        // Never send password back to the front. It's riskey as per security conserns.
+        // Never send password back to the front. It's risky as per security concerns.
       },
     });
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Error occured during Login.", error });
+      .json({ message: "Error occurred during Login.", error });
   }
 }
-
-module.exports = {
-  handleCreateSignup,
-  handleCreateLogin,
-};

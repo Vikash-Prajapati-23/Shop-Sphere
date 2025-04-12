@@ -1,9 +1,13 @@
-require('dotenv').config();
-const express = require('express');
-const authRoute = require('./routes/authRoutes');
-const { connectToMongoDB } = require('./connectToMongoDB');
-const cors = require('cors');
+import dotenv from 'dotenv';
+import express from 'express';
+import authRoute from './routes/authRoutes.js';
+import { connectToMongoDB } from './connectToMongoDB.js';
+import cors from 'cors';
 
+// Load environment variables
+dotenv.config();
+
+// Connect to MongoDB
 connectToMongoDB(process.env.MONGO_URL);
 
 const app = express();
@@ -13,17 +17,19 @@ const PORT = 3001;
 app.use(cors({
     origin: 'http://localhost:3000', // frontend's origin
     // credentials: true  // only needed if sending cookies
-  }));
+}));
 
 app.use(express.json());
 
+// Routes
 app.use('/api/auth', authRoute);
 
 app.use('/', (req, res) => res.send("Hey from server."));
 
 app.use((req, res, next) => {
-  console.log("Page not found.")
+  console.log("Page not found.");
   res.status(404).json({ error: 'Route not found' });
 });
 
+// Start the server
 app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));
