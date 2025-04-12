@@ -30,6 +30,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
@@ -92,7 +93,12 @@ function App() {
       <Router>
         <themeContext.Provider value={{ mode, toggleTheme }}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Navbar cart={cart} setQuery={setQuery} />
+            <Navbar
+              cart={cart}
+              setQuery={setQuery}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
             <Toaster />
             <Routes>
               <Route
@@ -111,7 +117,10 @@ function App() {
 
               <Route path="/ContactUs" element={<ContactUs />} />
 
-              <Route path="/LoginSignup" element={<LogInSignUp />} />
+              <Route
+                path="/LoginSignup"
+                element={<LogInSignUp setIsLoggedIn={setIsLoggedIn} />}
+              />
 
               <Route
                 path="/Men"

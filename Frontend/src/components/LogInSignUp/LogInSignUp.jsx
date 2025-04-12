@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import "./Style/LogInSignUp.css";
 
-const LogInSignUp = () => {
-  const [isLogin, setIsLogin] = useState(false);
+const LogInSignUp = ({ setIsLoggedIn }) => {
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -12,19 +13,22 @@ const LogInSignUp = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const createSignup = await fetch("http://localhost:3001/api/auth/signup", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const createSignup = await fetch(
+        "http://localhost:3001/api/auth/signup",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const signUp = await createSignup.json();
       if (signUp.ok) {
-        alert(signUp.message);
+        toast.success(signUp.message);
       } else {
-        alert(signUp.message);
+        toast.error(signUp.message);
       }
     } catch (error) {
-      alert({ error: error.message });
+      toast.error(error.message);
     }
   };
 
@@ -37,14 +41,14 @@ const LogInSignUp = () => {
         body: JSON.stringify(formData),
       });
       const loggedInUser = await userLogin.json();
-      if (loggedInUser.ok) {
-        setIsLogin(false);
-        alert(loggedInUser.message);
+      if (userLogin.ok) {
+        setIsLoggedIn(true); // Set user as logged in
+        toast.success(loggedInUser.message);
       } else {
-        alert(loggedInUser.message);
+        toast.error(loggedInUser.message || "Login failed");
       }
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -55,11 +59,6 @@ const LogInSignUp = () => {
       [name]: value,
     }));
   };
-
-  // Toggle between Log In and Sign Up
-  // const toggleForm = () => {
-  //   setIsLogin(!isLogin);
-  // };
 
   return (
     <div className="my-5 p-4">

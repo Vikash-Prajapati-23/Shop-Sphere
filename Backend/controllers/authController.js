@@ -32,12 +32,11 @@ async function handleCreateLogin(req, res) {
       return res.status(401).json({ message: "Invalid Email or Password." });
     }
 
-    const userLogin = await auth.findOne({ email, password });
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Logged in successfully.",
       user: {
-        id: userLogin._id,
-        email: userLogin.email,
+        id: user._id,
+        email: user.email,
         // Never send password back to the front. It's riskey as per security conserns.
       },
     });

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
 import Cart from "../Cart/Cart";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
-const Navbar = ({ cart, setQuery }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const toggleMode = useContext(themeContext);
   // const dispatch = useDispatch();
 
@@ -148,7 +149,17 @@ const Navbar = ({ cart, setQuery }) => {
               </span>
             </li>
             <li className="nav-item navs">
-              {!isLoggedIn ? (
+              {isLoggedIn ? (
+                <button
+                  onClick={() => {
+                    setIsLoggedIn(false); // Log out the user
+                    toast.success("Logged out successfully!");
+                  }}
+                  className="nav-link active fw-bold"
+                >
+                  Log Out
+                </button>
+              ) : (
                 <Link
                   style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                   className="nav-link active fw-bold outli"
@@ -156,15 +167,6 @@ const Navbar = ({ cart, setQuery }) => {
                 >
                   Log In
                 </Link>
-              ) : (
-                <button
-                  onClick={() => {
-                    setIsLoggedIn(true);
-                  }}
-                  className="nav-link active fw-bold"
-                >
-                  Log Out
-                </button>
               )}
             </li>
             <li className="nav-item navs">
