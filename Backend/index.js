@@ -3,6 +3,7 @@ import express from 'express';
 import authRoute from './routes/authRoutes.js';
 import { connectToMongoDB } from './connectToMongoDB.js';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 // Load environment variables
 dotenv.config();
@@ -16,10 +17,11 @@ const PORT = 3001;
 // CORS setup
 app.use(cors({
     origin: 'http://localhost:3000', // frontend's origin
-    // credentials: true  // only needed if sending cookies
+    credentials: true  // only needed if sending cookies
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRoute);

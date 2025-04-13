@@ -1,4 +1,10 @@
-import React, { createContext, useState, Suspense, lazy } from "react";
+import React, {
+  createContext,
+  useState,
+  Suspense,
+  lazy,
+  useEffect,
+} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
@@ -31,6 +37,49 @@ function App() {
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true)
+
+ const [toastShown, setToastShown] = useState(false);
+
+  useEffect(() => {
+    const verifyLoggedUser = async () => {
+      setIsLoading(true);
+      try {
+        const verifyUser = await fetch(
+          `http://localhost:3001/api/auth/verify-session-user`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const sessionData = await verifyUser.json();
+        if (verifyUser.ok) {
+          if (!toastShown) {
+            toast.success(sessionData.message);
+            setToastShown(true);
+          }
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+          setToastShown(false);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Error verifying session:", error);
+          setIsLoggedIn(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifyLoggedUser();
+
+  }, [setIsLoggedIn, toastShown]);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");

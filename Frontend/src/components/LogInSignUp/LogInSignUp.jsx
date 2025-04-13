@@ -39,6 +39,7 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
+        credentials: 'include', // Include cookies in the request
       });
       const loggedInUser = await userLogin.json();
       if (userLogin.ok) {
