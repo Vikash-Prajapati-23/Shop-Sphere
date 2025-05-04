@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Style/LogInSignUp.css";
 
@@ -9,6 +10,7 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate(); // React Router's navigation hook
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -39,12 +41,13 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
-        credentials: 'include', // Include cookies in the request
+        credentials: "include", // Include cookies in the request
       });
       const loggedInUser = await userLogin.json();
       if (userLogin.ok) {
         setIsLoggedIn(true); // Set user as logged in
         toast.success(loggedInUser.message);
+        navigate("/"); // Redirect to the home page
       } else {
         toast.error(loggedInUser.message || "Login failed");
       }

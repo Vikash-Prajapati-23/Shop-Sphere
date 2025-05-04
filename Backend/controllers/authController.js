@@ -51,13 +51,20 @@ export async function handleCreateLogin(req, res) {
 
     const sessionId = uuidv4();
     setUser(sessionId, user);
-    res.cookie("sessionUid", sessionId);
+
+    // Set the session cookie
+    res.cookie("sessionUid", sessionId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+
+    // Return a JSON response with user data
     return res.status(200).json({
       message: "Logged in successfully.",
       user: {
         id: user._id,
         email: user.email,
-        // Never send password back to the front. It's risky as per security concerns.
       },
     });
   } catch (error) {
@@ -69,19 +76,15 @@ export async function handleCreateLogin(req, res) {
 
 export async function verifySessionLogin(req, res) {
   try {
+    console.log("verifySessionLogin called");
     const sessionUid = req.cookies.sessionUid;
-    console.log("Session UID from cookie:", sessionUid);
 
     if (!sessionUid) {
-      console.log("No sessionUid cookie received");
       return res.status(401).json({ message: "No session found." });
     }
 
     const user = getUser(sessionUid);
-    console.log("User from session store:", user);
-
     if (!user) {
-      console.log("No user found for this session ID");
       return res.status(401).json({ message: "Invalid session." });
     }
 
@@ -92,7 +95,7 @@ export async function verifySessionLogin(req, res) {
     });
 
     return res.status(200).json({
-      message: "Session is valid.",
+      message: "Session is valid.", // Ensure a valid message
       user: {
         id: user._id,
         email: user.email,
@@ -101,5 +104,22 @@ export async function verifySessionLogin(req, res) {
   } catch (error) {
     console.error("Error verifying session:", error);
     return res.status(500).json({ message: "Internal Server Error", error });
+  }
+}
+
+export async function verifySessionLogout(req, res) {
+  try {
+    const sessionUid = req.cookies.sessionUid;
+    if (!sessionUid) {
+      return res.status(401).json({ message: "No session found." });
+    }
+
+    // Clear the session from the store
+    deleteUser(sessionUid);
+    res.clearCookie("sessionUid");
+
+    return res.status(200).json({ message: "Logged out successfully." });
+  } catch (error) {
+    return res.status(500).json({ message: "Error during logout", error });
   }
 }

@@ -37,13 +37,11 @@ function App() {
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
-
- const [toastShown, setToastShown] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [toastShown, setToastShown] = useState(false);
 
   useEffect(() => {
     const verifyLoggedUser = async () => {
-      setIsLoading(true);
       try {
         const verifyUser = await fetch(
           `http://localhost:3001/api/auth/verify-session-user`,
@@ -54,28 +52,19 @@ function App() {
         );
         const sessionData = await verifyUser.json();
         if (verifyUser.ok) {
-          if (!toastShown) {
-            toast.success(sessionData.message);
-            setToastShown(true);
-          }
+          console.log("Session valid:", sessionData);
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
-          setToastShown(false);
         }
       } catch (error) {
-        if (error.name !== "AbortError") {
-          console.error("Error verifying session:", error);
-          setIsLoggedIn(false);
-        }
-      } finally {
-        setIsLoading(false);
+        console.error("Error verifying session:", error);
+        setIsLoggedIn(false);
       }
     };
 
     verifyLoggedUser();
-
-  }, [setIsLoggedIn, toastShown]);
+  }, []); // Ensure this runs only once by using an empty dependency array
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
