@@ -13,8 +13,8 @@ const Products = ({ handleCartAddition, handleWishList, query }) => {
   const toggleMode = useContext(themeContext);
 
   const fetchProducts = async () => {
-    const response = await fetch(`https://fakestoreapi.com/products`);
     setloadProduct(true);
+    const response = await fetch(`https://fakestoreapi.com/products`);
     const data = await response.json();
     setProducts(data);
     setloadProduct(false);
