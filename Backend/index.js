@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import authRoute from './routes/authRoutes.js';
+import cartRoute from './routes/cartRoutes.js';
+import wishlistRoute from './routes/wishlistRoutes.js';
 import { connectToMongoDB } from './connectToMongoDB.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -25,6 +27,8 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRoute);
+app.use('/api/productcart', cartRoute);
+app.use('/api/wishlistproduct', wishlistRoute);
 
 app.use('/', (req, res) => res.send("Hey from server."));
 
