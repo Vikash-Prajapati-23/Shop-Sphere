@@ -12,18 +12,26 @@ const Products = ({ handleCartAddition, handleWishList, query }) => {
   const navigate = useNavigate();
   const toggleMode = useContext(themeContext);
 
-  const fetchProducts = async () => {
-    setloadProduct(true);
-    const response = await fetch(`https://fakestoreapi.com/products`);
-    const data = await response.json();
-    setProducts(data);
-    setloadProduct(false);
-    setFilteredProducts(data); // Initially, display all products.
-  };
-
   useEffect(() => {
-    fetchProducts();
-  }, []);
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:3001/api/products/allproductd",
+            {
+              method: "GET",
+              credentials: "include", // Include cookies for authentication
+            }
+          );
+          const data = await response.json();
+          setProducts(data);
+          setFilteredProducts(data); // Initially, display all products.
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        }
+      };
+  
+      fetchProducts();
+    }, []);
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
@@ -45,10 +53,10 @@ const Products = ({ handleCartAddition, handleWishList, query }) => {
     <div style={{ backgroundColor: toggleMode.mode === true ? "#494343" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container my-3">
       <h3 className="text-center mt-2">Products you may like!</h3>
       <div className="d-flex flex-wrap justify-content-start">
-        {filteredProducts.filter((product) => product.title.toLowerCase().includes(query)).map((product) => (
+        {filteredProducts.filter((product) => product.title.toLowerCase().includes(query)).map((product, index) => (
           <div
             className="col-md-3 flex-shrink-0 my-2"
-            key={product.id}
+            key={product.id || index}
             onClick={() => handleCardClick(product)}
           >
             <Card

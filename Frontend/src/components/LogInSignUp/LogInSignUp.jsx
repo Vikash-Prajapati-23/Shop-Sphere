@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Style/LogInSignUp.css";
@@ -11,6 +11,21 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
     password: "",
   });
   const navigate = useNavigate(); // React Router's navigation hook
+
+  useEffect(() => {
+    fetch("http://localhost:3001/api/auth/verify-session-user", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) {
+          setIsLoggedIn(true); // Automatically set as logged in
+          navigate("/"); // Redirect to home page or dashboard
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [navigate, setIsLoggedIn]);
 
   const handleSignup = async (e) => {
     e.preventDefault();

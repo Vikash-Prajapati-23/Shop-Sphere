@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Style/Cart.css";
 import Button from '../Button/Button';
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,25 @@ const Cart = ({ cart, setCart, handleWishList }) => {
     navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
   };
 
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/productcart/cart", {
+          method: "GET",  
+          credentials: "include", // Include cookies for authentication
+        });
+        const data = await response.json();
+        setCart(data);
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    };
+    fetchCart();
+  }, []);
+
   const handleProductDelete = (id) => {
+    // Here, the ?. ensures that filter() is only called if cart is not undefined or null.
+    // If cart is undefined or null, filteredCart will be undefined, and setCart(filteredCart) will not throw an error.
     const filteredCart = cart?.filter((product) => product?.id !== id);
     setCart(filteredCart);
   }

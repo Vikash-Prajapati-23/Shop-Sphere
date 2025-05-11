@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
-import Cart from "../Cart/Cart";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
 const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const toggleMode = useContext(themeContext);
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   return (
@@ -151,9 +151,26 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
             <li className="nav-item navs">
               {isLoggedIn ? (
                 <button
-                  onClick={() => {
-                    setIsLoggedIn(false); // Log out the user
-                    toast.success("Logged out successfully!");
+                  onClick={async () => {
+                    try {
+                      const res = await fetch(
+                        "http://localhost:3001/api/auth/logout",
+                        {
+                          method: "GET",
+                          credentials: "include", // sends cookie!
+                        }
+                      );
+
+                      if (res.ok) {
+                        setIsLoggedIn(false); // update local state
+                        navigate("/LoginSignup");
+                        toast.success("Logged out successfully!");
+                      } else {
+                        toast.error("Logout failed");
+                      }
+                    } catch (error) {
+                      toast.error("An error occurred");
+                    }
                   }}
                   className="nav-link active fw-bold"
                 >

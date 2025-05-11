@@ -1,7 +1,8 @@
 import { auth } from "../models/authModels.js";
+import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
-import { setUser, getUser } from "../services/auth.js";
+import { setUser, getUser, deleteSession } from "../services/auth.js";
 
 export async function handleCreateSignup(req, res) {
   const { userName, email, password } = req.body;
@@ -55,8 +56,9 @@ export async function handleCreateLogin(req, res) {
     // Set the session cookie
     res.cookie("sessionUid", sessionId, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false, // Set to false for development
       sameSite: "lax",
+      path: "/",
     });
 
     // Return a JSON response with user data
@@ -83,19 +85,20 @@ export async function verifySessionLogin(req, res) {
       return res.status(401).json({ message: "No session found." });
     }
 
-    const user = getUser(sessionUid);
+    const user = await getUser(sessionUid);
     if (!user) {
       return res.status(401).json({ message: "Invalid session." });
     }
 
-    res.cookie("sessionUid", sessionUid, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
+    // res.cookie("sessionUid", sessionUid, {
+    //   httpOnly: true,
+    //   secure: false,
+    //   sameSite: "lax",
+    //   path: "/",
+    // });
 
     return res.status(200).json({
-      message: "Session is valid.", // Ensure a valid message
+      message: "Session is valid.",
       user: {
         id: user._id,
         email: user.email,
@@ -107,6 +110,7 @@ export async function verifySessionLogin(req, res) {
   }
 }
 
+
 export async function verifySessionLogout(req, res) {
   try {
     const sessionUid = req.cookies.sessionUid;
@@ -114,9 +118,14 @@ export async function verifySessionLogout(req, res) {
       return res.status(401).json({ message: "No session found." });
     }
 
-    // Clear the session from the store
-    deleteUser(sessionUid);
-    res.clearCookie("sessionUid");
+    await deleteSession(sessionUid);
+
+    res.clearCookie("sessionUid", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
 
     return res.status(200).json({ message: "Logged out successfully." });
   } catch (error) {

@@ -1,7 +1,8 @@
-// Cart Controller
+import Cart from "../models/cartModel.js";
+
 export async function getCart(req, res) {
   const userId = req.user.id; // Assuming `req.user` contains the logged-in user's data
-  const cart = await cart.find({ userId });
+  const cart = await Cart.find({ userId });
   return res.status(200).json(cart);
 }
 

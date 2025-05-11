@@ -16,10 +16,17 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
             credentials: "include", // Include cookies for authentication
           }
         );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch wishlist");
+        }
+
         const data = await response.json();
-        setWishlist(data);
+        console.log("Wishlist data:", data); // Log the data
+        setWishlist(Array.isArray(data) ? data : []); // Ensure wishlist is always an array
       } catch (error) {
         console.error("Error fetching wishlist:", error);
+        setWishlist([]); // Set wishlist to an empty array on error
       }
     };
 
@@ -28,7 +35,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
   const handleAddToCart = async (product) => {
     try {
-      await fetch("http://localhost:3001/api/wishlistproduct/addwishlist", {
+      await fetch("http://localhost:3001/api/productcart/cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId: product.id }),
@@ -63,32 +70,22 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
     navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
   };
 
-  // const handleProductDelete = (id) => {
-  //   const filteredCart = wishlist?.filter((item) => item?.id !== id);
-  //   setWishlist(filteredCart);
-  // }
-
-  // const handleAddToCart = (product) => {
-  //   handleCartAddition(product);
-  //   handleProductDelete(product.id);
-  // };
-
   return (
     <div className="wishlist-container bg-light my-5">
       <h2 className="pt-4 text-center">Your Wishlist</h2>
       <Toaster />
       <div>
-        {wishlist.length === 0 ? (
+        {Array.isArray(wishlist) && wishlist.length === 0 ? (
           <div className={"d-flex justify-content-center align-items-center"}>
             <img src={"./images/wish.gif"} alt=""></img>
             <h4>Your wishlist is empty.!</h4>
           </div>
         ) : (
           <div className={"my-3 d-flex flex-wrap justify-content-center gap-3"}>
-            {wishlist?.map((product) => (
+            {wishlist?.map((product, index) => (
               <div
                 className="card px-1 col-md-3 flex-shrink-0 "
-                key={product.id}
+                key={product.id || index}
               >
                 <div className="p-3 ">
                   <div>
@@ -101,7 +98,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                       }}
                       className="card-img card-img-top my-3"
                       alt=""
-                      onClick={() => handleCardClick(wishlist)}
+                      onClick={() => handleCardClick(product)}
                     />
                     <button
                       onClick={() => handleProductDelete(product.id)}
@@ -113,7 +110,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
                   <div className={"p-1 "}>
                     <pre className="d-flex justify-content-start fw-bold">
-                      {product.title.slice(0, 30) || "No Title"}...
+                      {(product.tittle ? product.title.slice(0, 30) : "No Title") + "..."}
                     </pre>
 
                     <div className=" d-flex ">
@@ -127,8 +124,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                     </div>
 
                     <p className="d-flex justify-content-start fw-bold">
-                      {" "}
-                      ₹{product.price}{" "}
+                      ₹{product.price}
                     </p>
 
                     <Button

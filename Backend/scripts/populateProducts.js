@@ -8,6 +8,16 @@ const populateProducts = async () => {
     const products = await data.json();
 
     for (const product of products) {
+      // Check if the product already exists
+      const existingProduct = await Product.findOne({ productId: product.id });
+      if (existingProduct) {
+        console.log(
+          `Product with productId ${product.id} already exists. Skipping.`
+        );
+        continue; // Skip this product
+      }
+
+      // Insert the product if it doesn't exist
       await Product.create({
         productId: product.id,
         title: product.title,
@@ -30,7 +40,10 @@ const populateProducts = async () => {
 };
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/shop-sphere")
+  .connect("mongodb://127.0.0.1:27017/shop-sphere", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to MongoDB");
     populateProducts();
