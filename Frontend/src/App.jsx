@@ -91,54 +91,98 @@ function App() {
   };
 
   // Function to handle adding items to the cart
-  const handleCartAddition = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
-      toast.success(`Product added to cart! ${"🛒"}`, { id: "cart-toast" });
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id
+  const handleCartAddition = async (product) => {
+    const cartItem = {
+      id: product.id || product._id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      rating: { rate: product.rating?.rate, count: product.rating?.count },
+      description: product.description,
+      category: product.category,
+      quantity: 1,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/productcart/addcart",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cartItem),
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to add to cart");
+      }
+      const data = await response.json();
+      console.log("Cart data:", data);
+      setCart((prevCart) => {
+        const exists = prevCart.find((item) => item.id === cartItem.id);
+        if (exists) {
+          return prevCart.map((item) =>
+            item.id === cartItem.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          return [...prevCart, cartItem];
+        }
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+
+    const existingItem = cart.find((item) => item.id === cartItem.id);
+
+    if (existingItem) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === cartItem.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
+        )
+      );
+    } else {
+      setCart((prevCart) => [...prevCart, cartItem]);
+    }
+
+    toast.success("Added to cart!");
   };
 
   // Function to handle adding items to the wishlist
- const handleWishList = async (product) => {
-  try {
-    const response = await fetch(
-      "http://localhost:3001/api/wishlistproduct/addwishlist",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product._id || product.id }),
-        credentials: "include",
-      }
-    );
+  const handleWishList = async (product) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/wishlistproduct/addwishlist",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: product._id || product.id }),
+          credentials: "include",
+        }
+      );
 
-    if (!response.ok) {
-      throw new Error("Failed to add to wishlist");
+      if (!response.ok) {
+        throw new Error("Failed to add to wishlist");
+      }
+
+      // Only update state if the request was successful
+      setWishlist((prevWishlist) => {
+        const exists = prevWishlist.find((item) => item._id === product._id);
+        if (exists) {
+          return prevWishlist.filter((item) => item._id !== product._id);
+        } else {
+          toast.success("Added to wishlist!");
+          return [...prevWishlist, product];
+        }
+      });
+    } catch (error) {
+      console.error("Error adding to wishlist:", error);
+      toast.error("Failed to add to wishlist");
     }
-
-    // Only update state if the request was successful
-    setWishlist((prevWishlist) => {
-      const exists = prevWishlist.find((item) => item._id === product._id);
-      if (exists) {
-        return prevWishlist.filter((item) => item._id !== product._id);
-      } else {
-        toast.success("Added to wishlist!");
-        return [...prevWishlist, product];
-      }
-    });
-  } catch (error) {
-    console.error("Error adding to wishlist:", error);
-    toast.error("Failed to add to wishlist");
-  }
-};
+  };
 
   return (
     <>

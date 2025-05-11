@@ -34,34 +34,27 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
   }, []);
 
   const handleAddToCart = async (product) => {
-    try {
-      await fetch("http://localhost:3001/api/productcart/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product.id }),
-        credentials: "include",
-      });
-      handleCartAddition(product); // Add product to cart
-      toast.success("Added to cart!");
-      handleProductDelete(product.id);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-    }
+    handleCartAddition(product);
   };
 
-  const handleProductDelete = async (id) => {
+  const handleProductDelete = async (itemId) => {
     try {
-      await fetch(
-        `http://localhost:3001/api/wishlistproduct/removewishlist/${id}`,
+      const response = await fetch(
+        `http://localhost:3001/api/wishlistproduct/remove/${itemId}`,
         {
           method: "DELETE",
-          credentials: "include",
+          credentials: "include", // Include cookies for authentication
         }
       );
-      setWishlist((prev) => prev.filter((item) => item.id !== id));
-      toast.success("Removed from wishlist!");
+      if (!response.ok) {
+        throw new Error("Failed to remove item from wishlist");
+      }
+      const updatedWishlist = wishlist.filter((item) => item.id !== itemId);
+      setWishlist(updatedWishlist);
+      toast.success("Item removed from wishlist");
     } catch (error) {
-      console.error("Error removing from wishlist:", error);
+      console.error("Error removing item from wishlist:", error);
+      toast.error("Failed to remove item from wishlist"); 
     }
   };
 
