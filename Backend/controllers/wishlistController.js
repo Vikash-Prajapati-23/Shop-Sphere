@@ -52,15 +52,22 @@ export async function addToWishlist(req, res) {
 
 export async function removeFromWishlist(req, res) {
   try {
-    const userId = req.user.id; // Get user ID from the authenticated request
-    const { itemId } = req.params; // Get item ID from the request parameters
-    const result = await Wishlist.deleteOne({ _id: itemId, userId });
-    if (result.deletedCount === 0) {
+    const userId = req.user.id;
+    const { itemId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(itemId)) {
+      return res.status(400).json({ message: "Invalid item ID" });
+    }
+
+    const result = await Wishlist.findOneAndDelete({ userId, productId: itemId });
+    if (!result) {
       return res.status(404).json({ message: "Item not found in wishlist" });
     }
-    return res.status(200).json({ message: "Item removed from wishlist" }); // Return success message
+
+    return res.status(200).json({ message: "Item removed from wishlist" });
+
   } catch (error) {
     console.error("Error removing from wishlist:", error);
-    return res.status(500).json({ message: "Internal Server Error" }); // Handle errors
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 }

@@ -37,24 +37,26 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
     handleCartAddition(product);
   };
 
-  const handleProductDelete = async (itemId) => {
+  const handleProductDelete = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/wishlistproduct/remove/${itemId}`,
+        `http://localhost:3001/api/wishlistproduct/removewishlist/${productId}`,
         {
           method: "DELETE",
           credentials: "include", // Include cookies for authentication
         }
       );
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error("Failed to remove item from wishlist");
+        toast.error(data.message || "Failed to remove item from wishlist");
+      } else {
+        const updatedWishlist = wishlist.filter((item) => item._id !== productId);
+
+        setWishlist(updatedWishlist);
+        toast.success("Item removed from wishlist");
       }
-      const updatedWishlist = wishlist.filter((item) => item.id !== itemId);
-      setWishlist(updatedWishlist);
-      toast.success("Item removed from wishlist");
     } catch (error) {
-      console.error("Error removing item from wishlist:", error);
-      toast.error("Failed to remove item from wishlist"); 
+      toast.error("Failed to remove item from wishlist");
     }
   };
 
@@ -94,7 +96,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                       onClick={() => handleCardClick(product)}
                     />
                     <button
-                      onClick={() => handleProductDelete(product.id)}
+                      onClick={() => handleProductDelete(product._id)}
                       className="btn text-dark close-btn fs-2 shadow-none"
                     >
                       ×
@@ -103,7 +105,9 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
                   <div className={"p-1 "}>
                     <pre className="d-flex justify-content-start fw-bold">
-                      {(product.tittle ? product.title.slice(0, 30) : "No Title") + "..."}
+                      {(product.tittle
+                        ? product.title.slice(0, 30)
+                        : "No Title") + "..."}
                     </pre>
 
                     <div className=" d-flex ">
