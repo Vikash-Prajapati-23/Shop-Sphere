@@ -163,15 +163,12 @@ function App() {
           credentials: "include",
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Failed to add to wishlist");
-      }
-
+      const data = await response.json();
       // Only update state if the request was successful
       setWishlist((prevWishlist) => {
         const exists = prevWishlist.find((item) => item._id === product._id);
         if (exists) {
+          toast.success(data.message);
           return prevWishlist.filter((item) => item._id !== product._id);
         } else {
           toast.success("Added to wishlist!");

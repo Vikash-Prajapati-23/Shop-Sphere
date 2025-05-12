@@ -1,4 +1,5 @@
 import Wishlist from "../models/wishlistModel.js";
+import mongoose from "mongoose";
 
 export async function getWishlist(req, res) {
   try {
@@ -20,14 +21,32 @@ export async function getWishlist(req, res) {
 
 export async function addToWishlist(req, res) {
   try {
-    const userId = req.user.id; // Get user ID from the authenticated request
-    const { productId } = req.body; // Get product ID from the request body
-    const wishlistItem = await Wishlist.create({ userId, productId }); // Add item to wishlist
-    const wishlist = await Wishlist.find({ userId }).populate('productId');
-    return res.status(201).json(wishlistItem); // Return the created item
+    const userId = req.user.id;
+    const { productId } = req.body;
+
+    // Check if productId exists
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required" });
+    }
+
+    // Validate productId format
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ message: "Invalid Product ID" });
+    }
+
+    // Check for duplicates
+    const existingItem = await Wishlist.findOne({ userId, productId });
+    if (existingItem) {
+      return res.status(409).json({ message: "Product already in wishlist" });
+    }
+
+    // Add to wishlist
+    const wishlistItem = await Wishlist.create({ userId, productId });
+    return res.status(201).json(wishlistItem);
+
   } catch (error) {
     console.error("Error adding to wishlist:", error);
-    return res.status(500).json({ message: "Internal Server Error" }); // Handle errors
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 }
 
