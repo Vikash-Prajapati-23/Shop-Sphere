@@ -92,63 +92,39 @@ function App() {
 
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
-    const cartItem = {
-      id: product.id || product._id,
-      title: product.title,
-      price: product.price,
-      image: product.image,
-      rating: { rate: product.rating?.rate, count: product.rating?.count },
-      description: product.description,
-      category: product.category,
-      quantity: 1,
-    };
-
+    
     try {
       const response = await fetch(
         "http://localhost:3001/api/productcart/addcart",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(cartItem),
+          body: JSON.stringify({
+            productId: product._id || product.id,
+          }),
           credentials: "include",
         }
       );
-      if (!response.ok) {
-        throw new Error("Failed to add to cart");
-      }
       const data = await response.json();
-      console.log("Cart data:", data);
+      if (!response.ok) {
+        toast.error(data.message || "Failed to add to cart");
+        return;
+      }
+      // Only update state if the request was successful
       setCart((prevCart) => {
-        const exists = prevCart.find((item) => item.id === cartItem.id);
+        const exists = prevCart.find((item) => item._id === product._id);
         if (exists) {
-          return prevCart.map((item) =>
-            item.id === cartItem.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
+          toast.success(data.message);
+          return prevCart;
         } else {
-          return [...prevCart, cartItem];
+          toast.success(data.message);
+          return [...prevCart, product];
         }
       });
     } catch (error) {
-      console.error("Error adding to cart:", error);
-    }
-
-    const existingItem = cart.find((item) => item.id === cartItem.id);
-
-    if (existingItem) {
-      setCart((prevCart) =>
-        prevCart.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart((prevCart) => [...prevCart, cartItem]);
-    }
-
-    toast.success("Added to cart!");
+        console.error("Error adding to cart:", error);
+        toast.error(error.message);
+      }
   };
 
   // Function to handle adding items to the wishlist
