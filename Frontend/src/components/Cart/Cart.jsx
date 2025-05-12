@@ -82,7 +82,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
 
   const handleAddToWishList = (product) => {
     handleWishList(product);
-    handleProductDelete(product.id);
+    handleProductDelete(product._id);
   };
 
   return (

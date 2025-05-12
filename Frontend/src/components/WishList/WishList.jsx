@@ -35,6 +35,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
   const handleAddToCart = async (product) => {
     handleCartAddition(product);
+    handleProductDelete(product._id); // Remove from wishlist after adding to cart
   };
 
   const handleProductDelete = async (productId) => {
