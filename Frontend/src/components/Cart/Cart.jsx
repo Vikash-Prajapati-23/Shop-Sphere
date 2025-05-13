@@ -56,28 +56,65 @@ const Cart = ({ cart, setCart, handleWishList }) => {
     }
   };
 
-  const handleProductIncrement = (id) => {
+  const handleProductIncrement = async (productId) => {
     // Here, the ?. ensures that map() is only called if cart is not undefined or null.
     // If cart is undefined or null, updatedCart will be undefined, and setCart(updatedCart) will not throw an error.
     // Using cart?.map(...) ensures map() is not called on an undefined cart (avoiding runtime errors).
     // Not using cart?.map(...) assumes cart is always defined, which can cause crashes if cart is ever undefined.
-    const updatedCart = cart?.map((product) =>
-      product.id === id
-        ? { ...product, quantity: product.quantity + 1 }
-        : product
-    );
-    setCart(updatedCart);
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/productcart/incrementcart/${productId}`,
+        {
+          method: "PATCH",
+          credentials: "include", // Include cookies for authentication
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        console.error(data.message || "Failed to increment item in cart");
+        toast.error(data.message || "Failed to increment item in cart");
+      }
+      const updatedCart = cart.map((product) =>
+        product._id === productId
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+      );
+      setCart(updatedCart);
+    } catch (error) {
+      console.error("Failed to increment item in cart");
+      toast.error("Failed to increment item in cart");
+    }
   };
 
-  const handleProductDecrement = (id) => {
-    const updateCart = cart
-      ?.map((product) =>
-        product.id === id
+  const handleProductDecrement = async (productId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/productcart/decrementcart/${productId}`,
+        {
+          method: "PATCH",
+          credentials: "include", // Include cookies for authentication
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        console.error(data.message || "Failed to decrement item in cart");
+        toast.error(data.message || "Failed to decrement item in cart");
+      }
+      const updatedCart = cart.map((product) =>
+        product._id === productId
           ? { ...product, quantity: product.quantity - 1 }
           : product
-      )
-      .filter((product) => product.quantity > 0);
-    setCart(updateCart);
+      );
+      setCart(updatedCart);
+      if (data.message === "Item removed from cart") {
+        const filteredCart = cart.filter((product) => product._id !== productId);
+        setCart(filteredCart);
+      }
+      toast.success(data.message);
+    } catch (error) {
+      console.error("Failed to decrement item in cart");
+      toast.error("Failed to decrement item in cart");
+    }
   };
 
   const handleAddToWishList = (product) => {
@@ -91,9 +128,8 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       <ul>
         {cart.length === 0 ? (
           <div className="d-flex align-products-center justify-content-center gap-5 py-4">
-            {" "}
-            <img src="./images/empty-cart.png"></img>{" "}
-            <h4> Your cart is empty.!</h4>{" "}
+            <img src="./images/empty-cart.png"></img>
+            <h4> Your cart is empty.!</h4>
           </div>
         ) : (
           <ul>
@@ -112,8 +148,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                 <div className=" d-flex justify-content-between align-items-center">
                   <div className=" justify-content-between ">
                     <pre className=" ">
-                      {" "}
-                      {product.title?.slice(0, 20) || "No Title"}...{" "}
+                      {product.title?.slice(0, 20) || "No Title"}...
                     </pre>
                     <div className=" d-flex align-products-center">
                       <p>
@@ -126,7 +161,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                     </div>
                     <div className=" d-flex justify-content-between align-products-center">
                       <Button
-                        onClick={() => handleProductDecrement(product.id)}
+                        onClick={() => handleProductDecrement(product._id)}
                         className="btn btn-danger fw-bold"
                         btnName={"-"}
                       />
@@ -134,11 +169,11 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                         {product.quantity}
                       </span>
                       <Button
-                        onClick={() => handleProductIncrement(product.id)}
+                        onClick={() => handleProductIncrement(product._id)}
                         className="btn btn-success fw-bold me-3"
                         btnName={"+"}
                       />
-                      
+
                       <Button
                         className="btn btn-info fw-bold "
                         onClick={() => handleAddToWishList(product)}
@@ -148,7 +183,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                   </div>
 
                   <div className="ms-5 align-products-center me-5 fw-bold ">
-                    ₹{product.price} (x{product.quantity})
+                    ₹{product.price} ( x {product.quantity} )
                   </div>
 
                   <div className="ms-5 align-products-center">
@@ -164,7 +199,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
             ))}
             <div className="cart-total d-flex justify-content-end">
               <span className=" mx-3 py-3">
-                Total: ₹
+                Total: ₹ {" "}
                 {cart
                   .reduce(
                     (total, product) =>

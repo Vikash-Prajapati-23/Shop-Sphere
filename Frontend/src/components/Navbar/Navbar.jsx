@@ -165,6 +165,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
                         setIsLoggedIn(false); // update local state
                         navigate("/LoginSignup");
                         toast.success("Logged out successfully!");
+                        window.location.reload();
                       } else {
                         toast.error("Logout failed");
                       }

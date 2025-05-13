@@ -100,7 +100,7 @@ function App() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            productId: product._id || product.id,
+            productId: product._id,
           }),
           credentials: "include",
         }
