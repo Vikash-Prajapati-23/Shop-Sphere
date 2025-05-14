@@ -124,7 +124,6 @@ export async function productIncrement(req, res) {
 
     existingItem.quantity += 1;
     await existingItem.save();
-
     return res.status(200).json({ message: "Item quantity incremented" });
   } catch (error) {
     console.error("Error incrementing product:", error);

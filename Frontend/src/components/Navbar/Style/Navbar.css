@@ -59,8 +59,86 @@
     border-radius: 10%;
 }
 
-@media only screen and (max-width: 400px){
-    .search_box{
-        display: none;
-    }
+@media (max-width: 768px) {
+  .navbar-collapse {
+    background-color: inherit;
+    padding: 1rem 0.75rem;
+    border-top: 1px solid #ccc;
+  }
+
+  .navbar-nav {
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .navs {
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-menu {
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .search_box {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-bar {
+    flex: 1;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+  }
+
+  .search-btn {
+    padding: 0.4rem 0.75rem;
+    border: none;
+    background-color: #198754;
+    color: white;
+    border-radius: 6px;
+  }
+
+  .navbar-nav.list-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .nav-link,
+  .material-symbols-outlined,
+  .wishlist-icon {
+    font-size: 1.25rem;
+  }
+
+  .btn,
+  .nav-link.active.fw-bold {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .position-relative {
+    margin-right: 0.5rem;
+  }
+
+  .navbar-brand img {
+    height: 45px;
+    width: 45px;
+  }
 }
+

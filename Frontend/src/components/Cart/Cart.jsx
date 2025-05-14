@@ -21,9 +21,13 @@ const Cart = ({ cart, setCart, handleWishList }) => {
           }
         );
         const data = await response.json();
-        setCart(data);
+        setCart(Array.isArray(data) ? data : []); // Ensure cart is always an array
+        // if (!response.ok) {
+        //   toast.error(data.message || "Failed to fetch cart items");
+        // }
       } catch (error) {
-        console.error("Error fetching cart:", error);
+        toast.error("Failed to fetch cart items");
+        setCart([]); // Set cart to an empty array on error
       }
     };
     fetchCart();
@@ -51,7 +55,6 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       setCart(filteredCart);
       toast.success("Item removed from cart");
     } catch (error) {
-      console.error("Failed to remove item from cart");
       toast.error("Failed to remove item from cart");
     }
   };
@@ -71,7 +74,6 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       );
       const data = await response.json();
       if (!response.ok) {
-        console.error(data.message || "Failed to increment item in cart");
         toast.error(data.message || "Failed to increment item in cart");
       }
       const updatedCart = cart.map((product) =>
@@ -81,7 +83,6 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       );
       setCart(updatedCart);
     } catch (error) {
-      console.error("Failed to increment item in cart");
       toast.error("Failed to increment item in cart");
     }
   };
@@ -97,7 +98,6 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       );
       const data = await response.json();
       if (!response.ok) {
-        console.error(data.message || "Failed to decrement item in cart");
         toast.error(data.message || "Failed to decrement item in cart");
       }
       const updatedCart = cart.map((product) =>
@@ -110,9 +110,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
         const filteredCart = cart.filter((product) => product._id !== productId);
         setCart(filteredCart);
       }
-      toast.success(data.message);
     } catch (error) {
-      console.error("Failed to decrement item in cart");
       toast.error("Failed to decrement item in cart");
     }
   };
@@ -129,7 +127,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
         {cart.length === 0 ? (
           <div className="d-flex align-products-center justify-content-center gap-5 py-4">
             <img src="./images/empty-cart.png"></img>
-            <h4> Your cart is empty.!</h4>
+            <h4 className="d-flex align-items-center"> Your cart is empty.!</h4>
           </div>
         ) : (
           <ul>

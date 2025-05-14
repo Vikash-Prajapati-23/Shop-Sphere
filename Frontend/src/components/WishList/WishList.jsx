@@ -22,10 +22,8 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
         }
 
         const data = await response.json();
-        console.log("Wishlist data:", data); // Log the data
         setWishlist(Array.isArray(data) ? data : []); // Ensure wishlist is always an array
       } catch (error) {
-        console.error("Error fetching wishlist:", error);
         setWishlist([]); // Set wishlist to an empty array on error
       }
     };
