@@ -7,7 +7,11 @@ import toast from "react-hot-toast";
 const Cart = ({ cart, setCart, handleWishList }) => {
   const navigate = useNavigate();
   const handleCardClick = (product) => {
-    navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    if (product && product.id) {
+      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    } else {
+      toast.error("Product ID not found");
+    }
   };
 
   useEffect(() => {
@@ -107,7 +111,9 @@ const Cart = ({ cart, setCart, handleWishList }) => {
       );
       setCart(updatedCart);
       if (data.message === "Item removed from cart") {
-        const filteredCart = cart.filter((product) => product._id !== productId);
+        const filteredCart = cart.filter(
+          (product) => product._id !== productId
+        );
         setCart(filteredCart);
       }
     } catch (error) {
@@ -197,7 +203,7 @@ const Cart = ({ cart, setCart, handleWishList }) => {
             ))}
             <div className="cart-total d-flex justify-content-end">
               <span className=" mx-3 py-3">
-                Total: ₹ {" "}
+                Total: ₹{" "}
                 {cart
                   .reduce(
                     (total, product) =>

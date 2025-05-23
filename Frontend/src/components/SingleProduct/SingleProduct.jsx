@@ -4,6 +4,7 @@ import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
+import toast from "react-hot-toast";
 
 const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWishlistProduct
   const [singleProduct, setsingleProduct] = useState(null);
@@ -12,14 +13,20 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
   // Added: Function to fetch product details using the extracted ID.
-  const fetchSingleProduct = async () => {
+  const fetchSingleProduct = async (id) => {
     try {
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+      const response = await fetch(`http://localhost:3001/api/single/singleproduct/${id}`, {
+        method: "GET",
+        credentials: "include", // Include cookies for authentication
+      });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch product"); 
+      }
       setsingleProduct(data); // Update the product state with fetched data.
     } catch (error) {
       console.error("Error fetching data: ", error);
-
+      toast.error("Failed to fetch product details");
     }
   };
 
@@ -32,8 +39,8 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
   }
 
   useEffect(() => {
-    fetchSingleProduct();
-  }, []);
+    fetchSingleProduct(id); // Pass the id from useParams
+  }, [id]);
 
   if (!singleProduct) {
     return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.

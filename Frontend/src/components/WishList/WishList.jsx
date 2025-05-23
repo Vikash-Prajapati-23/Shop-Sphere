@@ -16,18 +16,15 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
             credentials: "include", // Include cookies for authentication
           }
         );
-
         if (!response.ok) {
           throw new Error("Failed to fetch wishlist");
         }
-
         const data = await response.json();
         setWishlist(Array.isArray(data) ? data : []); // Ensure wishlist is always an array
       } catch (error) {
         setWishlist([]); // Set wishlist to an empty array on error
       }
     };
-
     fetchWishlist();
   }, []);
 
@@ -49,7 +46,9 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
       if (!response.ok) {
         toast.error(data.message || "Failed to remove item from wishlist");
       } else {
-        const updatedWishlist = wishlist.filter((item) => item._id !== productId);
+        const updatedWishlist = wishlist.filter(
+          (item) => item._id !== productId
+        );
 
         setWishlist(updatedWishlist);
         toast.success("Item removed from wishlist");
@@ -61,7 +60,11 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
 
   const navigate = useNavigate();
   const handleCardClick = (product) => {
-    navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    if (product && product.id) {
+      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    } else {
+      toast.error("Product ID not found");
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import authRoute from './routes/authRoutes.js';
 import productRoute from './routes/productRoutes.js';
 import cartRoute from './routes/cartRoutes.js';
 import wishlistRoute from './routes/wishlistRoutes.js';
+import SingleProductRoute from './routes/singleProductRoutes.js';
 import { connectToMongoDB } from './connectToMongoDB.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -31,6 +32,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/products', productRoute);
 app.use('/api/productcart', cartRoute);
 app.use('/api/wishlistproduct', wishlistRoute);
+app.use('/api/single', SingleProductRoute);
 
 app.use((req, res) => {
   console.log("Page not found.");
