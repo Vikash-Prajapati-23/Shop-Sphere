@@ -6,7 +6,7 @@ import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
 
-const Products = ({ handleCartAddition, handleWishList, query }) => {
+const Products = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
   const [products, setProducts] = useState(null);
   // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -39,6 +39,11 @@ const Products = ({ handleCartAddition, handleWishList, query }) => {
   };
 
   const handleWishlist = (product) => {
+    if (!isLoggedIn) {
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+      return;
+    }
     handleWishList(product);
   };
 

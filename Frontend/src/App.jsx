@@ -5,7 +5,7 @@ import React, {
   lazy,
   useEffect,
 } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -177,6 +177,8 @@ function App() {
                     handleWishList={handleWishList}
                     setCartProductId={setCartProductId}
                     handleCartAddition={handleCartAddition}
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
                     query={query}
                   />
                 }
