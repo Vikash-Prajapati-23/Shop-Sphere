@@ -1,6 +1,6 @@
 import Cart from "../models/cartModel.js";
-import mongoose from "mongoose";
 import product from "../models/productModel.js";
+import mongoose from "mongoose";
 
 export async function getCart(req, res) {
   try {
@@ -84,6 +84,8 @@ export async function productDecrement(req, res) {
   try {
     const userId = req.user.id;
     const { productId } = req.params;
+
+
 
     if (!mongoose.Types.ObjectId.isValid(productId)) {
       return res.status(400).json({ message: "Invalid product ID" });

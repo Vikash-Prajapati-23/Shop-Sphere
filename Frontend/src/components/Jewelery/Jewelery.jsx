@@ -4,8 +4,9 @@ import "./Style/Jewelery.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from '../../App';
+import toast from "react-hot-toast";
 
-const Jewelery = ({ handleCartAddition, handleWishList, query }) => {
+const Jewelery = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
   const [jeweleryProduct, setJeweleryProduct] = useState(null);
   const nevigate = useNavigate();
   const toggleMode = useContext(themeContext)
@@ -23,6 +24,11 @@ const Jewelery = ({ handleCartAddition, handleWishList, query }) => {
   }
 
   const handleWishlist = (product) => {
+    if (!isLoggedIn) {
+      nevigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+      return;
+    }
     handleWishList(product);
   }
 

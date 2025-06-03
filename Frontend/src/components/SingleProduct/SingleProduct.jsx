@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 import toast from "react-hot-toast";
 
-const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWishlistProduct
+const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {   // fetchWishlistProduct
   const [singleProduct, setSingleProduct] = useState(null);
   // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
+  const navigate = useNavigate(); // Added: Use navigate to redirect users.
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
   // Added: Function to fetch product details using the extracted ID.
@@ -36,6 +37,10 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
   }
 
   const handleWishlist = (product) => {
+    if(!isLoggedIn) {
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+    }
     handleWishList(product);
   }
 

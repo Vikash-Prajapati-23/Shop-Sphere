@@ -63,7 +63,7 @@ function App() {
 
     verifyLoggedUser();
   }, []); // Ensure this runs only once by using an empty dependency array
-  
+
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
     let moon = document.querySelector(".moon");
@@ -85,6 +85,25 @@ function App() {
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
     try {
+      if (!isLoggedIn) {
+        // Guest: store in localStorage
+        let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+        // Check BEFORE adding
+        const guestExistCart = guestCart.find(
+          (item) => item._id === product._id || item.id === product.id
+        );
+
+        if (guestExistCart) {
+          toast.success("Item already in cart!");
+          return;
+        }
+
+        // Now it's safe to add
+        guestCart.push(product);
+        localStorage.setItem("guestCart", JSON.stringify(guestCart));
+        toast.success("Added to cart!");
+        setCart(guestCart);
+      }
       const response = await fetch(
         "http://localhost:3001/api/productcart/addcart",
         {
@@ -169,6 +188,7 @@ function App() {
                     setCartProductId={setCartProductId}
                     handleCartAddition={handleCartAddition}
                     isLoggedIn={isLoggedIn}
+                    setCart={setCart}
                     setIsLoggedIn={setIsLoggedIn}
                     query={query}
                   />
@@ -177,7 +197,10 @@ function App() {
 
               <Route path="/AboutUs" element={<AboutUs />} />
 
-              <Route path="/ContactUs" element={<ContactUs />} />
+              <Route
+                path="/ContactUs"
+                element={<ContactUs isLoggedIn={isLoggedIn} />}
+              />
 
               <Route
                 path="/LoginSignup"
@@ -190,6 +213,7 @@ function App() {
                   <Men
                     handleWishList={handleWishList}
                     handleCartAddition={handleCartAddition}
+                    isLoggedIn={isLoggedIn}
                     query={query}
                   />
                 }
@@ -200,6 +224,7 @@ function App() {
                 element={
                   <Cart
                     handleWishList={handleWishList}
+                    isLoggedIn={isLoggedIn}
                     cart={cart}
                     setCart={setCart}
                   />
@@ -212,6 +237,7 @@ function App() {
                   <WishList
                     wishlist={wishlist}
                     setWishlist={setWishlist}
+                    isLoggedIn={isLoggedIn}
                     handleCartAddition={handleCartAddition}
                   />
                 }
@@ -223,6 +249,7 @@ function App() {
                 path="/Women"
                 element={
                   <Women
+                    isLoggedIn={isLoggedIn}
                     handleWishList={handleWishList}
                     handleCartAddition={handleCartAddition}
                     query={query}
@@ -234,6 +261,7 @@ function App() {
                 path="/Electronics"
                 element={
                   <Electronics
+                    isLoggedIn={isLoggedIn}
                     handleWishList={handleWishList}
                     handleCartAddition={handleCartAddition}
                     query={query}
@@ -245,6 +273,7 @@ function App() {
                 path="/Jewelery"
                 element={
                   <Jewelery
+                    isLoggedIn={isLoggedIn}
                     handleWishList={handleWishList}
                     handleCartAddition={handleCartAddition}
                     query={query}
@@ -256,6 +285,7 @@ function App() {
                 path="/SingleProduct/:id"
                 element={
                   <SingleProduct
+                    isLoggedIn={isLoggedIn}
                     handleWishList={handleWishList}
                     handleCartAddition={handleCartAddition}
                   />

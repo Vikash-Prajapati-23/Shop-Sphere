@@ -1,54 +1,61 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Style/Cart.css";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const Cart = ({ cart, setCart, handleWishList }) => {
+const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
+  const [guestCart, setGuestCart] = useState([]);
   const navigate = useNavigate();
+
   const handleCardClick = (product) => {
     if (product && product.id) {
-      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+      navigate(`/SingleProduct/${product.id}`);
     } else {
       toast.error("Product ID not found");
     }
   };
 
   useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3001/api/productcart/cart",
-          {
-            method: "GET",
-            credentials: "include", // Include cookies for authentication
-          }
-        );
-        const data = await response.json();
-        setCart(Array.isArray(data) ? data : []); // Ensure cart is always an array
-        // if (!response.ok) {
-        //   toast.error(data.message || "Failed to fetch cart items");
-        // }
-      } catch (error) {
-        toast.error("Failed to fetch cart items");
-        setCart([]); // Set cart to an empty array on error
-      }
-    };
-    fetchCart();
-  }, []);
+    if (!isLoggedIn) {
+      const localData = JSON.parse(localStorage.getItem("guestCart")) || [];
+      setGuestCart(localData);
+    } else {
+      const fetchCart = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:3001/api/productcart/cart",
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+          const data = await response.json();
+          setCart(Array.isArray(data) ? data : []);
+        } catch (error) {
+          toast.error("Failed to fetch cart items");
+          setCart([]);
+        }
+      };
+      fetchCart();
+    }
+  }, [isLoggedIn, setCart]);
 
   const handleProductDelete = async (productId) => {
-    // Here, the ?. ensures that filter() is only called if cart is not undefined or null.
-    // If cart is undefined or null, filteredCart will be undefined, and setCart(filteredCart) will not throw an error.
-    // const filteredCart = cart?.filter((product) => product?.id !== id);
-    // setCart(filteredCart);
+    if (!isLoggedIn) {
+      const filtered = guestCart.filter((product) => product.id !== productId && product._id !== productId);
+      setGuestCart(filtered);
+      localStorage.setItem("guestCart", JSON.stringify(filtered));
+      toast.success("Item removed from cart");
+      return;
+    }
 
     try {
       const response = await fetch(
         `http://localhost:3001/api/productcart/removecart/${productId}`,
         {
           method: "DELETE",
-          credentials: "include", // Include cookies for authentication
+          credentials: "include",
         }
       );
       const data = await response.json();
@@ -64,16 +71,14 @@ const Cart = ({ cart, setCart, handleWishList }) => {
   };
 
   const handleProductIncrement = async (productId) => {
-    // Here, the ?. ensures that map() is only called if cart is not undefined or null.
-    // If cart is undefined or null, updatedCart will be undefined, and setCart(updatedCart) will not throw an error.
-    // Using cart?.map(...) ensures map() is not called on an undefined cart (avoiding runtime errors).
-    // Not using cart?.map(...) assumes cart is always defined, which can cause crashes if cart is ever undefined.
+    if (!isLoggedIn) return;
+
     try {
       const response = await fetch(
         `http://localhost:3001/api/productcart/incrementcart/${productId}`,
         {
           method: "PATCH",
-          credentials: "include", // Include cookies for authentication
+          credentials: "include",
         }
       );
       const data = await response.json();
@@ -92,12 +97,14 @@ const Cart = ({ cart, setCart, handleWishList }) => {
   };
 
   const handleProductDecrement = async (productId) => {
+    if (!isLoggedIn) return;
+
     try {
       const response = await fetch(
         `http://localhost:3001/api/productcart/decrementcart/${productId}`,
         {
           method: "PATCH",
-          credentials: "include", // Include cookies for authentication
+          credentials: "include",
         }
       );
       const data = await response.json();
@@ -122,25 +129,32 @@ const Cart = ({ cart, setCart, handleWishList }) => {
   };
 
   const handleAddToWishList = (product) => {
+    if (!isLoggedIn) {
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+      return;
+    }
     handleWishList(product);
     handleProductDelete(product._id);
   };
 
+  const displayCart = isLoggedIn ? cart : guestCart;
+
   return (
     <div className="container bg-clr my-5">
       <h2 className="text-center py-4">Shopping Cart</h2>
-      <ul>
-        {cart.length === 0 ? (
-          <div className="d-flex align-products-center justify-content-center gap-5 py-4">
-            <img src="./images/empty-cart.png"></img>
-            <h4 className="d-flex align-items-center"> Your cart is empty.!</h4>
-          </div>
-        ) : (
+      {displayCart.length === 0 ? (
+        <div className="d-flex align-items-center justify-content-center gap-5 py-4">
+          <img src="./images/empty-cart.png" alt="Empty Cart" />
+          <h4>Your cart is empty.!</h4>
+        </div>
+      ) : (
+        <>
           <ul>
-            {cart.map((product) => (
+            {displayCart.map((product) => (
               <li
                 className="cart-container cart-list rounded m-2 py-3"
-                key={product._id}
+                key={product._id || product.id}
               >
                 <img
                   src={product.image}
@@ -148,52 +162,61 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                   alt={product.title}
                   onClick={() => handleCardClick(product)}
                 />
-
-                <div className=" d-flex justify-content-between align-items-center">
-                  <div className=" justify-content-between ">
-                    <pre className=" ">
-                      {product.title?.slice(0, 20) || "No Title"}...
-                    </pre>
-                    <div className=" d-flex align-products-center">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div>
+                    <pre>{product.title?.slice(0, 20) || "No Title"}...</pre>
+                    <div className="d-flex align-items-center">
                       <p>
                         <span className="fw-bold" style={{ color: "gold" }}>
                           ★{" "}
                         </span>
-                        <span className="me-3">{product.rating.rate}</span>
+                        <span className="me-3">{product.rating?.rate}</span>
                       </p>
-                      <p className="fw-bold">Reviews {product.rating.count}</p>
+                      <p className="fw-bold">Reviews {product.rating?.count}</p>
                     </div>
-                    <div className=" d-flex justify-content-between align-products-center">
+                    <div className="d-flex align-items-center">
+                      {isLoggedIn && (
+                        <>
+                          <Button
+                            onClick={() =>
+                              handleProductDecrement(product._id)
+                            }
+                            className="btn btn-danger fw-bold"
+                            btnName={"-"}
+                          />
+                          <span className="px-3 fw-bold">
+                            {product.quantity}
+                          </span>
+                          <Button
+                            onClick={() =>
+                              handleProductIncrement(product._id)
+                            }
+                            className="btn btn-success fw-bold me-3"
+                            btnName={"+"}
+                          />
+                        </>
+                      )}
                       <Button
-                        onClick={() => handleProductDecrement(product._id)}
-                        className="btn btn-danger fw-bold"
-                        btnName={"-"}
-                      />
-                      <span className="d-flex align-products-center px-3 fw-bold">
-                        {product.quantity}
-                      </span>
-                      <Button
-                        onClick={() => handleProductIncrement(product._id)}
-                        className="btn btn-success fw-bold me-3"
-                        btnName={"+"}
-                      />
-
-                      <Button
-                        className="btn btn-info fw-bold "
+                        className="btn btn-info fw-bold"
                         onClick={() => handleAddToWishList(product)}
                         btnName={"Move to wishlist"}
                       />
                     </div>
                   </div>
 
-                  <div className="ms-5 align-products-center me-5 fw-bold ">
-                    ₹{product.price} ( x {product.quantity} )
+                  <div className="ms-5 me-5 fw-bold">
+                    ₹{product.price}{" "}
+                    {isLoggedIn && product.quantity
+                      ? `(x ${product.quantity})`
+                      : ""}
                   </div>
 
-                  <div className="ms-5 align-products-center">
+                  <div className="ms-5">
                     <button
-                      onClick={() => handleProductDelete(product._id)}
-                      className="btn text-danger "
+                      onClick={() =>
+                        handleProductDelete(product._id || product.id)
+                      }
+                      className="btn text-danger"
                     >
                       <span className="material-symbols-outlined">delete</span>
                     </button>
@@ -201,25 +224,21 @@ const Cart = ({ cart, setCart, handleWishList }) => {
                 </div>
               </li>
             ))}
-            <div className="cart-total d-flex justify-content-end">
-              <span className=" mx-3 py-3">
-                Total: ₹{" "}
-                {cart
-                  .reduce(
-                    (total, product) =>
-                      total + product.price * product.quantity,
-                    0
-                  )
-                  .toFixed(2)}
-              </span>
-              <Button
-                className="btn btn-primary fw-bold"
-                btnName={"Place Order"}
-              />
-            </div>
           </ul>
-        )}
-      </ul>
+          <div className="cart-total d-flex justify-content-end">
+            <span className="mx-3 py-3">
+              Total: ₹
+              {displayCart
+                .reduce((total, product) => {
+                  const qty = product.quantity || 1;
+                  return total + product.price * qty;
+                }, 0)
+                .toFixed(2)}
+            </span>
+            <Button className="btn btn-primary fw-bold" btnName={"Place Order"} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
