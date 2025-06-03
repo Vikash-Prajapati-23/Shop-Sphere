@@ -48,12 +48,12 @@ const Products = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => 
   };
 
   const handleCardClick = (product) => {
-    if (product && product.id) {
-      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
-    } else {
-      toast.error("Product ID not found");
-    }
-  };
+      if (product && product.id) {
+        navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+      } else {
+        toast.error("Product ID not found");
+      }
+    };
 
   if (!products) {
     return (

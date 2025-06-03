@@ -7,13 +7,14 @@ import { themeContext } from "../../App";
 import toast from "react-hot-toast";
 
 const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWishlistProduct
-  const [singleProduct, setsingleProduct] = useState(null);
+  const [singleProduct, setSingleProduct] = useState(null);
   // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
   // Added: Function to fetch product details using the extracted ID.
   const fetchSingleProduct = async (id) => {
+    console.log("Fetching product with ID:", id); // Debugging log to check the ID being fetched.
     try {
       const response = await fetch(`http://localhost:3001/api/single/singleproduct/${id}`, {
         method: "GET",
@@ -23,7 +24,7 @@ const SingleProduct = ({ handleCartAddition, handleWishList }) => {   // fetchWi
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch product"); 
       }
-      setsingleProduct(data); // Update the product state with fetched data.
+      setSingleProduct(data); // Update the product state with fetched data.
     } catch (error) {
       console.error("Error fetching data: ", error);
       toast.error("Failed to fetch product details");

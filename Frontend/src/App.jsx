@@ -1,11 +1,10 @@
-import React, {
-  createContext,
-  useState,
-  Suspense,
-  lazy,
-  useEffect,
-} from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { createContext, useState, Suspense, lazy, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,7 +15,6 @@ const Cart = lazy(() => import("./components/Cart/Cart"));
 const WishList = lazy(() => import("./components/WishList/WishList"));
 const Home = lazy(() => import("./components/Home/Home"));
 const Men = lazy(() => import("./components/Men/Men"));
-// const Kid = lazy(() => import("./components/Kid/Kid"));
 const Women = lazy(() => import("./components/Women/Women"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
@@ -37,8 +35,6 @@ function App() {
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [toastShown, setToastShown] = useState(false);
 
   useEffect(() => {
     const verifyLoggedUser = async () => {
@@ -67,11 +63,7 @@ function App() {
 
     verifyLoggedUser();
   }, []); // Ensure this runs only once by using an empty dependency array
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
+  
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
     let moon = document.querySelector(".moon");
@@ -92,7 +84,6 @@ function App() {
 
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
-    
     try {
       const response = await fetch(
         "http://localhost:3001/api/productcart/addcart",
@@ -122,9 +113,9 @@ function App() {
         }
       });
     } catch (error) {
-        console.error("Error adding to cart:", error);
-        toast.error(error.message);
-      }
+      console.error("Error adding to cart:", error);
+      toast.error(error.message);
+    }
   };
 
   // Function to handle adding items to the wishlist
