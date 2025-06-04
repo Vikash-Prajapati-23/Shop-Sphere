@@ -7,7 +7,7 @@ import { themeContext } from "../../App";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
-const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
+const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
   const [guestCart, setGuestCart] = useState(0);
   const toggleMode = useContext(themeContext);
   const navigate = useNavigate();
@@ -19,13 +19,13 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
       setGuestCart(guestCartData.length);
     };
 
-    window.addEventListener("guestCartUpdate", updatedGuestCart);
-    window.dispatchEvent(new Event("guestCartUpdate"));
+    window.addEventListener("guestCartUpdated", updatedGuestCart);
+    window.dispatchEvent(new Event("guestCartUpdated"));
 
     updatedGuestCart();
 
-    return () => window.removeEventListener("guestCartUpdated", updatedGuestCart);
-
+    return () =>
+      window.removeEventListener("guestCartUpdated", updatedGuestCart);
   });
 
   return (
@@ -128,7 +128,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
             </li>
           </ul>
 
-          <div className="search_box d-flex" role="search">
+          <div className="search_box d-flex me-2" role="search">
             <input
               style={{
                 color: toggleMode.mode === true ? "#fff" : "black",
@@ -146,7 +146,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
           </div>
 
           <ul className="navbar-nav justify-content-start justify-content-md-around list-group d-flex">
-            <li className="nav-item navs">
+            {/* <li className="nav-item navs">
               <span
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="material-symbols-outlined sun nav-link active "
@@ -163,8 +163,8 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
               >
                 dark_mode
               </span>
-            </li>
-            <li className="nav-item navs">
+            </li> */}
+            <li className="nav-item">
               {isLoggedIn ? (
                 <button
                   onClick={async () => {
@@ -176,7 +176,6 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
                           credentials: "include", // sends cookie!
                         }
                       );
-
                       if (res.ok) {
                         setIsLoggedIn(false); // update local state
                         navigate("/LoginSignup");
@@ -191,15 +190,24 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
                   }}
                   className="nav-link active fw-bold"
                 >
-                  Log Out
+                  <div className="user-log-out">
+                    {/* <i className="ri-logout-circle-r-line user-icon"></i> */}
+                    <i className="fa-regular fa-circle-user user-icon"></i>
+                    <span> {name ? name.slice(0, 10) : ""} </span>
+                    <i className="fa-solid fa-chevron-down arrow-icon"></i>
+                  </div>
                 </button>
               ) : (
                 <Link
-                  style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                  className="nav-link active fw-bold outli"
+                  // style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+                  className="nav-link active fw-bold "
                   to="/LogInSignUp"
                 >
-                  Log In
+                  <div className="user-log-in">
+                    <i className="fa-regular fa-circle-user user-icon"></i>
+                    <span className=""> Log In </span>
+                    <i className="fa-solid fa-chevron-down arrow-icon"></i>
+                  </div>
                 </Link>
               )}
             </li>

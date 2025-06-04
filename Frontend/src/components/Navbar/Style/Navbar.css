@@ -1,62 +1,110 @@
 .navs:hover {
-    border-bottom: 2px solid orangered;
+  border-bottom: 2px solid orangered;
 }
 
-.navs{
-    margin: auto;
-    border: 2px solid transparent;
+.navs {
+  margin: auto;
+  border: 2px solid transparent;
 }
 
-.cont-login{
-    list-style: none;
-    color: black;
+.cont-login {
+  list-style: none;
+  color: black;
 }
 
-.theme-icon{
-    margin: auto;
+.theme-icon {
+  margin: auto;
 }
 
 /* .cart-icon{
     font-size: 1.5rem; 
 } */
 
-.wishlist-icon{
-    font-size: 1.5rem;
-    color: red;
+.wishlist-icon {
+  font-size: 1.5rem;
+  color: red;
 }
 
-.sun{
-    cursor: pointer;
-    color: rgb(28, 28, 28);
+.sun {
+  cursor: pointer;
+  color: rgb(28, 28, 28);
 }
 
-.moon{
-    cursor: pointer;
-    color: rgb(28, 28, 28);
+.moon {
+  cursor: pointer;
+  color: rgb(28, 28, 28);
 }
 
-.hide{
-    display: none;
+.hide {
+  display: none;
 }
 
 .search_box {
-    border: 1px solid grey;
-    border-radius: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
 
-.search-bar{
-    width: 100%;
-    border: none;
-    padding: 5px;
-    border-radius: 10%;
-    outline: none;
-    background: transparent;
+.search-bar {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  border-radius: 10%;
+  outline: none;
+  background: transparent;
 }
 
 .search-btn {
-    padding: 3px 10px;
-    border: none;
-    border-radius: 10%;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 10%;
+}
+
+.user-log-in {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #fff;
+  gap: 1rem;
+}
+
+.user-log-in > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.user-log-out > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.user-log-out {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #fff;
+}
+
+.user-log-in:hover {
+  color: #fff;
+  background-color: rgb(29, 135, 234);
+}
+
+.user-log-out:hover {
+  border: 1px solid rgb(221, 218, 218);
+  background-color: rgb(248, 249, 250);
+}
+
+.user-icon{
+  font-size: 15px;
+}
+
+.arrow-icon{
+  padding-top: 5px;
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.user-log-in:hover .arrow-icon {
+  transform: rotate(180deg);
+}
+.user-log-out:hover .arrow-icon {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {
@@ -141,4 +189,3 @@
     width: 45px;
   }
 }
-

@@ -65,6 +65,7 @@ export async function handleCreateLogin(req, res) {
     return res.status(200).json({
       message: "Logged in successfully.",
       user: {
+        name: user.name,
         id: user._id,
         email: user.email,
       },
@@ -130,5 +131,22 @@ export async function verifySessionLogout(req, res) {
     return res.status(200).json({ message: "Logged out successfully." });
   } catch (error) {
     return res.status(500).json({ message: "Error during logout", error });
+  }
+}
+
+export async function fetchUserDetails(req, res) {
+  const userDetails = await getUser(req.cookies.sessionUid);
+
+  if(userDetails) {
+    return res.status(200).json({
+      message: "User details feched succesfully.. !",
+      user: {
+        id: userDetails._id,
+        userName: userDetails.userName,
+        email: userDetails.email,
+      }, 
+    });
+  } else {
+    return res.status(500).json({ message: "Not logged in" })
   }
 }

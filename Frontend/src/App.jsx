@@ -1,9 +1,5 @@
 import { createContext, useState, Suspense, lazy, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -34,15 +30,16 @@ function App() {
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
-    const verifyLoggedUser = async () => {
+    const verifyAndFetchUser = async () => {
       try {
         const verifyUser = await fetch(
           `http://localhost:3001/api/auth/verify-session-user`,
           {
             method: "GET",
-            credentials: "include", // Include cookies for authentication
+            credentials: "include",
           }
         );
 
@@ -50,18 +47,31 @@ function App() {
           const sessionData = await verifyUser.json();
           console.log("Session valid:", sessionData);
           setIsLoggedIn(true);
+
+          const userName = await fetch("http://localhost:3001/api/auth/me", {
+            method: "GET",
+            credentials: "include",
+          });
+
+          if (userName.ok) {
+            const fetchedData = await userName.json();
+            console.table(fetchedData.user);
+            setName(fetchedData.user.userName); // <-- store name
+          }
         } else {
           console.log("Session invalid or expired.");
           setIsLoggedIn(false);
+          setName("");
         }
       } catch (error) {
         console.error("Error verifying session:", error);
         setIsLoggedIn(false);
+        setName("");
       }
     };
 
-    verifyLoggedUser();
-  }, []); // Ensure this runs only once by using an empty dependency array
+    verifyAndFetchUser();
+  }, []);
 
   const toggleTheme = () => {
     let sun = document.querySelector(".sun");
@@ -103,7 +113,7 @@ function App() {
         toast.success("Added to cart!");
         setCart(guestCart);
       }
-      
+
       const response = await fetch(
         "http://localhost:3001/api/productcart/addcart",
         {
@@ -177,6 +187,8 @@ function App() {
               setQuery={setQuery}
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
+              name={name}
+              setName={setName}
             />
             <Toaster />
             <Routes>
