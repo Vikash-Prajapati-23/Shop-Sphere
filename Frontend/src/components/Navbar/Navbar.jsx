@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -8,9 +8,25 @@ import { themeContext } from "../../App";
 // import { addToCart } from "../../features/cartSlice";
 
 const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
+  const [guestCart, setGuestCart] = useState(0);
   const toggleMode = useContext(themeContext);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
+
+  useEffect(() => {
+    const updatedGuestCart = () => {
+      const guestCartData = JSON.parse(localStorage.getItem("guestCart")) || [];
+      setGuestCart(guestCartData.length);
+    };
+
+    window.addEventListener("guestCartUpdate", updatedGuestCart);
+    window.dispatchEvent(new Event("guestCartUpdate"));
+
+    updatedGuestCart();
+
+    return () => window.removeEventListener("guestCartUpdated", updatedGuestCart);
+
+  });
 
   return (
     <nav
@@ -202,7 +218,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn }) => {
               >
                 <span className="material-symbols-outlined">shopping_bag</span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
-                  {cart.length}
+                  {isLoggedIn ? cart.length : guestCart}
                   <span className="visually-hidden">unread messages</span>
                 </span>
               </Link>

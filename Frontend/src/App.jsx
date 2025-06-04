@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
@@ -104,6 +103,7 @@ function App() {
         toast.success("Added to cart!");
         setCart(guestCart);
       }
+      
       const response = await fetch(
         "http://localhost:3001/api/productcart/addcart",
         {

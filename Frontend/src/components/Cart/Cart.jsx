@@ -18,32 +18,44 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      const localData = JSON.parse(localStorage.getItem("guestCart")) || [];
-      setGuestCart(localData);
-    } else {
-      const fetchCart = async () => {
-        try {
-          const response = await fetch(
-            "http://localhost:3001/api/productcart/cart",
-            {
-              method: "GET",
-              credentials: "include",
-            }
-          );
-          const data = await response.json();
-          setCart(Array.isArray(data) ? data : []);
-        } catch (error) {
-          toast.error("Failed to fetch cart items");
-          setCart([]);
-        }
+      const updateCart = () => {
+        const cart = JSON.parse(localStorage.getItem("guestCart")) || [];
+        setGuestCart(cart);
       };
-      fetchCart();
+
+      window.addEventListener("guestCartUpdated", updateCart);
+      window.dispatchEvent(new Event("guestCartUpdate"));
+      updateCart(); // Sync on mount too
+
+      return () => window.removeEventListener("guestCartUpdated", updateCart);
     }
+  });
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/api/productcart/cart",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setCart(Array.isArray(data) ? data : []);
+      } catch (error) {
+        toast.error("Failed to fetch cart items");
+        setCart([]);
+      }
+    };
+    fetchCart();
   }, [isLoggedIn, setCart]);
 
   const handleProductDelete = async (productId) => {
     if (!isLoggedIn) {
-      const filtered = guestCart.filter((product) => product.id !== productId && product._id !== productId);
+      const filtered = guestCart.filter(
+        (product) => product.id !== productId && product._id !== productId
+      );
       setGuestCart(filtered);
       localStorage.setItem("guestCart", JSON.stringify(filtered));
       toast.success("Item removed from cart");
@@ -178,9 +190,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                       {isLoggedIn && (
                         <>
                           <Button
-                            onClick={() =>
-                              handleProductDecrement(product._id)
-                            }
+                            onClick={() => handleProductDecrement(product._id)}
                             className="btn btn-danger fw-bold"
                             btnName={"-"}
                           />
@@ -188,9 +198,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                             {product.quantity}
                           </span>
                           <Button
-                            onClick={() =>
-                              handleProductIncrement(product._id)
-                            }
+                            onClick={() => handleProductIncrement(product._id)}
                             className="btn btn-success fw-bold me-3"
                             btnName={"+"}
                           />
@@ -235,7 +243,10 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                 }, 0)
                 .toFixed(2)}
             </span>
-            <Button className="btn btn-primary fw-bold" btnName={"Place Order"} />
+            <Button
+              className="btn btn-primary fw-bold"
+              btnName={"Place Order"}
+            />
           </div>
         </>
       )}
