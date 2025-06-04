@@ -107,6 +107,33 @@
   transform: rotate(180deg);
 }
 
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.custom-dropdown-menu .dropdown-item {
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+
 @media (max-width: 768px) {
   .navbar-collapse {
     background-color: inherit;

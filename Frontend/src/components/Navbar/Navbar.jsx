@@ -10,6 +10,7 @@ import { themeContext } from "../../App";
 const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
   const [guestCart, setGuestCart] = useState(0);
   const toggleMode = useContext(themeContext);
+  const [isDropDown, setIsDropDown] = useState(false);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -27,6 +28,25 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
     return () =>
       window.removeEventListener("guestCartUpdated", updatedGuestCart);
   });
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/api/auth/logout", {
+        method: "GET",
+        credentials: "include", // sends cookie!
+      });
+      if (res.ok) {
+        setIsLoggedIn(false); // update local state
+        navigate("/LoginSignup");
+        toast.success("Logged out successfully!");
+        window.location.reload();
+      } else {
+        toast.error("Logout failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred");
+    }
+  };
 
   return (
     <nav
@@ -84,7 +104,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
             </li>
             <li className="nav-item navs dropdown">
               <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+                // style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link dropdown-toggle fw-bold"
                 to="/Categories"
                 role="button"
@@ -164,39 +184,42 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                 dark_mode
               </span>
             </li> */}
-            <li className="nav-item">
+            <li
+              className="nav-item custom-dropdown"
+              onMouseEnter={() => setIsDropDown(true)}
+              onMouseLeave={() => setIsDropDown(false)}
+            >
               {isLoggedIn ? (
-                <button
-                  onClick={async () => {
-                    try {
-                      const res = await fetch(
-                        "http://localhost:3001/api/auth/logout",
-                        {
-                          method: "GET",
-                          credentials: "include", // sends cookie!
-                        }
-                      );
-                      if (res.ok) {
-                        setIsLoggedIn(false); // update local state
-                        navigate("/LoginSignup");
-                        toast.success("Logged out successfully!");
-                        window.location.reload();
-                      } else {
-                        toast.error("Logout failed");
-                      }
-                    } catch (error) {
-                      toast.error("An error occurred");
-                    }
-                  }}
-                  className="nav-link active fw-bold"
-                >
+                <div className="nav-link active fw-bold">
                   <div className="user-log-out">
-                    {/* <i className="ri-logout-circle-r-line user-icon"></i> */}
                     <i className="fa-regular fa-circle-user user-icon"></i>
                     <span> {name ? name.slice(0, 10) : ""} </span>
                     <i className="fa-solid fa-chevron-down arrow-icon"></i>
                   </div>
-                </button>
+                  {isDropDown && (
+                    <ul className="custom-dropdown-menu">
+                      <li>
+                        <Link className="dropdown-item" to="/Profile">
+                          Profile
+                        </Link>
+                      </li>
+                      <li className="dropdown-item" onClick={handleLogout}>
+                        <i className="ri-logout-circle-r-line user-icon"></i>
+                        Log Out
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/MyOrders">
+                          My orders
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/WishList">
+                          Wishlist
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </div>
               ) : (
                 <Link
                   // style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
