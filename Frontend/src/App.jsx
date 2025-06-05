@@ -16,6 +16,7 @@ const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
 const LogInSignUp = lazy(() => import("./components/LogInSignUp/LogInSignUp"));
 const Electronics = lazy(() => import("./components/Electronics/Electronics"));
 const Jewelery = lazy(() => import("./components/Jewelery/Jewelery"));
+const Profile = lazy(() => import("./components/Dashboard/Profile/Profile"));
 const SingleProduct = lazy(() =>
   import("./components/SingleProduct/SingleProduct")
 );
@@ -214,7 +215,12 @@ function App() {
 
               <Route
                 path="/LoginSignup"
-                element={<LogInSignUp setIsLoggedIn={setIsLoggedIn} setName={setName} />}
+                element={
+                  <LogInSignUp
+                    setIsLoggedIn={setIsLoggedIn}
+                    setName={setName}
+                  />
+                }
               />
 
               <Route
@@ -300,6 +306,11 @@ function App() {
                     handleCartAddition={handleCartAddition}
                   />
                 }
+              />
+
+              <Route
+                path="/Profile"
+                element={<Profile setName={setName} />}
               />
 
               <Route path="/TermsOfUse" element={<TermsOfUse />} />

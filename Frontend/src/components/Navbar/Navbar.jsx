@@ -202,10 +202,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                           Profile
                         </Link>
                       </li>
-                      <li className="dropdown-item" onClick={handleLogout}>
-                        <i className="ri-logout-circle-r-line user-icon me-2"></i>
-                        Log Out
-                      </li>
+
                       <li>
                         <Link className="dropdown-item" to="/MyOrders">
                           My orders
@@ -215,6 +212,10 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                         <Link className="dropdown-item" to="/WishList">
                           Wishlist
                         </Link>
+                      </li>
+                      <li className="dropdown-item" onClick={handleLogout}>
+                        <i className="ri-logout-circle-r-line user-icon me-2"></i>
+                        Log Out
                       </li>
                     </ul>
                   )}

@@ -1,0 +1,107 @@
+.Profile {
+  margin: 1rem 7rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.user {
+  background-color: #fff;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.side-profile {
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+h5 {
+  color: rgb(135, 133, 133);
+}
+
+.side-profile-secs {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgb(217, 215, 215);
+}
+
+.lists {
+  list-style: none;
+  cursor: pointer;
+  /* width: 100%; */
+  padding: .3rem 0rem;
+}
+
+.lists:hover {
+    color:  rgb(58, 131, 250);
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.user-name,
+p {
+  margin: 3px 0;
+}
+
+.hello {
+  font-size: 15px;
+}
+
+.name-text {
+  font-size: 25px;
+}
+
+.img-user {
+  height: 6rem;
+}
+
+.profile-details {
+  background-color: #fff;
+  padding: 1rem;
+  display: block;
+  gap: 1rem;
+  border-radius: 2px;
+}
+
+.sections {
+  margin-right: 1.5rem;
+  font-size: larger;
+}
+
+.btns {
+  color: rgb(39, 110, 234);
+  border: none;
+  background-color: #fff;
+  padding: 0.1rem 0.5rem;
+  font-weight: bold;
+}
+
+.save-btn {
+  background-color: rgb(39, 110, 234);
+  color: #fff;
+  padding: 0.2rem 0.8rem;
+  border: none;
+  border-radius: 2px;
+}
+
+.form-gap {
+  margin-top: 1rem;
+}
+
+.radio {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.input-field {
+  padding: 0.3rem;
+  border: 1px solid rgb(225, 222, 222);
+  border-radius: 2px;
+  font-size: 14px;
+}
