@@ -39,7 +39,6 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
         setIsLoggedIn(false); // update local state
         navigate("/LoginSignup");
         toast.success("Logged out successfully!");
-        window.location.reload();
       } else {
         toast.error("Logout failed");
       }
@@ -166,8 +165,8 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
           </div>
 
           <ul className="navbar-nav justify-content-start justify-content-md-around list-group d-flex">
-            {/* <li className="nav-item navs">
-              <span
+            <li className="nav-item navs">
+              {/* <span
                 style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="material-symbols-outlined sun nav-link active "
                 onClick={toggleMode.toggleTheme}
@@ -182,11 +181,11 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                 onClick={toggleMode.toggleTheme}
               >
                 dark_mode
-              </span>
-            </li> */}
+              </span> */}
+            </li>
             <li
               className="nav-item custom-dropdown"
-              onMouseEnter={() => setIsDropDown(true)}
+              onMouseOver={() => setIsDropDown(true)}
               onMouseLeave={() => setIsDropDown(false)}
             >
               {isLoggedIn ? (
@@ -204,7 +203,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                         </Link>
                       </li>
                       <li className="dropdown-item" onClick={handleLogout}>
-                        <i className="ri-logout-circle-r-line user-icon"></i>
+                        <i className="ri-logout-circle-r-line user-icon me-2"></i>
                         Log Out
                       </li>
                       <li>

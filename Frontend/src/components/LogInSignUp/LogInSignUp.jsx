@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Style/LogInSignUp.css";
 
-const LogInSignUp = ({ setIsLoggedIn }) => {
+const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     userName: "",
@@ -62,7 +62,9 @@ const LogInSignUp = ({ setIsLoggedIn }) => {
       if (userLogin.ok) {
         setIsLoggedIn(true); // Set user as logged in
         toast.success(loggedInUser.message);
-        navigate("/"); // Redirect to the home page
+        navigate("/");
+        setName(loggedInUser.user.name);
+        console.log(loggedInUser)
       } else {
         toast.error(loggedInUser.message || "Login failed");
       }

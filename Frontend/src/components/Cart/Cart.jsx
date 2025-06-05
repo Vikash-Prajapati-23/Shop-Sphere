@@ -147,6 +147,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
       return;
     }
     handleWishList(product);
+    toast.success("Added to wishlist!");
     handleProductDelete(product._id);
   };
 

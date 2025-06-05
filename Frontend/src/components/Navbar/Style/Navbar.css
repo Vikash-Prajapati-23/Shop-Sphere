@@ -60,6 +60,7 @@
 }
 
 .user-log-in {
+  cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #fff;
@@ -75,6 +76,7 @@
 }
 
 .user-log-out {
+  cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   border: 1px solid #fff;
@@ -114,25 +116,26 @@
 .custom-dropdown-menu {
   position: absolute;
   top: 100%;
-  right: 0;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  min-width: 140px;
-  z-index: 1000;
-  padding: 0.5rem 0;
+  right: 10;
+  background-color: #fff;
   list-style: none;
+  border-radius: .5rem;
+  padding: 0rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
 }
 
-.custom-dropdown-menu .dropdown-item {
-  padding: 10px 10px;
+.dropdown-item {
   cursor: pointer;
+  width: 100%;
+  padding: .2rem 2.7rem 0rem .5rem;
+  border-radius: .5rem;
+  margin-bottom: .5rem;
 }
 
-.custom-dropdown-menu .dropdown-item:hover {
+.dropdown-item:hover {
   background-color: #f8f9fa;
 }
-
 
 @media (max-width: 768px) {
   .navbar-collapse {

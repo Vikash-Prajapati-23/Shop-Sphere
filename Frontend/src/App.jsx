@@ -55,8 +55,7 @@ function App() {
 
           if (userName.ok) {
             const fetchedData = await userName.json();
-            console.table(fetchedData.user);
-            setName(fetchedData.user.userName); // <-- store name
+            setName(fetchedData.user.userName);
           }
         } else {
           console.log("Session invalid or expired.");
@@ -127,7 +126,7 @@ function App() {
       );
       const data = await response.json();
       if (!response.ok) {
-        toast.error(data.message || "Failed to add to cart");
+        // toast.error(data.message || "Failed to add to cart");
         return;
       }
       // Only update state if the request was successful
@@ -167,7 +166,6 @@ function App() {
           toast.success(data.message);
           return prevWishlist.filter((item) => item._id !== product._id);
         } else {
-          toast.success("Added to wishlist!");
           return [...prevWishlist, product];
         }
       });
@@ -216,7 +214,7 @@ function App() {
 
               <Route
                 path="/LoginSignup"
-                element={<LogInSignUp setIsLoggedIn={setIsLoggedIn} />}
+                element={<LogInSignUp setIsLoggedIn={setIsLoggedIn} setName={setName} />}
               />
 
               <Route

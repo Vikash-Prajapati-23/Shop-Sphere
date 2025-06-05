@@ -65,7 +65,7 @@ export async function handleCreateLogin(req, res) {
     return res.status(200).json({
       message: "Logged in successfully.",
       user: {
-        name: user.name,
+        name: user.userName,
         id: user._id,
         email: user.email,
       },
