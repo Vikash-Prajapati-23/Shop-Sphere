@@ -15,12 +15,23 @@ const Profile = () => {
     contact: "",
   });
 
-  const handleSave = async (e) => {
-    e.preventDefault();
+  const handleSave = async (field) => {
     setIsSaving(true);
 
     // Logic for saving the data separately on clicking save button.
-    
+    let payload = {};
+    if (field === "name") {
+      payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+      };
+    } else if (field === "gender") {
+      payload = { gender: formData.gender };
+    } else if (field === "email") {
+      payload = { email: formData.email };
+    } else {
+      payload = { contact: formData.contact };
+    }
 
     try {
       const response = await fetch("http://localhost:3001/api/auth/profile", {
@@ -29,16 +40,15 @@ const Profile = () => {
         credentials: "include",
         body: JSON.stringify(formData),
       });
-      console.log(response);
+      // console.log(response);
       const data = await response.json();
-      if (response.success) {
+      if (response.ok) {
         toast.success(data.message);
-        setIsEditName(false);
-        setIsEditEmail(false);
-        setIsEditContact(false);
-        console.log(data);
+        if (field === "name") setIsEditName(false);
+        if (field === "email") setIsEditEmail(false);
+        if (field === "contact") setIsEditContact(false);
       } else {
-        toast.error(data.message || "Something went wrong, please try again.")
+        toast.error(data.message || "Something went wrong, please try again.");
       }
     } catch (err) {
       toast.error(err.message || "Failed to update");
@@ -68,7 +78,10 @@ const Profile = () => {
           </div>
           <div className="user-name">
             <p className="hello">Hello,</p>
-            <p className="name-text"> { formData.firstName } { formData.lastName } </p>
+            <p className="name-text">
+              {" "}
+              {formData.firstName} {formData.lastName}{" "}
+            </p>
           </div>
         </div>
 
@@ -148,7 +161,10 @@ const Profile = () => {
               {isEditName ? (
                 <button
                   className="save-btn"
-                  onClick={handleSave}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSave("name");
+                  }}
                   disabled={isSaving}
                 >
                   {isSaving ? (
@@ -224,7 +240,10 @@ const Profile = () => {
               {isEditEmail ? (
                 <button
                   className="save-btn"
-                  onClick={handleSave}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSave("email");
+                  }}
                   disabled={isSaving}
                 >
                   {isSaving ? (
@@ -267,7 +286,10 @@ const Profile = () => {
               {isEditContact ? (
                 <button
                   className="save-btn"
-                  onClick={handleSave}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSave("contact");
+                  }}
                   disabled={isSaving}
                 >
                   {isSaving ? (
