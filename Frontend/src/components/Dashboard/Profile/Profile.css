@@ -29,19 +29,23 @@ h5 {
   border-bottom: 1px solid rgb(217, 215, 215);
 }
 
+.borders {
+  border-top: 1px solid rgb(217, 215, 215);
+}
+
 .lists {
   list-style: none;
   cursor: pointer;
   /* width: 100%; */
-  padding: .3rem 0rem;
+  padding: 0.3rem 0rem;
 }
 
 .lists:hover {
-    color:  rgb(58, 131, 250);
+  color: rgb(58, 131, 250);
 }
 
 .cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .user-name,
@@ -54,16 +58,16 @@ p {
 }
 
 .name-text {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .img-user {
-  height: 6rem;
+  height: 5rem;
 }
 
 .profile-details {
   background-color: #fff;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
   display: block;
   gap: 1rem;
   border-radius: 2px;
@@ -79,7 +83,6 @@ p {
   border: none;
   background-color: #fff;
   padding: 0.1rem 0.5rem;
-  font-weight: bold;
 }
 
 .save-btn {

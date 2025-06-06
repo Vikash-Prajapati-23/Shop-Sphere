@@ -22,7 +22,7 @@ const SingleProduct = lazy(() =>
 );
 
 // Creating context
-const themeContext = createContext();
+const themeContext = createContext("");
 
 function App() {
   const [mode, setMode] = useState(false);

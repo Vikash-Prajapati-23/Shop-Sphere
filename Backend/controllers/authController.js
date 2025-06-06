@@ -1,5 +1,5 @@
 import { auth } from "../models/authModels.js";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import { setUser, getUser, deleteSession } from "../services/auth.js";
@@ -111,7 +111,6 @@ export async function verifySessionLogin(req, res) {
   }
 }
 
-
 export async function verifySessionLogout(req, res) {
   try {
     const sessionUid = req.cookies.sessionUid;
@@ -137,16 +136,56 @@ export async function verifySessionLogout(req, res) {
 export async function fetchUserDetails(req, res) {
   const userDetails = await getUser(req.cookies.sessionUid);
 
-  if(userDetails) {
+  if (userDetails) {
     return res.status(200).json({
       message: "User details feched succesfully.. !",
       user: {
         id: userDetails._id,
         userName: userDetails.userName,
         email: userDetails.email,
-      }, 
+      },
     });
   } else {
-    return res.status(500).json({ message: "Not logged in" })
+    return res.status(500).json({ message: "Not logged in" });
+  }
+}
+
+export async function updateProfile(req, res) {
+  const sessionUid = req.cookies.sessionUid; // Getting the session token
+  const { firstName, lastName, gender, email, contact } = req.body;
+
+  try {
+    // Get the user object from the session
+    const user = await getUser(sessionUid);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid session." });
+    }
+
+    const updatedUser = await auth
+      .findByIdAndUpdate(
+        user._id, // Use the user's MongoDB _id
+        {
+          firstName,
+          lastName,
+          gender,
+          email,
+          contact,
+        },
+        { new: true }
+      )
+      .select("-password");
+
+    // if (updatedUser) {
+    //   res.status(401).json({ message: "data already exists!" });
+    // }
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Internal server error.", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
   }
 }

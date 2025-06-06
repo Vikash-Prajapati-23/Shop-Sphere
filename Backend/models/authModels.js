@@ -15,9 +15,24 @@ const authSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    firstName: {
+      type: String,
+      default: "",
+    },
+    lastName: {
+      type: String,
+      default: "",
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+    },
+    contact: {
+      type: String,
+      default: "",
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export const auth = mongoose.model("auth", authSchema);
-
