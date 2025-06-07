@@ -310,7 +310,7 @@ function App() {
 
               <Route
                 path="/Profile"
-                element={<Profile setName={setName} />}
+                element={<Profile name={name} />}
               />
 
               <Route path="/TermsOfUse" element={<TermsOfUse />} />

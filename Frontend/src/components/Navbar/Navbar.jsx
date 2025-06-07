@@ -192,7 +192,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                 <div className="nav-link active fw-bold">
                   <div className="user-log-out">
                     <i className="fa-regular fa-circle-user user-icon"></i>
-                    <span> {name ? name.slice(0, 10) : ""} </span>
+                    <span> {name ? name.trim() : ""} </span>
                     <i className="fa-solid fa-chevron-down arrow-icon"></i>
                   </div>
                   {isDropDown && (

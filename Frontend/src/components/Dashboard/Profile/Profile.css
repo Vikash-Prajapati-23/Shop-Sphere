@@ -65,6 +65,12 @@ p {
   height: 5rem;
 }
 
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .profile-details {
   background-color: #fff;
   padding: 1.5rem 2rem;
@@ -103,7 +109,7 @@ p {
 }
 
 .input-field {
-  padding: 0.3rem;
+  padding: .8rem .5rem .2rem .5rem;
   border: 1px solid rgb(225, 222, 222);
   border-radius: 2px;
   font-size: 14px;

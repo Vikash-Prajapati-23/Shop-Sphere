@@ -1,0 +1,96 @@
+.address-area {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+}
+
+.add-address-btn {
+  color: rgb(39, 110, 234);
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  margin-bottom: 1rem;
+}
+
+.add-address {
+  color: rgb(39, 110, 234);
+  padding: 1rem;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  margin-bottom: 1rem;
+}
+
+.add-address:focus {
+  border: 1px solid blue;
+  outline: none; /* optional, removes the default focus outline */
+}
+
+.form-area {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  gap: 0.7rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 30px;
+  position: relative;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.label-text {
+  position: absolute;
+  padding: 0px 15px;
+  font-size: 12px;
+}
+
+.form-input {
+  padding: 0.9rem .9rem 0rem .9rem;
+  border: 1px solid lightgray;
+  border-radius: 1px;
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.form-input-address {
+  padding: 1.2rem .9rem;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  border-radius: 1px;
+}
+
+.form-input:focus {
+  border: 1px solid blue;
+  outline: none; /* optional, removes the default focus outline */
+}
+
+.form-input-address:focus {
+  border: 1px solid blue;
+  outline: none; /* optional, removes the default focus outline */
+}
+
+button.primary {
+  color: #fff;
+  background-color: rgb(39, 110, 234);
+  border-radius: 1px;
+  padding: 0.7rem;
+}
+
+button.cancle {
+  padding: 0.7rem;
+  color: rgb(39, 110, 234);
+  background-color: #f4f2f2;
+}
