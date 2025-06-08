@@ -17,6 +17,7 @@ export const ManageAddresses = () => {
     alternatePhone: "",
     addressType: "",
   });
+  const [savedAddresses, setSavedAddresses] = useState([]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -31,9 +32,11 @@ export const ManageAddresses = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       if (response.ok) {
         toast.success(data.message);
+        // This adds the new address to the savedAddresses array, which causes React to re-render the component and display the new list item.
+        setSavedAddresses((prev) => [...prev, data.data]);
       }
     } catch (error) {
       toast.error(
@@ -63,7 +66,7 @@ export const ManageAddresses = () => {
             onClick={() => setIsvisible(true)}
             className="add-address-btn fw-semibold"
           >
-            <span>&#10133;</span> ADD A NEW ADDRESS
+            <span className="me-4">&#10133;</span> ADD A NEW ADDRESS
           </button>
         ) : (
           <div className="add-address ">
@@ -259,6 +262,27 @@ export const ManageAddresses = () => {
             </form>
           </div>
         )}
+
+        <div>
+          <ul className="address-list">
+            {savedAddresses?.map((data) => (
+              <li className="saved-address-list">
+                <div className="type-and-delete mb-2">
+                  <span className="address-type">
+                    {data ? data.addressType : "Home"}
+                  </span>
+                  <i className="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+
+                <div className="mb-2 d-flex gap-4 fw-bold">
+                  <span> {data.name} </span> <span> {data.mobile} </span>
+                </div>
+
+                <p> {data.address} </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

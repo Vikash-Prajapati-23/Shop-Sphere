@@ -100,3 +100,37 @@ button.cancle {
   color: rgb(39, 110, 234);
   background-color: transparent;
 }
+
+.saved-address-list {
+  list-style: none;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid lightgray;
+  margin: 0; /* Remove vertical gap between list items */
+  box-sizing: border-box;
+  border-bottom: none;
+}
+
+/* Add border to the last item only */
+.address-list .saved-address-list:last-child {
+  border-bottom: 1px solid lightgray;
+}
+
+.address-type {
+  padding: .1rem .3rem;
+  border: none;
+  border-radius: 1px;
+  background-color: #eceaea;
+}
+
+.type-and-delete {
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-list {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
