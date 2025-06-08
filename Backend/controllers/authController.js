@@ -1,4 +1,5 @@
 import { auth } from "../models/authModels.js";
+import { addressModel } from "../models/manageAddressModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
@@ -79,7 +80,7 @@ export async function handleCreateLogin(req, res) {
 
 export async function verifySessionLogin(req, res) {
   try {
-    console.log("verifySessionLogin called");
+    // console.log("verifySessionLogin called");
     const sessionUid = req.cookies.sessionUid;
 
     if (!sessionUid) {
@@ -90,13 +91,6 @@ export async function verifySessionLogin(req, res) {
     if (!user) {
       return res.status(401).json({ message: "Invalid session." });
     }
-
-    // res.cookie("sessionUid", sessionUid, {
-    //   httpOnly: true,
-    //   secure: false,
-    //   sameSite: "lax",
-    //   path: "/",
-    // });
 
     return res.status(200).json({
       message: "Session is valid.",
@@ -175,10 +169,6 @@ export async function updateProfile(req, res) {
       )
       .select("-password");
 
-    // if (updatedUser) {
-    //   res.status(401).json({ message: "data already exists!" });
-    // }
-
     return res.status(200).json({
       success: true,
       message: "Profile updated successfully",
@@ -187,5 +177,33 @@ export async function updateProfile(req, res) {
   } catch (error) {
     console.error("Internal server error.", error);
     return res.status(500).json({ message: "Internal Server Error", error });
+  }
+}
+
+export async function updateAddress(req, res) {
+  const sessionUid = req.cookies.sessionUid;
+  const addressDetails = req.body;
+
+  try {
+    const user = await getUser(sessionUid);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid session." });
+    }
+
+    const updatedAddress = await addressModel.findOneAndUpdate(
+      { userId: user._id },
+      { $set: addressDetails },
+      { new: true, upsert: true }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "Address updated successfully!", data: updatedAddress });
+  } catch (error) {
+    console.error("Error updating address:", error);
+    return res.status(500).json({
+      message:
+        "Something went wrong while updating the address. Please try again later.",
+    });
   }
 }
