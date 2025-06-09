@@ -9,6 +9,7 @@ import {
   addAddress,
   showSavedAddresses,
   deleteAddress,
+  editAddress,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.post("/profile", updateProfile);
 router.post("/address", addAddress);
 router.get("/savedAddress", showSavedAddresses);
 router.delete("/deleteAddress/:id", deleteAddress);
+router.put("/address/:id", editAddress);
 
 export default router;

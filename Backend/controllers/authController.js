@@ -255,3 +255,39 @@ export async function deleteAddress(req, res) {
       .json({ message: "Something went wrong. Try again later.", error });
   }
 }
+
+export async function editAddress(req, res) {
+  const sessionUid = req.cookies.sessionUid;
+  const data = req.body;
+  const addressId = req.params.id;
+
+  try {
+    const user = await getUser(sessionUid);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid session." });
+    }
+
+    // Only allow editing addresses belonging to the user
+    const editedAddress = await addressModel.findOneAndUpdate(
+      { _id: addressId, userId: user._id },
+      data,
+      { new: true }
+    );
+
+    if (!editedAddress) {
+      return res
+        .status(404)
+        .json({ message: "Address not found or not authorized." });
+    }
+
+    return res.status(200).json({
+      message: "Address updated successfully.",
+      data: editedAddress,
+    });
+  } catch (error) {
+    console.error("Error while editing address.", error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong. Try again later.", error });
+  }
+}

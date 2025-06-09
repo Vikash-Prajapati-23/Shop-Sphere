@@ -65,24 +65,46 @@ export const ManageAddresses = () => {
         return;
       }
     }
-
     try {
-      const response = await fetch("http://localhost:3001/api/auth/address", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        toast.success(data.message);
-        // This adds the new address to the savedAddresses array, which causes React to re-render the component and display the new list item.
-        setSavedAddresses((prev) => [...prev, data.data]);
+      let response, data;
+      if (!formData._id) {
+        // Add new address
+        response = await fetch("http://localhost:3001/api/auth/address", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        });
+        data = await response.json();
+        if (response.ok) {
+          toast.success(data.message);
+          setSavedAddresses((prev) => [...prev, data.data]);
+        }
+      } else {
+        // Edit existing address
+        response = await fetch(
+          `http://localhost:3001/api/auth/address/${formData._id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(formData),
+          }
+        );
+        data = await response.json();
+        if (response.ok) {
+          toast.success(data.message);
+          setSavedAddresses((prev) =>
+            prev.map((address) =>
+              address._id === formData._id ? data.data : address
+            )
+          );
+        }
       }
     } catch (error) {
       toast.error(
         error,
-        "Something went wrong while updating the address. Please try again leter."
+        "Something went wrong while updating the address. Please try again later."
       );
     } finally {
       setIsSaving(false);
@@ -350,7 +372,22 @@ export const ManageAddresses = () => {
                     >
                       <div>
                         <button
-                          onClick={() => setIsvisible(true)}
+                          onClick={() => {
+                            setFormData({
+                              name: data.name || "",
+                              mobile: data.mobile || "",
+                              pincode: data.pincode || "",
+                              locality: data.locality || "",
+                              address: data.address || "",
+                              city: data.city || "",
+                              state: data.state || "",
+                              landmark: data.landmark || "",
+                              alternatePhone: data.alternatePhone || "",
+                              addressType: data.addressType || "",
+                              _id: data._id, // keep the id for editing
+                            }); // populate form with selected address
+                            setIsvisible(true);
+                          }}
                           className="hover-btns"
                         >
                           Edit
