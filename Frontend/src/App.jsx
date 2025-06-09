@@ -46,7 +46,6 @@ function App() {
 
         if (verifyUser.ok) {
           const sessionData = await verifyUser.json();
-          console.log("Session valid:", sessionData);
           setIsLoggedIn(true);
 
           const userName = await fetch("http://localhost:3001/api/auth/me", {
@@ -59,7 +58,6 @@ function App() {
             setName(fetchedData.user.userName);
           }
         } else {
-          console.log("Session invalid or expired.");
           setIsLoggedIn(false);
           setName("");
         }

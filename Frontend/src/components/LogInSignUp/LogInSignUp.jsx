@@ -64,7 +64,6 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
         toast.success(loggedInUser.message);
         navigate("/");
         setName(loggedInUser.user.name);
-        console.log(loggedInUser)
       } else {
         toast.error(loggedInUser.message || "Login failed");
       }

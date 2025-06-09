@@ -180,7 +180,7 @@ export async function updateProfile(req, res) {
   }
 }
 
-export async function updateAddress(req, res) {
+export async function addAddress(req, res) {
   const sessionUid = req.cookies.sessionUid;
   const addressDetails = req.body;
 
@@ -225,5 +225,33 @@ export async function showSavedAddresses(req, res) {
   } catch (error) {
     console.error("Error while sending address details to the client.", error);
     return res.status(500).json({ message: "Something went wrong.", error });
+  }
+}
+
+export async function deleteAddress(req, res) {
+  const sessionUid = req.cookies.sessionUid; //  It represents the currently logged-in user.
+  const addressId = req.params.id;
+  // addressId is the MongoDB ObjectId of the address to delete
+
+  try {
+    const userAddress = await getUser(sessionUid);
+    // userAddress._id is the user's unique MongoDB ID.
+    // It comes from the URL parameter: req.params.id.
+    // It is the _id of a document in your addressModel collection (not the user).
+
+    if (!userAddress) {
+      return res.status(401).json({ message: "Invalid session." });
+    }
+
+    await addressModel.findOneAndDelete({
+      _id: addressId,
+      userId: userAddress._id,
+    });
+    return res.status(200).json({ message: "Address deleted successfully." });
+  } catch (error) {
+    console.error("Error while deleting address.");
+    return res
+      .status(500)
+      .json({ message: "Something went wrong. Try again later.", error });
   }
 }

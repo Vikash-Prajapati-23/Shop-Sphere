@@ -33,7 +33,6 @@ export const ManageAddresses = () => {
         const data = await response.json();
         if (response.ok) {
           setSavedAddresses(data.addresses || []);
-          console.log(data, data.message);
         }
       } catch (error) {
         console.error(error, "Server error.");
@@ -48,15 +47,33 @@ export const ManageAddresses = () => {
     setIsvisible(true);
     setIsSaving(true);
 
+    const requiredFields = [
+      "name",
+      "mobile",
+      "pincode",
+      "locality",
+      "address",
+      "city",
+      "state",
+      "landmark",
+      "addressType",
+    ];
+    for (let field of requiredFields) {
+      if (!formData[field] || formData[field].trim() === "") {
+        toast.error(`Please fill in the ${field} field.`);
+        setIsSaving(false);
+        return;
+      }
+    }
+
     try {
       const response = await fetch("http://localhost:3001/api/auth/address", {
-        method: "PUT",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         toast.success(data.message);
         // This adds the new address to the savedAddresses array, which causes React to re-render the component and display the new list item.
@@ -69,6 +86,31 @@ export const ManageAddresses = () => {
       );
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/auth/deleteAddress/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message);
+        // Remove the deleted address from the UI
+        setSavedAddresses((prev) => prev.filter((addr) => addr._id !== id));
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(
+        error,
+        "Something went wrong while deleting the address. Please try again later."
+      );
     }
   };
 
@@ -307,10 +349,20 @@ export const ManageAddresses = () => {
                       className="edit-delete-btns"
                     >
                       <div>
-                        <button className="hover-btns">Edit</button>
+                        <button
+                          onClick={() => setIsvisible(true)}
+                          className="hover-btns"
+                        >
+                          Edit
+                        </button>
                       </div>
                       <div>
-                        <button className="hover-btns">Delete</button>
+                        <button
+                          onClick={() => handleDelete(data._id)}
+                          className="hover-btns"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   )}

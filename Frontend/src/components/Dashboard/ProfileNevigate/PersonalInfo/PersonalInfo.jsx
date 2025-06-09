@@ -28,7 +28,7 @@ export const PersonalInfo = ({ handleInputChange, formData }) => {
 
     try {
       const response = await fetch("http://localhost:3001/api/auth/profile", {
-        method: "PUT",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(formData),
