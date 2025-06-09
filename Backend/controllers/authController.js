@@ -190,20 +190,40 @@ export async function updateAddress(req, res) {
       return res.status(401).json({ message: "Invalid session." });
     }
 
-    const updatedAddress = await addressModel.findOneAndUpdate(
-      { userId: user._id },
-      { $set: addressDetails },
-      { new: true, upsert: true }
-    );
+    // Create a new address document for this user
+    const newAddress = await addressModel.create({
+      ...addressDetails,
+      userId: user._id,
+    });
 
     return res
       .status(200)
-      .json({ message: "Address updated successfully!", data: updatedAddress });
+      .json({ message: "Address saved successfully!", data: newAddress });
   } catch (error) {
-    console.error("Error updating address:", error);
+    console.error("Error saving address:", error);
     return res.status(500).json({
       message:
-        "Something went wrong while updating the address. Please try again later.",
+        "Something went wrong while saving the address. Please try again later.",
     });
+  }
+}
+
+export async function showSavedAddresses(req, res) {
+  try {
+    const user = await getUser(req.cookies.sessionUid);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid session." });
+    }
+
+    // Fetch all addresses for this user from addressModel
+    const addresses = await addressModel.find({ userId: user._id });
+
+    return res.status(200).json({
+      message: "Address details fetched successfully.",
+      addresses, // send as array
+    });
+  } catch (error) {
+    console.error("Error while sending address details to the client.", error);
+    return res.status(500).json({ message: "Something went wrong.", error });
   }
 }

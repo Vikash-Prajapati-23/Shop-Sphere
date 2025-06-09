@@ -7,6 +7,7 @@ import {
   fetchUserDetails,
   updateProfile,
   updateAddress,
+  showSavedAddresses,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get("/logout", verifySessionLogout);
 router.get("/me", fetchUserDetails);
 router.put("/profile", updateProfile);
 router.put("/address", updateAddress);
+router.get("/savedAddress", showSavedAddresses);
 
 export default router;

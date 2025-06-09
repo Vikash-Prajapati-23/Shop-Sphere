@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import "./ManageAddress.css";
 
@@ -18,6 +18,30 @@ export const ManageAddresses = () => {
     addressType: "",
   });
   const [savedAddresses, setSavedAddresses] = useState([]);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  useEffect(() => {
+    const showAddress = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/api/auth/savedAddress",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setSavedAddresses(data.addresses || []);
+          console.log(data, data.message);
+        }
+      } catch (error) {
+        console.error(error, "Server error.");
+      }
+    };
+
+    showAddress();
+  }, []);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -265,13 +289,31 @@ export const ManageAddresses = () => {
 
         <div>
           <ul className="address-list">
-            {savedAddresses?.map((data) => (
-              <li className="saved-address-list">
+            {savedAddresses?.map((data, index) => (
+              <li key={index} className="saved-address-list">
                 <div className="type-and-delete mb-2">
                   <span className="address-type">
                     {data ? data.addressType : "Home"}
                   </span>
-                  <i className="fa-solid fa-ellipsis-vertical"></i>
+                  {hoveredIndex !== index ? (
+                    <i
+                      onMouseOver={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="fa-solid fa-ellipsis-vertical"
+                    ></i>
+                  ) : (
+                    <div
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="edit-delete-btns"
+                    >
+                      <div>
+                        <button className="hover-btns">Edit</button>
+                      </div>
+                      <div>
+                        <button className="hover-btns">Delete</button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mb-2 d-flex gap-4 fw-bold">
