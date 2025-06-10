@@ -164,7 +164,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
         </div>
       ) : (
         <div className="cart-layout-container">
-          <section className=" section-part my-4">
+          <section className="section-part my-4">
             <div className="d-flex justify-content-between p-3 m-0 cart-head">
               <div>
                 <span className="user-address-bold">Deliver to:</span>
@@ -275,25 +275,27 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
             </ul>
             <div className="cart-total d-flex justify-content-end">
               <Button
-                className="btn btn-primary fw-bold"
-                btnName={"Place Order"}
+                className="fw-bold place-order-btn"
+                btnName={"PLACE ORDER"}
               />
             </div>
           </section>
 
-          <aside className="bg-clr bg-white my-4">
+          <aside className="bg-clr bg-white my-4 fixed">
             <div className="borders p-3 fw-bold">PRICE DETAILS</div>
             <div className="p-3">
               <div className="d-flex justify-content-between pb-2">
                 <span>
-                  Price <span>( {displayCart.reduce((product) => {
-                    const qty = product.quantity || 1;
-                    return qty;
-                  })} items )</span>
+                  Price <span>({cart.length} items)</span>
                 </span>
                 <span className="">
                   ₹
-                  {displayCart}
+                  {displayCart
+                    .reduce((total, product) => {
+                      const qty = product.quantity || 1;
+                      return total + product.price * qty;
+                    }, 0)
+                    .toFixed(2)}
                 </span>
               </div>
               <div className="d-flex justify-content-between py-2">
@@ -315,12 +317,13 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
               <div className="d-flex justify-content-between py-3 fw-bold borders">
                 <span>Total Amount</span>{" "}
                 <span>
-                  {(displayCart
-                    .reduce((total, product) => {
+                  ₹
+                  {(
+                    displayCart.reduce((total, product) => {
                       const qty = product.quantity || 1;
                       return total + product.price * qty;
                     }, 0) + platformFee
-                    ).toFixed(2)}
+                  ).toFixed(2)}
                 </span>
               </div>
               <div className="d-flex justify-content-between pt-2 text-success">
