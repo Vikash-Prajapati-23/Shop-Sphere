@@ -1,13 +1,13 @@
-import React from "react";
 import "./Style/Button.css";
 
-const Button = ({ className, onClick, btnName, type }) => {
+const Button = ({ className, onClick, btnName, type, disabled }) => {
   return (
     <div>
       <button
         className={className}
         onClick={onClick}
         type={type}
+        disabled={disabled}
       >
         {btnName}
       </button>

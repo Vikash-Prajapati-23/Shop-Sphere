@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import toast from "react-hot-toast";
 import "./ManageAddress.css";
+import { useAddress } from "../../../../context/addressDetailsContext";
 
 export const ManageAddresses = () => {
   const [isVisible, setIsvisible] = useState(false);
@@ -19,6 +20,7 @@ export const ManageAddresses = () => {
   });
   const [savedAddresses, setSavedAddresses] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const { selectedAddress, setSelectedAddress } = useAddress();
 
   useEffect(() => {
     const showAddress = async () => {

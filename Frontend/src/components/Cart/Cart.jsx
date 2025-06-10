@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
 import "./Style/Cart.css";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAddress } from "../../context/addressDetailsContext";
+import { useEffect, useState } from "react";
 
 const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
   const [platformFee, setPlatformFee] = useState(4);
   const [deliveryCost, setDeliveryCost] = useState(40);
   const navigate = useNavigate();
+  const { selectedAddress, setSelectedAddress } = useAddress();
+  const [allAddresses, setAllAddresses] = useState([]);
+  const [isClicked, setIclicked] = useState(false);
 
   const handleCardClick = (product) => {
     if (product && product.id) {
@@ -52,6 +56,24 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
     };
     fetchCart();
   }, [isLoggedIn, setCart]);
+
+  useEffect(() => {
+    // Fetch all addresses for the logged-in user
+    if (isLoggedIn) {
+      fetch("http://localhost:3001/api/auth/savedAddress", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setAllAddresses(data.addresses || []);
+          // Auto-select first address if none selected
+          if (!selectedAddress && data.addresses && data.addresses.length > 0) {
+            setSelectedAddress(data.addresses[0]);
+          }
+        });
+    }
+  }, [isLoggedIn]);
 
   const handleProductDelete = async (productId) => {
     if (!isLoggedIn) {
@@ -169,11 +191,36 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
               <div>
                 <span className="user-address-bold">Deliver to:</span>
                 <span className="mx-1 fw-bold user-address-bold">
-                  User Name
+                  {selectedAddress?.name || "User Name"}
                 </span>
-                <span className="fw-bold user-address-bold">,Pincode</span>
-                <span className="mx-1 user-address-bold">,Address Type</span>
-                <div className="user-address-change">User Address</div>
+                <span className="fw-bold user-address-bold">
+                  ,{selectedAddress?.pincode || "Pincode"}
+                </span>
+                <span className="mx-1 user-address-bold">
+                  ,{selectedAddress?.addressType || "Address Type"}
+                </span>
+                <div className="user-address-change">
+                  {selectedAddress?.address || "User Address"}
+                </div>
+                {/* Address picker dropdown */}
+                {isLoggedIn && allAddresses.length > 0 && (
+                  <select
+                    className="form-select mt-2"
+                    value={selectedAddress?._id || ""}
+                    onChange={(e) => {
+                      const addr = allAddresses.find(
+                        (a) => a._id === e.target.value
+                      );
+                      if (addr) setSelectedAddress(addr);
+                    }}
+                  >
+                    {allAddresses.map((addr) => (
+                      <option key={addr._id} value={addr._id}>
+                        {addr.name}, {addr.addressType}, {addr.pincode}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
               <div className="d-flex align-items-center ">
                 <Button className="change-btn" btnName={"Change"} />
@@ -183,6 +230,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
             <ul className="ul-cart-list pt-2">
               {displayCart.map((product) => (
                 <li
+                  style={{ backgroundColor: "white" }}
                   className="cart-list m-0 p-4"
                   key={product._id || product.id}
                 >
@@ -222,10 +270,11 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                       </div>
 
                       <div className="product-details-semiwide">
-                        Delivery by sunday, June 17 | Deliver cost{" "}
-                        <span className="text-decoration-line-through">
+                        Delivery by sunday, June 17 | Deliver cost
+                        <span className="text-decoration-line-through mx-2">
                           ₹{deliveryCost}
                         </span>
+                        <span className="text-success">Free</span>
                       </div>
                     </div>
                     <div>
@@ -236,9 +285,15 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                               onClick={() =>
                                 handleProductDecrement(product._id)
                               }
+                              disabled={product.quantity <= 1}
                               className=" fw-bold quantity-btns"
                               btnName={"-"}
                             />
+                            {console.log(
+                              "Qty:",
+                              product.quantity,
+                              typeof product.quantity
+                            )}
                             <span className="mx-1 fw-bold product-quantity">
                               {product.quantity}
                             </span>
@@ -262,9 +317,6 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                           }
                           className="btn cart-btns fw-bold"
                           btnName={"REMOVE"}
-                          // <span className="material-symbols-outlined">
-                          //   delete
-                          // </span>
                         />
                         <div className="ms-5"></div>
                       </div>
@@ -305,17 +357,16 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                 <span>Platform fee</span> <span>₹{platformFee} </span>
               </div>
               <div className="d-flex justify-content-between pt-2 pb-3 borders">
-                <span>Delivery Charges </span>{" "}
+                <span>Delivery Charges </span>
                 <span>
-                  {" "}
                   <span className="me-1 text-secondary text-decoration-line-through">
-                    ₹{deliveryCost}
+                    ₹{deliveryCost * cart.length}
                   </span>
-                  <span className="text-success">Free</span>{" "}
+                  <span className="text-success">Free</span>
                 </span>
               </div>
               <div className="d-flex justify-content-between py-3 fw-bold borders">
-                <span>Total Amount</span>{" "}
+                <span>Total Amount</span>
                 <span>
                   ₹
                   {(
@@ -326,7 +377,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
                   ).toFixed(2)}
                 </span>
               </div>
-              <div className="d-flex justify-content-between pt-2 text-success">
+              <div className="d-flex justify-content-between fw-bold pt-2 text-success">
                 <div>You will save amount on this order.</div>
               </div>
             </div>
