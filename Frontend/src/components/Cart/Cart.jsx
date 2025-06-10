@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 
 const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
+  const [platformFee, setPlatformFee] = useState(4);
+  const [deliveryCost, setDeliveryCost] = useState(40);
   const navigate = useNavigate();
 
   const handleCardClick = (product) => {
@@ -154,102 +156,179 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const displayCart = isLoggedIn ? cart : guestCart;
 
   return (
-    <div className="container bg-clr my-5">
-      <h2 className="text-center py-4">Shopping Cart</h2>
+    <div className="d-flex main-cart">
       {displayCart.length === 0 ? (
-        <div className="d-flex align-items-center justify-content-center gap-5 py-4">
+        <div className="d-flex align-items-center justify-content-center gap-5 py-4 w-100">
           <img src="./images/empty-cart.png" alt="Empty Cart" />
           <h4>Your cart is empty.!</h4>
         </div>
       ) : (
-        <>
-          <ul>
-            {displayCart.map((product) => (
-              <li
-                className="cart-container cart-list rounded m-2 py-3"
-                key={product._id || product.id}
-              >
-                <img
-                  src={product.image}
-                  className="cart-product mx-5"
-                  alt={product.title}
-                  onClick={() => handleCardClick(product)}
-                />
-                <div className="d-flex justify-content-between align-items-center">
-                  <div>
-                    <pre>{product.title?.slice(0, 20) || "No Title"}...</pre>
-                    <div className="d-flex align-items-center">
-                      <p>
-                        <span className="fw-bold" style={{ color: "gold" }}>
-                          ★{" "}
+        <div className="cart-layout-container">
+          <section className=" section-part my-4">
+            <div className="d-flex justify-content-between p-3 m-0 cart-head">
+              <div>
+                <span className="user-address-bold">Deliver to:</span>
+                <span className="mx-1 fw-bold user-address-bold">
+                  User Name
+                </span>
+                <span className="fw-bold user-address-bold">,Pincode</span>
+                <span className="mx-1 user-address-bold">,Address Type</span>
+                <div className="user-address-change">User Address</div>
+              </div>
+              <div className="d-flex align-items-center ">
+                <Button className="change-btn" btnName={"Change"} />
+              </div>
+            </div>
+
+            <ul className="ul-cart-list pt-2">
+              {displayCart.map((product) => (
+                <li
+                  className="cart-list m-0 p-4"
+                  key={product._id || product.id}
+                >
+                  <div className=" justify-content-between align-items-center">
+                    <div className="product mb-1">
+                      <div className="product-details m-0 p-0">
+                        <img
+                          src={product.image}
+                          className="cart-product-img"
+                          alt={product.title}
+                          onClick={() => handleCardClick(product)}
+                        />
+                      </div>
+
+                      <div className="product-details-wide">
+                        <div>
+                          <p className="product-title">
+                            {product.title?.slice(0, 51) || "No Title"}...
+                          </p>
+                          <p className="product-title-rest">
+                            {product.title?.slice(51) || ""}
+                          </p>
+                        </div>
+
+                        <div className="fw-bold mb-2">₹{product.price}</div>
+                        <div className="d-flex align-items-center">
+                          <p>
+                            <span className="fw-bold" style={{ color: "gold" }}>
+                              ★{" "}
+                            </span>
+                            <span className="me-3">{product.rating?.rate}</span>
+                          </p>
+                          <p className="fw-bold rating-font-size">
+                            Reviews {product.rating?.count}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="product-details-semiwide">
+                        Delivery by sunday, June 17 | Deliver cost{" "}
+                        <span className="text-decoration-line-through">
+                          ₹{deliveryCost}
                         </span>
-                        <span className="me-3">{product.rating?.rate}</span>
-                      </p>
-                      <p className="fw-bold">Reviews {product.rating?.count}</p>
+                      </div>
                     </div>
-                    <div className="d-flex align-items-center">
-                      {isLoggedIn && (
-                        <>
-                          <Button
-                            onClick={() => handleProductDecrement(product._id)}
-                            className="btn btn-danger fw-bold"
-                            btnName={"-"}
-                          />
-                          <span className="px-3 fw-bold">
-                            {product.quantity}
-                          </span>
-                          <Button
-                            onClick={() => handleProductIncrement(product._id)}
-                            className="btn btn-success fw-bold me-3"
-                            btnName={"+"}
-                          />
-                        </>
-                      )}
-                      <Button
-                        className="btn btn-info fw-bold"
-                        onClick={() => handleAddToWishList(product)}
-                        btnName={"Move to wishlist"}
-                      />
+                    <div>
+                      <div className="d-flex align-items-center">
+                        {isLoggedIn && (
+                          <>
+                            <Button
+                              onClick={() =>
+                                handleProductDecrement(product._id)
+                              }
+                              className=" fw-bold quantity-btns"
+                              btnName={"-"}
+                            />
+                            <span className="mx-1 fw-bold product-quantity">
+                              {product.quantity}
+                            </span>
+                            <Button
+                              onClick={() =>
+                                handleProductIncrement(product._id)
+                              }
+                              className="quantity-btns-inc fw-bold"
+                              btnName={"+"}
+                            />
+                          </>
+                        )}
+                        <Button
+                          className="btn cart-btns fw-bold ms-4"
+                          onClick={() => handleAddToWishList(product)}
+                          btnName={"MOVE TO WISHLIST"}
+                        />
+                        <Button
+                          onClick={() =>
+                            handleProductDelete(product._id || product.id)
+                          }
+                          className="btn cart-btns fw-bold"
+                          btnName={"REMOVE"}
+                          // <span className="material-symbols-outlined">
+                          //   delete
+                          // </span>
+                        />
+                        <div className="ms-5"></div>
+                      </div>
                     </div>
                   </div>
+                </li>
+              ))}
+            </ul>
+            <div className="cart-total d-flex justify-content-end">
+              <Button
+                className="btn btn-primary fw-bold"
+                btnName={"Place Order"}
+              />
+            </div>
+          </section>
 
-                  <div className="ms-5 me-5 fw-bold">
-                    ₹{product.price}{" "}
-                    {isLoggedIn && product.quantity
-                      ? `(x ${product.quantity})`
-                      : ""}
-                  </div>
-
-                  <div className="ms-5">
-                    <button
-                      onClick={() =>
-                        handleProductDelete(product._id || product.id)
-                      }
-                      className="btn text-danger"
-                    >
-                      <span className="material-symbols-outlined">delete</span>
-                    </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="cart-total d-flex justify-content-end">
-            <span className="mx-3 py-3">
-              Total: ₹
-              {displayCart
-                .reduce((total, product) => {
-                  const qty = product.quantity || 1;
-                  return total + product.price * qty;
-                }, 0)
-                .toFixed(2)}
-            </span>
-            <Button
-              className="btn btn-primary fw-bold"
-              btnName={"Place Order"}
-            />
-          </div>
-        </>
+          <aside className="bg-clr bg-white my-4">
+            <div className="borders p-3 fw-bold">PRICE DETAILS</div>
+            <div className="p-3">
+              <div className="d-flex justify-content-between pb-2">
+                <span>
+                  Price <span>( {displayCart.reduce((product) => {
+                    const qty = product.quantity || 1;
+                    return qty;
+                  })} items )</span>
+                </span>
+                <span className="">
+                  ₹
+                  {displayCart}
+                </span>
+              </div>
+              <div className="d-flex justify-content-between py-2">
+                <span>Discount </span> <span className=" text-success">0</span>
+              </div>
+              <div className="d-flex justify-content-between py-2">
+                <span>Platform fee</span> <span>₹{platformFee} </span>
+              </div>
+              <div className="d-flex justify-content-between pt-2 pb-3 borders">
+                <span>Delivery Charges </span>{" "}
+                <span>
+                  {" "}
+                  <span className="me-1 text-secondary text-decoration-line-through">
+                    ₹{deliveryCost}
+                  </span>
+                  <span className="text-success">Free</span>{" "}
+                </span>
+              </div>
+              <div className="d-flex justify-content-between py-3 fw-bold borders">
+                <span>Total Amount</span>{" "}
+                <span>
+                  {(displayCart
+                    .reduce((total, product) => {
+                      const qty = product.quantity || 1;
+                      return total + product.price * qty;
+                    }, 0) + platformFee
+                    ).toFixed(2)}
+                </span>
+              </div>
+              <div className="d-flex justify-content-between pt-2 text-success">
+                <div>You will save amount on this order.</div>
+              </div>
+            </div>
+          </aside>
+        </div>
       )}
     </div>
   );
