@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAddress } from "../../context/addressDetailsContext";
 import { useEffect, useState } from "react";
+import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
 
 const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
@@ -12,7 +13,6 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
   const [allAddresses, setAllAddresses] = useState([]);
-  const [isClicked, setIclicked] = useState(false);
 
   const handleCardClick = (product) => {
     if (product && product.id) {
@@ -185,204 +185,21 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
           <h4>Your cart is empty.!</h4>
         </div>
       ) : (
-        <div className="cart-layout-container">
-          <section className="section-part my-4">
-            <div className="d-flex justify-content-between p-3 m-0 cart-head">
-              <div>
-                <span className="user-address-bold">Deliver to:</span>
-                <span className="mx-1 fw-bold user-address-bold">
-                  {selectedAddress?.name || "User Name"}
-                </span>
-                <span className="fw-bold user-address-bold">
-                  ,{selectedAddress?.pincode || "Pincode"}
-                </span>
-                <span className="mx-1 user-address-bold">
-                  ,{selectedAddress?.addressType || "Address Type"}
-                </span>
-                <div className="user-address-change">
-                  {selectedAddress?.address || "User Address"}
-                </div>
-                {/* Address picker dropdown */}
-                {isLoggedIn && allAddresses.length > 0 && (
-                  <select
-                    className="form-select mt-2"
-                    value={selectedAddress?._id || ""}
-                    onChange={(e) => {
-                      const addr = allAddresses.find(
-                        (a) => a._id === e.target.value
-                      );
-                      if (addr) setSelectedAddress(addr);
-                    }}
-                  >
-                    {allAddresses.map((addr) => (
-                      <option key={addr._id} value={addr._id}>
-                        {addr.name}, {addr.addressType}, {addr.pincode}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
-              <div className="d-flex align-items-center ">
-                <Button className="change-btn" btnName={"Change"} />
-              </div>
-            </div>
-
-            <ul className="ul-cart-list pt-2">
-              {displayCart.map((product) => (
-                <li
-                  style={{ backgroundColor: "white" }}
-                  className="cart-list m-0 p-4"
-                  key={product._id || product.id}
-                >
-                  <div className=" justify-content-between align-items-center">
-                    <div className="product mb-1">
-                      <div className="product-details m-0 p-0">
-                        <img
-                          src={product.image}
-                          className="cart-product-img"
-                          alt={product.title}
-                          onClick={() => handleCardClick(product)}
-                        />
-                      </div>
-
-                      <div className="product-details-wide">
-                        <div>
-                          <p className="product-title">
-                            {product.title?.slice(0, 51) || "No Title"}...
-                          </p>
-                          <p className="product-title-rest">
-                            {product.title?.slice(51) || ""}
-                          </p>
-                        </div>
-
-                        <div className="fw-bold mb-2">₹{product.price}</div>
-                        <div className="d-flex align-items-center">
-                          <p>
-                            <span className="fw-bold" style={{ color: "gold" }}>
-                              ★{" "}
-                            </span>
-                            <span className="me-3">{product.rating?.rate}</span>
-                          </p>
-                          <p className="fw-bold rating-font-size">
-                            Reviews {product.rating?.count}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="product-details-semiwide">
-                        Delivery by sunday, June 17 | Deliver cost
-                        <span className="text-decoration-line-through mx-2">
-                          ₹{deliveryCost}
-                        </span>
-                        <span className="text-success">Free</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="d-flex align-items-center">
-                        {isLoggedIn && (
-                          <>
-                            <Button
-                              onClick={() =>
-                                handleProductDecrement(product._id)
-                              }
-                              disabled={product.quantity <= 1}
-                              className=" fw-bold quantity-btns"
-                              btnName={"-"}
-                            />
-                            {console.log(
-                              "Qty:",
-                              product.quantity,
-                              typeof product.quantity
-                            )}
-                            <span className="mx-1 fw-bold product-quantity">
-                              {product.quantity}
-                            </span>
-                            <Button
-                              onClick={() =>
-                                handleProductIncrement(product._id)
-                              }
-                              className="quantity-btns-inc fw-bold"
-                              btnName={"+"}
-                            />
-                          </>
-                        )}
-                        <Button
-                          className="btn cart-btns fw-bold ms-4"
-                          onClick={() => handleAddToWishList(product)}
-                          btnName={"MOVE TO WISHLIST"}
-                        />
-                        <Button
-                          onClick={() =>
-                            handleProductDelete(product._id || product.id)
-                          }
-                          className="btn cart-btns fw-bold"
-                          btnName={"REMOVE"}
-                        />
-                        <div className="ms-5"></div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="cart-total d-flex justify-content-end">
-              <Button
-                className="fw-bold place-order-btn"
-                btnName={"PLACE ORDER"}
-              />
-            </div>
-          </section>
-
-          <aside className="bg-clr bg-white my-4 fixed">
-            <div className="borders p-3 fw-bold">PRICE DETAILS</div>
-            <div className="p-3">
-              <div className="d-flex justify-content-between pb-2">
-                <span>
-                  Price <span>({cart.length} items)</span>
-                </span>
-                <span className="">
-                  ₹
-                  {displayCart
-                    .reduce((total, product) => {
-                      const qty = product.quantity || 1;
-                      return total + product.price * qty;
-                    }, 0)
-                    .toFixed(2)}
-                </span>
-              </div>
-              <div className="d-flex justify-content-between py-2">
-                <span>Discount </span> <span className=" text-success">0</span>
-              </div>
-              <div className="d-flex justify-content-between py-2">
-                <span>Platform fee</span> <span>₹{platformFee} </span>
-              </div>
-              <div className="d-flex justify-content-between pt-2 pb-3 borders">
-                <span>Delivery Charges </span>
-                <span>
-                  <span className="me-1 text-secondary text-decoration-line-through">
-                    ₹{deliveryCost * cart.length}
-                  </span>
-                  <span className="text-success">Free</span>
-                </span>
-              </div>
-              <div className="d-flex justify-content-between py-3 fw-bold borders">
-                <span>Total Amount</span>
-                <span>
-                  ₹
-                  {(
-                    displayCart.reduce((total, product) => {
-                      const qty = product.quantity || 1;
-                      return total + product.price * qty;
-                    }, 0) + platformFee
-                  ).toFixed(2)}
-                </span>
-              </div>
-              <div className="d-flex justify-content-between fw-bold pt-2 text-success">
-                <div>You will save amount on this order.</div>
-              </div>
-            </div>
-          </aside>
-        </div>
+        <CartLayoutContainer
+          cart={cart}
+          platformFee={platformFee}
+          deliveryCost={deliveryCost}
+          handleCardClick={handleCardClick}
+          displayCart={displayCart}
+          selectedAddress={selectedAddress}
+          allAddresses={allAddresses}
+          setSelectedAddress={setSelectedAddress}
+          isLoggedIn={isLoggedIn}
+          handleProductDelete={handleProductDelete}
+          handleProductIncrement={handleProductIncrement}
+          handleProductDecrement={handleProductDecrement}
+          handleAddToWishList={handleAddToWishList}
+        />
       )}
     </div>
   );
