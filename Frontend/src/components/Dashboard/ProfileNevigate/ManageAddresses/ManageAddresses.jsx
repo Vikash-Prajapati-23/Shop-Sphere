@@ -41,9 +41,38 @@ export const ManageAddresses = () => {
     showAddress();
   }, []);
 
+  // Function to refresh addresses from backend
+  const refreshAddresses = async () => {
+    try {
+      const res = await fetch("/api/auth/getAddresses", {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSavedAddresses(data.addresses || []);
+      }
+    } catch (err) {
+      // Optionally handle error
+      console.error("Failed to refresh addresses", err);
+    }
+  };
+
+  // Wrap handleSave to refresh addresses after save
+  const handleSaveAndRefresh = async (e) => {
+    await handleSave(e);
+    await refreshAddresses();
+    setIsVisible(false);
+  };
+
   return (
     <div className="address-area">
       <h4 className="mb-4">Manage Addresses</h4>
+      <AddressList
+        savedAddresses={savedAddresses}
+        setFormData={setFormData}
+        setIsVisible={setIsVisible}
+        handleDelete={(id) => handleDelete(id, refreshAddresses)}
+      />
       {!isVisible ? (
         <AddAddressButton setIsVisible={setIsVisible} />
       ) : (
@@ -51,17 +80,11 @@ export const ManageAddresses = () => {
           formData={formData}
           setFormData={setFormData}
           handleInputChange={handleInputChange}
-          handleSave={handleSave}
+          handleSave={handleSaveAndRefresh}
           setIsVisible={setIsVisible}
           isSaving={isSaving}
         />
       )}
-      <AddressList
-        savedAddresses={savedAddresses}
-        setFormData={setFormData}
-        setIsVisible={setIsVisible}
-        handleDelete={handleDelete}
-      />
     </div>
   );
 };

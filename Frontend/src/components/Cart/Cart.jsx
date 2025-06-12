@@ -1,10 +1,11 @@
 import "./Style/Cart.css";
-import "../Dashboard/ProfileNevigate/ManageAddresses/ManageAddresses"
+import "../Dashboard/ProfileNevigate/ManageAddresses/ManageAddresses";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAddress } from "../../context/addressDetailsContext";
 import { useEffect, useState } from "react";
 import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
+import { useFormData } from "../../context/formDataContext";
 
 const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
@@ -12,7 +13,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [deliveryCost, setDeliveryCost] = useState(40);
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
-  const [allAddresses, setAllAddresses] = useState([]);
+  const { savedAddresses, setSavedAddresses } = useFormData();
 
   const handleCardClick = (product) => {
     if (product && product.id) {
@@ -66,7 +67,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setAllAddresses(data.addresses || []);
+          setSavedAddresses(data.addresses || []);
           // Auto-select first address if none selected
           if (!selectedAddress && data.addresses && data.addresses.length > 0) {
             setSelectedAddress(data.addresses[0]);
@@ -193,8 +194,8 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
           handleCardClick={handleCardClick}
           displayCart={displayCart}
           selectedAddress={selectedAddress}
-          allAddresses={allAddresses}
-          setAllAddresses={setAllAddresses}
+          allAddresses={savedAddresses}
+          setAllAddresses={setSavedAddresses}
           setSelectedAddress={setSelectedAddress}
           isLoggedIn={isLoggedIn}
           handleProductDelete={handleProductDelete}

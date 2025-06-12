@@ -1,16 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormData } from "../../../context/formDataContext";
 import Button from "../../Button/Button";
-import { AddressItem } from "../../Dashboard/ProfileNevigate/ManageAddresses/AddressItem/AddressItem";
+import { AddressForm } from "../../Dashboard/ProfileNevigate/ManageAddresses/AddressForm/AddressForm";
 import CartAddressBlock from "../CartAddressBlock/CartAddressBlock";
 import { AddAddressButton } from "../../Dashboard/ProfileNevigate/ManageAddresses/AddAddressButton/AddAddressButton";
-import { AddressForm } from "../../Dashboard/ProfileNevigate/ManageAddresses/AddressForm/AddressForm";
 
 const CartSection = ({
   displayCart,
   selectedAddress,
-  allAddresses,
-  setAllAddresses,
   setSelectedAddress,
   isLoggedIn,
   handleProductDelete,
@@ -21,6 +18,8 @@ const CartSection = ({
   handleCardClick,
 }) => {
   const {
+    savedAddresses,
+    setSavedAddresses,
     formData,
     setFormData,
     isVisible,
@@ -29,10 +28,33 @@ const CartSection = ({
     handleSave,
     isSaving,
   } = useFormData();
+
   const [isPlaceOrder, setIsPlaceOrder] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [editAddressById, setEditAddressById] = useState(null);
 
-  const visibleAddress = showAll ? allAddresses : allAddresses.slice(0, 3);
+  const visibleAddress = showAll ? savedAddresses : savedAddresses.slice(0, 3);
+
+  const refreshAddresses = async () => {
+    try {
+      const res = await fetch("/api/auth/getAddresses", {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSavedAddresses([...data.addresses] || []);
+      }
+    } catch (err) {
+      console.error("Failed to refresh addresses", err);
+    }
+  };
+
+  const handleSaveAndRefresh = async (e) => {
+    await handleSave(e);
+    await refreshAddresses();
+    setEditAddressById(null);
+    setIsVisible(false);
+  };
 
   return (
     <section className="section-part my-4">
@@ -40,11 +62,10 @@ const CartSection = ({
         <div>
           <CartAddressBlock
             selectedAddress={selectedAddress}
-            allAddresses={allAddresses}
+            allAddresses={savedAddresses}
             setSelectedAddress={setSelectedAddress}
             isLoggedIn={isLoggedIn}
           />
-          {console.log({ allAddresses }, "I am from cartsection,")}
 
           <ul className="ul-cart-list pt-2">
             {displayCart.map((product) => (
@@ -53,7 +74,7 @@ const CartSection = ({
                 className="cart-list m-0 p-4"
                 key={product._id || product.id}
               >
-                <div className=" justify-content-between align-items-center">
+                <div className="justify-content-between align-items-center">
                   <div className="product mb-1">
                     <div className="product-details m-0 p-0">
                       <img
@@ -89,7 +110,7 @@ const CartSection = ({
                     </div>
 
                     <div className="product-details-semiwide">
-                      Delivery by sunday, June 17 | Deliver cost
+                      Delivery by Sunday, June 17 | Delivery cost
                       <span className="text-decoration-line-through mx-2">
                         ₹{deliveryCost}
                       </span>
@@ -103,14 +124,9 @@ const CartSection = ({
                           <Button
                             onClick={() => handleProductDecrement(product._id)}
                             disabled={product.quantity <= 1}
-                            className=" fw-bold quantity-btns"
+                            className="fw-bold quantity-btns"
                             btnName={"-"}
                           />
-                          {console.log(
-                            "Qty:",
-                            product.quantity,
-                            typeof product.quantity
-                          )}
                           <span className="mx-1 fw-bold product-quantity">
                             {product.quantity}
                           </span>
@@ -133,16 +149,14 @@ const CartSection = ({
                         className="btn cart-btns fw-bold"
                         btnName={"REMOVE"}
                       />
-                      <div className="ms-5"></div>
                     </div>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
+
           <div className="cart-total d-flex justify-content-end">
-            {/* If the user is not logged in then clicking the button should redirect him to login page with a proper message.
-            This is to be fixed in future */}
             <Button
               className="fw-bold place-order-btn"
               onClick={() => setIsPlaceOrder(true)}
@@ -151,55 +165,73 @@ const CartSection = ({
           </div>
         </div>
       ) : (
-        // Choose delivery Location
         <div className="d-flex">
           <div className="all-addresses-checkout">
             <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
               Choose delivery location
             </h4>
-            {}
+
             {visibleAddress.map((data) => (
-              <li key={data._id} value={data._id} className="saved-address-list bg-white py-3  ">
-                <div className="select-address-checkout">
-                  <input
-                    className="text-primary mt-2 radio-checkout"
-                    type="radio"
-                  />
-                  <div className="user-detail-checkout">
-                    <div className="mb-1 d-flex gap-3">
-                      <span className="text-size-checkout fw-bold">
-                        {data.name}
-                      </span>
-                      <span className="addressType-checkout text-size-checkout">
-                        {data.addressType}
-                      </span>
-                      <span className="text-size-checkout fw-bold">
-                        {data.mobile}
-                      </span>
-                    </div>
-                    <p className="text-size-address-checkout">{data.address}</p>
-                  </div>
-                  <Button
-                    className={
-                      "text-primary edit-btn fw-bold text-size-checkout"
-                    }
-                    onClick={() => {
-                      setFormData({ ...data });
-                      setIsVisible(true);
+              <li key={data._id} className="saved-address-list bg-white">
+                {editAddressById === data._id && isVisible ? (
+                  <AddressForm
+                    key={editAddressById}
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleInputChange={handleInputChange}
+                    handleSave={handleSaveAndRefresh}
+                    setIsVisible={() => {
+                      setEditAddressById(null);
+                      setIsVisible(false);
                     }}
-                    btnName={"EDIT"}
+                    isSaving={isSaving}
                   />
-                </div>
-                <Button
-                  className={"deliver-btn fw-bold text-size-checkout"}
-                  btnName={"DELIVER HERE"}
-                />
+                ) : (
+                  <div>
+                    <div className="select-address-checkout">
+                      <input
+                        className="text-primary mt-2 radio-checkout"
+                        type="radio"
+                        name="selectedAddress"
+                        checked={selectedAddress?._id === data._id}
+                        onChange={() => setSelectedAddress(data)}
+                      />
+                      <div className="user-detail-checkout">
+                        <div className="mb-1 d-flex gap-3">
+                          <span className="text-size-checkout fw-bold">
+                            {data.name}
+                          </span>
+                          <span className="addressType-checkout text-size-checkout">
+                            {data.addressType}
+                          </span>
+                          <span className="text-size-checkout fw-bold">
+                            {data.mobile}
+                          </span>
+                        </div>
+                        <p className="text-size-address-checkout">
+                          {data.address}
+                        </p>
+                      </div>
+                      <Button
+                        className="text-primary edit-btn fw-bold text-size-checkout"
+                        onClick={() => {
+                          setFormData(data);
+                          setEditAddressById(data._id);
+                          setIsVisible(true);
+                        }}
+                        btnName={"EDIT"}
+                      />
+                    </div>
+                    <Button
+                      className="deliver-btn mt-2 fw-bold text-size-checkout"
+                      btnName={"DELIVER HERE"}
+                    />
+                  </div>
+                )}
               </li>
             ))}
 
-            {/* VIEW ALL ADDRESSES BUTTON */}
-            {allAddresses.length > 3 && (
-              // This && is use when we have to render something only the condition is true else nothing to render.
+            {savedAddresses.length > 3 && (
               <button
                 className="w-100 bg-white text-primary py-2 ps-3 fw-semibold border"
                 onClick={() => setShowAll((prev) => !prev)}
@@ -211,22 +243,24 @@ const CartSection = ({
                     } me-4 ms-1`}
                   ></i>
                   <p className="pt-2 mb-2">
-                    {showAll ? "VIEW LESS" : "VIEW ALL ADDRESSES"}
+                    {showAll
+                      ? "View less"
+                      : `View all ${savedAddresses.length - 3} address`}
                   </p>
                 </div>
               </button>
             )}
 
-            {/* Add Address Button  */}
             <div className="mt-2">
-              {!isVisible ? (
+              {!isVisible && !editAddressById && (
                 <AddAddressButton setIsVisible={setIsVisible} />
-              ) : (
+              )}
+              {isVisible && !editAddressById && (
                 <AddressForm
                   formData={formData}
                   setFormData={setFormData}
                   handleInputChange={handleInputChange}
-                  handleSave={handleSave}
+                  handleSave={handleSaveAndRefresh}
                   setIsVisible={setIsVisible}
                   isSaving={isSaving}
                 />

@@ -1,9 +1,7 @@
-// src/context/formDataContext.js
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const FormDataContext = createContext();
-
 export const useFormData = () => useContext(FormDataContext);
 
 export const FormDataProvider = ({ children }) => {
@@ -23,10 +21,28 @@ export const FormDataProvider = ({ children }) => {
     addressType: "",
   });
 
+  const refreshAddresses = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/api/auth/savedAddress", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSavedAddresses(data.addresses);
+      }
+    } catch (err) {
+      toast.error("Could not refresh addresses");
+    }
+  };
+
+  useEffect(() => {
+    refreshAddresses();
+  }, []);
+
   const handleSave = async (e) => {
     e.preventDefault();
-    setIsVisible(true);
-    setIsSaving(true);
+    // setIsSaving(true);
+
     const requiredFields = [
       "name",
       "mobile",
@@ -38,6 +54,7 @@ export const FormDataProvider = ({ children }) => {
       "landmark",
       "addressType",
     ];
+
     for (let field of requiredFields) {
       if (!formData[field] || formData[field].trim() === "") {
         toast.error(`Please fill in the ${field} field.`);
@@ -55,11 +72,6 @@ export const FormDataProvider = ({ children }) => {
           credentials: "include",
           body: JSON.stringify(formData),
         });
-        data = await response.json();
-        if (response.ok) {
-          toast.success(data.message);
-          setSavedAddresses((prev) => [...prev, data.data]);
-        }
       } else {
         response = await fetch(
           `http://localhost:3001/api/auth/address/${formData._id}`,
@@ -70,15 +82,28 @@ export const FormDataProvider = ({ children }) => {
             body: JSON.stringify(formData),
           }
         );
-        data = await response.json();
-        if (response.ok) {
-          toast.success(data.message);
-          setSavedAddresses((prev) =>
-            prev.map((address) =>
-              address._id === formData._id ? data.data : address
-            )
-          );
-        }
+      }
+
+      data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message);
+        setIsVisible(false);
+        setFormData({
+          name: "",
+          mobile: "",
+          pincode: "",
+          locality: "",
+          address: "",
+          city: "",
+          state: "",
+          landmark: "",
+          alternatePhone: "",
+          addressType: "",
+        });
+        await refreshAddresses(); // 👈 KEY FIX
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -99,7 +124,7 @@ export const FormDataProvider = ({ children }) => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message);
-        setSavedAddresses((prev) => prev.filter((addr) => addr._id !== id));
+        await refreshAddresses(); // 👈 Also refresh after delete
       } else {
         toast.error(data.message);
       }
@@ -116,8 +141,8 @@ export const FormDataProvider = ({ children }) => {
   return (
     <FormDataContext.Provider
       value={{
-        setSavedAddresses,
         savedAddresses,
+        setSavedAddresses,
         formData,
         setFormData,
         isVisible,
@@ -127,6 +152,7 @@ export const FormDataProvider = ({ children }) => {
         handleInputChange,
         handleDelete,
         handleSave,
+        refreshAddresses,
       }}
     >
       {children}
