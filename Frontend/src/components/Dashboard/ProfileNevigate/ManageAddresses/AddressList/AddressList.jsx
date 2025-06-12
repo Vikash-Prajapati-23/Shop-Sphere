@@ -18,6 +18,7 @@ export const AddressList = ({
           handleDelete={handleDelete}
         />
       ))}
+      {console.log(savedAddresses, "Hey i am from addresslist.")}
     </ul>
   );
 };

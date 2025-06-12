@@ -194,6 +194,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
           displayCart={displayCart}
           selectedAddress={selectedAddress}
           allAddresses={allAddresses}
+          setAllAddresses={setAllAddresses}
           setSelectedAddress={setSelectedAddress}
           isLoggedIn={isLoggedIn}
           handleProductDelete={handleProductDelete}

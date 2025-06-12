@@ -9,6 +9,7 @@ const CartLayoutContainer = ({
   displayCart,
   selectedAddress,
   allAddresses,
+  setAllAddresses,
   setSelectedAddress,
   isLoggedIn,
   handleProductDelete,
@@ -22,6 +23,7 @@ const CartLayoutContainer = ({
         displayCart={displayCart}
         selectedAddress={selectedAddress}
         allAddresses={allAddresses}
+        setAllAddresses={setAllAddresses}
         setSelectedAddress={setSelectedAddress}
         isLoggedIn={isLoggedIn}
         handleCardClick={handleCardClick}
@@ -31,12 +33,12 @@ const CartLayoutContainer = ({
         handleAddToWishList={handleAddToWishList}
       />
 
-        <CartAside
-          displayCart={displayCart}
-          cart={cart}
-          platformFee={platformFee}
-          deliveryCost={deliveryCost}
-        />
+      <CartAside
+        displayCart={displayCart}
+        cart={cart}
+        platformFee={platformFee}
+        deliveryCost={deliveryCost}
+      />
     </div>
   );
 };

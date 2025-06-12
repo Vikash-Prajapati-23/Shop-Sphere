@@ -10,6 +10,7 @@ const CartSection = ({
   displayCart,
   selectedAddress,
   allAddresses,
+  setAllAddresses,
   setSelectedAddress,
   isLoggedIn,
   handleProductDelete,
@@ -29,6 +30,9 @@ const CartSection = ({
     isSaving,
   } = useFormData();
   const [isPlaceOrder, setIsPlaceOrder] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleAddress = showAll ? allAddresses : allAddresses.slice(0, 3);
 
   return (
     <section className="section-part my-4">
@@ -40,7 +44,7 @@ const CartSection = ({
             setSelectedAddress={setSelectedAddress}
             isLoggedIn={isLoggedIn}
           />
-          {console.log({ allAddresses })}
+          {console.log({ allAddresses }, "I am from cartsection,")}
 
           <ul className="ul-cart-list pt-2">
             {displayCart.map((product) => (
@@ -147,50 +151,87 @@ const CartSection = ({
           </div>
         </div>
       ) : (
+        // Choose delivery Location
         <div className="d-flex">
           <div className="all-addresses-checkout">
             <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
               Choose delivery location
             </h4>
-            {allAddresses.map((data) => (
-              <li key={data._id} className="saved-address-list bg-white py-3  ">
+            {}
+            {visibleAddress.map((data) => (
+              <li key={data._id} value={data._id} className="saved-address-list bg-white py-3  ">
                 <div className="select-address-checkout">
                   <input
                     className="text-primary mt-2 radio-checkout"
                     type="radio"
                   />
                   <div className="user-detail-checkout">
-                    <div className="mb-1 d-flex gap-4">
-                      <span>{data.name}</span>
-                      <span>{data.addressType}</span>
-                      <span>{data.mobile}</span>
+                    <div className="mb-1 d-flex gap-3">
+                      <span className="text-size-checkout fw-bold">
+                        {data.name}
+                      </span>
+                      <span className="addressType-checkout text-size-checkout">
+                        {data.addressType}
+                      </span>
+                      <span className="text-size-checkout fw-bold">
+                        {data.mobile}
+                      </span>
                     </div>
-                    <p>{data.address}</p>
+                    <p className="text-size-address-checkout">{data.address}</p>
                   </div>
                   <Button
-                    className={"text-primary edit-btn"}
+                    className={
+                      "text-primary edit-btn fw-bold text-size-checkout"
+                    }
                     onClick={() => {
                       setFormData({ ...data });
                       setIsVisible(true);
                     }}
-                    btnName={"Edit"}
+                    btnName={"EDIT"}
                   />
                 </div>
-                <Button className={"deliver-btn"} btnName={"Deliver Here"} />
+                <Button
+                  className={"deliver-btn fw-bold text-size-checkout"}
+                  btnName={"DELIVER HERE"}
+                />
               </li>
             ))}
-            {!isVisible ? (
-              <AddAddressButton setIsVisible={setIsVisible} />
-            ) : (
-              <AddressForm
-                formData={formData}
-                setFormData={setFormData}
-                handleInputChange={handleInputChange}
-                handleSave={handleSave}
-                setIsVisible={setIsVisible}
-                isSaving={isSaving}
-              />
+
+            {/* VIEW ALL ADDRESSES BUTTON */}
+            {allAddresses.length > 3 && (
+              // This && is use when we have to render something only the condition is true else nothing to render.
+              <button
+                className="w-100 bg-white text-primary py-2 ps-3 fw-semibold border"
+                onClick={() => setShowAll((prev) => !prev)}
+              >
+                <div className="d-flex align-items-center">
+                  <i
+                    className={`bi ${
+                      showAll ? "bi-chevron-up" : "bi-chevron-down"
+                    } me-4 ms-1`}
+                  ></i>
+                  <p className="pt-2 mb-2">
+                    {showAll ? "VIEW LESS" : "VIEW ALL ADDRESSES"}
+                  </p>
+                </div>
+              </button>
             )}
+
+            {/* Add Address Button  */}
+            <div className="mt-2">
+              {!isVisible ? (
+                <AddAddressButton setIsVisible={setIsVisible} />
+              ) : (
+                <AddressForm
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleInputChange={handleInputChange}
+                  handleSave={handleSave}
+                  setIsVisible={setIsVisible}
+                  isSaving={isSaving}
+                />
+              )}
+            </div>
           </div>
         </div>
       )}
