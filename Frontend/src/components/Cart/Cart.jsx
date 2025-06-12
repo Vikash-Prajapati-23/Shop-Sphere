@@ -1,5 +1,5 @@
 import "./Style/Cart.css";
-import Button from "../Button/Button";
+import "../Dashboard/ProfileNevigate/ManageAddresses/ManageAddresses"
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAddress } from "../../context/addressDetailsContext";
@@ -153,6 +153,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
           : product
       );
       setCart(updatedCart);
+      // toast.success("")
       if (data.message === "Item removed from cart") {
         const filteredCart = cart.filter(
           (product) => product._id !== productId

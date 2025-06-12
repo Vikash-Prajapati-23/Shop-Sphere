@@ -1,6 +1,5 @@
 export const AddressForm = ({
   formData,
-  setFormData,
   handleInputChange,
   handleSave,
   setIsVisible,

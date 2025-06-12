@@ -1,5 +1,3 @@
-import React from "react";
-
 const CartAside = ({ deliveryCost, cart, platformFee, displayCart }) => {
   return (
     <div className="aside-part my-4 fixed">

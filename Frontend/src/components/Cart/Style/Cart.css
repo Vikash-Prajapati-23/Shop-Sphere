@@ -1,11 +1,5 @@
 .main-cart {
   background-color: #f9f8f8;
-  /* display: flex; */
-  /* grid-template-columns: 2fr 3fr; */
-  /* justify-content: stretch;
-  width: 100%; */
-  /* max-width: 100vw; */
-  /* margin: 0; */
 }
 
 .change-btn {
@@ -63,6 +57,7 @@
 .section-part {
   flex: 0 0 60%; /* take 70% width */
   max-width: 60%; /* Will have to update it later. */
+  /* min-width: 60%; */
   border: 1px solid #e8e7e7;
   background-color: #f9f8f8;
 }
@@ -70,6 +65,7 @@
 .cart-layout-container .aside-part {
   flex: 0 0 25%; /* take 30% width */
   max-width: 30%;
+  min-width: 300px;
   max-height: fit-content;
   position: sticky;
   top: 12.5%;
@@ -210,4 +206,42 @@
 .aside-below-text {
   font-size: 14px;
   font-weight: 600;
+}
+
+.saved-address-list {
+  list-style: none;
+  border-bottom: 1px solid rgb(236, 232, 232);
+}
+
+.all-addresses-checkout {
+  width: 800px;
+  min-width: 100%;
+}
+
+.edit-btn{
+  padding: .1rem 1rem;
+  background-color: transparent;
+  border: none;
+}
+
+.select-address-checkout {
+  display: flex;
+  align-items: start;
+}
+
+.user-detail-checkout {
+  flex: 0 0 80%;
+}
+
+.radio-checkout, .edit-btn {
+  flex: 0 0 10%;
+}
+
+.deliver-btn {
+  margin-left: 10%;
+  background-color: rgb(247, 79, 18);
+  padding: 0.9rem 4rem;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
 }

@@ -1,20 +1,35 @@
 import { useState } from "react";
 
-export const AddressItem = ({ data, index, setFormData, setIsVisible, handleDelete }) => {
+export const AddressItem = ({
+  data,
+  index,
+  setFormData,
+  setIsVisible,
+  handleDelete,
+  isCheckout,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  if (!data || Object.keys(data).length === 0) {
+    return null;
+  }
 
   return (
     <li key={index} className="saved-address-list">
       <div className="type-and-delete mb-2">
         <span className="address-type">{data?.addressType || "Home"}</span>
-        {!isHovered ? (
+
+        {isCheckout ? null : !isHovered ? (
           <i
             className="fa-solid fa-ellipsis-vertical"
             onMouseOver={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           ></i>
         ) : (
-          <div className="edit-delete-btns" onMouseLeave={() => setIsHovered(false)}>
+          <div
+            className="edit-delete-btns"
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <div>
               <button
                 onClick={() => {

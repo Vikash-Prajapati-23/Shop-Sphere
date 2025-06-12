@@ -31,15 +31,12 @@ const CartLayoutContainer = ({
         handleAddToWishList={handleAddToWishList}
       />
 
-      {/* <div className="aside-part my-4 fixed"> */}
         <CartAside
           displayCart={displayCart}
           cart={cart}
           platformFee={platformFee}
           deliveryCost={deliveryCost}
         />
-
-        
     </div>
   );
 };
