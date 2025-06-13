@@ -7,7 +7,7 @@ import { themeContext } from "../../App";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
-const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
+const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name, firstName }) => {
   const [guestCart, setGuestCart] = useState(0);
   const toggleMode = useContext(themeContext);
   const [isDropDown, setIsDropDown] = useState(false);
@@ -192,7 +192,7 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name }) => {
                 <div className="nav-link active fw-bold">
                   <div className="user-log-out">
                     <i className="fa-regular fa-circle-user user-icon"></i>
-                    <span> {name ? name : ""} </span>
+                    <span> {firstName ? firstName : name} </span>
                     <i className="fa-solid fa-chevron-down arrow-icon"></i>
                   </div>
                   {isDropDown && (

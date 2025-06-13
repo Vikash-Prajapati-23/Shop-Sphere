@@ -19,7 +19,7 @@ router.post("/login", handleCreateLogin);
 router.get("/verify-session-user", verifySessionLogin);
 router.get("/logout", verifySessionLogout);
 router.get("/me", fetchUserDetails);
-router.post("/profile", updateProfile);
+router.patch("/profile", updateProfile);
 router.post("/address", addAddress);
 router.get("/savedAddress", showSavedAddresses);
 router.delete("/deleteAddress/:id", deleteAddress);

@@ -27,13 +27,13 @@ const SingleProduct = lazy(() =>
 const themeContext = createContext("");
 
 function App() {
-  const [mode, setMode] = useState(false);
   const [cartProductId, setCartProductId] = useState("");
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   useEffect(() => {
     const verifyAndFetchUser = async () => {
@@ -47,7 +47,6 @@ function App() {
         );
 
         if (verifyUser.ok) {
-          const sessionData = await verifyUser.json();
           setIsLoggedIn(true);
 
           const userName = await fetch("http://localhost:3001/api/auth/me", {
@@ -57,6 +56,7 @@ function App() {
 
           if (userName.ok) {
             const fetchedData = await userName.json();
+            setFirstName(fetchedData.user.firstName);
             setName(fetchedData.user.userName);
           }
         } else {
@@ -72,24 +72,6 @@ function App() {
 
     verifyAndFetchUser();
   }, []);
-
-  const toggleTheme = () => {
-    let sun = document.querySelector(".sun");
-    let moon = document.querySelector(".moon");
-    if (mode === false) {
-      setMode(true);
-      moon.classList.remove("hide");
-      sun.classList.add("hide");
-      document.body.style.backgroundColor = "#121212";
-      document.body.style.color = "#333333";
-    } else {
-      setMode(false);
-      sun.classList.remove("hide");
-      moon.classList.add("hide");
-      document.body.style.backgroundColor = "#EAECED";
-      document.body.style.color = "#fff";
-    }
-  };
 
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
@@ -127,7 +109,7 @@ function App() {
       );
       const data = await response.json();
       if (!response.ok) {
-        // toast.error(data.message || "Failed to add to cart");
+        toast.error(data.message || "Failed to add to cart");
         return;
       }
       // Only update state if the request was successful
@@ -181,140 +163,141 @@ function App() {
       <Router>
         <AddressProvider>
           <FormDataProvider>
-            <themeContext.Provider value={{ mode, toggleTheme }}>
-              <Suspense fallback={<div>Loading...</div>}>
-                <Navbar
-                  cart={cart}
-                  setQuery={setQuery}
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  name={name}
-                  setName={setName}
+            <Suspense fallback={<div>Loading...</div>}>
+              <Navbar
+                cart={cart}
+                setQuery={setQuery}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                name={name}
+                firstName={firstName}
+              />
+              <Toaster />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Home
+                      handleWishList={handleWishList}
+                      setCartProductId={setCartProductId}
+                      handleCartAddition={handleCartAddition}
+                      isLoggedIn={isLoggedIn}
+                      setCart={setCart}
+                      setIsLoggedIn={setIsLoggedIn}
+                      query={query}
+                    />
+                  }
                 />
-                <Toaster />
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Home
-                        handleWishList={handleWishList}
-                        setCartProductId={setCartProductId}
-                        handleCartAddition={handleCartAddition}
-                        isLoggedIn={isLoggedIn}
-                        setCart={setCart}
-                        setIsLoggedIn={setIsLoggedIn}
-                        query={query}
-                      />
-                    }
-                  />
 
-                  <Route path="/AboutUs" element={<AboutUs />} />
+                <Route path="/AboutUs" element={<AboutUs />} />
 
-                  <Route
-                    path="/ContactUs"
-                    element={<ContactUs isLoggedIn={isLoggedIn} />}
-                  />
+                <Route
+                  path="/ContactUs"
+                  element={<ContactUs isLoggedIn={isLoggedIn} />}
+                />
 
-                  <Route
-                    path="/LoginSignup"
-                    element={
-                      <LogInSignUp
-                        setIsLoggedIn={setIsLoggedIn}
-                        setName={setName}
-                      />
-                    }
-                  />
+                <Route
+                  path="/LoginSignup"
+                  element={
+                    <LogInSignUp
+                      setIsLoggedIn={setIsLoggedIn}
+                      setName={setName}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/Men"
-                    element={
-                      <Men
-                        handleWishList={handleWishList}
-                        handleCartAddition={handleCartAddition}
-                        isLoggedIn={isLoggedIn}
-                        query={query}
-                      />
-                    }
-                  />
+                <Route
+                  path="/Men"
+                  element={
+                    <Men
+                      handleWishList={handleWishList}
+                      handleCartAddition={handleCartAddition}
+                      isLoggedIn={isLoggedIn}
+                      query={query}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/Cart"
-                    element={
-                      <Cart
-                        handleWishList={handleWishList}
-                        isLoggedIn={isLoggedIn}
-                        cart={cart}
-                        setCart={setCart}
-                      />
-                    }
-                  />
+                <Route
+                  path="/Cart"
+                  element={
+                    <Cart
+                      handleWishList={handleWishList}
+                      isLoggedIn={isLoggedIn}
+                      cart={cart}
+                      setCart={setCart}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/WishList"
-                    element={
-                      <WishList
-                        wishlist={wishlist}
-                        setWishlist={setWishlist}
-                        isLoggedIn={isLoggedIn}
-                        handleCartAddition={handleCartAddition}
-                      />
-                    }
-                  />
+                <Route
+                  path="/WishList"
+                  element={
+                    <WishList
+                      wishlist={wishlist}
+                      setWishlist={setWishlist}
+                      isLoggedIn={isLoggedIn}
+                      handleCartAddition={handleCartAddition}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/Women"
-                    element={
-                      <Women
-                        isLoggedIn={isLoggedIn}
-                        handleWishList={handleWishList}
-                        handleCartAddition={handleCartAddition}
-                        query={query}
-                      />
-                    }
-                  />
+                <Route
+                  path="/Women"
+                  element={
+                    <Women
+                      isLoggedIn={isLoggedIn}
+                      handleWishList={handleWishList}
+                      handleCartAddition={handleCartAddition}
+                      query={query}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/Electronics"
-                    element={
-                      <Electronics
-                        isLoggedIn={isLoggedIn}
-                        handleWishList={handleWishList}
-                        handleCartAddition={handleCartAddition}
-                        query={query}
-                      />
-                    }
-                  />
+                <Route
+                  path="/Electronics"
+                  element={
+                    <Electronics
+                      isLoggedIn={isLoggedIn}
+                      handleWishList={handleWishList}
+                      handleCartAddition={handleCartAddition}
+                      query={query}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/Jewelery"
-                    element={
-                      <Jewelery
-                        isLoggedIn={isLoggedIn}
-                        handleWishList={handleWishList}
-                        handleCartAddition={handleCartAddition}
-                        query={query}
-                      />
-                    }
-                  />
+                <Route
+                  path="/Jewelery"
+                  element={
+                    <Jewelery
+                      isLoggedIn={isLoggedIn}
+                      handleWishList={handleWishList}
+                      handleCartAddition={handleCartAddition}
+                      query={query}
+                    />
+                  }
+                />
 
-                  <Route
-                    path="/SingleProduct/:id"
-                    element={
-                      <SingleProduct
-                        isLoggedIn={isLoggedIn}
-                        handleWishList={handleWishList}
-                        handleCartAddition={handleCartAddition}
-                      />
-                    }
-                  />
+                <Route
+                  path="/SingleProduct/:id"
+                  element={
+                    <SingleProduct
+                      isLoggedIn={isLoggedIn}
+                      handleWishList={handleWishList}
+                      handleCartAddition={handleCartAddition}
+                    />
+                  }
+                />
 
-                  <Route path="/Profile" element={<Profile name={name} />} />
+                <Route
+                  path="/Profile"
+                  element={<Profile name={name} />}
+                />
 
-                  <Route path="/TermsOfUse" element={<TermsOfUse />} />
-                </Routes>
-                <Footer />
-              </Suspense>
-            </themeContext.Provider>
+                <Route path="/TermsOfUse" element={<TermsOfUse />} />
+              </Routes>
+              <Footer />
+            </Suspense>
           </FormDataProvider>
         </AddressProvider>
       </Router>

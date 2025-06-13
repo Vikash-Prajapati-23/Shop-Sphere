@@ -67,12 +67,6 @@ export const ManageAddresses = () => {
   return (
     <div className="address-area">
       <h4 className="mb-4">Manage Addresses</h4>
-      <AddressList
-        savedAddresses={savedAddresses}
-        setFormData={setFormData}
-        setIsVisible={setIsVisible}
-        handleDelete={(id) => handleDelete(id, refreshAddresses)}
-      />
       {!isVisible ? (
         <AddAddressButton setIsVisible={setIsVisible} />
       ) : (
@@ -85,6 +79,12 @@ export const ManageAddresses = () => {
           isSaving={isSaving}
         />
       )}
+      <AddressList
+        savedAddresses={savedAddresses}
+        setFormData={setFormData}
+        setIsVisible={setIsVisible}
+        handleDelete={(id) => handleDelete(id, refreshAddresses)}
+      />
     </div>
   );
 };

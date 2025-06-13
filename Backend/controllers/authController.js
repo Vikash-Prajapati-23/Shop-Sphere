@@ -136,6 +136,7 @@ export async function fetchUserDetails(req, res) {
       user: {
         id: userDetails._id,
         userName: userDetails.userName,
+        firstName: userDetails.firstName,
         email: userDetails.email,
       },
     });
@@ -145,35 +146,44 @@ export async function fetchUserDetails(req, res) {
 }
 
 export async function updateProfile(req, res) {
-  const sessionUid = req.cookies.sessionUid; // Getting the session token
+  const sessionUid = req.cookies.sessionUid;
   const { firstName, lastName, gender, email, contact } = req.body;
 
   try {
-    // Get the user object from the session
     const user = await getUser(sessionUid);
     if (!user) {
       return res.status(401).json({ message: "Invalid session." });
     }
+    
+    const updateFields = {};
+    if (firstName !== undefined) updateFields.firstName = firstName;
+    if (lastName !== undefined) updateFields.lastName = lastName;
+    if (gender !== undefined) updateFields.gender = gender;
+    if (contact !== undefined) updateFields.contact = contact;
+    if (email && email.trim() !== "") updateFields.email = email;
 
-    const updatedUser = await auth
-      .findByIdAndUpdate(
-        user._id, // Use the user's MongoDB _id
-        {
-          firstName,
-          lastName,
-          gender,
-          email,
-          contact,
-        },
-        { new: true }
-      )
-      .select("-password");
 
-    return res.status(200).json({
-      success: true,
-      message: "Profile updated successfully",
-      data: updatedUser,
-    });
+    try {
+      const updatedUser = await auth
+        .findByIdAndUpdate(user._id, { $set: updateFields }, { new: true })
+        .select("-password");
+
+      return res.status(200).json({
+        success: true,
+        message: "Profile updated successfully",
+        data: updatedUser,
+      });
+    } catch (mongoError) {
+      // Handle duplicate key error for email
+      if (
+        mongoError.code === 11000 &&
+        mongoError.keyPattern &&
+        mongoError.keyPattern.email
+      ) {
+        return res.status(400).json({ message: "Email already exists." });
+      }
+      throw mongoError;
+    }
   } catch (error) {
     console.error("Internal server error.", error);
     return res.status(500).json({ message: "Internal Server Error", error });
@@ -267,11 +277,19 @@ export async function editAddress(req, res) {
       return res.status(401).json({ message: "Invalid session." });
     }
 
-    // Only allow editing addresses belonging to the user
+    // Filter out undefined or empty string fields to avoid overwriting existing values
+    const updateFields = {};
+    for (const key in data) {
+      if (data[key] !== undefined && data[key] !== "") {
+        updateFields[key] = data[key];
+      }
+    }
+
+    // This ensures the address belongs to the user and update only provided fields
     const editedAddress = await addressModel.findOneAndUpdate(
       { _id: addressId, userId: user._id },
-      data,
-      { new: true }
+      { $set: updateFields },
+      { new: true, runValidators: true }
     );
 
     if (!editedAddress) {

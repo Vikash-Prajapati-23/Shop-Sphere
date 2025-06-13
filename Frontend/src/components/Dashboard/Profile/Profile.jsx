@@ -34,7 +34,7 @@ const Profile = ({ name }) => {
           </div>
           <div className="user-name">
             <p className="hello">Hello,</p>
-            <p className="name-text">{name ? name : ""}</p>
+            <p className="name-text">{name ? name : formData.firstName}</p>{" "}
           </div>
         </div>
 
@@ -51,13 +51,17 @@ const Profile = ({ name }) => {
             </div>
             <ul className="mb-0">
               <li
-                onClick={() => { if(currentIndex > 1) setCurrentIndex(currentIndex - 1) }}
+                onClick={() => {
+                  if (currentIndex > 1) setCurrentIndex(currentIndex - 1);
+                }}
                 className={`lists ${currentIndex === 1 ? "disabled" : ""}`}
               >
                 Personal information
               </li>
               <li
-                onClick={() => { if(currentIndex === 1) setCurrentIndex(currentIndex + 1) }}
+                onClick={() => {
+                  if (currentIndex === 1) setCurrentIndex(currentIndex + 1);
+                }}
                 className={`lists ${currentIndex === 2 ? "disabled" : ""}`}
               >
                 Manage addresses
@@ -89,6 +93,7 @@ const Profile = ({ name }) => {
         <PersonalInfo
           handleInputChange={handleInputChange}
           formData={formData}
+          setFormData={setFormData}
         />
       )}
       {currentIndex === 2 && (
