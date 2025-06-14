@@ -1,5 +1,3 @@
-import React from 'react'
-
 const TermsOfUse = () => {
     return (
         <div className='container my-4'>

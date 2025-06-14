@@ -22,24 +22,24 @@ export const ManageAddresses = () => {
   } = useFormData();
   // const { selectedAddress, setSelectedAddress } = useAddress();
 
-  // useEffect(() => {
-  //   const showAddress = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:3001/api/auth/savedAddress",
-  //         {
-  //           method: "GET",
-  //           credentials: "include",
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       if (response.ok) setSavedAddresses(data.addresses || []);
-  //     } catch (error) {
-  //       console.error("Server error.", error);
-  //     }
-  //   };
-  //   showAddress();
-  // }, []);
+  useEffect(() => {
+    const showAddress = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/api/auth/savedAddress",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        if (response.ok) setSavedAddresses(data.addresses || []);
+      } catch (error) {
+        console.error("Server error.", error);
+      }
+    };
+    showAddress();
+  }, []);
 
   // Function to refresh addresses from backend
   const refreshAddresses = async () => {

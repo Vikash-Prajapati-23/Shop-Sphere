@@ -38,7 +38,7 @@ export const AddressItem = ({
 
   return (
     <li key={index} className="saved-address-list">
-      {isEdit === null && !isVisible ? (
+      {/* {isEdit === null && !isVisible ? (
         <AddressForm
           formData={data}
           setFormData={setFormData}
@@ -50,7 +50,7 @@ export const AddressItem = ({
           }}
           isSaving={isSaving}
         />
-      ) : (
+      ) : ( */}
         <div>
           <div className="type-and-delete mb-2">
             <span className="address-type">{data?.addressType || "Home"}</span>
@@ -96,7 +96,7 @@ export const AddressItem = ({
           </div>
           <p>{data.address}</p>
         </div>
-      )}
+      {/* )} */}
     </li>
   );
 };
