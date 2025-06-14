@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddress } from "../../../../context/addressDetailsContext";
+// import { useAddress } from "../../../../context/addressDetailsContext";
 import { useFormData } from "../../../../context/formDataContext";
 import { AddAddressButton } from "./AddAddressButton/AddAddressButton";
 import { AddressForm } from "./AddressForm/AddressForm";
@@ -20,26 +20,26 @@ export const ManageAddresses = () => {
     savedAddresses,
     setSavedAddresses,
   } = useFormData();
-  const { selectedAddress, setSelectedAddress } = useAddress();
+  // const { selectedAddress, setSelectedAddress } = useAddress();
 
-  useEffect(() => {
-    const showAddress = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3001/api/auth/savedAddress",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        if (response.ok) setSavedAddresses(data.addresses || []);
-      } catch (error) {
-        console.error("Server error.", error);
-      }
-    };
-    showAddress();
-  }, []);
+  // useEffect(() => {
+  //   const showAddress = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:3001/api/auth/savedAddress",
+  //         {
+  //           method: "GET",
+  //           credentials: "include",
+  //         }
+  //       );
+  //       const data = await response.json();
+  //       if (response.ok) setSavedAddresses(data.addresses || []);
+  //     } catch (error) {
+  //       console.error("Server error.", error);
+  //     }
+  //   };
+  //   showAddress();
+  // }, []);
 
   // Function to refresh addresses from backend
   const refreshAddresses = async () => {
@@ -49,7 +49,7 @@ export const ManageAddresses = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        setSavedAddresses(data.addresses || []);
+        setSavedAddresses(data.savedAddress || []);
       }
     } catch (err) {
       // Optionally handle error
@@ -82,6 +82,7 @@ export const ManageAddresses = () => {
       <AddressList
         savedAddresses={savedAddresses}
         setFormData={setFormData}
+        isVisible={isVisible}
         setIsVisible={setIsVisible}
         handleDelete={(id) => handleDelete(id, refreshAddresses)}
       />

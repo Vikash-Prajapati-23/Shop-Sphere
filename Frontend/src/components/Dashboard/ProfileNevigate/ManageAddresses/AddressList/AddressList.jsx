@@ -3,6 +3,7 @@ import { AddressItem } from "../AddressItem/AddressItem";
 export const AddressList = ({
   savedAddresses,
   setFormData,
+  isVisible,
   setIsVisible,
   handleDelete,
 }) => {
@@ -14,6 +15,7 @@ export const AddressList = ({
           data={data}
           index={index}
           setFormData={setFormData}
+          isVisible={isVisible}
           setIsVisible={setIsVisible}
           handleDelete={handleDelete}
         />

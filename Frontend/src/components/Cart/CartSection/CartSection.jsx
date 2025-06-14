@@ -253,7 +253,10 @@ const CartSection = ({
 
             <div className="mt-2">
               {!isVisible && !editAddressById && (
-                <AddAddressButton setIsVisible={setIsVisible} />
+                <AddAddressButton
+                  setIsVisible={setIsVisible}
+                  setFormData={setFormData}
+                />
               )}
               {isVisible && !editAddressById && (
                 <AddressForm

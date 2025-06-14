@@ -7,7 +7,15 @@ import { themeContext } from "../../App";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
-const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name, firstName }) => {
+const Navbar = ({
+  cart,
+  setCart,
+  setQuery,
+  isLoggedIn,
+  setIsLoggedIn,
+  name,
+  firstName,
+}) => {
   const [guestCart, setGuestCart] = useState(0);
   const toggleMode = useContext(themeContext);
   const [isDropDown, setIsDropDown] = useState(false);
@@ -24,10 +32,10 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name, firstName }) 
     window.dispatchEvent(new Event("guestCartUpdated"));
 
     updatedGuestCart();
-
+    setCart(cart)
     return () =>
       window.removeEventListener("guestCartUpdated", updatedGuestCart);
-  });
+  }, [setCart]);
 
   const handleLogout = async () => {
     try {
@@ -198,7 +206,11 @@ const Navbar = ({ cart, setQuery, isLoggedIn, setIsLoggedIn, name, firstName }) 
                   {isDropDown && (
                     <ul className="custom-dropdown-menu">
                       <li>
-                        <Link className="dropdown-item" to="/Profile">
+                        <Link
+                          className="dropdown-item"
+                          handleLogout={handleLogout}
+                          to="/Profile"
+                        >
                           Profile
                         </Link>
                       </li>

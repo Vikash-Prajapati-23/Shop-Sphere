@@ -35,6 +35,8 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
       updateCart(); // Sync on mount too
 
       return () => window.removeEventListener("guestCartUpdated", updateCart);
+    } else {
+      setCart(cart)
     }
   });
 

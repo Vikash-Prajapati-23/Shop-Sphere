@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./Profile.css";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { PersonalInfo } from "../ProfileNevigate/PersonalInfo/PersonalInfo";
 import { ManageAddresses } from "../ProfileNevigate/ManageAddresses/ManageAddresses";
 
-const Profile = ({ name }) => {
+const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,6 +15,24 @@ const Profile = ({ name }) => {
     email: "",
     contact: "",
   });
+
+  const handleProfileLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/api/auth/logout", {
+        method: "GET",
+        credentials: "include", // sends cookie!
+      });
+      if (res.ok) {
+        setIsLoggedIn(false); // update local state
+        navigate("/LoginSignup");
+        toast.success("Logged out successfully!");
+      } else {
+        toast.error("Logout failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred");
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +105,7 @@ const Profile = ({ name }) => {
 
           <div className="d-flex side-profile-secs cursor">
             <i className="ri-logout-circle-r-line user-icon me-2 mt-1"></i>
-            <h5 className="">Log Out</h5>
+            <h5 onClick={handleProfileLogout} className="">Log Out</h5>
           </div>
         </div>
       </aside>

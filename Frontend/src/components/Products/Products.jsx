@@ -6,7 +6,14 @@ import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
 
-const Products = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
+const Products = ({
+  handleCartAddition,
+  handleWishList,
+  query,
+  isLoggedIn,
+  cart,
+  setCart,
+}) => {
   const [products, setProducts] = useState(null);
   // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -48,12 +55,12 @@ const Products = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => 
   };
 
   const handleCardClick = (product) => {
-      if (product && product.id) {
-        navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
-      } else {
-        toast.error("Product ID not found");
-      }
-    };
+    if (product && product.id) {
+      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+    } else {
+      toast.error("Product ID not found");
+    }
+  };
 
   if (!products) {
     return (

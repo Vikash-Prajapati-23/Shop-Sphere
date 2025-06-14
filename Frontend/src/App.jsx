@@ -35,6 +35,23 @@ function App() {
   const [name, setName] = useState("");
   const [firstName, setFirstName] = useState("");
 
+  const fetchCardQuantity = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/productcart/cart",
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if(response.ok) {
+        setCart(data);
+      }
+    } catch (error) {
+      toast.error("Something went wrong while getting the cart quantity.")
+    }
+  };
+
   useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
@@ -58,6 +75,7 @@ function App() {
             const fetchedData = await userName.json();
             setFirstName(fetchedData.user.firstName);
             setName(fetchedData.user.userName);
+            setCart(cart);
           }
         } else {
           setIsLoggedIn(false);
@@ -70,8 +88,12 @@ function App() {
       }
     };
 
+    if(isLoggedIn) {
+      fetchCardQuantity();
+    }
+
     verifyAndFetchUser();
-  }, []);
+  }, [isLoggedIn]);
 
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
@@ -166,6 +188,7 @@ function App() {
             <Suspense fallback={<div>Loading...</div>}>
               <Navbar
                 cart={cart}
+                setCart={setCart}
                 setQuery={setQuery}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
@@ -182,6 +205,7 @@ function App() {
                       setCartProductId={setCartProductId}
                       handleCartAddition={handleCartAddition}
                       isLoggedIn={isLoggedIn}
+                      cart={cart}
                       setCart={setCart}
                       setIsLoggedIn={setIsLoggedIn}
                       query={query}
@@ -291,7 +315,13 @@ function App() {
 
                 <Route
                   path="/Profile"
-                  element={<Profile name={name} />}
+                  element={
+                    <Profile
+                      name={name}
+                      isLoggedIn={isLoggedIn}
+                      setIsLoggedIn={setIsLoggedIn}
+                    />
+                  }
                 />
 
                 <Route path="/TermsOfUse" element={<TermsOfUse />} />
