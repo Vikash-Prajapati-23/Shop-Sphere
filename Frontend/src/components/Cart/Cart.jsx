@@ -9,8 +9,6 @@ import { useFormData } from "../../context/formDataContext";
 
 const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
-  const [platformFee, setPlatformFee] = useState(4);
-  const [deliveryCost, setDeliveryCost] = useState(40);
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
   const { savedAddresses, setSavedAddresses } = useFormData();
@@ -191,14 +189,12 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
       ) : (
         <CartLayoutContainer
           cart={cart}
-          platformFee={platformFee}
-          deliveryCost={deliveryCost}
           handleCardClick={handleCardClick}
           displayCart={displayCart}
           selectedAddress={selectedAddress}
+          setSelectedAddress={setSelectedAddress}
           allAddresses={savedAddresses}
           setAllAddresses={setSavedAddresses}
-          setSelectedAddress={setSelectedAddress}
           isLoggedIn={isLoggedIn}
           handleProductDelete={handleProductDelete}
           handleProductIncrement={handleProductIncrement}
