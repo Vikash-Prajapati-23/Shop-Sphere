@@ -1,24 +1,41 @@
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export const PersonalInfo = ({ handleInputChange, formData }) => {
+export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditEmail, setIsEditEmail] = useState(false);
   const [isEditContact, setIsEditContact] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/auth/me", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setFormData({
+            firstName: data.user.firstName || "",
+            lastName: data.user.lastName || "",
+            gender: data.user.gender || "",
+            email: data.user.email || "",
+            contact: data.user.contact || "",
+          });
+        }
+      } catch (err) {
+        toast.error("Something went wrong on profile info.jsx!");
+      }
+    };
+    fetchProfile();
+  }, [setFormData]);
+
   const handleSave = async (field) => {
     setIsSaving(true);
-    // Prevent saving if email is empty
-    // if (!formData.email || formData.email.trim() === "") {
-    //   toast.error("Email cannot be empty.");
-    //   setIsSaving(false);
-    //   return;
-    // }
-    // Always send the full user object
     try {
       const response = await fetch("http://localhost:3001/api/auth/profile", {
-        method: "POST",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(formData),
@@ -98,8 +115,8 @@ export const PersonalInfo = ({ handleInputChange, formData }) => {
           <span className="fw-semibold">Your Gender</span>
           <div className="gender-section d-flex mt-2">
             <div className="me-3">
-              <label htmlFor="Male"></label>
               <input
+                id="genderMale"
                 disabled={!isEditName}
                 className="radio"
                 type="radio"
@@ -108,12 +125,14 @@ export const PersonalInfo = ({ handleInputChange, formData }) => {
                 checked={formData.gender === "Male"}
                 onChange={handleInputChange}
               />
-              <span className="ms-2">Male</span>
+              <label htmlFor="genderMale" className="ms-2">
+                Male
+              </label>
             </div>
 
             <div className="me-3">
-              <label htmlFor="Female"></label>
               <input
+                id="genderFemale"
                 disabled={!isEditName}
                 className="radio"
                 type="radio"
@@ -122,7 +141,9 @@ export const PersonalInfo = ({ handleInputChange, formData }) => {
                 checked={formData.gender === "Female"}
                 onChange={handleInputChange}
               />
-              <span className="ms-2">Female</span>
+              <label htmlFor="genderFemale" className="ms-2">
+                Female
+              </label>
             </div>
           </div>
         </div>
@@ -199,7 +220,7 @@ export const PersonalInfo = ({ handleInputChange, formData }) => {
                 className="save-btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSave("contact");
+                  handleSave(e);
                 }}
                 disabled={isSaving}
               >

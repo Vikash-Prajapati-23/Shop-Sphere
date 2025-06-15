@@ -80,7 +80,14 @@ export const AddressForm = ({
 
         {/* Buttons */}
         <div className="form-row">
-          <button onClick={handleSave} className="btn fw-bold primary" disabled={isSaving}>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleSave(e);
+            }}
+            className="btn fw-bold primary"
+            disabled={isSaving}
+          >
             {isSaving ? "Saving..." : "Save"}
           </button>
           <button onClick={() => setIsVisible(false)} className="btn fw-bold cancle">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useAddress } from "../../../../context/addressDetailsContext";
 import { useFormData } from "../../../../context/formDataContext";
 import { AddAddressButton } from "./AddAddressButton/AddAddressButton";
 import { AddressForm } from "./AddressForm/AddressForm";
@@ -13,14 +12,12 @@ export const ManageAddresses = () => {
     handleSave,
     handleDelete,
     handleInputChange,
-    setIsSaving,
     isSaving,
     isVisible,
     setIsVisible,
     savedAddresses,
     setSavedAddresses,
   } = useFormData();
-  // const { selectedAddress, setSelectedAddress } = useAddress();
 
   useEffect(() => {
     const showAddress = async () => {
@@ -44,7 +41,7 @@ export const ManageAddresses = () => {
   // Function to refresh addresses from backend
   const refreshAddresses = async () => {
     try {
-      const res = await fetch("/api/auth/getAddresses", {
+      const res = await fetch("/api/auth/savedAddress", {
         credentials: "include",
       });
       if (res.ok) {

@@ -1,7 +1,7 @@
 const CartAddressBlock = ({
   isLoggedIn,
   selectedAddress,
-  allAddresses,
+  savedAddresses,
   setSelectedAddress,
 }) => {
   return (
@@ -26,16 +26,16 @@ const CartAddressBlock = ({
       <div className="d-flex align-items-center ">
         {/* <Button className="change-btn" btnName={"Change"} /> */}
         {/* Address picker dropdown */}
-        {isLoggedIn && allAddresses.length > 0 && (
+        {!isLoggedIn && savedAddresses.length > 0 && (
           <select
             className="form-select mt-2"
             value={selectedAddress?._id || ""}
             onChange={(e) => {
-              const addr = allAddresses.find((a) => a._id === e.target.value);
+              const addr = savedAddresses.find((a) => a._id === e.target.value);
               if (addr) setSelectedAddress(addr);
             }}
           >
-            {allAddresses.map((addr) => (
+            {savedAddresses.map((addr) => (
               <option key={addr._id} value={addr._id}>
                 {addr.name}, {addr.addressType}, {addr.pincode}
               </option>

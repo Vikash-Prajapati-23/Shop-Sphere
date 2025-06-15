@@ -4,6 +4,7 @@ import { AddAddressButton } from "../../../Dashboard/ProfileNevigate/ManageAddre
 
 const ChooseAddress = ({
   handleSaveAndRefresh,
+  handleSave,
   editAddressById,
   setEditAddressById,
   isSaving,

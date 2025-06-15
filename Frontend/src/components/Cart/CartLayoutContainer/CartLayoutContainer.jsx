@@ -7,6 +7,7 @@ import ChooseAddress from "../CartSection/ChooseAddress/ChooseAddress";
 const CartLayoutContainer = ({
   handleProductIncrement,
   handleProductDecrement,
+  setSelectedAddress,
   selectedAddress,
   displayCart,
   isLoggedIn,
@@ -35,6 +36,7 @@ const CartLayoutContainer = ({
     displayCart,
     setIsPlaceOrder,
     selectedAddress,
+    setSelectedAddress,
     deliveryCost,
     handleProductIncrement,
     handleProductDecrement,
@@ -51,7 +53,7 @@ const CartLayoutContainer = ({
     setShowAll,
     savedAddresses,
     selectedAddress,
-    // setSelectedAddress,
+    setSelectedAddress,
     formData,
     setFormData,
     handleSave,
@@ -100,6 +102,7 @@ const CartLayoutContainer = ({
         )}
         {currentIndex === 2 && (
           <ChooseAddress
+          handleSaveAndRefresh={handleSaveAndRefresh}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             {...addressProps}

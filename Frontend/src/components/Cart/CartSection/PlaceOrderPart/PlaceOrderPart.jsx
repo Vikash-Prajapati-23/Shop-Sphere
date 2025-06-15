@@ -14,14 +14,13 @@ const PlaceOrderPart = ({
     handleProductIncrement,
     handleProductDecrement,
     savedAddresses,
-    currentIndex,
     setCurrentIndex,
 }) => {
   return (
     <div>
       <CartAddressBlock
         selectedAddress={selectedAddress}
-        allAddresses={savedAddresses}
+        savedAddresses={savedAddresses}
         setSelectedAddress={setSelectedAddress}
         isLoggedIn={isLoggedIn}
       />
