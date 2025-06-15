@@ -3,6 +3,7 @@ import { AddressForm } from "../../../Dashboard/ProfileNevigate/ManageAddresses/
 import { AddAddressButton } from "../../../Dashboard/ProfileNevigate/ManageAddresses/AddAddressButton/AddAddressButton";
 
 const ChooseAddress = ({
+  name,
   handleSaveAndRefresh,
   handleSave,
   editAddressById,
@@ -25,15 +26,22 @@ const ChooseAddress = ({
   return (
     <div className="d-flex">
       <div className="all-addresses-checkout">
-        <div className="fw-bold bg-white mb-2 p-1 ps-4 py-2 bg-primary">
-          <div className="d-flex align-items-center gap-3">
-            <div className="all-addresses-checkout-index bg-light text-primary">
-              {currentIndex}
+        <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+          <div className="d-flex justify-content-between">
+            <div className="d-flex align-items-center gap-3">
+              <div className="all-addresses-checkout-index bg-light text-primary">
+                {currentIndex}
+              </div>
+              <div>
+                <span className="text-secondary fw-bold">LOGIN</span>
+                <i class="fa-solid fa-check text-primary ms-2"></i>
+              </div>
             </div>
-            <div>
-              <span>LOGIN</span>
-              <i class="fa-solid fa-check text-primary ms-2"></i>
-            </div>
+          </div>
+
+          <div className="choose-address-head mt-2">
+            <span className="me-2 head-text-size"> {name} </span>
+            <span> {selectedAddress.mobile} </span>
           </div>
         </div>
 
@@ -102,7 +110,7 @@ const ChooseAddress = ({
 
         {savedAddresses.length > 3 && (
           <button
-            className="w-100 bg-white text-primary py-2 ps-3 fw-semibold border"
+            className="w-100 bg-white text-primary py-2 ps-3 fw-semibold border box-shadow-heads"
             onClick={() => setShowAll((prev) => !prev)}
           >
             <div className="d-flex align-items-center">
@@ -121,7 +129,7 @@ const ChooseAddress = ({
         )}
 
         {/* Add new address button.! */}
-        <div className="mt-2">
+        <div className="mt-2 box-shadow-heads">
           {!isVisible && !editAddressById && (
             <AddAddressButton
               setIsVisible={setIsVisible}
@@ -138,6 +146,29 @@ const ChooseAddress = ({
               isSaving={isSaving}
             />
           )}
+        </div>
+
+        {/* FURHTER STEPS. */}
+        <div className="fw-bold bg-white my-3 p-1 ps-4 py-3 bg-primary box-shadow-heads">
+          <div className="d-flex align-items-center gap-3">
+            <div className="all-addresses-checkout-index bg-light text-primary">
+              {currentIndex + 1}
+            </div>
+            <div>
+              <span className="text-secondary">ORDER SUMMARY</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="fw-bold bg-white my-3 p-1 ps-4 py-3 bg-primary box-shadow-heads">
+          <div className="d-flex align-items-center gap-3">
+            <div className="all-addresses-checkout-index bg-light text-primary">
+              {currentIndex + 2}
+            </div>
+            <div>
+              <span className="text-secondary">PAYMENT OPTIONS</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

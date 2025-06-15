@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
 import { useFormData } from "../../context/formDataContext";
 
-const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
+const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
   const [guestCart, setGuestCart] = useState([]);
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
@@ -189,6 +189,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
       ) : (
         <CartLayoutContainer
           cart={cart}
+          name={name}
           handleCardClick={handleCardClick}
           displayCart={displayCart}
           selectedAddress={selectedAddress}

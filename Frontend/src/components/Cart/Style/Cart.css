@@ -30,7 +30,7 @@
 
 .address-type {
   background-color: #f1f1f1;
-  padding: .2rem .4rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
@@ -190,6 +190,20 @@
   width: 100%;
 }
 
+.choose-address-head {
+  font-size: 14px;
+  margin-left: 5.4%;
+}
+
+.ordersummary-head {
+  font-size: 14px;
+  margin-left: 5%;
+}
+
+.head-text-size {
+  font-weight: 500;
+}
+
 .cart-summary {
   padding: 1rem;
   background-color: #fff;
@@ -230,8 +244,8 @@
   min-width: 100%;
 }
 
-.edit-btn{
-  padding: .1rem 1rem;
+.edit-btn {
+  padding: 0.1rem 1rem;
   background-color: transparent;
   border: none;
 }
@@ -266,7 +280,7 @@
 .addressType-checkout {
   color: #585858;
   background-color: #e1e0e0;
-  padding: .1rem .5rem;
+  padding: 0.1rem 0.5rem;
   border-radius: 2px;
   font-weight: 500;
 }
@@ -279,7 +293,7 @@
   font-size: 12px;
 }
 
-.all-addresses-checkout-index{
+.all-addresses-checkout-index {
   height: 1.5rem;
   width: 1.5rem;
   display: flex;
@@ -288,4 +302,12 @@
   font-size: 13px;
   border: none;
   border-radius: 3px;
+}
+
+.box-shadow-heads {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 2px 0px;
+}
+
+.address-button-size {
+  font-size: 14px;
 }

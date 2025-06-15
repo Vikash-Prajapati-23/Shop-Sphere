@@ -1,9 +1,11 @@
 import Button from "../../../Button/Button";
 
 const OrderSummary = ({
+  name,
   isLoggedIn,
   currentIndex,
   setCurrentIndex,
+  selectedAddress,
   displayCart,
   deliveryCost,
   handleProductDecrement,
@@ -13,16 +15,46 @@ const OrderSummary = ({
 }) => {
   return (
     <div className="">
-      <div className="fw-bold bg-white mb-2 p-1 ps-4 py-2 bg-primary">
-        <div className="d-flex align-items-center gap-3">
-          <div className="all-addresses-checkout-index bg-light text-primary">
-            {currentIndex}
-          </div>
-          <div>
-            <span>LOGIN</span>
-            <i class="fa-solid fa-check text-primary ms-2"></i>
+      <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+        <div className="d-flex justify-content-between">
+          <div className="d-flex align-items-center gap-3">
+            <div className="all-addresses-checkout-index bg-light text-primary">
+              {currentIndex - 2}
+            </div>
+            <div>
+              <span className="text-secondary fw-bold">LOGIN</span>
+              <i class="fa-solid fa-check text-primary ms-2"></i>
+            </div>
           </div>
         </div>
+
+        <div className="ordersummary-head mt-2">
+          <span className="me-2 head-text-size"> {selectedAddress.name} </span>
+          <span> {selectedAddress.mobile} </span>
+        </div>
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+        <div className="">
+          <div className="d-flex justify-content-between">
+            <div className="d-flex align-items-center gap-3">
+              <div className="all-addresses-checkout-index bg-light text-primary">
+                {currentIndex - 1}
+              </div>
+              <div>
+                <span className="text-secondary fw-bold">DELIVERY ADDRESS</span>
+                <i class="fa-solid fa-check text-primary ms-2"></i>
+              </div>
+            </div>
+          </div>
+
+          <div className="ordersummary-head mt-2">
+            <span className="me-2 head-text-size"> {name} </span>
+            <span> {selectedAddress.address} </span>
+          </div>
+        </div>
+
+        <Button btnName="CHANGE" className="fw-bold px-5 py-2 me-3 change-btn" />
       </div>
 
       {/* Make this ul a separate component --->> Have to do it. */}
@@ -120,6 +152,17 @@ const OrderSummary = ({
           onClick={() => setCurrentIndex(4)}
           btnName={"CONTINUE"}
         />
+      </div>
+
+      <div className="fw-bold bg-white my-2 p-1 ps-4 py-3 bg-primary">
+        <div className="d-flex align-items-center gap-3">
+          <div className="all-addresses-checkout-index bg-light text-primary">
+            {currentIndex + 1}
+          </div>
+          <div>
+            <span className="text-secondary">PAYMENT OPTIONS</span>
+          </div>
+        </div>
       </div>
     </div>
   );

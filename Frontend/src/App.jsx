@@ -44,49 +44,52 @@ function App() {
         }
       );
       const data = await response.json();
-      if(response.ok) {
+      if (response.ok) {
         setCart(data);
       }
     } catch (error) {
-      toast.error("Something went wrong while getting the cart quantity.")
+      toast.error("Something went wrong while getting the cart quantity.");
     }
   };
 
- useEffect(() => {
-  const verifyAndFetchUser = async () => {
-    try {
-      const verifyUser = await fetch("http://localhost:3001/api/auth/verify-session-user", {
-        method: "GET",
-        credentials: "include",
-      });
+  useEffect(() => {
+    const verifyAndFetchUser = async () => {
+      try {
+        const verifyUser = await fetch(
+          "http://localhost:3001/api/auth/verify-session-user",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
-      if (verifyUser.ok) {
-        setIsLoggedIn(true);
+        if (verifyUser.ok) {
+          setIsLoggedIn(true);
 
-        const userName = await fetch("http://localhost:3001/api/auth/me", {
-          method: "GET",
-          credentials: "include",
-        });
+          const userName = await fetch("http://localhost:3001/api/auth/me", {
+            method: "GET",
+            credentials: "include",
+          });
 
-        if (userName.ok) {
-          const fetchedData = await userName.json();
-          setFirstName(fetchedData.user.firstName);
-          setName(fetchedData.user.userName);
-          await fetchCardQuantity();
+          if (userName.ok) {
+            const fetchedData = await userName.json();
+            setFirstName(fetchedData.user.firstName);
+            setName(fetchedData.user.userName);
+            await fetchCardQuantity();
+          }
+        } else {
+          setIsLoggedIn(false);
+          setName("");
         }
-      } else {
+      } catch (error) {
+        console.error("Error verifying session:", error);
         setIsLoggedIn(false);
         setName("");
       }
-    } catch (error) {
-      console.error("Error verifying session:", error);
-      setIsLoggedIn(false);
-      setName("");
-    }
-  };
+    };
 
-  verifyAndFetchUser(); // only one async call now
-}, []); // Remove [isLoggedIn] as dependency
+    verifyAndFetchUser(); // only one async call now
+  }, []); // Remove [isLoggedIn] as dependency
 
   // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
@@ -243,6 +246,7 @@ function App() {
                       isLoggedIn={isLoggedIn}
                       cart={cart}
                       setCart={setCart}
+                      name={name}
                     />
                   }
                 />

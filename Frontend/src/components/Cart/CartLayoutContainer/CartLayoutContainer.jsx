@@ -8,12 +8,14 @@ import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
 const CartLayoutContainer = ({
   handleProductIncrement,
   handleProductDecrement,
+  handleAddToWishList,
   handleProductDelete,
   setSelectedAddress,
   selectedAddress,
   displayCart,
   isLoggedIn,
   cart,
+  name,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const { savedAddresses, setSavedAddresses } = useFormData();
@@ -39,6 +41,7 @@ const CartLayoutContainer = ({
     setSelectedAddress,
     deliveryCost,
     handleProductDelete,
+    handleAddToWishList,
     handleProductIncrement,
     handleProductDecrement,
     savedAddresses,
@@ -102,6 +105,7 @@ const CartLayoutContainer = ({
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             {...addressProps}
+            name={name}
           />
         )}
         {currentIndex === 3 && (
@@ -110,6 +114,7 @@ const CartLayoutContainer = ({
             setCurrentIndex={setCurrentIndex}
             isLoggedIn={isLoggedIn}
             {...placeOrderProps}
+            name={name}
           />
         )}
       </section>
@@ -118,6 +123,7 @@ const CartLayoutContainer = ({
         cart={cart}
         platformFee={platformFee}
         deliveryCost={deliveryCost}
+        name={name}
       />
     </div>
   );
