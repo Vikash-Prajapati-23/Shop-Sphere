@@ -5,14 +5,13 @@ import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
+import { api } from "../../utils/api";
 
 const Products = ({
   handleCartAddition,
   handleWishList,
   query,
   isLoggedIn,
-  cart,
-  setCart,
 }) => {
   const [products, setProducts] = useState(null);
   // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
@@ -24,7 +23,7 @@ const Products = ({
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/products/allproductd",
+          api("/api/products/allproductd"),
           {
             method: "GET",
             credentials: "include", // Include cookies for authentication

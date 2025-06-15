@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Style/Navbar.css";
 import { themeContext } from "../../App";
+import { api } from "../../utils/api";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "../../features/cartSlice";
 
@@ -39,7 +40,7 @@ const Navbar = ({
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/auth/logout", {
+      const res = await fetch(api("/api/auth/logout"), {
         method: "GET",
         credentials: "include", // sends cookie!
       });
@@ -208,7 +209,6 @@ const Navbar = ({
                       <li>
                         <Link
                           className="dropdown-item"
-                          handleLogout={handleLogout}
                           to="/Profile"
                         >
                           Profile

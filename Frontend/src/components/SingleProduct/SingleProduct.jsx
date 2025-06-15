@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
 import toast from "react-hot-toast";
+import { api } from "../../utils/api";
 
 const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {   // fetchWishlistProduct
   const [singleProduct, setSingleProduct] = useState(null);
@@ -17,7 +18,7 @@ const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => { 
   const fetchSingleProduct = async (id) => {
     console.log("Fetching product with ID:", id); // Debugging log to check the ID being fetched.
     try {
-      const response = await fetch(`http://localhost:3001/api/single/singleproduct/${id}`, {
+      const response = await fetch(api(`/api/single/singleproduct/${id}`), {
         method: "GET",
         credentials: "include", // Include cookies for authentication
       });

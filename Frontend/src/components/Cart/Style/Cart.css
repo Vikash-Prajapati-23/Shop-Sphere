@@ -240,7 +240,7 @@
 }
 
 .all-addresses-checkout {
-  width: 800px;
+  width: 950px;
   min-width: 100%;
 }
 
@@ -310,4 +310,20 @@
 
 .address-button-size {
   font-size: 14px;
+}
+
+.continueEmail-text-size {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.payment-btn {
+  color: rgb(39, 110, 234);
+  border: 1px solid lightgray;
+  background-color: #fff;
+  padding: 0.4rem 0.8rem;
+  margin-left: 3.5%;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
 }

@@ -4,6 +4,7 @@ import "./Style/Electronics.css";
 import Card from "../Card/Card";
 import Loading from '../Loading/Loading';
 import { themeContext } from "../../App";
+import { api } from "../../utils/api";
 import toast from "react-hot-toast";
 
 const Electronics = ({ handleWishList, handleCartAddition, query, isLoggedIn }) => {

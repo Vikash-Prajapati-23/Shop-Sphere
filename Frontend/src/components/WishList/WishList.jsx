@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./Style/WishList.css";
 import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../utils/api";
 
 const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
   // Fetch wishlist data on component mount
@@ -10,7 +11,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
     const fetchWishlist = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/wishlistproduct/wishlist",
+          api("/api/wishlistproduct/wishlist"),
           {
             method: "GET",
             credentials: "include", // Include cookies for authentication
@@ -36,7 +37,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
   const handleProductDelete = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/wishlistproduct/removewishlist/${productId}`,
+        api(`/api/wishlistproduct/removewishlist/${productId}`),
         {
           method: "DELETE",
           credentials: "include", // Include cookies for authentication

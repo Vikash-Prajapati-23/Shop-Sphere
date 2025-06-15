@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import "./Style/LogInSignUp.css";
+import { api } from "../../utils/api";
 
 const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,7 +14,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const navigate = useNavigate(); // React Router's navigation hook
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/auth/verify-session-user", {
+    fetch(api("/api/auth/verify-session-user"), {
       method: "GET",
       credentials: "include",
     })
@@ -31,7 +32,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
     e.preventDefault();
     try {
       const createSignup = await fetch(
-        "http://localhost:3001/api/auth/signup",
+        api("/api/auth/signup"),
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -52,7 +53,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userLogin = await fetch("http://localhost:3001/api/auth/login", {
+      const userLogin = await fetch(api("/api/auth/login"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),

@@ -4,6 +4,7 @@ import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 import { AddressProvider } from "./context/addressDetailsContext";
 import { FormDataProvider } from "./context/formDataContext";
+import { api } from "./utils/api";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -34,11 +35,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
 
   const fetchCardQuantity = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/productcart/cart",
+        api("/api/productcart/cart"),
         {
           credentials: "include",
         }
@@ -56,7 +58,7 @@ function App() {
     const verifyAndFetchUser = async () => {
       try {
         const verifyUser = await fetch(
-          "http://localhost:3001/api/auth/verify-session-user",
+          api("/api/auth/verify-session-user"),
           {
             method: "GET",
             credentials: "include",
@@ -66,7 +68,7 @@ function App() {
         if (verifyUser.ok) {
           setIsLoggedIn(true);
 
-          const userName = await fetch("http://localhost:3001/api/auth/me", {
+          const userName = await fetch(api("/api/auth/me"), {
             method: "GET",
             credentials: "include",
           });
@@ -75,6 +77,7 @@ function App() {
             const fetchedData = await userName.json();
             setFirstName(fetchedData.user.firstName);
             setName(fetchedData.user.userName);
+            setEmail(fetchedData.user.email);
             await fetchCardQuantity();
           }
         } else {
@@ -115,7 +118,7 @@ function App() {
       }
 
       const response = await fetch(
-        "http://localhost:3001/api/productcart/addcart",
+        api("/api/productcart/addcart"),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -151,7 +154,7 @@ function App() {
   const handleWishList = async (product) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/wishlistproduct/addwishlist",
+        api("/api/wishlistproduct/addwishlist"),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -167,6 +170,7 @@ function App() {
           toast.success(data.message);
           return prevWishlist.filter((item) => item._id !== product._id);
         } else {
+          toast.success(data.message)
           return [...prevWishlist, product];
         }
       });
@@ -247,6 +251,7 @@ function App() {
                       cart={cart}
                       setCart={setCart}
                       name={name}
+                      email={email}
                     />
                   }
                 />

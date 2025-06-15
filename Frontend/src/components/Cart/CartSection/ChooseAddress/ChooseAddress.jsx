@@ -46,7 +46,7 @@ const ChooseAddress = ({
         </div>
 
         <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
-          Choose delivery location
+          {currentIndex} Choose delivery location
         </h4>
 
         {visibleAddress.map((data) => (

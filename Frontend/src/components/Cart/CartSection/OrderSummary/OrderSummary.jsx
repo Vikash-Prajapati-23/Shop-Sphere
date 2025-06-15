@@ -2,6 +2,7 @@ import Button from "../../../Button/Button";
 
 const OrderSummary = ({
   name,
+  email,
   isLoggedIn,
   currentIndex,
   setCurrentIndex,
@@ -15,6 +16,7 @@ const OrderSummary = ({
 }) => {
   return (
     <div className="">
+      {/* Login Details...  */}
       <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
         <div className="d-flex justify-content-between">
           <div className="d-flex align-items-center gap-3">
@@ -29,11 +31,12 @@ const OrderSummary = ({
         </div>
 
         <div className="ordersummary-head mt-2">
-          <span className="me-2 head-text-size"> {selectedAddress.name} </span>
+          <span className="me-2 head-text-size"> {name} </span>
           <span> {selectedAddress.mobile} </span>
         </div>
       </div>
 
+      {/* Delivery details...  */}
       <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
         <div className="">
           <div className="d-flex justify-content-between">
@@ -49,16 +52,23 @@ const OrderSummary = ({
           </div>
 
           <div className="ordersummary-head mt-2">
-            <span className="me-2 head-text-size"> {name} </span>
+            <span className="me-2 head-text-size"> {selectedAddress.name} </span>
             <span> {selectedAddress.address} </span>
           </div>
         </div>
 
-        <Button btnName="CHANGE" className="fw-bold px-5 py-2 me-3 change-btn" />
+        <Button
+          onClick={() => setCurrentIndex(2)}
+          btnName="CHANGE"
+          className="fw-bold px-5 py-2 me-3 change-btn"
+        />
       </div>
 
-      {/* Make this ul a separate component --->> Have to do it. */}
+      {/* Make this ul a separate component --->> Have to do it later. */}
       <ul className="ul-cart-list pt-2">
+        <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
+          {currentIndex} ORDER SUMMARY
+        </h4>
         {displayCart.map((product) => (
           <li
             style={{ backgroundColor: "white" }}
@@ -146,7 +156,11 @@ const OrderSummary = ({
         ))}
       </ul>
 
-      <div className="cart-summary d-flex justify-content-end mt-2">
+      <div className="cart-summary d-flex justify-content-between mt-2">
+        <p className="mt-2 continueEmail-text-size text-secondary">
+          Order confirmation email will be sent to  
+          <span className="text-black ms-2">{email}</span>
+        </p>
         <Button
           className="fw-bold place-order-btn"
           onClick={() => setCurrentIndex(4)}

@@ -6,8 +6,9 @@ import { useAddress } from "../../context/addressDetailsContext";
 import { useEffect, useState } from "react";
 import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
 import { useFormData } from "../../context/formDataContext";
+import { api } from "../../utils/api";
 
-const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
+const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name, email }) => {
   const [guestCart, setGuestCart] = useState([]);
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
@@ -34,20 +35,17 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
 
       return () => window.removeEventListener("guestCartUpdated", updateCart);
     } else {
-      setCart(cart)
+      setCart(cart);
     }
   });
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3001/api/productcart/cart",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(api("/api/productcart/cart"), {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await response.json();
         setCart(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -61,7 +59,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
   useEffect(() => {
     // Fetch all addresses for the logged-in user
     if (isLoggedIn) {
-      fetch("http://localhost:3001/api/auth/savedAddress", {
+      fetch(api("/api/auth/savedAddress"), {
         method: "GET",
         credentials: "include",
       })
@@ -89,7 +87,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/productcart/removecart/${productId}`,
+        api(`/api/productcart/removecart/${productId}`),
         {
           method: "DELETE",
           credentials: "include",
@@ -112,7 +110,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/productcart/incrementcart/${productId}`,
+        api(`/api/productcart/incrementcart/${productId}`),
         {
           method: "PATCH",
           credentials: "include",
@@ -138,7 +136,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/productcart/decrementcart/${productId}`,
+        api(`/api/productcart/decrementcart/${productId}`),
         {
           method: "PATCH",
           credentials: "include",
@@ -190,6 +188,7 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name }) => {
         <CartLayoutContainer
           cart={cart}
           name={name}
+          email={email}
           handleCardClick={handleCardClick}
           displayCart={displayCart}
           selectedAddress={selectedAddress}

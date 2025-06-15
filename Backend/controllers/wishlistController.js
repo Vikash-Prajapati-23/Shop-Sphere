@@ -42,7 +42,7 @@ export async function addToWishlist(req, res) {
 
     // Add to wishlist
     const wishlistItem = await Wishlist.create({ userId, productId });
-    return res.status(201).json(wishlistItem);
+    return res.status(201).json({ wishlistItem, message: "Product added to wishlist"});
 
   } catch (error) {
     console.error("Error adding to wishlist:", error);

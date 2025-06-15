@@ -4,6 +4,8 @@ import CartAside from "../CartAside/CartAside";
 import PlaceOrderPart from "../CartSection/PlaceOrderPart/PlaceOrderPart";
 import ChooseAddress from "../CartSection/ChooseAddress/ChooseAddress";
 import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
+import PaymentGateway from "../CartAddressBlock/PaymentGateway/PaymentGateway";
+import { api } from "../../../utils/api";
 
 const CartLayoutContainer = ({
   handleProductIncrement,
@@ -16,6 +18,7 @@ const CartLayoutContainer = ({
   isLoggedIn,
   cart,
   name,
+  email,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const { savedAddresses, setSavedAddresses } = useFormData();
@@ -68,7 +71,7 @@ const CartLayoutContainer = ({
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch("/api/auth/getAddresses", {
+      const res = await fetch(api("/api/auth/getAddresses"), {
         credentials: "include",
       });
       if (res.ok) {
@@ -115,6 +118,18 @@ const CartLayoutContainer = ({
             isLoggedIn={isLoggedIn}
             {...placeOrderProps}
             name={name}
+            email={email}
+          />
+        )}
+        {currentIndex === 4 && (
+          <PaymentGateway
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            isLoggedIn={isLoggedIn}
+            {...placeOrderProps}
+            name={name}
+            email={email}
+            cart={cart}
           />
         )}
       </section>

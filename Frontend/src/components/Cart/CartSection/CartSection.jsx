@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useFormData } from "../../../context/formDataContext";
 import ChooseAddress from "./ChooseAddress/ChooseAddress";
 import PlaceOrderPart from "./PlaceOrderPart/PlaceOrderPart";
+import { api } from "../../../utils/api";
 
 const CartSection = ({
   displayCart,
@@ -35,7 +36,7 @@ const CartSection = ({
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch("/api/auth/getAddresses", {
+      const res = await fetch(api("/api/auth/getAddresses"), {
         credentials: "include",
       });
       if (res.ok) {

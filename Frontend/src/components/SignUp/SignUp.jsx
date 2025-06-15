@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Style/SignUp.css"
 
 const SignUp = () => {

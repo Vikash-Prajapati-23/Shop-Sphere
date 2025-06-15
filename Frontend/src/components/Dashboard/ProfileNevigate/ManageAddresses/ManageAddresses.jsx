@@ -3,6 +3,7 @@ import { useFormData } from "../../../../context/formDataContext";
 import { AddAddressButton } from "./AddAddressButton/AddAddressButton";
 import { AddressForm } from "./AddressForm/AddressForm";
 import { AddressList } from "./AddressList/AddressList";
+import { api } from "../../../../utils/api";
 import "./ManageAddress.css";
 
 export const ManageAddresses = () => {
@@ -23,7 +24,7 @@ export const ManageAddresses = () => {
     const showAddress = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/auth/savedAddress",
+          api("/api/auth/savedAddress"),
           {
             method: "GET",
             credentials: "include",
@@ -41,15 +42,14 @@ export const ManageAddresses = () => {
   // Function to refresh addresses from backend
   const refreshAddresses = async () => {
     try {
-      const res = await fetch("/api/auth/savedAddress", {
+      const res = await fetch(api("/api/auth/savedAddress"), {
         credentials: "include",
       });
       if (res.ok) {
         const data = await res.json();
-        setSavedAddresses(data.savedAddress || []);
+        setSavedAddresses(data.addresses || []);
       }
     } catch (err) {
-      // Optionally handle error
       console.error("Failed to refresh addresses", err);
     }
   };

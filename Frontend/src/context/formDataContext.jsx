@@ -1,8 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { api } from "../utils/api";
 
 const FormDataContext = createContext();
+// I use an arrow function here because I want to create a function that returns the value from useContext(FormDataContext) when called.
 export const useFormData = () => useContext(FormDataContext);
+// Another way of doing this is :-
+// export function useFormData() {
+//   return useContext(FormDataContext);
+// }
 
 export const FormDataProvider = ({ children }) => {
   const [savedAddresses, setSavedAddresses] = useState([]);
@@ -23,7 +29,7 @@ export const FormDataProvider = ({ children }) => {
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/auth/savedAddress", {
+      const res = await fetch(api("/api/auth/savedAddress"), {
         credentials: "include",
       });
       const data = await res.json();
@@ -67,7 +73,7 @@ export const FormDataProvider = ({ children }) => {
       let response, data;
       if (!formData._id) {
         // This is for creating a new form.
-        response = await fetch("http://localhost:3001/api/auth/address", {
+        response = await fetch(api("/api/auth/address"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -76,7 +82,7 @@ export const FormDataProvider = ({ children }) => {
       } else {
         response = await fetch(
           // This is for editting the form.
-          `http://localhost:3001/api/auth/address/${formData._id}`,
+          api(`/api/auth/address/${formData._id}`),
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -103,7 +109,7 @@ export const FormDataProvider = ({ children }) => {
           alternatePhone: "",
           addressType: "",
         });
-        await refreshAddresses(); // 👈 KEY FIX
+        await refreshAddresses();
       } else {
         toast.error(data.message);
       }
@@ -117,7 +123,7 @@ export const FormDataProvider = ({ children }) => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/auth/deleteAddress/${id}`,
+        api(`/api/auth/deleteAddress/${id}`),
         {
           method: "DELETE",
           credentials: "include",
@@ -126,7 +132,7 @@ export const FormDataProvider = ({ children }) => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.message);
-        await refreshAddresses(); // 👈 Also refresh after delete
+        await refreshAddresses(); // Also refresh after delete
       } else {
         toast.error(data.message);
       }
