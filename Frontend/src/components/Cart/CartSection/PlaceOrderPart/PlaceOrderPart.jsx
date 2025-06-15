@@ -14,6 +14,8 @@ const PlaceOrderPart = ({
     handleProductIncrement,
     handleProductDecrement,
     savedAddresses,
+    currentIndex,
+    setCurrentIndex,
 }) => {
   return (
     <div>
@@ -116,7 +118,7 @@ const PlaceOrderPart = ({
       <div className="cart-total d-flex justify-content-end">
         <Button
           className="fw-bold place-order-btn"
-          onClick={() => setIsPlaceOrder(true)}
+          onClick={() => {setIsPlaceOrder(true); setCurrentIndex(2)}}
           btnName={"PLACE ORDER"}
         />
       </div>

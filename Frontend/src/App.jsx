@@ -72,7 +72,7 @@ function App() {
           const fetchedData = await userName.json();
           setFirstName(fetchedData.user.firstName);
           setName(fetchedData.user.userName);
-          await fetchCardQuantity(); // ✅ Now call it directly after session verified
+          await fetchCardQuantity();
         }
       } else {
         setIsLoggedIn(false);
@@ -85,7 +85,7 @@ function App() {
     }
   };
 
-  verifyAndFetchUser(); // ✅ only one async call now
+  verifyAndFetchUser(); // only one async call now
 }, []); // Remove [isLoggedIn] as dependency
 
   // Function to handle adding items to the cart
