@@ -190,6 +190,17 @@
   width: 100%;
 }
 
+.cart-summary {
+  padding: 1rem;
+  background-color: #fff;
+  margin: 20px;
+  font-weight: bold;
+  align-items: center;
+  margin: 0;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 56px;
+  width: 100%;
+}
+
 .aside-below {
   display: flex;
   justify-content: center;
@@ -211,7 +222,7 @@
 .saved-address-list {
   list-style: none;
   border-bottom: 1px solid rgb(236, 232, 232);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .all-addresses-checkout {
@@ -236,6 +247,7 @@
 
 .radio-checkout {
   flex: 0 0 5%;
+  cursor: pointer;
 }
 
 .edit-btn {
@@ -265,4 +277,15 @@
 
 .text-size-address-checkout {
   font-size: 12px;
+}
+
+.all-addresses-checkout-index{
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 3px;
 }

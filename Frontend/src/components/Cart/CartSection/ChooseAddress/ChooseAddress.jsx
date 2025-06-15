@@ -19,10 +19,24 @@ const ChooseAddress = ({
   showAll,
   setShowAll,
   visibleAddress,
+  currentIndex,
+  setCurrentIndex,
 }) => {
   return (
     <div className="d-flex">
       <div className="all-addresses-checkout">
+        <div className="fw-bold bg-white mb-2 p-1 ps-4 py-2 bg-primary">
+          <div className="d-flex align-items-center gap-3">
+            <div className="all-addresses-checkout-index bg-light text-primary">
+              {currentIndex}
+            </div>
+            <div>
+              <span>LOGIN</span>
+              <i class="fa-solid fa-check text-primary ms-2"></i>
+            </div>
+          </div>
+        </div>
+
         <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
           Choose delivery location
         </h4>
@@ -77,6 +91,7 @@ const ChooseAddress = ({
                   />
                 </div>
                 <Button
+                  onClick={() => setCurrentIndex(3)}
                   className="deliver-btn mt-2 fw-bold text-size-checkout"
                   btnName={"DELIVER HERE"}
                 />
@@ -105,6 +120,7 @@ const ChooseAddress = ({
           </button>
         )}
 
+        {/* Add new address button.! */}
         <div className="mt-2">
           {!isVisible && !editAddressById && (
             <AddAddressButton

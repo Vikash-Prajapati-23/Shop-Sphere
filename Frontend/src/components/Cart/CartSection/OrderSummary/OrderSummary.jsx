@@ -1,29 +1,31 @@
 import Button from "../../../Button/Button";
-import CartAddressBlock from "../../CartAddressBlock/CartAddressBlock";
 
-const PlaceOrderPart = ({
-    selectedAddress,
-    setSelectedAddress,
-    isLoggedIn,
-    displayCart,
-    deliveryCost,
-    handleCardClick,
-    handleProductDelete,
-    handleAddToWishList,
-    handleProductIncrement,
-    handleProductDecrement,
-    savedAddresses,
-    setCurrentIndex,
+const OrderSummary = ({
+  isLoggedIn,
+  currentIndex,
+  setCurrentIndex,
+  displayCart,
+  deliveryCost,
+  handleProductDecrement,
+  handleProductIncrement,
+  handleAddToWishList,
+  handleProductDelete,
 }) => {
   return (
-    <div>
-      <CartAddressBlock
-        selectedAddress={selectedAddress}
-        savedAddresses={savedAddresses}
-        setSelectedAddress={setSelectedAddress}
-        isLoggedIn={isLoggedIn}
-      />
+    <div className="">
+      <div className="fw-bold bg-white mb-2 p-1 ps-4 py-2 bg-primary">
+        <div className="d-flex align-items-center gap-3">
+          <div className="all-addresses-checkout-index bg-light text-primary">
+            {currentIndex}
+          </div>
+          <div>
+            <span>LOGIN</span>
+            <i class="fa-solid fa-check text-primary ms-2"></i>
+          </div>
+        </div>
+      </div>
 
+      {/* Make this ul a separate component --->> Have to do it. */}
       <ul className="ul-cart-list pt-2">
         {displayCart.map((product) => (
           <li
@@ -38,7 +40,6 @@ const PlaceOrderPart = ({
                     src={product.image}
                     className="cart-product-img"
                     alt={product.title}
-                    onClick={() => handleCardClick(product)}
                   />
                 </div>
 
@@ -113,15 +114,15 @@ const PlaceOrderPart = ({
         ))}
       </ul>
 
-      <div className="cart-total d-flex justify-content-end">
+      <div className="cart-summary d-flex justify-content-end mt-2">
         <Button
           className="fw-bold place-order-btn"
-          onClick={() => setCurrentIndex(2)}
-          btnName={"PLACE ORDER"}
+          onClick={() => setCurrentIndex(4)}
+          btnName={"CONTINUE"}
         />
       </div>
     </div>
   );
 };
 
-export default PlaceOrderPart;
+export default OrderSummary;

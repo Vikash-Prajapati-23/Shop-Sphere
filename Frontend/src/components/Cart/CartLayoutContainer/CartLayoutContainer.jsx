@@ -3,10 +3,12 @@ import { useFormData } from "../../../context/formDataContext";
 import CartAside from "../CartAside/CartAside";
 import PlaceOrderPart from "../CartSection/PlaceOrderPart/PlaceOrderPart";
 import ChooseAddress from "../CartSection/ChooseAddress/ChooseAddress";
+import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
 
 const CartLayoutContainer = ({
   handleProductIncrement,
   handleProductDecrement,
+  handleProductDelete,
   setSelectedAddress,
   selectedAddress,
   displayCart,
@@ -17,7 +19,6 @@ const CartLayoutContainer = ({
   const { savedAddresses, setSavedAddresses } = useFormData();
   const [platformFee, setPlatformFee] = useState(4);
   const [deliveryCost, setDeliveryCost] = useState(40);
-  const [isPlaceOrder, setIsPlaceOrder] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [editAddressById, setEditAddressById] = useState(null);
   const {
@@ -34,10 +35,10 @@ const CartLayoutContainer = ({
 
   const placeOrderProps = {
     displayCart,
-    setIsPlaceOrder,
     selectedAddress,
     setSelectedAddress,
     deliveryCost,
+    handleProductDelete,
     handleProductIncrement,
     handleProductDecrement,
     savedAddresses,
@@ -85,11 +86,6 @@ const CartLayoutContainer = ({
 
   return (
     <div className="cart-layout-container">
-      {/* <CartSection
-        {...props}
-        allAddresses={savedAddresses}
-        setAllAddresses={setSavedAddresses}
-      /> */}
       <section className="section-part my-4">
         {currentIndex === 1 && (
           <PlaceOrderPart
@@ -102,10 +98,18 @@ const CartLayoutContainer = ({
         )}
         {currentIndex === 2 && (
           <ChooseAddress
-          handleSaveAndRefresh={handleSaveAndRefresh}
+            handleSaveAndRefresh={handleSaveAndRefresh}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             {...addressProps}
+          />
+        )}
+        {currentIndex === 3 && (
+          <OrderSummary
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            isLoggedIn={isLoggedIn}
+            {...placeOrderProps}
           />
         )}
       </section>

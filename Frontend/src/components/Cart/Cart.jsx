@@ -193,8 +193,6 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn }) => {
           displayCart={displayCart}
           selectedAddress={selectedAddress}
           setSelectedAddress={setSelectedAddress}
-          // allAddresses={savedAddresses}
-          // setAllAddresses={setSavedAddresses}
           isLoggedIn={isLoggedIn}
           handleProductDelete={handleProductDelete}
           handleProductIncrement={handleProductIncrement}
