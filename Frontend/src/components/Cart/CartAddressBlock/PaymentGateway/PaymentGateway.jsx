@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../../../Button/Button";
+import { api } from "../../../../utils/api";
 
 const PaymentGateway = ({
   name,
@@ -7,8 +8,9 @@ const PaymentGateway = ({
   currentIndex,
   setCurrentIndex,
   selectedAddress,
+  user, // Pass user as prop from parent (Cart)
 }) => {
-  const [paymentOption, setPaymentOption] = useState([
+  const [paymentOption] = useState([
     {
       paymentType: "Net Banking",
       para: "Secure and seamless payment experience.",
@@ -26,6 +28,76 @@ const PaymentGateway = ({
       para: "Simple & secure payement.",
     },
   ]);
+  const [selectedPayment, setSelectedPayment] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const placeOrder = async () => {
+    if (!selectedPayment) return alert("Please select a payment method.");
+    if (!user || !user._id) return alert("User not logged in!");
+    if (!selectedAddress) return alert("No address selected!");
+    if (!cart || cart.length === 0) return alert("Cart is empty!");
+    setLoading(true);
+    try {
+      // Calculate total amount from cart
+      const amount = cart.reduce(
+        (sum, item) => sum + item.price * (item.quantity || 1),
+        0
+      );
+      // Step 1: Create Razorpay order
+      const res = await fetch(api("/api/payments/create-order"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!data.id) throw new Error("Order creation failed");
+      // Step 2: Razorpay options
+      const options = {
+        key: process.env.REACT_APP_RAZOR_PAY_TEST_API_KEY,
+        amount: data.amount,
+        currency: data.currency,
+        name: "Shopsphere",
+        description: "Order Payment",
+        order_id: data.id,
+        handler: async function (response) {
+          // Step 3: Send to backend to verify & save order/payment
+          const saveRes = await fetch(api("/api/payment/save-payment"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              amount,
+              userId: user._id,
+              cart,
+              address: selectedAddress,
+              paymentType: selectedPayment,
+            }),
+          });
+          const saveData = await saveRes.json();
+          if (!saveRes.ok)
+            throw new Error(saveData.message || "Payment saving failed");
+          // window.location.href = `/order/success?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
+        },
+        prefill: {
+          name: user.name || user.userName || "User",
+          email: user.email || "email@example.com",
+          contact: user.mobile || "9999999999",
+        },
+        theme: { color: "#3399cc" },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error("Error placing order:", err);
+      alert("Payment failed! Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="d-flex">
@@ -39,7 +111,7 @@ const PaymentGateway = ({
               </div>
               <div>
                 <span className="text-secondary fw-bold">LOGIN</span>
-                <i class="fa-solid fa-check text-primary ms-2"></i>
+                <i className="fa-solid fa-check text-primary ms-2"></i>
               </div>
             </div>
           </div>
@@ -62,7 +134,7 @@ const PaymentGateway = ({
                   <span className="text-secondary fw-bold">
                     DELIVERY ADDRESS
                   </span>
-                  <i class="fa-solid fa-check text-primary ms-2"></i>
+                  <i className="fa-solid fa-check text-primary ms-2"></i>
                 </div>
               </div>
             </div>
@@ -93,7 +165,7 @@ const PaymentGateway = ({
                 </div>
                 <div>
                   <span className="text-secondary fw-bold">ORDER SUMMARY</span>
-                  <i class="fa-solid fa-check text-primary ms-2"></i>
+                  <i className="fa-solid fa-check text-primary ms-2"></i>
                 </div>
               </div>
             </div>
@@ -119,21 +191,31 @@ const PaymentGateway = ({
             </span>{" "}
             ORDER SUMMARY
           </h5>
-
           <div className="bg-white">
             {paymentOption.map((data, index) => (
               <div key={index} className="borders pt-2 ps-4">
                 <div className="d-flex align-items-start gap-3 ">
-                  <input className="mt-2" type="radio" />
+                  <input
+                    className="mt-2"
+                    type="radio"
+                    name="paymentType"
+                    value={data.paymentType}
+                    checked={selectedPayment === data.paymentType}
+                    onChange={() => setSelectedPayment(data.paymentType)}
+                  />
                   <div>
                     <p className="m-0  payment-text"> {data.paymentType} </p>
                     <p className="m-0 pb-2 text-size-checkout"> {data.para} </p>
                   </div>
                 </div>
-                <Button
-                  className={"mb-3 payment-btn"}
-                  btnName={"Confirm Order"}
-                />
+                {selectedPayment === data.paymentType && (
+                  <Button
+                    className={"mb-3 payment-btn"}
+                    btnName={loading ? "Processing..." : "Confirm Order"}
+                    onClick={placeOrder}
+                    disabled={loading}
+                  />
+                )}
               </div>
             ))}
           </div>

@@ -130,6 +130,12 @@ const CartLayoutContainer = ({
             name={name}
             email={email}
             cart={cart}
+            user={{
+              name: name,
+              email: email,
+              mobile: selectedAddress?.mobile || "9999999999",
+              _id: selectedAddress?.userId || selectedAddress?.user_id || "",
+            }}
           />
         )}
       </section>
