@@ -62,7 +62,7 @@ const PaymentGateway = ({
         order_id: data.id,
         handler: async function (response) {
           // Step 3: Send to backend to verify & save order/payment
-          const saveRes = await fetch(api("/api/payment/save-payment"), {
+          const saveRes = await fetch(api("/api/payments/save-payment"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -78,9 +78,10 @@ const PaymentGateway = ({
             }),
           });
           const saveData = await saveRes.json();
+          console.log("SAVE RESPONSE:", saveData);
           if (!saveRes.ok)
             throw new Error(saveData.message || "Payment saving failed");
-          // window.location.href = `/order/success?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
+          window.location.href = `/OrderSuccess?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
         },
         prefill: {
           name: user.name || user.userName || "User",
@@ -92,6 +93,7 @@ const PaymentGateway = ({
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
+      window.location.href = `/OrderFailure`;
       console.error("Error placing order:", err);
       alert("Payment failed! Try again.");
     } finally {

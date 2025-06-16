@@ -4,7 +4,7 @@ import CartAside from "../CartAside/CartAside";
 import PlaceOrderPart from "../CartSection/PlaceOrderPart/PlaceOrderPart";
 import ChooseAddress from "../CartSection/ChooseAddress/ChooseAddress";
 import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
-import PaymentGateway from "../CartAddressBlock/PaymentGateway/PaymentGateway";
+import PaymentGateway from "../CartSection/PaymentGateway/PaymentGateway";
 import { api } from "../../../utils/api";
 
 const CartLayoutContainer = ({

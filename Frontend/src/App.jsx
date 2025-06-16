@@ -5,6 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { AddressProvider } from "./context/addressDetailsContext";
 import { FormDataProvider } from "./context/formDataContext";
 import { api } from "./utils/api";
+import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
+import OrderFailure from "./pages/OrderFailure/OrderFailure";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -325,6 +327,9 @@ function App() {
                     />
                   }
                 />
+
+                <Route path="/OrderSuccess" element={ <OrderSuccess /> } />
+                <Route path="/OrderFaliure" element={ <OrderFailure /> } />
 
                 <Route path="/TermsOfUse" element={<TermsOfUse />} />
               </Routes>
