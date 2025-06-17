@@ -80,7 +80,6 @@ export async function handleCreateLogin(req, res) {
 
 export async function verifySessionLogin(req, res) {
   try {
-    // console.log("verifySessionLogin called");
     const sessionUid = req.cookies.sessionUid;
 
     if (!sessionUid) {
@@ -137,7 +136,10 @@ export async function fetchUserDetails(req, res) {
         id: userDetails._id,
         userName: userDetails.userName,
         firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        contact: userDetails.contact,
         email: userDetails.email,
+        gender: userDetails.gender,
       },
     });
   } else {
@@ -161,7 +163,6 @@ export async function updateProfile(req, res) {
     if (gender !== undefined) updateFields.gender = gender;
     if (contact !== undefined) updateFields.contact = contact;
     if (email && email.trim() !== "") updateFields.email = email;
-
 
     try {
       const updatedUser = await auth

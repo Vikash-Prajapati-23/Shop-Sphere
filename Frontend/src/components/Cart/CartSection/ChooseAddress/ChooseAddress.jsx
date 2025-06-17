@@ -34,7 +34,7 @@ const ChooseAddress = ({
               </div>
               <div>
                 <span className="text-secondary fw-bold">LOGIN</span>
-                <i class="fa-solid fa-check text-primary ms-2"></i>
+                <i className="fa-solid fa-check text-primary ms-2"></i>
               </div>
             </div>
           </div>

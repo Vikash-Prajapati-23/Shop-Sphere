@@ -1,7 +1,8 @@
 // controllers/paymentController.js
 import Razorpay from "razorpay";
 import { Payment } from "../models/paymentModel.js";
-import crypto from "crypto";  
+import { orderModel } from "../models/orderModel.js";
+import crypto from "crypto";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -21,12 +22,10 @@ export const createOrder = async (req, res) => {
     amount: amount * 100, // in paise
     currency: "INR",
     receipt: "order_rcptid_" + Date.now(),
-    // Add notes or userId if needed: notes: { userId: req.user?._id }
   };
 
   try {
     const order = await razorpay.orders.create(options);
-    // Optionally save order to DB here
     return res.status(200).json(order);
   } catch (err) {
     console.error(err);
@@ -34,7 +33,7 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// Save payment to DB after success
+// Save payment + order after successful payment
 export const savePayment = async (req, res) => {
   try {
     const {
@@ -43,9 +42,12 @@ export const savePayment = async (req, res) => {
       razorpay_signature,
       userId,
       amount,
+      cart,
+      address,
+      paymentType,
     } = req.body;
 
-    // Signature verification (IMPORTANT)
+    // Signature verification
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZOR_PAY_TEST_API_SECRET_KEY)
       .update(razorpay_order_id + "|" + razorpay_payment_id)
@@ -55,7 +57,7 @@ export const savePayment = async (req, res) => {
       return res.status(400).json({ message: "Invalid signature" });
     }
 
-    // Save to MongoDB
+    // Step 1: Save Payment
     const payment = new Payment({
       userId,
       amount,
@@ -64,15 +66,52 @@ export const savePayment = async (req, res) => {
       gatewayOrderId: razorpay_order_id,
       gatewayPaymentId: razorpay_payment_id,
       gatewaySignature: razorpay_signature,
-      transactionDetails: req.body, // You can include full object here
+      transactionDetails: req.body,
     });
-
     await payment.save();
-    return res.status(200).json({ message: "Payment saved successfully", payment });
+
+    // Step 2: Save Order
+    const order = new orderModel({
+      userId,
+      products: cart.map((item) => ({
+        productId: item._id,
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+        rating: item.rating,
+      })),
+      shippingAddressRef: address._id,
+      totalAmount: amount,
+      paymentStatus: "Paid",
+      paymentId: razorpay_payment_id,
+      paymentMethod: paymentType,
+    });
+    await order.save();
+
+    return res.status(200).json({
+      message: "Payment and order saved successfully",
+      payment,
+      order,
+    });
   } catch (err) {
     console.error("Payment saving error:", err);
-    return res
-      .status(500)
-      .json({ message: "Failed to save payment", error: err.message });
+    return res.status(500).json({ message: "Failed to save payment or order", error: err.message });
+  }
+};
+
+// Get all orders for a user
+export const getOrderDetailsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    if (!userId) {
+      return res.status(400).json({ message: "Missing userId" });
+    }
+    const orders = await orderModel.find({ userId }).sort({ createdAt: -1 });
+    console.log(orders)
+    return res.status(200).json({orders});
+  } catch (err) {
+    console.error("Error fetching orders by userId:", err);
+    return res.status(500).json({ message: "Failed to fetch orders", error: err.message });
   }
 };

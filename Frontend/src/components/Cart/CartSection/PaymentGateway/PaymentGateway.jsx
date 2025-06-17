@@ -4,6 +4,7 @@ import { api } from "../../../../utils/api";
 
 const PaymentGateway = ({
   name,
+  setCart,
   cart,
   currentIndex,
   setCurrentIndex,
@@ -39,9 +40,11 @@ const PaymentGateway = ({
     setLoading(true);
     try {
       // Calculate total amount from cart
-      const amount = cart.reduce(
-        (sum, item) => sum + item.price * (item.quantity || 1),
-        0
+      const amount = Math.round(
+        cart.reduce(
+          (sum, item) => sum + item.price * (item.quantity || 1),
+          0 * 100
+        )
       );
       // Step 1: Create Razorpay order
       const res = await fetch(api("/api/payments/create-order"), {
@@ -90,6 +93,7 @@ const PaymentGateway = ({
         },
         theme: { color: "#3399cc" },
       };
+      setCart([])
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {

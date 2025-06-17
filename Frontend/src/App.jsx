@@ -37,10 +37,12 @@ function App() {
   const [query, setQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
+  const [userId, setUserId] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [lasstName, setLaststName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
   const [platformFee, setPlatformFee] = useState(4);
   const [deliveryCost, setDeliveryCost] = useState(40);
 
@@ -76,11 +78,14 @@ function App() {
 
           if (userName.ok) {
             const fetchedData = await userName.json();
+            console.log(fetchedData?.user.id)
+            setUserId(fetchedData?.user.id)
             setFirstName(fetchedData.user.firstName);
-            setLaststName(fetchedData.user.lasstName);
+            setLastName(fetchedData.user.lastName);
             setContact(fetchedData.user.contact);
             setName(fetchedData.user.userName);
             setEmail(fetchedData.user.email);
+            setGender(fetchedData.user.gender);
             await fetchCardQuantity();
           }
         } else {
@@ -333,6 +338,7 @@ function App() {
                       cart={cart}
                       deliveryCost={deliveryCost}
                       platformFee={platformFee}
+                      userId={userId}
                     />
                   }
                 />

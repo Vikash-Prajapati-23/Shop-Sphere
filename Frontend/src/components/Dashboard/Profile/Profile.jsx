@@ -68,7 +68,7 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
               <i className="fas fa-box mt-1 text-primary"></i>
               <div className="d-flex justif-content-between gap-5">
                 <h5>My orders</h5>
-                <i class="bi bi-chevron-double-right text-dark"></i>
+                <i className="bi bi-chevron-double-right text-dark"></i>
               </div>
             </div>
           </Link>

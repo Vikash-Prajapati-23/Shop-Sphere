@@ -18,6 +18,7 @@ const CartLayoutContainer = ({
   isLoggedIn,
   deliveryCost,
   platformFee,
+  setCart,
   cart,
   name,
   email,
@@ -130,6 +131,7 @@ const CartLayoutContainer = ({
             name={name}
             email={email}
             cart={cart}
+            setCart={setCart}
             user={{
               name: name,
               email: email,

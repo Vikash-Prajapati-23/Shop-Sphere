@@ -196,6 +196,7 @@ const Cart = ({
       ) : (
         <CartLayoutContainer
           cart={cart}
+          setCart={setCart}
           name={name}
           email={email}
           deliveryCost={deliveryCost}

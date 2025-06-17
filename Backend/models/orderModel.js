@@ -18,6 +18,19 @@ const orderSchema = new mongoose.Schema(
         title: String,
         quantity: Number,
         price: Number,
+        image: String,
+        rating: {
+          rate: {
+            type: Number,
+            default: 0,
+            required: true,
+          },
+          count: {
+            type: Number,
+            default: 0,
+            required: true,
+          },
+        },
       },
     ],
     shippingAddressRef: {
