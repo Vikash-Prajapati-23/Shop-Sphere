@@ -16,14 +16,14 @@ const CartLayoutContainer = ({
   selectedAddress,
   displayCart,
   isLoggedIn,
+  deliveryCost,
+  platformFee,
   cart,
   name,
   email,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const { savedAddresses, setSavedAddresses } = useFormData();
-  const [platformFee, setPlatformFee] = useState(4);
-  const [deliveryCost, setDeliveryCost] = useState(40);
   const [showAll, setShowAll] = useState(false);
   const [editAddressById, setEditAddressById] = useState(null);
   const {
@@ -144,7 +144,6 @@ const CartLayoutContainer = ({
         cart={cart}
         platformFee={platformFee}
         deliveryCost={deliveryCost}
-        name={name}
       />
     </div>
   );

@@ -8,7 +8,16 @@ import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
 import { useFormData } from "../../context/formDataContext";
 import { api } from "../../utils/api";
 
-const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name, email }) => {
+const Cart = ({
+  cart,
+  setCart,
+  handleWishList,
+  isLoggedIn,
+  name,
+  email,
+  platformFee,
+  deliveryCost,
+}) => {
   const [guestCart, setGuestCart] = useState([]);
   const navigate = useNavigate();
   const { selectedAddress, setSelectedAddress } = useAddress();
@@ -189,6 +198,8 @@ const Cart = ({ cart, setCart, handleWishList, isLoggedIn, name, email }) => {
           cart={cart}
           name={name}
           email={email}
+          deliveryCost={deliveryCost}
+          platformFee={platformFee}
           handleCardClick={handleCardClick}
           displayCart={displayCart}
           selectedAddress={selectedAddress}

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { PersonalInfo } from "../ProfileNevigate/PersonalInfo/PersonalInfo";
 import { ManageAddresses } from "../ProfileNevigate/ManageAddresses/ManageAddresses";
 import { api } from "../../../utils/api";
+// import MyOrders from "../ProfileNevigate/MyOrders/MyOrders";
 
 const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -61,14 +63,19 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
         </div>
 
         <div className="side-profile">
-          <div className="d-flex gap-3 side-profile-secs">
-            <i className="fas fa-box mt-1"></i>
-            <h5>My orders</h5>
-          </div>
+          <Link className="text-decoration-none" to={"/MyOrders"}>
+            <div className="d-flex gap-3 side-profile-secs">
+              <i className="fas fa-box mt-1 text-primary"></i>
+              <div className="d-flex justif-content-between gap-5">
+                <h5>My orders</h5>
+                <i class="bi bi-chevron-double-right text-dark"></i>
+              </div>
+            </div>
+          </Link>
 
-          <div className=" side-profile-secs">
+          <div className="side-profile-secs">
             <div className="d-flex">
-              <i className="fas fa-user-circle me-3 mt-1"></i>
+              <i className="fas fa-user-circle me-3 mt-1 text-primary"></i>
               <h5 className="">Account settings</h5>
             </div>
             <ul className="mb-0">
@@ -93,7 +100,7 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
 
           <div className=" side-profile-secs">
             <div className="d-flex">
-              <i className="fas fa-wallet me-3 mt-1"></i>
+              <i className="fas fa-wallet me-3 mt-1 text-primary"></i>
               <h5 className="">Payments</h5>
             </div>
 
@@ -104,9 +111,11 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
             </ul>
           </div>
 
-          <div className="d-flex side-profile-secs cursor">
+          <div className="d-flex side-profile-secs cursor text-primary">
             <i className="ri-logout-circle-r-line user-icon me-2 mt-1"></i>
-            <h5 onClick={handleProfileLogout} className="">Log Out</h5>
+            <h5 onClick={handleProfileLogout} className="">
+              Log Out
+            </h5>
           </div>
         </div>
       </aside>
@@ -121,6 +130,9 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
       {currentIndex === 2 && (
         <ManageAddresses handleInputChange={handleInputChange} />
       )}
+      {/* {currentIndex === 3 && (
+        <MyOrders />
+      )} */}
     </div>
   );
 };

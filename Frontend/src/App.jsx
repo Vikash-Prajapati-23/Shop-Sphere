@@ -7,6 +7,7 @@ import { FormDataProvider } from "./context/formDataContext";
 import { api } from "./utils/api";
 import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 import OrderFailure from "./pages/OrderFailure/OrderFailure";
+import MyOrders from "./pages/MyOrders/MyOrders";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const TermsOfUse = lazy(() => import("./components/TermsOfUse/TermsOfUse"));
@@ -37,16 +38,17 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [lasstName, setLaststName] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
+  const [platformFee, setPlatformFee] = useState(4);
+  const [deliveryCost, setDeliveryCost] = useState(40);
 
   const fetchCardQuantity = async () => {
     try {
-      const response = await fetch(
-        api("/api/productcart/cart"),
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(api("/api/productcart/cart"), {
+        credentials: "include",
+      });
       const data = await response.json();
       if (response.ok) {
         setCart(data);
@@ -59,13 +61,10 @@ function App() {
   useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
-        const verifyUser = await fetch(
-          api("/api/auth/verify-session-user"),
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const verifyUser = await fetch(api("/api/auth/verify-session-user"), {
+          method: "GET",
+          credentials: "include",
+        });
 
         if (verifyUser.ok) {
           setIsLoggedIn(true);
@@ -78,6 +77,8 @@ function App() {
           if (userName.ok) {
             const fetchedData = await userName.json();
             setFirstName(fetchedData.user.firstName);
+            setLaststName(fetchedData.user.lasstName);
+            setContact(fetchedData.user.contact);
             setName(fetchedData.user.userName);
             setEmail(fetchedData.user.email);
             await fetchCardQuantity();
@@ -119,17 +120,14 @@ function App() {
         setCart(guestCart);
       }
 
-      const response = await fetch(
-        api("/api/productcart/addcart"),
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            productId: product._id,
-          }),
-          credentials: "include",
-        }
-      );
+      const response = await fetch(api("/api/productcart/addcart"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product._id,
+        }),
+        credentials: "include",
+      });
       const data = await response.json();
       if (!response.ok) {
         toast.error(data.message || "Failed to add to cart");
@@ -155,15 +153,12 @@ function App() {
   // Function to handle adding items to the wishlist
   const handleWishList = async (product) => {
     try {
-      const response = await fetch(
-        api("/api/wishlistproduct/addwishlist"),
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ productId: product._id || product.id }),
-          credentials: "include",
-        }
-      );
+      const response = await fetch(api("/api/wishlistproduct/addwishlist"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: product._id || product.id }),
+        credentials: "include",
+      });
       const data = await response.json();
       // Only update state if the request was successful
       setWishlist((prevWishlist) => {
@@ -172,7 +167,7 @@ function App() {
           toast.success(data.message);
           return prevWishlist.filter((item) => item._id !== product._id);
         } else {
-          toast.success(data.message)
+          toast.success(data.message);
           return [...prevWishlist, product];
         }
       });
@@ -254,6 +249,8 @@ function App() {
                       setCart={setCart}
                       name={name}
                       email={email}
+                      deliveryCost={deliveryCost}
+                      platformFee={platformFee}
                     />
                   }
                 />
@@ -324,12 +321,24 @@ function App() {
                       name={name}
                       isLoggedIn={isLoggedIn}
                       setIsLoggedIn={setIsLoggedIn}
+                      cart={cart}
                     />
                   }
                 />
 
-                <Route path="/OrderSuccess" element={ <OrderSuccess /> } />
-                <Route path="/OrderFaliure" element={ <OrderFailure /> } />
+                <Route
+                  path="/MyOrders"
+                  element={
+                    <MyOrders
+                      cart={cart}
+                      deliveryCost={deliveryCost}
+                      platformFee={platformFee}
+                    />
+                  }
+                />
+
+                <Route path="/OrderSuccess" element={<OrderSuccess />} />
+                <Route path="/OrderFaliure" element={<OrderFailure />} />
 
                 <Route path="/TermsOfUse" element={<TermsOfUse />} />
               </Routes>
