@@ -57,8 +57,8 @@ export async function handleCreateLogin(req, res) {
     // Set the session cookie
     res.cookie("sessionUid", sessionId, {
       httpOnly: true,
-      secure: false, // Set to false for development
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production", // true in production, false in dev
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
     });
 
@@ -115,8 +115,8 @@ export async function verifySessionLogout(req, res) {
 
     res.clearCookie("sessionUid", {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
       path: "/",
     });
 
@@ -156,7 +156,7 @@ export async function updateProfile(req, res) {
     if (!user) {
       return res.status(401).json({ message: "Invalid session." });
     }
-    
+
     const updateFields = {};
     if (firstName !== undefined) updateFields.firstName = firstName;
     if (lastName !== undefined) updateFields.lastName = lastName;
