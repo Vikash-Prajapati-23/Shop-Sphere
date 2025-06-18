@@ -5,7 +5,6 @@ import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
-import { api } from "../../utils/api";
 
 const Products = ({
   handleCartAddition,
@@ -22,15 +21,19 @@ const Products = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(api("/api/products/allproductd"), {
-          method: "GET",
-          credentials: "include", // Include cookies for authentication
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/products/allproduct`,
+          {
+            method: "GET",
+            credentials: "include", // Include cookies for authentication
+          }
+        );
         const data = await response.json();
-        setProducts(data);
-        setFilteredProducts(data); // Initially, display all products.
+        const products = data.data;
+        setProducts(products);
+        setFilteredProducts(products); // Initially, display all products.
       } catch (error) {
-        if (process.env.REACT_APP_NODE_ENV !== "production") {
+        if (process.env.NODE_ENV !== "production") {
           console.error(error);
         }
       }

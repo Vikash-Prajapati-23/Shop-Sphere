@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { PersonalInfo } from "../ProfileNevigate/PersonalInfo/PersonalInfo";
 import { ManageAddresses } from "../ProfileNevigate/ManageAddresses/ManageAddresses";
-import { api } from "../../../utils/api";
-// import MyOrders from "../ProfileNevigate/MyOrders/MyOrders";
 
 const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -21,7 +19,7 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
 
   const handleProfileLogout = async () => {
     try {
-      const res = await fetch(api("/api/auth/logout"), {
+      const res = await fetch( `${process.env.REACT_APP_BASE_URL}//api/auth/logout`, {
         method: "GET",
         credentials: "include", // sends cookie!
       });
