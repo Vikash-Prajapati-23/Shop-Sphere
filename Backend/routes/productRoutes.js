@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProducts, getProductById } from '../controllers/productController.js';
+import { getProducts, getProductById, seedProductsFromFakeStore } from '../controllers/productController.js';
 
 const router = express.Router();
 
@@ -7,5 +7,8 @@ const router = express.Router();
 router.get('/allproduct', getProducts);
 
 router.get('/product/:id', getProductById);
+
+router.get("/seed", seedProductsFromFakeStore);
+
 
 export default router;
