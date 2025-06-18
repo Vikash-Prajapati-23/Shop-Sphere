@@ -16,18 +16,37 @@ const ContactUs = () => {
       })
       .then(
         () => {
-          console.log("SUCCESS!");
+          if (process.env.REACT_APP_NODE_ENV !== "production") {
+            console.log("Success");
+          }
         },
         (error) => {
-          console.log("FAILED...", error.text);
+          if (process.env.REACT_APP_NODE_ENV !== "production") {
+            console.error(error);
+          }
         }
       );
   };
 
   return (
-    <div style={{ backgroundColor: toggleMode.mode === true ? "#121212" : "#EAECED" }} className="my-4 mx-5">
-      <h4 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="text-center mt-1 cont-title fw-bold">Shop Sphare</h4>
-      <h1 style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="text-center my-3 fw-bold">Contact Us</h1>
+    <div
+      style={{
+        backgroundColor: toggleMode.mode === true ? "#121212" : "#EAECED",
+      }}
+      className="my-4 mx-5"
+    >
+      <h4
+        style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+        className="text-center mt-1 cont-title fw-bold"
+      >
+        Shop Sphare
+      </h4>
+      <h1
+        style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+        className="text-center my-3 fw-bold"
+      >
+        Contact Us
+      </h1>
 
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3687.61577313882!2d88.37139257507376!3d22.443483079583864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0271c7c0372afb%3A0xdd2f223767c26a2!2sFuture%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1729374654406!5m2!1sen!2sin"
@@ -39,7 +58,10 @@ const ContactUs = () => {
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
 
-      <div style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="cont-item row container-fluid mt-3">
+      <div
+        style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+        className="cont-item row container-fluid mt-3"
+      >
         <form
           className="con-item-right col-md-6 my-2"
           ref={form}
@@ -97,7 +119,10 @@ const ContactUs = () => {
           </div>
         </form>
 
-        <div style={{ color: toggleMode.mode === true ? "#fff" : "black" }} className="con-item-left col-md-6 my-2 text-center">
+        <div
+          style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
+          className="con-item-left col-md-6 my-2 text-center"
+        >
           <div className="contact-foot foot-items mt-5">
             <h4>Reach Us</h4>
             <p>Shop Sphare PVT LTD</p>

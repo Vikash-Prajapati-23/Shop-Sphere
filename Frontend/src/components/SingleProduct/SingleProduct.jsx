@@ -28,7 +28,9 @@ const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => { 
       }
       setSingleProduct(data); // Update the product state with fetched data.
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      if (process.env.REACT_APP_NODE_ENV !== 'production') {
+    console.error(error);
+  }
       toast.error("Failed to fetch product details");
     }
   };

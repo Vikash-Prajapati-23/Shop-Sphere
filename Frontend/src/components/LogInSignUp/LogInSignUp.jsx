@@ -25,20 +25,21 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
           navigate("/"); // Redirect to home page or dashboard
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (process.env.REACT_APP_NODE_ENV !== "production") {
+          console.error(err);
+        }
+      });
   }, [navigate, setIsLoggedIn]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const createSignup = await fetch(
-        api("/api/auth/signup"),
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const createSignup = await fetch(api("/api/auth/signup"), {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(formData),
+      });
       const signUp = await createSignup.json();
       if (createSignup.ok) {
         toast.success(signUp.message);

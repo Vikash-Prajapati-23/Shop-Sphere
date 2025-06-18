@@ -22,18 +22,17 @@ const Products = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          api("/api/products/allproductd"),
-          {
-            method: "GET",
-            credentials: "include", // Include cookies for authentication
-          }
-        );
+        const response = await fetch(api("/api/products/allproductd"), {
+          method: "GET",
+          credentials: "include", // Include cookies for authentication
+        });
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data); // Initially, display all products.
       } catch (error) {
-        console.error("Error fetching products:", error);
+        if (process.env.REACT_APP_NODE_ENV !== "production") {
+          console.error(error);
+        }
       }
     };
 

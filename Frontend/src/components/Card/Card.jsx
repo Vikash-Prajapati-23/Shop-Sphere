@@ -7,11 +7,9 @@ import { themeContext } from "../../App";
 
 const Card = ({
   product,
-  id,
   title,
   image,
   price,
-  category,
   rating,
   fetchSingleProduct,
   handleAddToCart, 

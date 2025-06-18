@@ -81,7 +81,6 @@ const PaymentGateway = ({
             }),
           });
           const saveData = await saveRes.json();
-          console.log("SAVE RESPONSE:", saveData);
           if (!saveRes.ok)
             throw new Error(saveData.message || "Payment saving failed");
           window.location.href = `/OrderSuccess?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
@@ -93,12 +92,14 @@ const PaymentGateway = ({
         },
         theme: { color: "#3399cc" },
       };
-      setCart([])
+      setCart([]);
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
       window.location.href = `/OrderFailure`;
-      console.error("Error placing order:", err);
+      if (process.env.REACT_APP_NODE_ENV !== "production") {
+        console.error(err);
+      }
       alert("Payment failed! Try again.");
     } finally {
       setLoading(false);

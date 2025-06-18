@@ -15,14 +15,15 @@ const MyOrders = ({ deliveryCost, userId }) => {
         { credentials: "include", method: "GET" }
       );
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         setOrders(data.orders);
         toast.success(data.message);
       }
     } catch (error) {
       toast.error(error.message);
-      console.error(error);
+      if (process.env.REACT_APP_NODE_ENV !== 'production') {
+    console.error(error);
+  }
     }
   };
   useEffect(() => {

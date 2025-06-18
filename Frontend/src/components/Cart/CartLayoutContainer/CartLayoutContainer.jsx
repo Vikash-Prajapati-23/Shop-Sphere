@@ -80,7 +80,9 @@ const CartLayoutContainer = ({
         setSavedAddresses([...data.addresses] || []);
       }
     } catch (err) {
-      console.error("Failed to refresh addresses", err);
+      if (process.env.REACT_APP_NODE_ENV !== 'production') {
+    console.error(err);
+  }
     }
   };
 

@@ -23,17 +23,16 @@ export const ManageAddresses = () => {
   useEffect(() => {
     const showAddress = async () => {
       try {
-        const response = await fetch(
-          api("/api/auth/savedAddress"),
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(api("/api/auth/savedAddress"), {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await response.json();
         if (response.ok) setSavedAddresses(data.addresses || []);
       } catch (error) {
-        console.error("Server error.", error);
+        if (process.env.REACT_APP_NODE_ENV !== "production") {
+          console.error(error);
+        }
       }
     };
     showAddress();
@@ -50,7 +49,9 @@ export const ManageAddresses = () => {
         setSavedAddresses(data.addresses || []);
       }
     } catch (err) {
-      console.error("Failed to refresh addresses", err);
+      if (process.env.REACT_APP_NODE_ENV !== "production") {
+        console.error(err);
+      }
     }
   };
 
