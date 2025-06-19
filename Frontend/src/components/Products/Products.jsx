@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
-import { themeContext } from "../../App";
+// import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
 
 const Products = ({
@@ -16,31 +16,30 @@ const Products = ({
   // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
-  const toggleMode = useContext(themeContext);
+  // const toggleMode = useContext(themeContext);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL}/api/products/allproduct`,
-          {
-            method: "GET",
-            credentials: "include", // Include cookies for authentication
-          }
-        );
-        const data = await response.json();
-        const products = data.data;
-        setProducts(products);
-        setFilteredProducts(products); // Initially, display all products.
-      } catch (error) {
-        if (process.env.NODE_ENV !== "production") {
-          console.error(error);
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/products/allproduct`,
+        {
+          method: "GET",
+          credentials: "include",
         }
-      }
-    };
+      );
+      const products = await response.json(); // ✅ direct array
+      console.log("Fetched Products:", products);
+      setProducts(products);
+      setFilteredProducts(products);
+    } catch (error) {
+      console.error("Product Fetch Error:", error);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  fetchProducts();
+}, []);
+
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
@@ -74,10 +73,10 @@ const Products = ({
 
   return (
     <div
-      style={{
-        backgroundColor: toggleMode.mode === true ? "#494343" : "#fff",
-        color: toggleMode.mode === true ? "#fff" : "black",
-      }}
+      // style={{
+      //   backgroundColor: toggleMode.mode === true ? "#494343" : "#fff",
+      //   color: toggleMode.mode === true ? "#fff" : "black",
+      // }}
       className="container my-3"
     >
       <h3 className="text-center mt-2">Products you may like!</h3>
