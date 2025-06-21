@@ -12,12 +12,12 @@ export async function getWishlist(req, res) {
       return res.status(200).json([]); // Return empty wishlist if nothing found
     }
 
-    const populatedProducts = wishlist.filter(
-      ((item) => item?.productId).map((item) => ({
+    const populatedProducts = wishlist
+      .filter((item) => item?.productId)
+      .map((item) => ({
         ...item.productId.toObject(),
         quantity: item.quantity,
-      }))
-    );
+      }));
 
     return res.status(200).json(populatedProducts);
   } catch (error) {
