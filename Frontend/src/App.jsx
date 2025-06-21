@@ -63,7 +63,7 @@ function App() {
   useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
-        const verifyUser = await fetch(api("/api/auth/verify-session-user"), {
+        const verifyUser = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`, {
           method: "GET",
           credentials: "include",
         });
@@ -71,7 +71,7 @@ function App() {
         if (verifyUser.ok) {
           setIsLoggedIn(true);
 
-          const userName = await fetch(api("/api/auth/me"), {
+          const userName = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/me`, {
             method: "GET",
             credentials: "include",
           });
@@ -125,7 +125,7 @@ function App() {
         setCart(guestCart);
       }
 
-      const response = await fetch(api("/api/productcart/addcart"), {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/productcart/addcart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -158,7 +158,7 @@ function App() {
   // Function to handle adding items to the wishlist
   const handleWishList = async (product) => {
     try {
-      const response = await fetch(api("/api/wishlistproduct/addwishlist"), {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/addwishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId: product._id || product.id }),
