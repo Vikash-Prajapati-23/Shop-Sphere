@@ -78,7 +78,6 @@ function App() {
 
           if (userName.ok) {
             const fetchedData = await userName.json();
-            console.log(fetchedData?.user.id)
             setUserId(fetchedData?.user.id)
             setFirstName(fetchedData.user.firstName);
             setLastName(fetchedData.user.lastName);

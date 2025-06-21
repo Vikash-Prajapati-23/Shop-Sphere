@@ -5,6 +5,9 @@ import mongoose from "mongoose";
 export async function getCart(req, res) {
   try {
     const userId = req.user.id;
+    //     Uses .populate("productId") to replace the productId field in each cart item with the full product document from the Product collection.
+    // Result:
+    // populatedCart is an array of cart items, each with a productId field containing the full product details (not just the ID).
     const populatedCart = await Cart.find({ userId }).populate("productId");
 
     if (!populatedCart || populatedCart.length === 0) {

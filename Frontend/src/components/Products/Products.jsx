@@ -28,8 +28,7 @@ const Products = ({
           credentials: "include",
         }
       );
-      const products = await response.json(); // ✅ direct array
-      console.log("Fetched Products:", products);
+      const products = await response.json();
       setProducts(products);
       setFilteredProducts(products);
     } catch (error) {

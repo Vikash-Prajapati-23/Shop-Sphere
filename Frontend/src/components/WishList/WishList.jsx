@@ -11,7 +11,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
     const fetchWishlist = async () => {
       try {
         const response = await fetch(
-          api("/api/wishlistproduct/wishlist"),
+          `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/wishlist`,
           {
             method: "GET",
             credentials: "include", // Include cookies for authentication
