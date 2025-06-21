@@ -8,10 +8,10 @@ export async function getCart(req, res) {
     // Populate productId to get full product details
     const populatedCart = await Cart.find({ userId }).populate("productId");
     // Include quantity in the response
-    const populatedProducts = populatedCart.map((item) => ({
+    const populatedProducts = populatedCart.filter((item => item.productId).map(item => ({
       ...item.productId.toObject(),
       quantity: item.quantity,
-    }));
+    })))
     // Return the populated products along with the cart items.
     return res.status(200).json(populatedProducts);
   } catch (error) {
