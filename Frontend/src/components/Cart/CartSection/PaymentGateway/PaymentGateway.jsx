@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "../../../Button/Button";
-import { api } from "../../../../utils/api";
 
 const PaymentGateway = ({
   name,
@@ -47,7 +46,7 @@ const PaymentGateway = ({
         )
       );
       // Step 1: Create Razorpay order
-      const res = await fetch(api("/api/payments/create-order"), {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/payments/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
@@ -65,7 +64,7 @@ const PaymentGateway = ({
         order_id: data.id,
         handler: async function (response) {
           // Step 3: Send to backend to verify & save order/payment
-          const saveRes = await fetch(api("/api/payments/save-payment"), {
+          const saveRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/payments/save-payment`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",

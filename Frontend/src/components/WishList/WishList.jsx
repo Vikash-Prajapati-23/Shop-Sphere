@@ -37,7 +37,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
   const handleProductDelete = async (productId) => {
     try {
       const response = await fetch(
-        api(`/api/wishlistproduct/removewishlist/${productId}`),
+        `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/removewishlist/${productId}`,
         {
           method: "DELETE",
           credentials: "include", // Include cookies for authentication

@@ -40,7 +40,7 @@ const Navbar = ({
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(api("/api/auth/logout"), {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`, {
         method: "GET",
         credentials: "include", // sends cookie!
       });

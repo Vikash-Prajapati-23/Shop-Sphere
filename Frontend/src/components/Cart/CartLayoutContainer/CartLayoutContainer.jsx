@@ -5,7 +5,6 @@ import PlaceOrderPart from "../CartSection/PlaceOrderPart/PlaceOrderPart";
 import ChooseAddress from "../CartSection/ChooseAddress/ChooseAddress";
 import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
 import PaymentGateway from "../CartSection/PaymentGateway/PaymentGateway";
-import { api } from "../../../utils/api";
 
 const CartLayoutContainer = ({
   handleProductIncrement,
@@ -72,7 +71,7 @@ const CartLayoutContainer = ({
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch(api("/api/auth/getAddresses"), {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/getAddresses`, {
         credentials: "include",
       });
       if (res.ok) {

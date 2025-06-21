@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
-import { api } from "../../../../utils/api";
 
 export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   const [isEditName, setIsEditName] = useState(false);
@@ -11,7 +10,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/auth/me", {
+        const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/me`, {
           method: "GET",
           credentials: "include",
         });
@@ -35,7 +34,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   const handleSave = async (field) => {
     setIsSaving(true);
     try {
-      const response = await fetch(api("/api/auth/profile"), {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/profile`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

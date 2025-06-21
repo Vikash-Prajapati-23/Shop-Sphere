@@ -14,7 +14,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const navigate = useNavigate(); // React Router's navigation hook
 
   useEffect(() => {
-    fetch(api("/api/auth/verify-session-user"), {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`, {
       method: "GET",
       credentials: "include",
     })
@@ -35,7 +35,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const createSignup = await fetch(api("/api/auth/signup"), {
+      const createSignup = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -54,7 +54,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userLogin = await fetch(api("/api/auth/login"), {
+      const userLogin = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),

@@ -13,7 +13,7 @@ const Women = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
 
   const woManProduct = async () => {
     const url = await fetch(
-      `https://fakestoreapi.com/products/category/women's clothing`
+      `${process.env.REACT_APP_API_BASE_URL}/api/products/category/women's clothin`
     );
     const newUrl = await url.json();
     setWoMenProduct(newUrl);

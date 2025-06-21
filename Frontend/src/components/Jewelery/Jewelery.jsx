@@ -13,7 +13,7 @@ const Jewelery = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => 
 
   const fetchJeweleryProducts = async () => {
     const url = await fetch(
-      `https://fakestoreapi.com/products/category/jewelery`
+      `${process.env.REACT_APP_API_BASE_URL}/api/products/category/jewelery`
     );
     const newProducts = await url.json();
     setJeweleryProduct(newProducts);

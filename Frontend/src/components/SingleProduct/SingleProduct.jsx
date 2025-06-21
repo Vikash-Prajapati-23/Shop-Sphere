@@ -18,7 +18,7 @@ const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => { 
   const fetchSingleProduct = async (id) => {
     console.log("Fetching product with ID:", id); // Debugging log to check the ID being fetched.
     try {
-      const response = await fetch(api(`/api/single/singleproduct/${id}`), {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/single/singleproduct/${id}`, {
         method: "GET",
         credentials: "include", // Include cookies for authentication
       });

@@ -6,7 +6,6 @@ import { useAddress } from "../../context/addressDetailsContext";
 import { useEffect, useState } from "react";
 import CartLayoutContainer from "./CartLayoutContainer/CartLayoutContainer";
 import { useFormData } from "../../context/formDataContext";
-import { api } from "../../utils/api";
 
 const Cart = ({
   cart,
@@ -51,10 +50,13 @@ const Cart = ({
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await fetch(api("/api/productcart/cart"), {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setCart(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -68,7 +70,7 @@ const Cart = ({
   useEffect(() => {
     // Fetch all addresses for the logged-in user
     if (isLoggedIn) {
-      fetch(api("/api/auth/savedAddress"), {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/savedAddress`, {
         method: "GET",
         credentials: "include",
       })
@@ -96,7 +98,7 @@ const Cart = ({
 
     try {
       const response = await fetch(
-        api(`/api/productcart/removecart/${productId}`),
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/removecart/${productId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -119,7 +121,7 @@ const Cart = ({
 
     try {
       const response = await fetch(
-        api(`/api/productcart/incrementcart/${productId}`),
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/incrementcart/${productId}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -145,7 +147,7 @@ const Cart = ({
 
     try {
       const response = await fetch(
-        api(`/api/productcart/decrementcart/${productId}`),
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/decrementcart/${productId}t`,
         {
           method: "PATCH",
           credentials: "include",
