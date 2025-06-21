@@ -8,8 +8,16 @@ export async function getWishlist(req, res) {
     // Populate productId to get full product details
     const wishlist = await Wishlist.find({ userId }).populate("productId");
 
-    // Return just the populated product objects
-    const populatedProducts = wishlist.map((item) => item.productId);
+    if (!wishlist || wishlist.length === 0) {
+      return res.status(200).json([]); // Return empty wishlist if nothing found
+    }
+
+    const populatedProducts = wishlist.filter(
+      ((item) => item?.productId).map((item) => ({
+        ...item.productId.toObject(),
+        quantity: item.quantity,
+      }))
+    );
 
     return res.status(200).json(populatedProducts);
   } catch (error) {
@@ -17,7 +25,6 @@ export async function getWishlist(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
-
 
 export async function addToWishlist(req, res) {
   try {
@@ -42,8 +49,9 @@ export async function addToWishlist(req, res) {
 
     // Add to wishlist
     const wishlistItem = await Wishlist.create({ userId, productId });
-    return res.status(201).json({ wishlistItem, message: "Product added to wishlist"});
-
+    return res
+      .status(201)
+      .json({ wishlistItem, message: "Product added to wishlist" });
   } catch (error) {
     console.error("Error adding to wishlist:", error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -59,13 +67,15 @@ export async function removeFromWishlist(req, res) {
       return res.status(400).json({ message: "Invalid item ID" });
     }
 
-    const result = await Wishlist.findOneAndDelete({ userId, productId: itemId });
+    const result = await Wishlist.findOneAndDelete({
+      userId,
+      productId: itemId,
+    });
     if (!result) {
       return res.status(404).json({ message: "Item not found in wishlist" });
     }
 
     return res.status(200).json({ message: "Item removed from wishlist" });
-
   } catch (error) {
     console.error("Error removing from wishlist:", error);
     return res.status(500).json({ message: "Internal Server Error" });
