@@ -41,7 +41,7 @@ const ChooseAddress = ({
 
           <div className="choose-address-head mt-2">
             <span className="me-2 head-text-size"> {name} </span>
-            <span> {selectedAddress.mobile} </span>
+            <span> {selectedAddress ? selectedAddress.mobile : ""} </span>
           </div>
         </div>
 

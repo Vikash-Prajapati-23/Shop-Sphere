@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Profile.css";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { PersonalInfo } from "../ProfileNevigate/PersonalInfo/PersonalInfo";
 import { ManageAddresses } from "../ProfileNevigate/ManageAddresses/ManageAddresses";
 
-const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
-  const [currentIndex, setCurrentIndex] = useState(1);
+const Profile = ({ name, setIsLoggedIn }) => {
+  const location = useLocation();
+  const [currentIndex, setCurrentIndex] = useState(
+    location.state?.section === "manageAddresses" ? 2 : 1
+  );
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,10 +21,13 @@ const Profile = ({ name, isLoggedIn, setIsLoggedIn }) => {
 
   const handleProfileLogout = async () => {
     try {
-      const res = await fetch( `${process.env.REACT_APP_BASE_URL}//api/auth/logout`, {
-        method: "GET",
-        credentials: "include", // sends cookie!
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BASE_URL}//api/auth/logout`,
+        {
+          method: "GET",
+          credentials: "include", // sends cookie!
+        }
+      );
       if (res.ok) {
         setIsLoggedIn(false); // update local state
         navigate("/LoginSignup");
