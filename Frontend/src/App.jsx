@@ -15,12 +15,9 @@ const Cart = lazy(() => import("./components/Cart/Cart"));
 const WishList = lazy(() => import("./components/WishList/WishList"));
 const Home = lazy(() => import("./components/Home/Home"));
 const Men = lazy(() => import("./pages/categoryPages/Men/Men"));
-const Women = lazy(() => import("./pages/categoryPages/Women/Women"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
 const LogInSignUp = lazy(() => import("./components/LogInSignUp/LogInSignUp"));
-const Electronics = lazy(() => import("./pages/categoryPages/Electronics/Electronics"));
-const Jewelery = lazy(() => import("./pages/categoryPages/Jewelery/Jewelery"));
 const Profile = lazy(() => import("./components/Dashboard/Profile/Profile"));
 const SingleProduct = lazy(() =>
   import("./components/SingleProduct/SingleProduct")
@@ -47,9 +44,12 @@ function App() {
 
   const fetchCardQuantity = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setCart(data);
@@ -62,22 +62,28 @@ function App() {
   useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
-        const verifyUser = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`, {
-          method: "GET",
-          credentials: "include",
-        });
+        const verifyUser = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
         if (verifyUser.ok) {
           setIsLoggedIn(true);
 
-          const userName = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/me`, {
-            method: "GET",
-            credentials: "include",
-          });
+          const userName = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/api/auth/me`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
 
           if (userName.ok) {
             const fetchedData = await userName.json();
-            setUserId(fetchedData?.user.id)
+            setUserId(fetchedData?.user.id);
             setFirstName(fetchedData.user.firstName);
             setLastName(fetchedData.user.lastName);
             setContact(fetchedData.user.contact);
@@ -98,15 +104,13 @@ function App() {
     };
 
     verifyAndFetchUser(); // only one async call now
-  }, []); // Remove [isLoggedIn] as dependency
+  }, []);
 
-  // Function to handle adding items to the cart
   const handleCartAddition = async (product) => {
     try {
       if (!isLoggedIn) {
         // Guest: store in localStorage
-        let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-        // Check BEFORE adding
+        let guestCart = JSON.parse(localStorage.getItem("guestCart")) || []; // Check BEFORE adding
         const guestExistCart = guestCart.find(
           (item) => item._id === product._id || item.id === product.id
         );
@@ -116,27 +120,28 @@ function App() {
           return;
         }
 
-        // Now it's safe to add
-        guestCart.push(product);
+        guestCart.push(product); // Now it's safe to add
         localStorage.setItem("guestCart", JSON.stringify(guestCart));
         toast.success("Added to cart!");
         setCart(guestCart);
       }
 
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/productcart/addcart`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product._id,
-        }),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/addcart`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            productId: product._id,
+          }),
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         toast.error(data.message || "Failed to add to cart");
         return;
-      }
-      // Only update state if the request was successful
+      } // Only update state if the request was successful
       setCart((prevCart) => {
         const exists = prevCart.find((item) => item._id === product._id);
         if (exists) {
@@ -153,15 +158,17 @@ function App() {
     }
   };
 
-  // Function to handle adding items to the wishlist
   const handleWishList = async (product) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/addwishlist`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product._id || product.id }),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/addwishlist`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: product._id || product.id }),
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       // Only update state if the request was successful
       setWishlist((prevWishlist) => {
@@ -266,42 +273,6 @@ function App() {
                       setWishlist={setWishlist}
                       isLoggedIn={isLoggedIn}
                       handleCartAddition={handleCartAddition}
-                    />
-                  }
-                />
-
-                <Route
-                  path="/category/:categorySlug"
-                  element={
-                    <Women
-                      isLoggedIn={isLoggedIn}
-                      handleWishList={handleWishList}
-                      handleCartAddition={handleCartAddition}
-                      query={query}
-                    />
-                  }
-                />
-
-                <Route
-                  path="/category/:categorySlug"
-                  element={
-                    <Electronics
-                      isLoggedIn={isLoggedIn}
-                      handleWishList={handleWishList}
-                      handleCartAddition={handleCartAddition}
-                      query={query}
-                    />
-                  }
-                />
-
-                <Route
-                  path="/category/:categorySlug"
-                  element={
-                    <Jewelery
-                      isLoggedIn={isLoggedIn}
-                      handleWishList={handleWishList}
-                      handleCartAddition={handleCartAddition}
-                      query={query}
                     />
                   }
                 />
