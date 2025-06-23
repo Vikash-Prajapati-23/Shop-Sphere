@@ -4,7 +4,6 @@ import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 import { AddressProvider } from "./context/addressDetailsContext";
 import { FormDataProvider } from "./context/formDataContext";
-import { api } from "./utils/api";
 import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 import OrderFailure from "./pages/OrderFailure/OrderFailure";
 import MyOrders from "./pages/MyOrders/MyOrders";
@@ -48,7 +47,7 @@ function App() {
 
   const fetchCardQuantity = async () => {
     try {
-      const response = await fetch(api("/api/productcart/cart"), {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`, {
         credentials: "include",
       });
       const data = await response.json();

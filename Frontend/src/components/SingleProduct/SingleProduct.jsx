@@ -2,64 +2,67 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
-import Loading from '../Loading/Loading';
+import Loading from "../Loading/Loading";
 import { themeContext } from "../../App";
 import toast from "react-hot-toast";
-import { api } from "../../utils/api";
 
-const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {   // fetchWishlistProduct
+const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {
   const [singleProduct, setSingleProduct] = useState(null);
-  // const alert = useContext(alertContext);
   const toggleMode = useContext(themeContext);
   const navigate = useNavigate(); // Added: Use navigate to redirect users.
   const { id } = useParams(); // Added: Extract the product ID from the URL.;
 
-  // Added: Function to fetch product details using the extracted ID.
   const fetchSingleProduct = async (id) => {
-    console.log("Fetching product with ID:", id); // Debugging log to check the ID being fetched.
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/single/singleproduct/${id}`, {
-        method: "GET",
-        credentials: "include", // Include cookies for authentication
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch product"); 
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/single/singleproduct/${id}`,
+        {
+          method: "GET",
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setSingleProduct(data);
       }
-      setSingleProduct(data); // Update the product state with fetched data.
+      // throw new Error(data.message || "Failed to fetch product");
     } catch (error) {
-      if (process.env.REACT_APP_NODE_ENV !== 'production') {
-    console.error(error);
-  }
+      if (process.env.REACT_APP_NODE_ENV !== "production") {
+        console.error(error);
+      }
       toast.error("Failed to fetch product details");
     }
   };
-
-  const handleAddToCart = (product) => {
-    handleCartAddition(product);
-  }
-
-  const handleWishlist = (product) => {
-    if(!isLoggedIn) {
-      navigate("/LoginSignup");
-      toast.success("Please log in to add items to your wishlist");
-    }
-    handleWishList(product);
-  }
 
   useEffect(() => {
     fetchSingleProduct(id); // Pass the id from useParams
   }, [id]);
 
+  const handleAddToCart = (product) => {
+    handleCartAddition(product);
+  };
+
+  const handleWishlist = (product) => {
+    if (!isLoggedIn) {
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+    }
+    handleWishList(product);
+  };
+
   if (!singleProduct) {
-    return <div> <Loading /> </div>; // Added: Loading state to handle asynchronous fetch.
+    return (
+      <div>
+        <Loading />
+      </div>
+    ); // Added: Loading state to handle asynchronous fetch.
   }
 
   return (
-    <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="container card mt-3 mb-3">
+    <div className="container card mt-3 mb-3">
       <div className="m-3">
         <div className="d-flex">
-          <div style={{ backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff", color: toggleMode.mode === true ? "#fff" : "black" }} className="prod-img m-4 ">
+          <div className="prod-img m-4 ">
             <img
               className="m-4 prod-img"
               src={singleProduct.image}
@@ -81,14 +84,14 @@ const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => { 
             <div className="prod-btn d-flex m-3">
               <Button
                 onClick={() => {
-                  handleWishlist(singleProduct)
+                  handleWishlist(singleProduct);
                 }}
                 className={"btn btn-success"}
                 btnName={"Wishlist"}
               />
               <Button
                 onClick={() => {
-                  handleAddToCart(singleProduct)
+                  handleAddToCart(singleProduct);
                 }}
                 className={"btn btn-success mx-3"}
                 btnName={"Add to cart"}

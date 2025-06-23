@@ -1,6 +1,9 @@
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 import Product from "../models/productModel.js";
 import fetch from "node-fetch";
+
+dotenv.config();
 
 const populateProducts = async () => {
   try {
@@ -40,10 +43,7 @@ const populateProducts = async () => {
 };
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/shop-sphere", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected to MongoDB");
     populateProducts();

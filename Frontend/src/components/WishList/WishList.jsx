@@ -109,8 +109,8 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                   <div className={"p-1 "}>
                     <pre className="d-flex justify-content-start fw-bold">
                       {(product.tittle
-                        ? product.title.slice(0, 30)
-                        : "No Title") + "..."}
+                        ? product.tittle.slice(0, 30)
+                        : "No Tittle") + "..."}
                     </pre>
 
                     <div className=" d-flex ">

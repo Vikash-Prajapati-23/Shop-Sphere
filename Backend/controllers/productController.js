@@ -43,7 +43,7 @@ export async function seedProductsFromFakeStore(req, res) {
       category: item.category,
       image: item.image,
       rating: item.rating,
-      productId: `FS-${item.id}`,
+      productId: item.id,
     }));
 
     await Product.deleteMany(); // Optional
