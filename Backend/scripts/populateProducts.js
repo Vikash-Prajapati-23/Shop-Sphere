@@ -10,6 +10,9 @@ const populateProducts = async () => {
     const data = await fetch("https://fakestoreapi.com/products");
     const products = await data.json();
 
+    await Product.deleteMany();
+    console.log("🗑️ Old data deleted");
+
     for (const product of products) {
       // Check if the product already exists
       const existingProduct = await Product.findOne({ productId: product.id });
