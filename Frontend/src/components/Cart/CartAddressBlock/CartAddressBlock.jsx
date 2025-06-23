@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
+import toast from "react-hot-toast";
 
 const CartAddressBlock = ({
   isLoggedIn,
@@ -8,6 +9,15 @@ const CartAddressBlock = ({
   setSelectedAddress,
 }) => {
   const nevigate = useNavigate();
+
+  const handleNevigateLogin = () => {
+    if (!isLoggedIn) {
+      nevigate("/LoginSignup");
+      toast("Please login first to add addresses.!");
+    } else {
+      nevigate("/Profile", { state: { section: "manageAddresses" } });
+    }
+  };
 
   return (
     <>
@@ -61,9 +71,7 @@ const CartAddressBlock = ({
           </p>
           <Button
             btnName={"Add delivery details"}
-            onClick={() =>
-              nevigate("/Profile", { state: { section: "manageAddresses" } })
-            }
+            onClick={handleNevigateLogin}
             className={
               "text-primary py-2 px-4 border fw-bold text-size-checkout"
             }

@@ -1,20 +1,33 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../../../Button/Button";
 import CartAddressBlock from "../../CartAddressBlock/CartAddressBlock";
+import toast from "react-hot-toast";
 
 const PlaceOrderPart = ({
-    selectedAddress,
-    setSelectedAddress,
-    isLoggedIn,
-    displayCart,
-    deliveryCost,
-    handleCardClick,
-    handleProductDelete,
-    handleAddToWishList,
-    handleProductIncrement,
-    handleProductDecrement,
-    savedAddresses,
-    setCurrentIndex,
+  selectedAddress,
+  setSelectedAddress,
+  isLoggedIn,
+  displayCart,
+  deliveryCost,
+  handleCardClick,
+  handleProductDelete,
+  handleAddToWishList,
+  handleProductIncrement,
+  handleProductDecrement,
+  savedAddresses,
+  setCurrentIndex,
 }) => {
+  const nevigate = useNavigate();
+
+  const handleNevigate = () => {
+    if (!isLoggedIn) {
+      nevigate("/LoginSignup");
+      toast("Please login first to place orders.!")
+    } else {
+    setCurrentIndex(2);
+  }
+  };
+
   return (
     <div>
       <CartAddressBlock
@@ -116,7 +129,7 @@ const PlaceOrderPart = ({
       <div className="cart-total d-flex justify-content-end">
         <Button
           className="fw-bold place-order-btn"
-          onClick={() => setCurrentIndex(2)}
+          onClick={handleNevigate}
           btnName={"PLACE ORDER"}
         />
       </div>
