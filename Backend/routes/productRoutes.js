@@ -12,3 +12,4 @@ router.get('/category/:categorySlug', getProductByCategory);
 
 
 export default router;
+    
