@@ -14,13 +14,13 @@ const Footer = lazy(() => import("./components/Footer/Footer"));
 const Cart = lazy(() => import("./components/Cart/Cart"));
 const WishList = lazy(() => import("./components/WishList/WishList"));
 const Home = lazy(() => import("./components/Home/Home"));
-const Men = lazy(() => import("./components/Men/Men"));
-const Women = lazy(() => import("./components/Women/Women"));
+const Men = lazy(() => import("./pages/categoryPages/Men/Men"));
+const Women = lazy(() => import("./pages/categoryPages/Women/Women"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs"));
 const LogInSignUp = lazy(() => import("./components/LogInSignUp/LogInSignUp"));
-const Electronics = lazy(() => import("./components/Electronics/Electronics"));
-const Jewelery = lazy(() => import("./components/Jewelery/Jewelery"));
+const Electronics = lazy(() => import("./pages/categoryPages/Electronics/Electronics"));
+const Jewelery = lazy(() => import("./pages/categoryPages/Jewelery/Jewelery"));
 const Profile = lazy(() => import("./components/Dashboard/Profile/Profile"));
 const SingleProduct = lazy(() =>
   import("./components/SingleProduct/SingleProduct")
@@ -231,7 +231,7 @@ function App() {
                 />
 
                 <Route
-                  path="/Men"
+                  path="/category/:categorySlug"
                   element={
                     <Men
                       handleWishList={handleWishList}
@@ -271,7 +271,7 @@ function App() {
                 />
 
                 <Route
-                  path="/Women"
+                  path="/category/:categorySlug"
                   element={
                     <Women
                       isLoggedIn={isLoggedIn}
@@ -283,7 +283,7 @@ function App() {
                 />
 
                 <Route
-                  path="/Electronics"
+                  path="/category/:categorySlug"
                   element={
                     <Electronics
                       isLoggedIn={isLoggedIn}
@@ -295,7 +295,7 @@ function App() {
                 />
 
                 <Route
-                  path="/Jewelery"
+                  path="/category/:categorySlug"
                   element={
                     <Jewelery
                       isLoggedIn={isLoggedIn}

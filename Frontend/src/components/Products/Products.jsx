@@ -29,7 +29,6 @@ const Products = ({
         }
       );
       const products = await response.json();
-      console.log(products)
       setProducts(products);
       setFilteredProducts(products);
     } catch (error) {
@@ -57,7 +56,6 @@ const Products = ({
   const handleCardClick = (product) => {
     if (product && product.id) {
       navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
-      console.log(product.id)
     } else {
       toast.error("Product ID not found");
     }

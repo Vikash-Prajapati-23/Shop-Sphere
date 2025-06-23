@@ -9,8 +9,8 @@ import toast from "react-hot-toast";
 const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {
   const [singleProduct, setSingleProduct] = useState(null);
   const toggleMode = useContext(themeContext);
-  const navigate = useNavigate(); // Added: Use navigate to redirect users.
-  const { id } = useParams(); // Added: Extract the product ID from the URL.;
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const fetchSingleProduct = async (id) => {
     try {
@@ -22,7 +22,6 @@ const SingleProduct = ({ handleCartAddition, handleWishList, isLoggedIn }) => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setSingleProduct(data);
       }
       // throw new Error(data.message || "Failed to fetch product");

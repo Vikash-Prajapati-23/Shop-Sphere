@@ -58,7 +58,7 @@ const Navbar = ({
 
   return (
     <nav
-      className={`navbar sticky-sm-top sticky-top p-0 navbar-expand-lg`}
+      className={`navbar bg-white shadow sticky-sm-top sticky-top p-0 navbar-expand-lg`}
     >
       <div className="d-flex justify-content-between container">
         <a className="navbar-brand">
@@ -86,7 +86,6 @@ const Navbar = ({
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item navs">
               <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link fw-bold"
                 aria-current="page"
                 to="/"
@@ -96,7 +95,6 @@ const Navbar = ({
             </li>
             <li className="nav-item navs">
               <Link
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link fw-bold"
                 to="/AboutUs"
               >
@@ -105,7 +103,6 @@ const Navbar = ({
             </li>
             <li className="nav-item navs dropdown">
               <Link
-                // style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
                 className="nav-link dropdown-toggle fw-bold"
                 to="/Categories"
                 role="button"
@@ -116,33 +113,23 @@ const Navbar = ({
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item navs" to="/Men">
+                  <Link className="dropdown-item navs" to="/category/mens-clothing">
                     Men
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/Women">
+                  <Link className="dropdown-item navs" to="/category/womens-clothing">
                     Women
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/Kid">
-                    Kid
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item navs" to="/Electronics">
+                  <Link className="dropdown-item navs" to="/category/electronics">
                     Electronics
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/Jewelery">
+                  <Link className="dropdown-item navs" to="/category/jewelery">
                     Jewelery
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item navs" to="/Electronics">
-                    Electronics
                   </Link>
                 </li>
               </ul>
@@ -246,9 +233,6 @@ const Navbar = ({
             </li>
             <li className="nav-item navs">
               <Link
-                style={{
-                  color: toggleMode.mode === true ? "#fff" : "black",
-                }}
                 className="nav-link active"
                 to="/Cart"
               >
