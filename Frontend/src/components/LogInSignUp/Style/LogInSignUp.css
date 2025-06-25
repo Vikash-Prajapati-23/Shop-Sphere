@@ -1,11 +1,53 @@
-.Login{
-    width: 35%;
+.Login {
+  width: 35%;
 }
 
-.log-btn{
+.log-btn {
+  width: 100%;
+}
+
+.Remember {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 770px) {
+  .Login {
+    width: 70%;
+  }
+/* 
+  .login-text-size {
+    font-size: 12px;
+  }
+
+  .input-icon-size {
+    font-size: 12px;
+    padding: .5rem;
+  }
+
+  .form-text-size {
+    font-size: 12px;
+  } */
+}
+
+@media screen and (max-width: 450px) {
+  .Login {
     width: 100%;
-}
+  }
 
-.Remember{
-    cursor: pointer;
+  .login-text-size {
+    font-size: 12px;
+  }
+
+  .input-icon-size {
+    font-size: 12px;
+    padding: .5rem;
+  }
+
+  .form-text-size {
+    font-size: 12px;
+  }
+
+  .Remember-size {
+    font-size: 16px;
+  }
 }

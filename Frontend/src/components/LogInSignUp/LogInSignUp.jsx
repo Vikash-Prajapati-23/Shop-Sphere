@@ -89,7 +89,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
           <ul className="nav nav-tabs card-header-tabs">
             <li className="nav-item">
               <button
-                className={`nav-link ${isLogin ? "active" : ""}`}
+                className={`nav-link ${isLogin ? "active" : ""} login-text-size`}
                 onClick={() => setIsLogin(true)}
               >
                 Log In
@@ -97,7 +97,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
             </li>
             <li className="nav-item">
               <button
-                className={`nav-link ${!isLogin ? "active" : ""}`}
+                className={`nav-link ${!isLogin ? "active" : ""} login-text-size`}
                 onClick={() => setIsLogin(false)}
               >
                 Sign Up
@@ -129,10 +129,10 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
 
 // Sign Up Form Component
 const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
-  <div className="signup mx-4">
-    <form onSubmit={handleSignup}>
+  <div className="signup mx-lg-4 mx-md-3">
+    <form className="mx-1" onSubmit={handleSignup}>
       <div className="input-group flex-nowrap">
-        <span className="input-group-text" id="addon-wrapping">
+        <span className="input-group-text input-icon-size" id="addon-wrapping">
           <i className="fa-solid fa-user"></i>
         </span>
         <input
@@ -141,7 +141,7 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
           name="userName"
           value={formData.userName}
           onChange={handleInputChange}
-          className="form-control"
+          className="form-control form-text-size"
           placeholder="Username"
           aria-label="Username"
           aria-describedby="addon-wrapping"
@@ -149,7 +149,7 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
       </div>
 
       <div className="input-group flex-nowrap my-3">
-        <span className="input-group-text" id="addon-wrapping">
+        <span className="input-group-text input-icon-size" id="addon-wrapping">
           <i className="fa-solid fa-envelope"></i>
         </span>
         <input
@@ -158,7 +158,7 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="form-control"
+          className="form-control form-text-size"
           placeholder="Email"
           aria-label="Email"
           aria-describedby="addon-wrapping"
@@ -166,7 +166,7 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
       </div>
 
       <div className="input-group flex-nowrap my-3">
-        <span className="input-group-text" id="addon-wrapping">
+        <span className="input-group-text input-icon-size" id="addon-wrapping">
           <i className="fa-solid fa-lock"></i>
         </span>
         <input
@@ -175,14 +175,14 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
           name="password"
           value={formData.password}
           onChange={handleInputChange}
-          className="form-control"
+          className="form-control form-text-size"
           placeholder="Password"
           aria-label="Password"
           aria-describedby="addon-wrapping"
         />
       </div>
 
-      <button type="submit" className="btn btn-success log-btn">
+      <button type="submit" className="btn btn-success form-text-size log-btn">
         Sign Up
       </button>
     </form>
@@ -191,8 +191,8 @@ const SignUpForm = ({ handleSignup, formData, handleInputChange }) => (
 
 // Log In Form Component
 const LoginForm = ({ handleLogin, formData, handleInputChange }) => (
-  <div className="login mx-4">
-    <form onSubmit={handleLogin}>
+  <div className="signup mx-lg-4 mx-md-3">
+    <form className="mx-1" onSubmit={handleLogin}>
       <div className="input-group flex-nowrap">
         <span className="input-group-text" id="addon-wrapping">
           <i className="fa-solid fa-user"></i>
@@ -202,7 +202,7 @@ const LoginForm = ({ handleLogin, formData, handleInputChange }) => (
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="form-control"
+          className="form-control form-text-size"
           placeholder="Email id"
           aria-label="Email"
           aria-describedby="addon-wrapping"
@@ -218,24 +218,24 @@ const LoginForm = ({ handleLogin, formData, handleInputChange }) => (
           name="password"
           value={formData.password}
           onChange={handleInputChange}
-          className="form-control"
+          className="form-control form-text-size"
           placeholder="Password"
           aria-label="Password"
           aria-describedby="addon-wrapping"
         />
       </div>
 
-      <div className="rem-forget d-flex justify-content-between mb-2">
+      <form className="d-flex justify-content-between mb-2">
         <div className="log-remember">
           <div className="form-check">
             <input
-              className="form-check-input Remember"
+              className="form-check-input Remember "
               type="checkbox"
               value=""
               id="flexCheckDefault"
             />
             <label
-              className="form-check-label Remember"
+              className="form-check-label Remember form-text-size"
               htmlFor="flexCheckDefault"
             >
               Remember me
@@ -243,12 +243,12 @@ const LoginForm = ({ handleLogin, formData, handleInputChange }) => (
           </div>
         </div>
 
-        <div className="log-forget">
+        <div className="log-forget form-text-size">
           <a href="#">Forgot password</a>
         </div>
-      </div>
+      </form>
 
-      <button type="submit" className="btn btn-success log-btn">
+      <button type="submit" className="btn btn-success form-text-size log-btn">
         Submit
       </button>
     </form>
