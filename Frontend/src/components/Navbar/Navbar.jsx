@@ -81,20 +81,24 @@ const Navbar = ({
         </button>
 
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
+          <ul className="navbar-nav me-auto mb-0" data-bs-theme="dark">
             <li className="nav-item navs">
-              <Link className="nav-link fw-bold" aria-current="page" to="/">
+              <Link
+                className="nav-link py-0 fw-bold navs-text-size"
+                aria-current="page"
+                to="/"
+              >
                 Home
               </Link>
             </li>
             <li className="nav-item navs">
-              <Link className="nav-link fw-bold" to="/AboutUs">
+              <Link className="nav-link py-0 fw-bold navs-text-size" to="/AboutUs">
                 About Us
               </Link>
             </li>
             <li className="nav-item navs dropdown">
               <Link
-                className="nav-link dropdown-toggle fw-bold"
+                className="nav-link py-0 dropdown-toggle fw-bold navs-text-size"
                 to="/Categories"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -105,7 +109,7 @@ const Navbar = ({
               <ul className="dropdown-menu">
                 <li>
                   <Link
-                    className="dropdown-item navs"
+                    className="dropdown-item navs navs-text-size"
                     to="/category/mens-clothing"
                   >
                     Men
@@ -113,7 +117,7 @@ const Navbar = ({
                 </li>
                 <li>
                   <Link
-                    className="dropdown-item navs"
+                    className="dropdown-item navs navs-text-size"
                     to="/category/womens-clothing"
                   >
                     Women
@@ -121,14 +125,17 @@ const Navbar = ({
                 </li>
                 <li>
                   <Link
-                    className="dropdown-item navs"
+                    className="dropdown-item navs navs-text-size"
                     to="/category/electronics"
                   >
                     Electronics
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/category/jewelery">
+                  <Link
+                    className="dropdown-item navs navs-text-size"
+                    to="/category/jewelery"
+                  >
                     Jewelery
                   </Link>
                 </li>
@@ -136,7 +143,7 @@ const Navbar = ({
             </li>
           </ul>
 
-          <div className="search_box d-flex me-2" role="search">
+          <div className="search_box d-none d-lg-flex me-2 " role="search">
             <input
               type="text"
               className="search-bar"
@@ -150,15 +157,15 @@ const Navbar = ({
             </button>
           </div>
 
-          <ul className="navbar-nav justify-content-start justify-content-md-around list-group d-flex">
-            <li className="nav-item navs"></li>
-            <li
-              className="nav-item custom-dropdown"
+          <ul className="navbar-nav">
+            {/* // Login/Logout */}
+            <li 
+              className="custom-dropdown mt-2 m-md-0"
               onMouseOver={() => setIsDropDown(true)}
               onMouseLeave={() => setIsDropDown(false)}
             >
               {isLoggedIn ? (
-                <div className="nav-link active fw-bold">
+                <div className="nav-item active fw-bold">
                   <div className="user-log-out">
                     <i className="fa-regular fa-circle-user user-icon"></i>
                     <span> {firstName ? firstName : name} </span>
@@ -184,30 +191,32 @@ const Navbar = ({
                       </li>
                       <li className="dropdown-item" onClick={handleLogout}>
                         <i className="ri-logout-circle-r-line user-icon me-2"></i>
-                        Log Out
+                        <span className="navs-text-size"> Log Out </span>
                       </li>
                     </ul>
                   )}
                 </div>
               ) : (
-                <Link className="nav-link active fw-bold " to="/LogInSignUp">
+                <Link className="nav-item active fw-bold" to="/LogInSignUp">
                   <div className="user-log-in">
                     <i className="fa-regular fa-circle-user user-icon"></i>
-                    <span className=""> Log In </span>
+                    <span className="navs-text-size"> Log In </span>
                     <i className="fa-solid fa-chevron-down arrow-icon"></i>
                   </div>
                 </Link>
               )}
             </li>
-            <li className="nav-item navs">
+            <li className="nav-item m-lg-auto">
+              {/* // WishList */}
               <Link className="nav-link active " to="/WishList">
                 <i className="fa-solid fa-heart wishlist-icon "></i>
               </Link>
             </li>
-            <li className="nav-item navs">
+            <li className="nav-item m-lg-auto">
+              {/* // Cart */}
               <Link className="nav-link active" to="/Cart">
                 <span className="material-symbols-outlined">shopping_bag</span>
-                <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
+                <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success badge-text-size">
                   {isLoggedIn ? cart.length : guestCart}
                   <span className="visually-hidden">unread messages</span>
                 </span>
