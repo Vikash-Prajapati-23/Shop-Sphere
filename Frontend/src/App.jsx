@@ -190,6 +190,31 @@ function App() {
     }
   };
 
+   const handleRemoveWishlist = async (productId) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/removewishlist/${productId}`,
+        {
+          method: "DELETE",
+          credentials: "include", // Include cookies for authentication
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.message || "Failed to remove item from wishlist");
+      } else {
+        const updatedWishlist = wishlist.filter(
+          (item) => item._id !== productId
+        );
+
+        setWishlist(updatedWishlist);
+        toast.success("Item removed from wishlist");
+      }
+    } catch (error) {
+      toast.error("Failed to remove item from wishlist");
+    }
+  };
+
   return (
     <>
       <Router>
@@ -276,6 +301,7 @@ function App() {
                       setWishlist={setWishlist}
                       isLoggedIn={isLoggedIn}
                       handleCartAddition={handleCartAddition}
+                      handleRemoveWishlist={handleRemoveWishlist}
                     />
                   }
                 />
@@ -287,6 +313,7 @@ function App() {
                       isLoggedIn={isLoggedIn}
                       handleWishList={handleWishList}
                       handleCartAddition={handleCartAddition}
+                      handleRemoveWishlist={handleRemoveWishlist}
                     />
                   }
                 />

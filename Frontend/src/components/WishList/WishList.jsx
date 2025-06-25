@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Style/WishList.css";
 import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../utils/api";
 
-const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
+const WishList = ({ wishlist, setWishlist, handleCartAddition, handleRemoveWishlist }) => {
+
+  const [clicked, setClicked] = useState(false);
   // Fetch wishlist data on component mount
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -29,37 +30,17 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
     fetchWishlist();
   }, []);
 
+  const handleProductDelete = async (product) => {
+    handleRemoveWishlist(product._id || product.id || product.productId);
+  };
+
   const handleAddToCart = async (product) => {
     handleCartAddition(product);
     handleProductDelete(product._id); // Remove from wishlist after adding to cart
   };
 
-  const handleProductDelete = async (productId) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/removewishlist/${productId}`,
-        {
-          method: "DELETE",
-          credentials: "include", // Include cookies for authentication
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        toast.error(data.message || "Failed to remove item from wishlist");
-      } else {
-        const updatedWishlist = wishlist.filter(
-          (item) => item._id !== productId
-        );
-
-        setWishlist(updatedWishlist);
-        toast.success("Item removed from wishlist");
-      }
-    } catch (error) {
-      toast.error("Failed to remove item from wishlist");
-    }
-  };
-
   const navigate = useNavigate();
+
   const handleCardClick = (product) => {
     if (product && product.id) {
       navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
@@ -99,7 +80,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition }) => {
                       onClick={() => handleCardClick(product)}
                     />
                     <button
-                      onClick={() => handleProductDelete(product._id)}
+                      onClick={() => handleProductDelete(product)}
                       className="btn text-dark close-btn fs-2 shadow-none"
                     >
                       ×
