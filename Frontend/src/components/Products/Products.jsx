@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
-// import { themeContext } from "../../App";
 import { toast } from "react-hot-toast";
 
 const Products = ({

@@ -8,7 +8,7 @@ const PaymentGateway = ({
   currentIndex,
   setCurrentIndex,
   selectedAddress,
-  user, // Pass user as prop from parent (Cart)
+  user,
 }) => {
   const [paymentOption] = useState([
     {
@@ -46,12 +46,15 @@ const PaymentGateway = ({
         )
       );
       // Step 1: Create Razorpay order
-      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/payments/create-order`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/payments/create-order`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount }),
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (!data.id) throw new Error("Order creation failed");
       // Step 2: Razorpay options
@@ -64,21 +67,24 @@ const PaymentGateway = ({
         order_id: data.id,
         handler: async function (response) {
           // Step 3: Send to backend to verify & save order/payment
-          const saveRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/payments/save-payment`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              amount,
-              userId: user._id,
-              cart,
-              address: selectedAddress,
-              paymentType: selectedPayment,
-            }),
-          });
+          const saveRes = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/api/payments/save-payment`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                amount,
+                userId: user._id,
+                cart,
+                address: selectedAddress,
+                paymentType: selectedPayment,
+              }),
+            }
+          );
           const saveData = await saveRes.json();
           if (!saveRes.ok)
             throw new Error(saveData.message || "Payment saving failed");
@@ -91,9 +97,9 @@ const PaymentGateway = ({
         },
         theme: { color: "#3399cc" },
       };
-      setCart([]);
       const rzp = new window.Razorpay(options);
       rzp.open();
+      setCart([]);
     } catch (err) {
       window.location.href = `/OrderFailure`;
       if (process.env.REACT_APP_NODE_ENV !== "production") {
@@ -194,8 +200,8 @@ const PaymentGateway = ({
           <h5 className="d-flex gap-3 bg-primary text-white mb-0 py-3 px-4">
             <span className="all-addresses-checkout-index bg-light text-primary">
               {currentIndex}
-            </span>{" "}
-            ORDER SUMMARY
+            </span>
+            PAYMENT OPTIONS
           </h5>
           <div className="bg-white">
             {paymentOption.map((data, index) => (

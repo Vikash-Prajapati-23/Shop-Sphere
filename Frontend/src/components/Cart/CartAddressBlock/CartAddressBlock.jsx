@@ -21,7 +21,7 @@ const CartAddressBlock = ({
 
   return (
     <>
-      {selectedAddress ? (
+      {isLoggedIn && selectedAddress ? (
         <div className="d-flex justify-content-between p-3 m-0 cart-head">
           <div>
             <span className="user-address-bold">Deliver to:</span>

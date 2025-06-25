@@ -90,7 +90,10 @@ function App() {
             setName(fetchedData.user.userName);
             setEmail(fetchedData.user.email);
             setGender(fetchedData.user.gender);
-            await fetchCardQuantity();
+            const currentPathUrl = window.location.pathname;
+            if (!currentPathUrl.includes("/OrderSuccess") && !currentPathUrl.includes("/OrderFaliure")) {
+              await fetchCardQuantity();
+            }
           }
         } else {
           setIsLoggedIn(false);

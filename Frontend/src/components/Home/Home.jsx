@@ -4,7 +4,6 @@ import Carousel from "../Carousel/Carousel";
 import Products from "../Products/Products";
 
 const Home = ({
-  setCartProductId,
   handleCartAddition,
   handleCartDeletion,
   handleWishList,
@@ -17,7 +16,6 @@ const Home = ({
     <div>
       <Carousel />
       <Products
-        setCartProductId={setCartProductId}
         isLoggedIn={isLoggedIn}
         handleCartAddition={handleCartAddition}
         handleCartDeletion={handleCartDeletion}

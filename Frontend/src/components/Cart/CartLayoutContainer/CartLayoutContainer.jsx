@@ -98,6 +98,7 @@ const CartLayoutContainer = ({
         {currentIndex === 1 && (
           <PlaceOrderPart
             {...placeOrderProps}
+            isLoggedIn={isLoggedIn}
             allAddresses={savedAddresses}
             setAllAddresses={setSavedAddresses}
             currentIndex={currentIndex}
@@ -128,6 +129,7 @@ const CartLayoutContainer = ({
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             isLoggedIn={isLoggedIn}
+            handleProductDelete={handleProductDelete}
             {...placeOrderProps}
             name={name}
             email={email}

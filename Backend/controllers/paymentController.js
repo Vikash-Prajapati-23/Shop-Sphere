@@ -1,7 +1,7 @@
-// controllers/paymentController.js
 import Razorpay from "razorpay";
 import { Payment } from "../models/paymentModel.js";
 import { orderModel } from "../models/orderModel.js";
+import Cart from "../models/cartModel.js"
 import crypto from "crypto";
 import dotenv from "dotenv";
 dotenv.config();
@@ -89,6 +89,9 @@ export const savePayment = async (req, res) => {
     });
     await order.save();
 
+    // Clear the user's cart after successful order
+    await Cart.deleteMany({ userId });
+
     return res.status(200).json({
       message: "Payment and order saved successfully",
       payment,
@@ -96,7 +99,9 @@ export const savePayment = async (req, res) => {
     });
   } catch (err) {
     console.error("Payment saving error:", err);
-    return res.status(500).json({ message: "Failed to save payment or order", error: err.message });
+    return res
+      .status(500)
+      .json({ message: "Failed to save payment or order", error: err.message });
   }
 };
 
@@ -108,10 +113,12 @@ export const getOrderDetailsByUserId = async (req, res) => {
       return res.status(400).json({ message: "Missing userId" });
     }
     const orders = await orderModel.find({ userId }).sort({ createdAt: -1 });
-    console.log(orders)
-    return res.status(200).json({orders});
+    console.log(orders);
+    return res.status(200).json({ orders });
   } catch (err) {
     console.error("Error fetching orders by userId:", err);
-    return res.status(500).json({ message: "Failed to fetch orders", error: err.message });
+    return res
+      .status(500)
+      .json({ message: "Failed to fetch orders", error: err.message });
   }
 };

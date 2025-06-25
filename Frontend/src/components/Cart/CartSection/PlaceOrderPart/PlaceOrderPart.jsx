@@ -22,10 +22,10 @@ const PlaceOrderPart = ({
   const handleNevigate = () => {
     if (!isLoggedIn) {
       nevigate("/LoginSignup");
-      toast("Please login first to place orders.!")
+      toast("Please login first to place orders.!");
     } else {
-    setCurrentIndex(2);
-  }
+      setCurrentIndex(2);
+    }
   };
 
   return (

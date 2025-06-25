@@ -1,12 +1,8 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Style/Navbar.css";
-import { themeContext } from "../../App";
-import { api } from "../../utils/api";
-// import { useDispatch } from "react-redux";
-// import { addToCart } from "../../features/cartSlice";
 
 const Navbar = ({
   cart,
@@ -18,7 +14,6 @@ const Navbar = ({
   firstName,
 }) => {
   const [guestCart, setGuestCart] = useState(0);
-  const toggleMode = useContext(themeContext);
   const [isDropDown, setIsDropDown] = useState(false);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -33,17 +28,20 @@ const Navbar = ({
     window.dispatchEvent(new Event("guestCartUpdated"));
 
     updatedGuestCart();
-    setCart(cart)
+    setCart(cart);
     return () =>
       window.removeEventListener("guestCartUpdated", updatedGuestCart);
   }, [setCart]);
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`, {
-        method: "GET",
-        credentials: "include", // sends cookie!
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`,
+        {
+          method: "GET",
+          credentials: "include", // sends cookie!
+        }
+      );
       if (res.ok) {
         setIsLoggedIn(false); // update local state
         navigate("/LoginSignup");
@@ -85,19 +83,12 @@ const Navbar = ({
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" data-bs-theme="dark">
             <li className="nav-item navs">
-              <Link
-                className="nav-link fw-bold"
-                aria-current="page"
-                to="/"
-              >
+              <Link className="nav-link fw-bold" aria-current="page" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item navs">
-              <Link
-                className="nav-link fw-bold"
-                to="/AboutUs"
-              >
+              <Link className="nav-link fw-bold" to="/AboutUs">
                 About Us
               </Link>
             </li>
@@ -113,17 +104,26 @@ const Navbar = ({
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item navs" to="/category/mens-clothing">
+                  <Link
+                    className="dropdown-item navs"
+                    to="/category/mens-clothing"
+                  >
                     Men
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/category/womens-clothing">
+                  <Link
+                    className="dropdown-item navs"
+                    to="/category/womens-clothing"
+                  >
                     Women
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item navs" to="/category/electronics">
+                  <Link
+                    className="dropdown-item navs"
+                    to="/category/electronics"
+                  >
                     Electronics
                   </Link>
                 </li>
@@ -138,9 +138,6 @@ const Navbar = ({
 
           <div className="search_box d-flex me-2" role="search">
             <input
-              style={{
-                color: toggleMode.mode === true ? "#fff" : "black",
-              }}
               type="text"
               className="search-bar"
               placeholder="Search Products"
@@ -154,24 +151,7 @@ const Navbar = ({
           </div>
 
           <ul className="navbar-nav justify-content-start justify-content-md-around list-group d-flex">
-            <li className="nav-item navs">
-              {/* <span
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                className="material-symbols-outlined sun nav-link active "
-                onClick={toggleMode.toggleTheme}
-              >
-                light_mode
-              </span>
-            </li>
-            <li className="nav-item navs">
-              <span
-                style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                className="material-symbols-outlined moon hide nav-link active "
-                onClick={toggleMode.toggleTheme}
-              >
-                dark_mode
-              </span> */}
-            </li>
+            <li className="nav-item navs"></li>
             <li
               className="nav-item custom-dropdown"
               onMouseOver={() => setIsDropDown(true)}
@@ -187,10 +167,7 @@ const Navbar = ({
                   {isDropDown && (
                     <ul className="custom-dropdown-menu">
                       <li>
-                        <Link
-                          className="dropdown-item"
-                          to="/Profile"
-                        >
+                        <Link className="dropdown-item" to="/Profile">
                           Profile
                         </Link>
                       </li>
@@ -213,11 +190,7 @@ const Navbar = ({
                   )}
                 </div>
               ) : (
-                <Link
-                  // style={{ color: toggleMode.mode === true ? "#fff" : "black" }}
-                  className="nav-link active fw-bold "
-                  to="/LogInSignUp"
-                >
+                <Link className="nav-link active fw-bold " to="/LogInSignUp">
                   <div className="user-log-in">
                     <i className="fa-regular fa-circle-user user-icon"></i>
                     <span className=""> Log In </span>
@@ -232,10 +205,7 @@ const Navbar = ({
               </Link>
             </li>
             <li className="nav-item navs">
-              <Link
-                className="nav-link active"
-                to="/Cart"
-              >
+              <Link className="nav-link active" to="/Cart">
                 <span className="material-symbols-outlined">shopping_bag</span>
                 <span className="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-success">
                   {isLoggedIn ? cart.length : guestCart}
