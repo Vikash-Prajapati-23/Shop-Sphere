@@ -74,12 +74,12 @@ const Products = ({
       className="container my-3"
     >
       <h3 className="text-center mt-2">Products you may like!</h3>
-      <div className="d-flex flex-wrap justify-content-start">
+      <div className="d-flex row flex-wrap justify-content-start">
         {filteredProducts
           .filter((product) => product.title.toLowerCase().includes(query))
           .map((product, index) => (
             <div
-              className="col-md-3 flex-shrink-0 my-2"
+              className="col-lg-4 col-md-6 col-5 flex-shrink-0 p-0 mx-auto my-2"
               key={product.id || index}
               onClick={() => handleCardClick(product)}
             >
