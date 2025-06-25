@@ -1,7 +1,6 @@
 import Razorpay from "razorpay";
 import { Payment } from "../models/paymentModel.js";
 import { orderModel } from "../models/orderModel.js";
-import Cart from "../models/cartModel.js"
 import crypto from "crypto";
 import dotenv from "dotenv";
 dotenv.config();
@@ -88,9 +87,6 @@ export const savePayment = async (req, res) => {
       paymentMethod: paymentType,
     });
     await order.save();
-
-    // Clear the user's cart after successful order
-    await Cart.deleteMany({ userId });
 
     return res.status(200).json({
       message: "Payment and order saved successfully",

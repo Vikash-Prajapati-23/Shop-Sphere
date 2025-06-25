@@ -91,7 +91,7 @@ function App() {
             setEmail(fetchedData.user.email);
             setGender(fetchedData.user.gender);
             const currentPathUrl = window.location.pathname;
-            if (!currentPathUrl.includes("/OrderSuccess") && !currentPathUrl.includes("/OrderFaliure")) {
+            if (!currentPathUrl.includes("/OrderSuccess") && currentPathUrl.includes("/OrderFaliure")) {
               await fetchCardQuantity();
             }
           }
