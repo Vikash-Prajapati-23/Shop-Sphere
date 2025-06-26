@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Style/Products.css";
 import Card from "../Card/Card";
@@ -15,44 +15,50 @@ const Products = ({
   query,
 }) => {
   const [products, setProducts] = useState(null);
-  // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
-  // const toggleMode = useContext(themeContext);
 
   useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/products/allproduct`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const products = await response.json();
-      setProducts(products);
-      setFilteredProducts(products);
-    } catch (error) {
-      console.error("Product Fetch Error:", error);
-    }
-  };
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/products/allproduct`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const products = await response.json();
+        setProducts(products);
+        setFilteredProducts(products);
+      } catch (error) {
+        console.error("Product Fetch Error:", error);
+      }
+    };
 
-  fetchProducts();
-}, []);
-
+    fetchProducts();
+  }, []);
 
   const handleAddToCart = (product) => {
     handleCartAddition(product);
   };
 
-  const handleWishlist = (product) => {
+  const handleWishlistToggle = async (product) => {
     if (!isLoggedIn) {
       navigate("/LoginSignup");
-      toast.success("Please log in to add items to your wishlist");
+      toast("Please log in to manage your wishlist");
       return;
     }
-    handleWishList(product);
+
+    const productId = product._id || product.id;
+
+    if (clicked) {
+      await handleRemoveWishlist(productId);
+    } else {
+      await handleWishList(product);
+    }
+
+    setClicked(!clicked);
   };
 
   const handleCardClick = (product) => {
@@ -73,9 +79,7 @@ const Products = ({
   }
 
   return (
-    <div
-      className="product-page"
-    >
+    <div className="product-page">
       <h3 className="text-center mt-2">Products you may like!</h3>
       <div className="d-flex row flex-wrap justify-content-start">
         {filteredProducts
@@ -89,7 +93,7 @@ const Products = ({
               <Card
                 {...product}
                 handleAddToCart={() => handleAddToCart(product)} // Pass function reference
-                handleWishlist={() => handleWishlist(product)} // Pass function reference
+                handleWishlist={() => handleWishlistToggle(product)} // Pass function reference
               />
             </div>
           ))}

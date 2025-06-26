@@ -241,14 +241,11 @@ function App() {
                   element={
                     <Home
                       handleWishList={handleWishList}
-                      setCartProductId={setCartProductId}
                       handleCartAddition={handleCartAddition}
                       handleRemoveWishlist={handleRemoveWishlist}
                       setClicked={setClicked}
                       clicked={clicked}
-                      cart={cart}
-                      setCart={setCart}
-                      setIsLoggedIn={setIsLoggedIn}
+                      isLoggedIn={isLoggedIn}
                       query={query}
                     />
                   }

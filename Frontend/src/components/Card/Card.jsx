@@ -1,7 +1,5 @@
 import "./Style/Card.css";
 import Button from "../Button/Button";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const Card = ({
   product,
@@ -10,33 +8,11 @@ const Card = ({
   price,
   rating,
   clicked,
-  setClicked,
   fetchSingleProduct,
-  handleRemoveWishlist,
-  handleWishList,
+  handleWishlist,
   handleAddToCart,
-  isLoggedIn,
 }) => {
   // const dispatch = useDispatch();
-  const nevigate = useNavigate();
-
-  const handleWishlistToggle = async (product) => {
-    if (!isLoggedIn) {
-      nevigate("/LoginSignup");
-      toast("Please log in to manage your wishlist");
-      return;
-    }
-
-    const productId = product._id || product.id;
-
-    if (clicked) {
-      await handleRemoveWishlist(productId);
-    } else {
-      await handleWishList(product);
-    }
-
-    setClicked(!clicked);
-  };
 
   return (
     <div className={`mx-lg-3 card-comp`} onClick={fetchSingleProduct}>
@@ -44,7 +20,10 @@ const Card = ({
         <div className="wishlist-location">
           <img src={image} className="card-img-top my-2" alt="Image" />
           <button
-            onClick={(e) => {e.stopPropagation(); handleWishlistToggle(product)}}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleWishlist(product);
+            }}
             className="prod-wishlist-btn"
           >
             <i
