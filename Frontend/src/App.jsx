@@ -41,6 +41,7 @@ function App() {
   const [gender, setGender] = useState("");
   const [platformFee, setPlatformFee] = useState(4);
   const [deliveryCost, setDeliveryCost] = useState(40);
+  const [clicked, setClicked] = useState(false); // It is for wishlist.jsx
 
   const fetchCardQuantity = async () => {
     try {
@@ -91,7 +92,10 @@ function App() {
             setEmail(fetchedData.user.email);
             setGender(fetchedData.user.gender);
             const currentPathUrl = window.location.pathname;
-            if (!currentPathUrl.includes("/OrderSuccess") && currentPathUrl.includes("/OrderFaliure")) {
+            if (
+              !currentPathUrl.includes("/OrderSuccess") &&
+              currentPathUrl.includes("/OrderFaliure")
+            ) {
               await fetchCardQuantity();
             }
           }
@@ -190,7 +194,7 @@ function App() {
     }
   };
 
-   const handleRemoveWishlist = async (productId) => {
+  const handleRemoveWishlist = async (productId) => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/wishlistproduct/removewishlist/${productId}`,
@@ -311,6 +315,8 @@ function App() {
                   element={
                     <SingleProduct
                       isLoggedIn={isLoggedIn}
+                      setClicked={setClicked}
+                      clicked={clicked}
                       handleWishList={handleWishList}
                       handleCartAddition={handleCartAddition}
                       handleRemoveWishlist={handleRemoveWishlist}

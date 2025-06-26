@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../Button/Button";
 import CartAddressBlock from "../../CartAddressBlock/CartAddressBlock";
 import toast from "react-hot-toast";
+import "./PlaceOrderPart.css";
 
 const PlaceOrderPart = ({
   selectedAddress,
@@ -29,7 +30,7 @@ const PlaceOrderPart = ({
   };
 
   return (
-    <div>
+    <div className="placeorder-part">
       <CartAddressBlock
         selectedAddress={selectedAddress}
         savedAddresses={savedAddresses}
@@ -44,9 +45,9 @@ const PlaceOrderPart = ({
             className="cart-list m-0 p-4"
             key={product._id || product.id}
           >
-            <div className="justify-content-between align-items-center">
+            <div className="middle-part">
               <div className="product mb-1">
-                <div className="product-details m-0 p-0">
+                <div className="product-details">
                   <img
                     src={product.image}
                     className="cart-product-img"
@@ -57,47 +58,49 @@ const PlaceOrderPart = ({
 
                 <div className="product-details-wide">
                   <div>
-                    <p className="product-title">
+                    <p className="product-title text-sizes-big">
                       {product.title?.slice(0, 51) || "No Title"}...
                     </p>
-                    <p className="product-title-rest">
+                    <p className="product-title-rest text-sizes">
                       {product.title?.slice(51) || ""}
                     </p>
                   </div>
 
-                  <div className="fw-bold mb-2">₹{product.price}</div>
-                  <div className="d-flex align-items-center">
+                  <div className="fw-bold mb-2 text-sizes">
+                    ₹{product.price}
+                  </div>
+                  <div className="d-flex align-items-center text-sizes">
                     <p>
                       <span className="fw-bold" style={{ color: "gold" }}>
                         ★{" "}
                       </span>
                       <span className="me-3">{product.rating?.rate}</span>
                     </p>
-                    <p className="fw-bold rating-font-size">
+                    <p className="fw-bold rating-font-size text-sizes">
                       Reviews {product.rating?.count}
                     </p>
                   </div>
                 </div>
 
-                <div className="product-details-semiwide">
+                <div className="product-details-semiwide text-sizes">
                   Delivery by Sunday, June 17 | Delivery cost
                   <span className="text-decoration-line-through mx-2">
                     ₹{deliveryCost}
                   </span>
-                  <span className="text-success">Free</span>
+                  <span className="text-success text-sizes">Free</span>
                 </div>
               </div>
               <div>
-                <div className="d-flex align-items-center">
+                <div className="buttons text-sizes">
                   {isLoggedIn && (
-                    <>
+                    <div className="inc-dec-btn">
                       <Button
                         onClick={() => handleProductDecrement(product._id)}
                         disabled={product.quantity <= 1}
                         className="fw-bold quantity-btns"
                         btnName={"-"}
                       />
-                      <span className="mx-1 fw-bold product-quantity">
+                      <span className="mx-1 fw-bold product-quantity d-flex align-items-center">
                         {product.quantity}
                       </span>
                       <Button
@@ -105,20 +108,22 @@ const PlaceOrderPart = ({
                         className="quantity-btns-inc fw-bold"
                         btnName={"+"}
                       />
-                    </>
+                    </div>
                   )}
-                  <Button
-                    className="btn cart-btns fw-bold ms-4"
-                    onClick={() => handleAddToWishList(product)}
-                    btnName={"MOVE TO WISHLIST"}
-                  />
-                  <Button
-                    onClick={() =>
-                      handleProductDelete(product._id || product.id)
-                    }
-                    className="btn cart-btns fw-bold"
-                    btnName={"REMOVE"}
-                  />
+                  <div className="btns-lower">
+                    <Button
+                      className="btn cart-btns fw-bold ms-lg-4 ms-md-0 px-md-2 px-0 text-sizes"
+                      onClick={() => handleAddToWishList(product)}
+                      btnName={"MOVE TO WISHLIST"}
+                    />
+                    <Button
+                      onClick={() =>
+                        handleProductDelete(product._id || product.id)
+                      }
+                      className="btn cart-btns fw-bold text-sizes"
+                      btnName={"REMOVE"}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -128,7 +133,7 @@ const PlaceOrderPart = ({
 
       <div className="cart-total d-flex justify-content-end">
         <Button
-          className="fw-bold place-order-btn"
+          className="fw-bold place-order-btn text-sizes"
           onClick={handleNevigate}
           btnName={"PLACE ORDER"}
         />

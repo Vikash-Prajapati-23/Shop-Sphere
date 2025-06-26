@@ -33,14 +33,6 @@ const Card = ({
           </p>
           <p className="mb-1 fw-semibold form-text-size">Reviews {rating.count}</p>
           <div className="btns d-flex justify-content-between">
-            {/* <Button
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent propagation to the card
-                handleWishlist(product);
-              }}
-              className={"btn btn-success form-text-size"}
-              btnName={"Wishlist"}
-            /> */}
             <Button
               onClick={(e) => {
                 e.stopPropagation(); // Prevent propagation to the card

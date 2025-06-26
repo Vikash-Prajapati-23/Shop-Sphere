@@ -9,11 +9,12 @@ const SingleProduct = ({
   handleCartAddition,
   handleRemoveWishlist,
   handleWishList,
+  clicked,
+  setClicked,
   isLoggedIn,
   wishlist,
 }) => {
   const [singleProduct, setSingleProduct] = useState(null);
-  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 

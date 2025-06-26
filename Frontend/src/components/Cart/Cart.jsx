@@ -45,7 +45,7 @@ const Cart = ({
     } else {
       setCart(cart);
     }
-  });
+  }, []);
 
   useEffect(() => {
     const fetchCart = async () => {

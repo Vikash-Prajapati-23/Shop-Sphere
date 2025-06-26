@@ -1,0 +1,114 @@
+.ul-cart-list {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-list {
+  width: 100%;
+  list-style-type: none;
+  border: 1px solid rgb(237, 236, 236);
+  background: #fff;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+}
+
+.cart-product-img {
+  width: 120px;
+  height: 100px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.product-details-wide {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 0.5rem 1.5rem;
+  background-color: #fff;
+}
+
+.product-details-semiwide {
+  font-size: 13px;
+}
+
+.place-order-btn {
+  background-color: rgb(247, 79, 18);
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-btns:hover {
+  color: rgb(39, 110, 234);
+}
+
+@media screen and (max-width: 450px) {
+  .text-sizes {
+    font-size: 10px;
+  }
+
+  .text-sizes-big {
+    font-size: 12px;
+  }
+
+  .placeorder-part {
+    width: 100%;
+    min-width: 300px;
+    padding: 0;
+  }
+
+  .middle-part {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px;
+  }
+
+  .product {
+    display: flex;
+    flex-direction: column; /* Force vertical layout */
+    gap: 10px;
+  }
+
+  .product-details,
+  .product-details-wide,
+  .product-details-semiwide {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .cart-product-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .inc-dec-btn {
+    display: flex;
+  }
+
+  .buttons {
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btns-lower {
+    display: flex;
+    width: 100%;
+  }
+}

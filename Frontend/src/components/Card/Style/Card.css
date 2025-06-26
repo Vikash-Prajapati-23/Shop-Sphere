@@ -21,7 +21,8 @@
 @media screen and (max-width: 450px) {
   .card-img-top {
     height: 60px;
-    width: auto;
+    width: 70px;
+    margin-left: .5rem;
   }
 
   .card-title-text-size {
@@ -34,6 +35,7 @@
 
   .card-comp {
     width: 100%;
+    /* min-width: 70%; */
   }
 
   .card-area {
