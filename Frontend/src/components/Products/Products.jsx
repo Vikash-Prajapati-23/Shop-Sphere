@@ -81,7 +81,7 @@ const Products = ({
   return (
     <div className="product-page">
       <h3 className="text-center mt-2">Products you may like!</h3>
-      <div className="d-flex row flex-wrap justify-content-start">
+      <div className="card-location">
         {filteredProducts
           .filter((product) => product.title.toLowerCase().includes(query))
           .map((product, index) => (

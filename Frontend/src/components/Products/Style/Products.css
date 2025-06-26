@@ -2,6 +2,12 @@
   margin: 2rem 15rem;
 }
 
+.card-location {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
   .product-page {
     margin: 2rem 8rem;
@@ -9,8 +15,14 @@
 }
 
 @media (max-width: 500px) {
-
   .product-page {
     margin: 2rem 1rem;
+  }
+
+  .card-location {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
   }
 }

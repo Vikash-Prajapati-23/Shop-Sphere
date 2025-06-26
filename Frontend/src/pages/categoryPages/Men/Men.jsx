@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Style/Men.css";
 import Card from "../../../components/Card/Card";
@@ -60,20 +60,20 @@ const Men = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
   }
 
   return (
-    <div className="container card my-3">
-      <div className=" m-3">
+    <div className="catagory-page">
+      <div className="">
         <h3 className="text-center m-md-2">
           {categorySlug
             .split("-")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}{" "}
         </h3>
-        <div className="d-flex flex-wrap">
+        <div className="card-location">
           {menProduct
             .filter((product) => product.title.toLowerCase().includes(query))
             .map((product) => (
               <div
-                className="col-md-3 flex-shrink-0"
+                className="col-lg-4 col-md-6 col-5 flex-shrink-0 my-2"
                 key={product.id || product._id || product.productId}
                 onClick={() => handleCardClick(product)}
               >

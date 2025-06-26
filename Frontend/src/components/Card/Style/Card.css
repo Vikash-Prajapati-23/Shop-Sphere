@@ -51,10 +51,6 @@
     position: absolute;
     top: 5%;
     right: 5%;
-    padding: 0.3rem 0.5rem;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
   }
 
   .prod-wishlist-icon {
@@ -90,7 +86,7 @@
   }
 
   .card-title-text-size {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .form-text-size {
@@ -106,7 +102,7 @@
   }
 
   .prod-wishlist-btn {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .prod-wishlist-icon {
@@ -121,7 +117,7 @@
   }
 
   .card-title-text-size {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .review-rating {
@@ -135,8 +131,18 @@
     width: 80px;
   }
 
+  .prod-wishlist-btn {
+    position: absolute;
+    top: 5%;
+    right: 0%;
+  }
+
+  .prod-wishlist-icon {
+    font-size: small;
+  }
+
   .card-title-text-size {
-    font-size: 10px;
+    font-size: 8px;
   }
 
   .review-rating {
