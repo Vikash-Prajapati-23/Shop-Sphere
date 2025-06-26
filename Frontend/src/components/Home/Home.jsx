@@ -6,7 +6,10 @@ import Products from "../Products/Products";
 const Home = ({
   handleCartAddition,
   handleCartDeletion,
+  handleRemoveWishlist,
   handleWishList,
+  setClicked,
+  clicked,
   isLoggedIn,
   query,
   cart,
@@ -20,6 +23,9 @@ const Home = ({
         handleCartAddition={handleCartAddition}
         handleCartDeletion={handleCartDeletion}
         handleWishList={handleWishList}
+        handleRemoveWishlist={handleRemoveWishlist}
+        setClicked={setClicked}
+        clicked={clicked}
         query={query}
         cart={cart}
         setcart={setCart}

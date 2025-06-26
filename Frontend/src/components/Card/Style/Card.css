@@ -15,30 +15,131 @@
 }
 
 .card-area {
-    padding: 1rem;
+  padding: 1rem;
 }
 
-@media screen and (max-width: 450px) {
+.wishlist-location {
+  position: relative;
+}
+
+.prod-wishlist-btn {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+  padding: 0.3rem 0.5rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+}
+
+.prod-wishlist-icon {
+  font-size: x-large;
+}
+
+@media screen and (max-width: 800px) {
+  .card-comp {
+    width: 90%;
+  }
+
+  .card-img-top {
+    height: 100px;
+    width: 200px;
+    margin-left: 0.5rem;
+  }
+
+  .prod-wishlist-btn {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    padding: 0.3rem 0.5rem;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+  }
+
+  .prod-wishlist-icon {
+    font-size: xx-large;
+  }
+
+  .card-title-text-size {
+    font-size: 14px;
+  }
+
+  .form-text-size {
+    font-size: 10px;
+  }
+
+  .card-area {
+    padding: .5rem 1.5rem;
+  }
+
+  .prod-wishlist-btn {
+    font-size: 12px;
+  }
+
+  .prod-wishlist-icon {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .card-img-top {
     height: 60px;
-    width: 70px;
-    margin-left: .5rem;
+    width: 100px;
+    margin-left: 0.5rem;
+  }
+
+  .card-title-text-size {
+    font-size: 14px;
+  }
+
+  .form-text-size {
+    font-size: 10px;
+  }
+
+  .card-comp {
+    width: 100%;
+  }
+
+  .card-area {
+    padding: 0.5rem;
+  }
+
+  .prod-wishlist-btn {
+    font-size: 12px;
+  }
+
+  .prod-wishlist-icon {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .card-img-top {
+    height: 60px;
+    width: 80px;
+  }
+
+  .card-title-text-size {
+    font-size: 12px;
+  }
+
+  .review-rating {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .card-img-top {
+    height: 60px;
+    width: 80px;
   }
 
   .card-title-text-size {
     font-size: 10px;
   }
 
-  .form-text-size {
-    font-size: 8px;
+  .review-rating {
+    display: none;
   }
-
-  .card-comp {
-    width: 100%;
-    /* min-width: 70%; */
-  }
-
-  .card-area {
-    padding: .5rem;
-}
 }

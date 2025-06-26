@@ -146,7 +146,7 @@ function App() {
       );
       const data = await response.json();
       if (!response.ok) {
-        toast.error(data.message || "Failed to add to cart");
+        // toast.error(data.message || "Failed to add to cart");
         return;
       } // Only update state if the request was successful
       setCart((prevCart) => {
@@ -243,7 +243,9 @@ function App() {
                       handleWishList={handleWishList}
                       setCartProductId={setCartProductId}
                       handleCartAddition={handleCartAddition}
-                      isLoggedIn={isLoggedIn}
+                      handleRemoveWishlist={handleRemoveWishlist}
+                      setClicked={setClicked}
+                      clicked={clicked}
                       cart={cart}
                       setCart={setCart}
                       setIsLoggedIn={setIsLoggedIn}

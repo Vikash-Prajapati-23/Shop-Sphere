@@ -1,13 +1,16 @@
+.product-page {
+  margin: 2rem 15rem;
+}
+
 @media (max-width: 768px) {
-  .col-md-3 {
-    width: 50%;
-    /* Show two products per row on tablets */
+  .product-page {
+    margin: 2rem 8rem;
   }
 }
 
-@media (max-width: 576px) {
-  .col-md-3 {
-    width: 100%;
-    /* Show one product per row on small screens */
+@media (max-width: 500px) {
+
+  .product-page {
+    margin: 2rem 1rem;
   }
 }

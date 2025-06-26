@@ -83,7 +83,7 @@ export async function verifySessionLogin(req, res) {
     const sessionUid = req.cookies.sessionUid;
 
     if (!sessionUid) {
-      return res.status(401).json({ message: "No session found." });
+      return res.status(401);
     }
 
     const user = await getUser(sessionUid);

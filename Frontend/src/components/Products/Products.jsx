@@ -8,8 +8,11 @@ import { toast } from "react-hot-toast";
 const Products = ({
   handleCartAddition,
   handleWishList,
-  query,
+  handleRemoveWishlist,
+  setClicked,
+  clicked,
   isLoggedIn,
+  query,
 }) => {
   const [products, setProducts] = useState(null);
   // const [loadProduct, setloadProduct] = useState(false);  // For Loading/Spinning component.. !
@@ -71,7 +74,7 @@ const Products = ({
 
   return (
     <div
-      className="container my-3"
+      className="product-page"
     >
       <h3 className="text-center mt-2">Products you may like!</h3>
       <div className="d-flex row flex-wrap justify-content-start">
