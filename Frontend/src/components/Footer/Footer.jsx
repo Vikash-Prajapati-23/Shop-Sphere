@@ -131,7 +131,7 @@ const Footer = () => {
           <div className="contact-foot foot-items mx-auto">
             <h5 className="foot-headings">Reach Us</h5>
             <p>Shop Sphere PVT LTD </p>
-            <p>IIT boral, Future Institute Of Techonology</p>
+            <p>ABC road, Gyanpur gram, Unknown, 300002</p>
           </div>
 
           <div className="mt-md-5 mt-0 mt-lg-0">

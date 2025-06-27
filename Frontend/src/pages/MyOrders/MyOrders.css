@@ -4,12 +4,19 @@
 
 .order-page {
   display: flex;
+  gap: 1rem;
 }
 
 .order-list {
   list-style: none;
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin: 0 2rem 2rem 0;
+  border: 1px solid rgb(234, 232, 232);
+  border-radius: 5px;
+}
+
+.order-status {
+  border-bottom: 1px solid rgb(219, 216, 216);
 }
 
 .order-aside {
@@ -20,11 +27,11 @@
 
 .ul-order-list {
   width: 75%;
-  margin: 1rem 0;
 }
 
 .cart-product-img {
   flex: 0 0 10%;
+  padding: 0.3rem 0.5rem;
   height: 150px;
   width: 150px;
   object-fit: contain;
@@ -33,18 +40,8 @@
 .product-details {
   display: flex;
   padding: 1rem 0.8rem 1rem 0.8rem;
+  border-bottom: 1px solid rgb(230, 229, 229);
 }
-
-.product-details {
-  display: flex;
-  padding: 1rem 0.5rem 1rem 0.5rem;
-  /* border: 1px solid rgb(202, 201, 201); */
-}
-
-/* .product-details:last-child {
-  border-bottom: 1px solid rgb(202, 201, 201);
-} */
-
 
 .product-info {
   flex: 0 0 50%;
@@ -52,6 +49,7 @@
 
 .delivery-info {
   flex: 0 0 20%;
+  color: rgb(124, 122, 122);
 }
 
 .order-list:hover {
@@ -98,7 +96,6 @@
   .product-details {
     display: flex;
     padding: 1rem 0.5rem 0 0.5rem;
-    border: 1px solid rgb(202, 201, 201);
   }
 
   .order-aside {
@@ -108,5 +105,73 @@
   .ul-order-list {
     width: 100%;
     padding: 0 1rem 0 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .main-order-page {
+    margin: 2rem 1rem;
+  }
+
+  .text-size-big {
+    font-size: 10px;
+  }
+
+  .text-size-small {
+    font-size: 8px;
+  }
+
+  .product-details-spacing {
+    margin: 0.4rem 0;
+  }
+
+  .product-title {
+    font-size: 10px;
+    margin-bottom: .3rem;
+  }
+
+  .product-title-rest {
+    display: none;
+  }
+
+  .order-page {
+    display: block;
+    flex-direction: column-reverse;
+  }
+
+  .cart-product-img {
+    flex: 0 0 30%;
+    height: 70px;
+    width: 100px;
+    object-fit: contain;
+  }
+
+  .product-info {
+    flex: 0 0 45%;
+    height: 100px;
+  }
+
+  .delivery-info {
+    flex: 0 0 20%;
+  }
+
+  .product-details {
+    display: flex;
+    padding: 1rem 0 0 0;
+    height: 100px;
+  }
+
+  .order-aside {
+    display: none;
+  }
+
+  .ul-order-list {
+    width: 100%;
+    padding: 0 1rem 0 1rem;
+  }
+
+  .order-list {
+    width: 100%;
+    padding: 0.3rem 0.3rem 0 0.3rem;
   }
 }

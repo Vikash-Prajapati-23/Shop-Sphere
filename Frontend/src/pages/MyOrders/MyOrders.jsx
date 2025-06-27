@@ -71,7 +71,7 @@ const MyOrders = ({ deliveryCost, userId }) => {
           {orders && orders?.length > 0 ? (
             orders.map((order, index) => (
               <li key={index} className="order-list">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between order-status text-size-b">
                   <div>
                     <p className="mb-2 text-size-big">
                       Placed on:{" "}
@@ -84,7 +84,7 @@ const MyOrders = ({ deliveryCost, userId }) => {
 
                   <div>
                     <p className="mb-2 fw-semibold text-size-big">
-                      Payment Status: {order.paymentStatus}
+                      Payment Status: <span className="text-success">{order.paymentStatus}</span>
                     </p>
                   </div>
                 </div>
@@ -110,9 +110,9 @@ const MyOrders = ({ deliveryCost, userId }) => {
                         </p>
                       </div>
 
-                      <div className="fw-bold mb-2 text-size-small">₹{product.price}</div>
-                      <div className="mb-1 text-size-small">Qty: {product.quantity}</div>
-                      <div className="d-flex align-items-center text-size-small">
+                      <div className="fw-bold text-size-small">₹{product.price}</div>
+                      <div className="text-size-small">Quantity: {product.quantity}</div>
+                      <div className="d-flex align-items-center text-size-small product-details-spacing">
                         <p>
                           <span className="fw-bold text-size-small" style={{ color: "gold" }}>
                             ★{" "}
