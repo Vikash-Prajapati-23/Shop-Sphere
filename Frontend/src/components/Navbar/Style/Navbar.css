@@ -55,13 +55,13 @@
 }
 
 .nav-item {
-    text-decoration: none;
-    color: inherit;
-  }
+  text-decoration: none;
+  color: inherit;
+}
 
 .user-log-in {
   cursor: pointer;
-  padding-top: 0.5rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #fff;
   gap: 1rem;
@@ -76,10 +76,14 @@
 }
 
 .user-log-out {
+  margin-top: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.3rem;
   border: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-log-in:hover {
@@ -139,8 +143,8 @@
 
 @media (max-width: 768px) {
   .navs:hover {
-  border-bottom: 2px transparent;
-}
+    border-bottom: 2px transparent;
+  }
 
   .navs {
     padding: 0.5rem 0;
@@ -150,6 +154,15 @@
     border-radius: 8px;
     margin-top: 0.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-dropdown {
+    width: 17%;
+  }
+
+  .user-log-out {
+    margin-top: 0;
+    padding-right: 0;
   }
 
   .dropdown-item {
@@ -183,10 +196,9 @@
     border-radius: 6px;
   }
 
-  /* .navbar-nav.list-group {
-    display: flex;
-    gap: 0;
-  } */
+  .user-log-out {
+  justify-content: start;
+  }
 
   .nav-link,
   .material-symbols-outlined,
@@ -215,7 +227,22 @@
     font-size: 14px;
   }
 
+  .custom-dropdown {
+    width: 28%;
+  }
+
   .badge-text-size {
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .custom-dropdown {
+    width: 31%;
+  }
+}
+@media screen and (max-width: 330px) {
+  .custom-dropdown {
+    width: 38%;
   }
 }

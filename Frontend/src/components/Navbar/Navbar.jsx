@@ -160,7 +160,7 @@ const Navbar = ({
           <ul className="navbar-nav">
             {/* // Login/Logout */}
             <li 
-              className="custom-dropdown mt-2 m-md-0"
+              className="custom-dropdown m-md-0"
               onMouseOver={() => setIsDropDown(true)}
               onMouseLeave={() => setIsDropDown(false)}
             >

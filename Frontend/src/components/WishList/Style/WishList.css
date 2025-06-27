@@ -1,18 +1,95 @@
 .wishlist-container {
-    max-width: 85%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.wishlist-prod {
+  position: relative;
+  padding: 1rem 0.5rem;
 }
 
 .close-btn {
-    position: absolute;
-    top: -2%;
-    right: 1%;
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+  position: absolute;
+  top: 0%;
+  right: 5%;
+  padding: 0;
+}
+
+.prod-infos {
+  padding: 0.5rem;
 }
 
 .card-img {
-    height: "150px";
-    width: "150px";
-    object-fit: scale-down;
+  margin: 0.5rem 0;
+  height: 150px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .wishlist-container {
+    width: 100%;
+  }
+
+  .card-img {
+    height: 100px;
+  }
+
+  .close-btn {
+    font-size: 1.5rem;
+    top: 0%;
+    right: 3%;
+  }
+
+  .text-size-b {
+    font-size: 14px;
+  }
+
+  .text-size-s {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .wishlist-container {
+    width: 100%;
+  }
+
+  .opt-img {
+    height: 200px;
+    width: 120px;
+    object-fit: cover;
+  }
+
+  .close-btn {
+    top: -5%;
+    right: 1%;
+    font-size: 1.3rem;
+  }
+
+  .card-img {
+    height: 60px;
+    width: 100px;
+  }
+
+  .prod-infos {
+    padding: 0.2rem;
+  }
+
+  .text-size-b {
+    font-size: 12px;
+  }
+
+  .text-size-s {
+    font-size: 10px;
+  }
+
+  .small-hidden {
+    display: none;
+  }
 }

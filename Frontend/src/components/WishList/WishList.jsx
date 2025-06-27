@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Style/WishList.css";
 import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const WishList = ({ wishlist, setWishlist, handleCartAddition, handleRemoveWishlist }) => {
-
-  const [clicked, setClicked] = useState(false);
+const WishList = ({
+  wishlist,
+  setWishlist,
+  handleCartAddition,
+  handleRemoveWishlist,
+}) => {
   // Fetch wishlist data on component mount
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -55,46 +58,45 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition, handleRemoveWishl
       <Toaster />
       <div>
         {Array.isArray(wishlist) && wishlist.length === 0 ? (
-          <div className={"d-flex justify-content-center align-items-center"}>
-            <img src={"./images/wish.gif"} alt=""></img>
-            <h4>Your wishlist is empty.!</h4>
+          <div className={"d-flex mx-auto align-items-center"}>
+            <img src={"./images/wish.gif"} className="opt-img" alt=""></img>
+            <p>Your wishlist is empty.!</p>
           </div>
         ) : (
-          <div className={"my-3 d-flex flex-wrap justify-content-center gap-3"}>
+          <div
+            className={
+              "my-3 d-flex flex-wrap justify-content-center wishlist-prod gap-3"
+            }
+          >
             {wishlist?.map((product, index) => (
               <div
                 className="card px-1 col-md-3 flex-shrink-0 "
                 key={product.id || index}
               >
-                <div className="p-3 ">
+                <div className="prod-infos">
                   <div>
                     <img
                       src={product.image}
-                      style={{
-                        height: "150px",
-                        objectFit: "contain",
-                        cursor: "pointer",
-                      }}
-                      className="card-img card-img-top my-3"
-                      alt=""
+                      className="card-img"
+                      alt={product.title}
                       onClick={() => handleCardClick(product)}
                     />
                     <button
                       onClick={() => handleProductDelete(product)}
-                      className="btn text-dark close-btn fs-2 shadow-none"
+                      className="text-dark close-btn shadow-none"
                     >
                       ×
                     </button>
                   </div>
 
                   <div className={"p-1"}>
-                    <pre className="d-flex justify-content-start fw-bold">
-                      {(product.tittle
-                        ? product.tittle.slice(0, 30)
-                        : "No Tittle") + "..."}
-                    </pre>
+                    <p className="d-flex justify-content-start fw-semibold text-size-b">
+                      {(product.title
+                        ? product.title.slice(0, 13)
+                        : "No Title") + "..."}
+                    </p>
 
-                    <div className=" d-flex ">
+                    <div className="small-hidden text-size-s">
                       <p>
                         <span className="fw-bold" style={{ color: "gold" }}>
                           ★{" "}
@@ -104,12 +106,12 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition, handleRemoveWishl
                       <p className="">Reviews {product.rating.count}</p>
                     </div>
 
-                    <p className="d-flex justify-content-start fw-bold">
+                    <p className="d-flex justify-content-start fw-semibold text-size-b">
                       ₹{product.price}
                     </p>
 
                     <Button
-                      className="btn btn-success w-100"
+                      className="btn btn-success w-100 text-size-s"
                       onClick={() => handleAddToCart(product)}
                       btnName={"Move to cart"}
                     />
