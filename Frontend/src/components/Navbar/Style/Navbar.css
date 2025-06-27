@@ -138,6 +138,10 @@
 }
 
 @media (max-width: 768px) {
+  .navs:hover {
+  border-bottom: 2px transparent;
+}
+
   .navs {
     padding: 0.5rem 0;
   }

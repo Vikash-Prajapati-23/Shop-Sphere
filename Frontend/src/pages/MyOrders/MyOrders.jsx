@@ -1,6 +1,5 @@
 import "../../components/Cart/Style/Cart.css";
 import "./MyOrders.css";
-import { api } from "../../utils/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
@@ -11,13 +10,13 @@ const MyOrders = ({ deliveryCost, userId }) => {
   const fetchOrder = async () => {
     try {
       const response = await fetch(
-        api(`/api/payments/fetch-order-details/user/${userId}`),
+          `${process.env.REACT_APP_API_BASE_URL}/api/payments/fetch-order-details/user/${userId}`,
         { credentials: "include", method: "GET" }
       );
       const data = await response.json();
       if (response.ok) {
         setOrders(data.orders);
-        toast.success(data.message);
+        // toast.success(data.message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -33,8 +32,8 @@ const MyOrders = ({ deliveryCost, userId }) => {
   }, [userId]); // Run only when userId is available
 
   return (
-    <div className="order-page my-2 mx-3 px-5 py-3">
-      <div className="d-flex gap-3">
+    <div className="main-order-page">
+      <div className="order-page">
         <div className="order-aside">
           <aside className="order-aside">
             <div className="bg-white ">
@@ -67,24 +66,24 @@ const MyOrders = ({ deliveryCost, userId }) => {
           </aside>
         </div>
 
-        <ul className="ul-cart-list ul-order-list pt-2 bg-white py-2 px-3 w-75">
-          <h2 className="fw-bold mt-2 mb-4">My Orders</h2>
+        <ul className="ul-order-list bg-white">
+          <h2 className="fw-bold mt-2 pt-2 mb-3">My Orders</h2>
           {orders && orders?.length > 0 ? (
             orders.map((order, index) => (
-              <li key={index} className="cart-list order-list m-0 p-4 mb-3">
+              <li key={index} className="order-list">
                 <div className="d-flex justify-content-between">
                   <div>
-                    <p className="mb-2">
+                    <p className="mb-2 text-size-big">
                       Placed on:{" "}
                       {new Date(order.createdAt).toLocaleDateString()}
                     </p>
-                    <p className="mb-3 fw-semibold">
+                    <p className="mb-3 fw-semibold text-size-big">
                       Order Total: ₹{order.totalAmount}
                     </p>
                   </div>
 
                   <div>
-                    <p className="mb-2 fw-semibold">
+                    <p className="mb-2 fw-semibold text-size-big">
                       Payment Status: {order.paymentStatus}
                     </p>
                   </div>
@@ -92,8 +91,8 @@ const MyOrders = ({ deliveryCost, userId }) => {
 
                 {/* Loop over products inside this order */}
                 {order.products.map((product, i) => (
-                  <div key={i} className="mb-4 d-flex gap-5">
-                    <div className="product-img m-0 p-0">
+                  <div key={i} className="product-details">
+                    <div className="product-img">
                       <img
                         src={product.image}
                         className="cart-product-img"
@@ -103,7 +102,7 @@ const MyOrders = ({ deliveryCost, userId }) => {
 
                     <div className="product-info">
                       <div>
-                        <p className="product-title">
+                        <p className="product-title text-size-big">
                           {product.title?.slice(0, 51) || "No Title"}...
                         </p>
                         <p className="product-title-rest">
@@ -111,27 +110,27 @@ const MyOrders = ({ deliveryCost, userId }) => {
                         </p>
                       </div>
 
-                      <div className="fw-bold mb-2">₹{product.price}</div>
-                      <div className="mb-1">Qty: {product.quantity}</div>
-                      <div className="d-flex align-items-center">
+                      <div className="fw-bold mb-2 text-size-small">₹{product.price}</div>
+                      <div className="mb-1 text-size-small">Qty: {product.quantity}</div>
+                      <div className="d-flex align-items-center text-size-small">
                         <p>
-                          <span className="fw-bold" style={{ color: "gold" }}>
+                          <span className="fw-bold text-size-small" style={{ color: "gold" }}>
                             ★{" "}
                           </span>
-                          <span className="me-3">{product.rating?.rate}</span>
+                          <span className="me-3 text-size-small">{product.rating?.rate}</span>
                         </p>
-                        <p className="fw-bold rating-font-size">
+                        <p className="fw-bold rating-font-size text-size-small">
                           Reviews {product.rating?.count}
                         </p>
                       </div>
                     </div>
 
-                    <div className="product-details-semiwide delivery-info">
+                    <div className="product-details-semiwide delivery-info text-size-small">
                       Delivery by Sunday, June 21 | Delivery cost
-                      <span className="text-decoration-line-through mx-2">
+                      <span className="text-decoration-line-through mx-2 text-size-small">
                         ₹{deliveryCost}
                       </span>
-                      <span className="text-success">Free</span>
+                      <span className="text-success text-size-small">Free</span>
                     </div>
                   </div>
                 ))}
