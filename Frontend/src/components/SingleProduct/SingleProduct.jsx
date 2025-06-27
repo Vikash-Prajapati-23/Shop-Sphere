@@ -110,7 +110,7 @@ const SingleProduct = ({
               Reviews {singleProduct.rating.count}
             </p>
 
-            <div className="prod-btn">
+            <div className="prod-btn ms-lg-3 ms-0">
               <Button
                 onClick={() => handleAddToCart(singleProduct)}
                 className={"btn btn-success add-cart-btn login-text-size ms-0"}

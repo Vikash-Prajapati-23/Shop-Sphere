@@ -16,6 +16,7 @@ const Products = ({
 }) => {
   const [products, setProducts] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [wishlisted, setWishlisted] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const Products = ({
           }
         );
         const products = await response.json();
+        setClicked(products._id || products.id || products.productId);
         setProducts(products);
         setFilteredProducts(products);
       } catch (error) {
@@ -51,12 +53,18 @@ const Products = ({
     }
 
     const productId = product._id || product.id;
+    const isCurrentlyWishlisted = wishlisted[productId];
 
     if (clicked) {
       await handleRemoveWishlist(productId);
     } else {
       await handleWishList(product);
     }
+
+    setWishlisted((prev) => ({
+      ...prev,
+      [productId]: !isCurrentlyWishlisted,
+    }));
 
     setClicked(!clicked);
   };
@@ -92,6 +100,7 @@ const Products = ({
             >
               <Card
                 {...product}
+                clicked={!!wishlisted[product._id || product.id]}
                 handleAddToCart={() => handleAddToCart(product)} // Pass function reference
                 handleWishlist={() => handleWishlistToggle(product)} // Pass function reference
               />

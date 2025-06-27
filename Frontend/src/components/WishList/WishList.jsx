@@ -87,7 +87,7 @@ const WishList = ({ wishlist, setWishlist, handleCartAddition, handleRemoveWishl
                     </button>
                   </div>
 
-                  <div className={"p-1 "}>
+                  <div className={"p-1"}>
                     <pre className="d-flex justify-content-start fw-bold">
                       {(product.tittle
                         ? product.tittle.slice(0, 30)

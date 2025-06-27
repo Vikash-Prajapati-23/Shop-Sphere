@@ -181,10 +181,12 @@ function App() {
       setWishlist((prevWishlist) => {
         const exists = prevWishlist.find((item) => item._id === product._id);
         if (exists) {
-          toast.success(data.message);
+          toast(data.message);
+          setClicked(true);
           return prevWishlist.filter((item) => item._id !== product._id);
         } else {
           toast.success(data.message);
+          setClicked(true);
           return [...prevWishlist, product];
         }
       });
@@ -212,6 +214,7 @@ function App() {
         );
 
         setWishlist(updatedWishlist);
+        setClicked(false);
         toast.success("Item removed from wishlist");
       }
     } catch (error) {

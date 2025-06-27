@@ -56,7 +56,7 @@ const Navbar = ({
 
   return (
     <nav
-      className={`navbar bg-white shadow sticky-sm-top sticky-top p-0 navbar-expand-lg`}
+      className={`navbar bg-white shadow sticky-sm-top py-1 sticky-top p-0 navbar-expand-lg`}
     >
       <div className="d-flex justify-content-between container">
         <a className="navbar-brand">
