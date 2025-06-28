@@ -1,0 +1,56 @@
+.aboutus-main {
+  margin: 1rem 2rem;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.about-flex {
+  display: flex;
+}
+
+.about-head {
+  display: flex;
+  width: fit-content;
+  margin: 1rem auto;
+  font-size: 2rem;
+  border-bottom: 2px solid rgb(85, 84, 84);
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+@media screen and (max-width: 800px) {
+}
+
+@media screen and (max-width: 500px) {
+  .aboutus-main {
+    margin: 0.5rem 1rem;
+    background-color: #fff;
+    padding: 1rem;
+  }
+
+  .about-flex {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .about-head {
+    font-size: 1rem;
+  }
+
+  .font-size-b {
+    font-size: 12px;
+  }
+  .font-size-s {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .aboutus-main {
+    margin: 0.5rem 1rem;
+    background-color: #fff;
+    padding: 1rem;
+  }
+}
