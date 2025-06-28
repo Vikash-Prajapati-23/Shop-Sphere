@@ -81,7 +81,7 @@
 @media screen and (max-width: 500px) {
   .card-img-top {
     height: 60px;
-    width: 100px;
+    width: 85%;
     margin-left: 0.5rem;
   }
 
@@ -98,7 +98,7 @@
   }
 
   .card-area {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
   }
 
   .prod-wishlist-btn {
@@ -113,7 +113,7 @@
 @media screen and (max-width: 380px) {
   .card-img-top {
     height: 60px;
-    width: 80px;
+    width: 75%;
   }
 
   .card-title-text-size {
@@ -128,7 +128,7 @@
 @media screen and (max-width: 330px) {
   .card-img-top {
     height: 60px;
-    width: 80px;
+    width: 70%;
   }
 
   .prod-wishlist-btn {

@@ -1,9 +1,9 @@
 const CartAside = ({ deliveryCost, cart, platformFee, displayCart }) => {
   return (
-    <div className="aside-part my-4 fixed">
+    <div className="aside-part fixed">
       <aside className=" bg-white">
-        <div className="borders p-3 fw-bold">PRICE DETAILS</div>
-        <div className="p-3">
+        <div className="borders p-3 fw-bold text-sizes-big">PRICE DETAILS</div>
+        <div className="p-3 text-sizes">
           <div className="d-flex justify-content-between pb-2">
             <span>
               Price <span>({cart.length} items)</span>
@@ -45,14 +45,14 @@ const CartAside = ({ deliveryCost, cart, platformFee, displayCart }) => {
               ).toFixed(2)}
             </span>
           </div>
-          <div className="d-flex justify-content-between fw-bold pt-2 text-success">
+          <div className="d-flex justify-content-between fw-semibold pt-2 text-success text-sizes">
             <div>You will save amount on this order.</div>
           </div>
         </div>
       </aside>
-      <div className="aside-below">
+      <div className="aside-below text-sizes">
         <i className="bi bi-shield-check me-3 aside-below-icon"></i>
-        <p className="text-secondary aside-below-text mt-3">
+        <p className="text-secondary aside-below-text mt-3 text-sizes">
           Safe and Secure Payments.Easy returns.100% Authentic products.
         </p>
       </div>

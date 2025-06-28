@@ -94,7 +94,7 @@ const CartLayoutContainer = ({
 
   return (
     <div className="cart-layout-container">
-      <section className="section-part my-4">
+      <section className="section-part my-3">
         {currentIndex === 1 && (
           <PlaceOrderPart
             {...placeOrderProps}

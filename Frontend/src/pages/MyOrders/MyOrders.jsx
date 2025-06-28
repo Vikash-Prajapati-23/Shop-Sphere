@@ -91,11 +91,11 @@ const MyOrders = ({ deliveryCost, userId }) => {
 
                 {/* Loop over products inside this order */}
                 {order.products.map((product, i) => (
-                  <div key={i} className="product-details">
+                  <div key={i} className="order-product-details">
                     <div className="product-img">
                       <img
                         src={product.image}
-                        className="cart-product-img"
+                        className="order-product-img"
                         alt={product.title}
                       />
                     </div>
@@ -112,7 +112,7 @@ const MyOrders = ({ deliveryCost, userId }) => {
 
                       <div className="fw-bold text-size-small">₹{product.price}</div>
                       <div className="text-size-small">Quantity: {product.quantity}</div>
-                      <div className="d-flex align-items-center text-size-small product-details-spacing">
+                      <div className="d-flex align-items-center text-size-small order-product-details-spacing">
                         <p>
                           <span className="fw-bold text-size-small" style={{ color: "gold" }}>
                             ★{" "}
@@ -125,7 +125,7 @@ const MyOrders = ({ deliveryCost, userId }) => {
                       </div>
                     </div>
 
-                    <div className="product-details-semiwide delivery-info text-size-small">
+                    <div className="order-product-details-semiwide delivery-info text-size-small">
                       Delivery by Sunday, June 21 | Delivery cost
                       <span className="text-decoration-line-through mx-2 text-size-small">
                         ₹{deliveryCost}

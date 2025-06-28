@@ -42,11 +42,11 @@ const PlaceOrderPart = ({
         {displayCart.map((product) => (
           <li
             style={{ backgroundColor: "white" }}
-            className="cart-list m-0 p-4"
+            className="cart-list"
             key={product._id || product.id}
           >
             <div className="middle-part">
-              <div className="product mb-1">
+              <div className="product mb-2">
                 <div className="product-details">
                   <img
                     src={product.image}
@@ -82,7 +82,7 @@ const PlaceOrderPart = ({
                   </div>
                 </div>
 
-                <div className="product-details-semiwide text-sizes">
+                <div className="product-details-semiwide sc-delivery text-sizes">
                   Delivery by Sunday, June 17 | Delivery cost
                   <span className="text-decoration-line-through mx-2">
                     ₹{deliveryCost}
@@ -100,7 +100,7 @@ const PlaceOrderPart = ({
                         className="fw-bold quantity-btns"
                         btnName={"-"}
                       />
-                      <span className="mx-1 fw-bold product-quantity d-flex align-items-center">
+                      <span className="mx-1 fw-semibold product-quantity ">
                         {product.quantity}
                       </span>
                       <Button
@@ -112,7 +112,7 @@ const PlaceOrderPart = ({
                   )}
                   <div className="btns-lower">
                     <Button
-                      className="btn cart-btns fw-bold ms-lg-4 ms-md-0 px-md-2 px-0 text-sizes"
+                      className="btn cart-btns fw-bold ms-lg-4 ms-md-0 px-md-2 text-sizes"
                       onClick={() => handleAddToWishList(product)}
                       btnName={"MOVE TO WISHLIST"}
                     />
