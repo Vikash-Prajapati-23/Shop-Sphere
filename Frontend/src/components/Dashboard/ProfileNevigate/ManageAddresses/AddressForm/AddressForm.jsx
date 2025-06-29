@@ -8,7 +8,7 @@ export const AddressForm = ({
   isSaving,
 }) => {
   return (
-    <div className="add-address">
+    <form className="add-address">
       <p className="fw-semibold mb-4 text-size-b">ADD A NEW ADDRESS</p>
       <form className="form-area">
         {/* Row 1 */}
@@ -169,6 +169,6 @@ export const AddressForm = ({
           </button>
         </div>
       </form>
-    </div>
+    </form>
   );
 };

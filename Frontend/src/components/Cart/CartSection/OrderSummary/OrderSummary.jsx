@@ -1,4 +1,5 @@
 import Button from "../../../Button/Button";
+import "../CartSection.css";
 
 const OrderSummary = ({
   name,
@@ -19,12 +20,12 @@ const OrderSummary = ({
       {/* Login Details...  */}
       <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
         <div className="d-flex justify-content-between">
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-3 text-size-b">
             <div className="all-addresses-checkout-index bg-light text-primary">
               {currentIndex - 2}
             </div>
             <div>
-              <span className="text-secondary fw-bold">LOGIN</span>
+              <span className="text-secondary fw-bold text-size-b">LOGIN</span>
               <i className="fa-solid fa-check text-primary ms-2"></i>
             </div>
           </div>
@@ -45,7 +46,7 @@ const OrderSummary = ({
                 {currentIndex - 1}
               </div>
               <div>
-                <span className="text-secondary fw-bold">DELIVERY ADDRESS</span>
+                <span className="text-secondary fw-bold text-size-b">DELIVERY ADDRESS</span>
                 <i className="fa-solid fa-check text-primary ms-2"></i>
               </div>
             </div>
@@ -66,7 +67,7 @@ const OrderSummary = ({
 
       {/* Make this ul a separate component --->> Have to do it later. */}
       <ul className="ul-cart-list pt-2">
-        <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4">
+        <h4 className="fw-bold bg-primary text-white mb-0 py-2 px-4 text-size-b">
           {currentIndex} ORDER SUMMARY
         </h4>
         {displayCart.map((product) => (

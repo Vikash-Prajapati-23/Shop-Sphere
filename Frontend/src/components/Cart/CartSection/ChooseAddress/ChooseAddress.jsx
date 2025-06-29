@@ -1,6 +1,7 @@
 import Button from "../../../Button/Button";
 import { AddressForm } from "../../../Dashboard/ProfileNevigate/ManageAddresses/AddressForm/AddressForm";
 import { AddAddressButton } from "../../../Dashboard/ProfileNevigate/ManageAddresses/AddAddressButton/AddAddressButton";
+// import "../../../Dashboard/ProfileNevigate/ManageAddresses/AddressForm/AddressForm.css";
 import "../CartSection.css";
 
 const ChooseAddress = ({
@@ -34,14 +35,20 @@ const ChooseAddress = ({
                 {currentIndex}
               </div>
               <div>
-                <span className="text-secondary fw-bold text-size-b">LOGIN</span>
+                <span className="text-secondary fw-bold text-size-b">
+                  LOGIN
+                </span>
                 <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
               </div>
             </div>
           </div>
 
           <div className="choose-address-head mt-2 text-size-s">
-            <span className="me-2 head-text-size"> {name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase()} </span>
+            <span className="me-2 head-text-size">
+              {" "}
+              {name.slice(0, 1).toUpperCase() +
+                name.slice(1).toLowerCase()}{" "}
+            </span>
             <span> {selectedAddress ? selectedAddress.mobile : ""} </span>
           </div>
         </div>
@@ -87,7 +94,9 @@ const ChooseAddress = ({
                         {data.mobile}
                       </span>
                     </div>
-                    <p className="text-size-address-checkout text-size-s">{data.address}</p>
+                    <p className="text-size-address-checkout text-size-s">
+                      {data.address}
+                    </p>
                   </div>
                   <Button
                     className="text-primary edit-btn fw-semibold text-size-checkout text-size-s"
@@ -130,7 +139,7 @@ const ChooseAddress = ({
         )}
 
         {/* Add new address button.! */}
-        <div className="mt-2 box-shadow-heads text-size-b">
+        <div className="mt-2 box-shadow-heads">
           {!isVisible && !editAddressById && (
             <AddAddressButton
               setIsVisible={setIsVisible}
@@ -167,7 +176,9 @@ const ChooseAddress = ({
               {currentIndex + 2}
             </div>
             <div>
-              <span className="text-secondary text-size-b">PAYMENT OPTIONS</span>
+              <span className="text-secondary text-size-b">
+                PAYMENT OPTIONS
+              </span>
             </div>
           </div>
         </div>

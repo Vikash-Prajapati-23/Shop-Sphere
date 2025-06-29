@@ -1,7 +1,7 @@
-/* .choose-address-main {
+.choose-address-main {
     display: block;
     width: 20%;
-} */
+}
 
 .all-addresses-checkout {
   width: 950px;
@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 13px;
+  /* font-size: 13px; */
   border: none;
   border-radius: 3px;
 }
@@ -51,6 +51,19 @@
   .address-button-size {
     font-size: 12px;
   }
+
+  /* Order Summary  */
+
+.all-addresses-checkout-index {
+  height: 1rem;
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 3px;
+}
 }
 
 @media screen and (max-width: 500px) {
