@@ -116,43 +116,43 @@ const PaymentGateway = ({
     <div className="placeorder-part">
       <div className="all-addresses-checkout">
         {/* Login Details...  */}
-        <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+        <div className="bg-white mb-3 p-1 ps-md-4 ps-2 py-2 bg-primary box-shadow-heads">
           <div className="d-flex justify-content-between">
-            <div className="d-flex align-items-center gap-3">
-              <div className="all-addresses-checkout-index bg-light text-primary">
+            <div className="d-flex align-items-center gap-md-3 gap-2">
+              <div className="all-addresses-checkout-index bg-light text-size-b text-primary">
                 {currentIndex - 3}
               </div>
               <div>
-                <span className="text-secondary fw-bold">LOGIN</span>
-                <i className="fa-solid fa-check text-primary ms-2"></i>
+                <span className="text-secondary fw-bold text-size-b">LOGIN</span>
+                <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
               </div>
             </div>
           </div>
 
-          <div className="ordersummary-head mt-2">
+          <div className="ordersummary-head mt-2 text-size-b">
             <span className="me-2 head-text-size"> {name} </span>
             <span> {selectedAddress.mobile} </span>
           </div>
         </div>
 
         {/* Delivery details...  */}
-        <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+        <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-md-4 ps-2 py-2 bg-primary box-shadow-heads">
           <div className="">
             <div className="d-flex justify-content-between">
-              <div className="d-flex align-items-center gap-3">
-                <div className="all-addresses-checkout-index bg-light text-primary">
+              <div className="d-flex align-items-center gap-md-3 gap-2">
+                <div className="all-addresses-checkout-index bg-light text-primary text-size-b">
                   {currentIndex - 2}
                 </div>
                 <div>
-                  <span className="text-secondary fw-bold">
+                  <span className="text-secondary fw-bold text-size-b">
                     DELIVERY ADDRESS
                   </span>
-                  <i className="fa-solid fa-check text-primary ms-2"></i>
+                  <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
                 </div>
               </div>
             </div>
 
-            <div className="ordersummary-head mt-2">
+            <div className="ordersummary-head mt-2 text-size-b">
               <span className="me-2 head-text-size">
                 {" "}
                 {selectedAddress.name}{" "}
@@ -164,42 +164,42 @@ const PaymentGateway = ({
           <Button
             onClick={() => setCurrentIndex(2)}
             btnName="CHANGE"
-            className="fw-bold px-5 py-2 me-3 change-btn"
+            className="fw-semibold px-md-5 px-md-3 px-2 py-md-2 py-1 me-md-3 me-2 change-btn text-size-b"
           />
         </div>
 
-        {/* Summary details...  */}
-        <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
+        {/* Order smmary details...  */}
+        <div className="d-flex justify-content-between align-items-center bg-white mb-3 p-1 ps-md-4 ps-2 py-2 bg-primary box-shadow-heads">
           <div className="">
             <div className="d-flex justify-content-between">
-              <div className="d-flex align-items-center gap-3">
-                <div className="all-addresses-checkout-index bg-light text-primary">
+              <div className="d-flex align-items-center gap-md-3 md-2">
+                <div className="all-addresses-checkout-index bg-light text-primary text-size-b">
                   {currentIndex - 1}
                 </div>
                 <div>
-                  <span className="text-secondary fw-bold">ORDER SUMMARY</span>
-                  <i className="fa-solid fa-check text-primary ms-2"></i>
+                  <span className="text-secondary fw-bold text-size-b">ORDER SUMMARY</span>
+                  <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
                 </div>
               </div>
             </div>
 
             <div className="ordersummary-head mt-2">
               {/* <span className="me-2 head-text-size"> {selectedAddress.name} </span> */}
-              <span className="fw-bold"> {cart.length} items </span>
+              <span className="fw-bold text-size-b"> {cart.length} items </span>
             </div>
           </div>
 
           <Button
             onClick={() => setCurrentIndex(3)}
             btnName="CHANGE"
-            className="fw-bold px-5 py-2 me-3 change-btn"
+            className="fw-semibold px-md-5 px-md-3 px-2 py-md-2 py-1 me-md-3 me-2 change-btn text-size-b"
           />
         </div>
 
         {/* Payment details...  */}
         <div>
-          <h5 className="d-flex gap-3 bg-primary text-white mb-0 py-3 px-4">
-            <span className="all-addresses-checkout-index bg-light text-primary">
+          <h5 className="d-flex align-items-center gap-md-3 gap-2 fw-bold bg-primary text-white mb-0 py-3 px-md-4 px-3 text-size-b">
+            <span className="all-addresses-checkout-index bg-light text-primary text-size-b">
               {currentIndex}
             </span>
             PAYMENT OPTIONS
@@ -207,7 +207,7 @@ const PaymentGateway = ({
           <div className="bg-white">
             {paymentOption.map((data, index) => (
               <div key={index} className="borders pt-2 ps-4">
-                <div className="d-flex align-items-start gap-3 ">
+                <div className="d-flex align-items-start gap-3 text-size-b">
                   <input
                     className="mt-2"
                     type="radio"
@@ -216,14 +216,14 @@ const PaymentGateway = ({
                     checked={selectedPayment === data.paymentType}
                     onChange={() => setSelectedPayment(data.paymentType)}
                   />
-                  <div>
-                    <p className="m-0  payment-text"> {data.paymentType} </p>
-                    <p className="m-0 pb-2 text-size-checkout"> {data.para} </p>
+                  <div className="">
+                    <p className="m-0  payment-text text-size-b"> {data.paymentType} </p>
+                    <p className="m-0 pb-2 px-0 text-size-checkout text-size-b"> {data.para} </p>
                   </div>
                 </div>
                 {selectedPayment === data.paymentType && (
                   <Button
-                    className={"mb-3 payment-btn"}
+                    className={"mb-3 payment-btn text-size-b"}
                     btnName={loading ? "Processing..." : "Confirm Order"}
                     onClick={placeOrder}
                     disabled={loading}
