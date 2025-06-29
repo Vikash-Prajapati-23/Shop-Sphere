@@ -1,0 +1,85 @@
+/* .choose-address-main {
+    display: block;
+    width: 20%;
+} */
+
+.all-addresses-checkout {
+  width: 950px;
+}
+
+.all-addresses-checkout-index {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 800px) {
+  .all-addresses-checkout {
+    width: 500px;
+  }
+
+  .text-size-b {
+    font-size: 12px;
+  }
+
+  .text-size-s {
+    font-size: 10px;
+  }
+
+  .addressType-checkout {
+    color: #585858;
+    background-color: #e1e0e0;
+    padding: 0 0.3rem;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .deliver-btn {
+    margin-left: 5%;
+    background-color: rgb(247, 79, 18);
+    padding: 0.4rem 2rem;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+  }
+
+  .address-button-size {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .all-addresses-checkout {
+    width: 100%;
+  }
+
+  .text-size-b {
+    font-size: 10px;
+  }
+
+  .text-size-s {
+    font-size: 7px;
+  }
+
+  .address-button-size {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .all-addresses-checkout {
+    width: 100%;
+  }
+  .addressType-checkout {
+    color: #585858;
+    background-color: #e1e0e0;
+    padding: 0;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+}

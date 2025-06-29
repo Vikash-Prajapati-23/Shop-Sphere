@@ -189,7 +189,7 @@ const Cart = ({
   const displayCart = isLoggedIn ? cart : guestCart;
 
   return (
-    <div className="d-flex main-cart">
+    <div className="main-cart">
       {displayCart.length === 0 ? (
         <div className="d-flex align-items-center justify-content-center gap-5 py-4 w-100">
           <img src="./images/empty-cart.png" alt="Empty Cart" />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../../../Button/Button";
+import "../PlaceOrderPart/PlaceOrderPart.css"
 
 const PaymentGateway = ({
   name,
@@ -112,7 +113,7 @@ const PaymentGateway = ({
   };
 
   return (
-    <div className="d-flex">
+    <div className="placeorder-part">
       <div className="all-addresses-checkout">
         {/* Login Details...  */}
         <div className="bg-white mb-3 p-1 ps-4 py-2 bg-primary box-shadow-heads">
