@@ -97,7 +97,7 @@ const Profile = ({ name, setIsLoggedIn }) => {
                   Account settings
                 </h5>
               </div>
-              <ul className="mb-0 ps-md-4 ps-3 aside-ul-padding aside-text-size-s">
+              <ul className="mb-0 ps-4 aside-ul-padding aside-text-size-s">
                 <li
                   onClick={() => {
                     if (currentIndex > 1) setCurrentIndex(currentIndex - 1);
@@ -122,10 +122,10 @@ const Profile = ({ name, setIsLoggedIn }) => {
             <div className=" side-profile-secs">
               <div className="d-flex">
                 <i className="fas fa-wallet me-lg-3 me-2 mt-1 text-primary aside-text-size-s"></i>
-                <h5 className="aside-heads profile-text-size-b">Payments</h5>
+                <h5 className="aside-heads aside-text-size-b">Payments</h5>
               </div>
 
-              <ul className="mb-0 ps-md-4 ps-3 aside-ul-padding aside-text-size-s">
+              <ul className="mb-0 ps-4 aside-ul-padding aside-text-size-s">
                 <li className="lists">Gift Cards</li>
                 <li className="lists">Saved UPI</li>
                 <li className="lists">Saved Cards</li>
