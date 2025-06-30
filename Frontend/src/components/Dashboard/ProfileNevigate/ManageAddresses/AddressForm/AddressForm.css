@@ -28,25 +28,25 @@
     color: #fff;
   }
 
-.label-text {
-  position: absolute;
-  padding: 0px 10px;
-  font-size: 12px;
-  color: rgb(142, 141, 141);
-}
+  .label-text {
+    position: absolute;
+    padding: 0px 10px;
+    font-size: 12px;
+    color: rgb(142, 141, 141);
+  }
 
-.form-input {
-  padding: 0.6rem .6rem 0rem .6rem;
-  border: 1px solid lightgray;
-  border-radius: 1px;
-  line-height: 40px;
-}
+  .form-inputs {
+    padding: 0.6rem 0.6rem 0rem 0.6rem;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+    line-height: 40px;
+  }
 
-.form-input-address {
-  padding: 1rem .6rem;
-  border: 1px solid lightgray;
-  border-radius: 1px;
-}
+  .form-inputs-address {
+    padding: 1rem 0.6rem;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+  }
 
   .address-button-size {
     font-size: 12px;
@@ -63,11 +63,29 @@
   }
 
   .text-size-s {
-    font-size: 7px;
+    font-size: 9px;
   }
 
   .address-button-size {
     font-size: 10px;
+  }
+
+  .label-text {
+    position: absolute;
+    padding: 0px 3px;
+    /* font-size: 12px; */
+    color: rgb(142, 141, 141);
+  }
+
+  .form-input {
+    padding: 0.2rem 0.2rem 0rem 0.2rem;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+    line-height: 10px;
+  }
+
+  .form-input-address {
+    padding: 0.5rem 0.2rem;
   }
 }
 

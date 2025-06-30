@@ -57,23 +57,23 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   };
 
   return (
-    <section>
+    <section className="profile-personal-secs">
       <form className="profile-details">
-        <div className="name-section mb-5 form-part">
-          <span className="sections fw-semibold">Personal Information</span>
+        <div className="name-section mb-lg-5 mb-md-3 form-part">
+          <span className="sections fw-semibold profile-text-size-b">Personal Information</span>
           <button
             onClick={(e) => {
               e.preventDefault();
               setIsEditName((prev) => !prev);
             }}
-            className="btns fw-semibold"
+            className="btns fw-semibold profile-text-size-s"
           >
             {!isEditName ? "Edit" : "Cancel"}
           </button>
 
           <div className="form-gap mb-4">
             <input
-              className="me-4 input-field"
+              className=" mb-md-4 me-2 input-field profile-text-size-s"
               placeholder="First Name"
               disabled={!isEditName}
               type="text"
@@ -82,7 +82,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
               onChange={handleInputChange}
             />
             <input
-              className="input-field me-4"
+              className="input-field me-4 profile-text-size-s"
               disabled={!isEditName}
               placeholder="Last Name"
               type="text"
@@ -92,7 +92,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             />
             {isEditName ? (
               <button
-                className="save-btn"
+                className="save-btn save-btn-1 profile-text-size-s"
                 onClick={(e) => {
                   e.preventDefault();
                   handleSave("name");
@@ -101,7 +101,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
               >
                 {isSaving ? (
                   <span
-                    className="spinner-border spinner-border-sm"
+                    className="spinner-border spinner-border-sm profile-text-size-s"
                     role="status"
                     aria-hidden="true"
                   ></span>
@@ -112,8 +112,8 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             ) : null}
           </div>
 
-          <span className="fw-semibold">Your Gender</span>
-          <div className="gender-section d-flex mt-2">
+          <span className="fw-semibold profile-text-size-b">Your Gender</span>
+          <div className="gender-section mb-lg-5 mb-4 d-flex mt-2 profile-text-size-s">
             <div className="me-3">
               <input
                 id="genderMale"
@@ -148,14 +148,14 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
           </div>
         </div>
 
-        <div className="email-section mb-5 form-part">
-          <span className="sections fw-semibold">Your Email</span>
+        <div className="email-section mb-lg-5 mb-4 form-part">
+          <span className="sections fw-semibold profile-text-size-b">Your Email</span>
           <button
             onClick={(e) => {
               e.preventDefault();
               setIsEditEmail((prev) => !prev);
             }}
-            className="btns fw-semibold"
+            className="btns fw-semibold profile-text-size-s"
           >
             {!isEditEmail ? "Edit" : "Cancle"}
           </button>
@@ -164,7 +164,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             <input
               placeholder="example@gmail.com"
               disabled={!isEditEmail}
-              className="input-field me-4"
+              className="input-field me-4 profile-text-size-s"
               type="email"
               name="email"
               value={formData.email}
@@ -172,7 +172,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             />
             {isEditEmail ? (
               <button
-                className="save-btn"
+                className="save-btn profile-text-size-s"
                 onClick={(e) => {
                   e.preventDefault();
                   handleSave("email");
@@ -181,7 +181,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
               >
                 {isSaving ? (
                   <span
-                    className="spinner-border spinner-border-sm"
+                    className="spinner-border spinner-border-sm profile-text-size-s"
                     role="status"
                     aria-hidden="true"
                   ></span>
@@ -194,13 +194,13 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
         </div>
 
         <div className="contact-section form-part">
-          <span className="sections fw-semibold">Contact number</span>
+          <span className="sections fw-semibold profile-text-size-b">Contact number</span>
           <button
             onClick={(e) => {
               e.preventDefault();
               setIsEditContact((prev) => !prev);
             }}
-            className="btns fw-semibold"
+            className="btns fw-semibold profile-text-size-s"
           >
             {!isEditContact ? "Edit" : "Cancel"}
           </button>
@@ -209,7 +209,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             <input
               placeholder="+91 1234567890"
               disabled={!isEditContact}
-              className="input-field me-4"
+              className="input-field me-4 profile-text-size-s"
               type="tel"
               name="contact"
               value={formData.contact}
@@ -217,7 +217,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
             />
             {isEditContact ? (
               <button
-                className="save-btn"
+                className="save-btn profile-text-size-s"
                 onClick={(e) => {
                   e.preventDefault();
                   handleSave(e);
@@ -226,7 +226,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
               >
                 {isSaving ? (
                   <span
-                    className="spinner-border spinner-border-sm"
+                    className="spinner-border spinner-border-sm profile-text-size-s"
                     role="status"
                     aria-hidden="true"
                   ></span>

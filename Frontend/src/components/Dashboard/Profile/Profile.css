@@ -20,7 +20,7 @@
   border-radius: 2px;
 }
 
-h5 {
+.aside-heads {
   color: rgb(135, 133, 133);
 }
 
@@ -36,7 +36,6 @@ h5 {
 .lists {
   list-style: none;
   cursor: pointer;
-  /* width: 100%; */
   padding: 0.3rem 0rem;
 }
 
@@ -51,10 +50,6 @@ h5 {
 .user-name,
 p {
   margin: 3px 0;
-}
-
-.hello {
-  font-size: 15px;
 }
 
 .name-text {
@@ -109,8 +104,97 @@ p {
 }
 
 .input-field {
-  padding: .8rem .5rem .2rem .5rem;
+  padding: 0.8rem 0.5rem 0.2rem 0.5rem;
   border: 1px solid rgb(225, 222, 222);
   border-radius: 2px;
   font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+  .Profile {
+    margin: 1rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 0.5rem;
+  }
+
+  .img-user {
+    height: 3.5rem;
+  }
+
+  .profile-text-size-b {
+    font-size: 15px;
+  }
+
+  .profile-text-size-s {
+    font-size: 13px;
+  }
+
+  .side-profile-secs {
+    padding: 5px 10px;
+  }
+
+  /* Personal Info...! */
+  .profile-details {
+    padding: 0.5rem 1rem;
+  }
+
+  .input-field {
+    padding: 0.6rem 0.3rem 0.2rem 0.3rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    gap: 0.5rem;
+  }
+
+  .img-user {
+    height: 3.5rem;
+  }
+
+  .profile-text-size-b {
+    font-size: 12px;
+  }
+
+  .profile-text-size-s {
+    font-size: 10px;
+  }
+
+  .side-profile-secs {
+    padding: 5px 10px;
+  }
+
+  .profile-personal-secs {
+    max-width: 397px;
+    min-width: 288px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .aside-user {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .img-user {
+    height: 3.5rem;
+  }
+
+  .input-field {
+    padding: .4rem .2rem .1rem .2rem;
+  }
+
+  .profile-text-size-b {
+    font-size: 10px;
+  }
+
+  .profile-text-size-s {
+    font-size: 8px;
+  }
 }

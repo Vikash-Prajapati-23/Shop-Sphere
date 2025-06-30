@@ -22,7 +22,7 @@ export const AddressForm = ({
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
           <div className="form-group">
@@ -34,7 +34,7 @@ export const AddressForm = ({
               name="mobile"
               value={formData.mobile}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
         </div>
@@ -48,7 +48,7 @@ export const AddressForm = ({
               name="pincode"
               value={formData.pincode}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
           <div className="form-group">
@@ -58,7 +58,7 @@ export const AddressForm = ({
               name="locality"
               value={formData.locality}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
         </div>
@@ -66,14 +66,14 @@ export const AddressForm = ({
         {/* Address */}
         <div className="form-row ">
           <div className="form-group full-width">
-            <label className="label-text text-size-b">Address</label>
+            <label className="label-text text-size-s">Address</label>
             <textarea
               required
               name="address"
               value={formData.address}
               onChange={handleInputChange}
               rows={2}
-              className="form-input-address text-size-s"
+              className="form-inputs-address text-size-s"
             />
           </div>
         </div>
@@ -81,13 +81,13 @@ export const AddressForm = ({
         {/* Row 3 */}
         <div className="form-row">
           <div className="form-group">
-            <label className="label-text text-size-b">City</label>
+            <label className="label-text text-size-s">City</label>
             <input
               required
               name="city"
               value={formData.city}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
           <div className="form-group">
@@ -97,7 +97,7 @@ export const AddressForm = ({
               name="state"
               value={formData.state}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
         </div>
@@ -111,7 +111,7 @@ export const AddressForm = ({
               name="landmark"
               value={formData.landmark}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
           <div className="form-group">
@@ -120,13 +120,13 @@ export const AddressForm = ({
               name="alternatePhone"
               value={formData.alternatePhone}
               onChange={handleInputChange}
-              className="form-input text-size-s"
+              className="form-inputs text-size-s"
             />
           </div>
         </div>
 
         {/* Address Type */}
-        <span className="mt-2 ms-3 address-type-size text-size-b">
+        <span className="mt-2 ms-3 address-type-size">
           Address Type
         </span>
         <div className="d-flex gap-5 mb-3 ms-3">

@@ -59,7 +59,7 @@
 }
 
 .form-input {
-  padding: 0.9rem .9rem 0rem .9rem;
+  padding: 0.9rem 0.9rem 0rem 0.9rem;
   border: 1px solid lightgray;
   border-radius: 1px;
   font-size: 16px;
@@ -67,7 +67,7 @@
 }
 
 .form-input-address {
-  padding: 1.2rem .9rem;
+  padding: 1.2rem 0.9rem;
   border: 1px solid lightgray;
   font-size: 16px;
   border-radius: 1px;
@@ -118,7 +118,7 @@ button.cancle {
 }
 
 .address-type {
-  padding: .1rem .3rem;
+  padding: 0.1rem 0.3rem;
   border: none;
   border-radius: 1px;
   background-color: #eceaea;
@@ -139,8 +139,8 @@ button.cancle {
 .edit-delete-btns {
   position: absolute;
   right: 2%;
-  padding: .5rem .8rem;
-  background-color: #FFF;
+  padding: 0.5rem 0.8rem;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 4px;
 }
@@ -148,5 +148,39 @@ button.cancle {
 .hover-btns {
   color: rgb(55, 55, 241);
   background-color: transparent;
-  border: none
+  border: none;
+}
+
+@media screen and (max-width: 500px) {
+  .add-address {
+    padding: .5rem .3rem;
+  }
+
+.form-area {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  gap: .3rem;
+}
+
+.address-type-size {
+  font-size: 10px;
+}
+
+.label-text {
+  padding: 0px 10px;
+  font-size: 10px;
+}
+
+  .address-area {
+    padding: 1rem 0.5rem;
+    max-width: 397px;
+    min-width: 288px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .manage-address-size {
+    font-size: 18px;
+  }
 }
