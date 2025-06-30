@@ -110,12 +110,37 @@ p {
   font-size: 14px;
 }
 
+.side-nav-icon {
+  display: none;
+}
+
+.side-nav-close-icon {
+  display: none;
+}
+
+.aside-ul-padding {
+  margin-left: 0.6rem;
+}
+
+@media screen and (max-width: 1025px) {
+  .Profile {
+    margin: 1rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 0.5rem;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .Profile {
     margin: 1rem 3rem;
     display: grid;
     grid-template-columns: 1fr 2.5fr;
     gap: 0.5rem;
+  }
+
+  .aside-ul-padding {
+    margin-left: 0;
   }
 
   .img-user {
@@ -128,6 +153,14 @@ p {
 
   .profile-text-size-s {
     font-size: 13px;
+  }
+
+  .profile-text-size-s {
+    font-size: 13px;
+  }
+
+  .aside-text-size-b {
+    font-size: 15px;
   }
 
   .side-profile-secs {
@@ -165,8 +198,17 @@ p {
     font-size: 10px;
   }
 
+  .aside-text-size-b {
+    font-size: 16px;
+  }
+
+  .aside-text-size-s {
+    font-size: 14px;
+  }
+
   .side-profile-secs {
     padding: 5px 10px;
+    background-color: #e9f6ff;
   }
 
   .profile-personal-secs {
@@ -178,28 +220,70 @@ p {
   }
 
   .aside-user {
-    /* display: none; */
-    /* z-index: 1000; */
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    z-index: 1100;
+    width: 370px;
+    background-color: #e9f6ff;
+    border: 1px solid rgb(190, 188, 188);
+    height: 100vh;
+    transform: translateX(-1%);
+    transition: ease transform 0.1s;
+  }
+
+  .user {
+    padding: 1rem;
+    box-shadow: none;
+    border-bottom: 1px solid rgb(216, 215, 215);
+    background-color: #e9f6ff;
+  }
+
+  .side-profile {
+    margin: 1rem;
+    box-shadow: none;
   }
 
   .side-nav-icon {
+    display: block;
     position: absolute;
     left: 4%;
     top: 11%;
     border: none;
     background-color: #c7c4c4;
-    padding: 0rem .3rem;
+    padding: 0rem 0.3rem;
     border-radius: 3px;
+  }
+
+  .side-nav-close-icon {
+    display: block;
+    padding: 0.2rem 0.4rem;
+    border: none;
+    border-radius: 2px;
+    background-color: transparent;
+    font-size: 16px;
+    position: absolute;
+    top: 0%;
+    right: 3%;
   }
 }
 
+@media screen and (max-width: 380px) {
+  .aside-user {
+    width: 320px;
+  }
+}
 @media screen and (max-width: 330px) {
   .img-user {
     height: 3.5rem;
   }
 
+  .aside-user {
+    width: 270px;
+  }
+
   .input-field {
-    padding: .4rem .2rem .1rem .2rem;
+    padding: 0.4rem 0.2rem 0.1rem 0.2rem;
   }
 
   .profile-text-size-b {

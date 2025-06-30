@@ -177,11 +177,10 @@ button.cancle {
     max-width: 397px;
     min-width: 288px;
     width: 100%;
-    margin: auto;
+    margin: 1rem auto auto auto;
   }
 
   .manage-address-size {
-    padding-top: 1rem;
     font-size: 18px;
   }
 }

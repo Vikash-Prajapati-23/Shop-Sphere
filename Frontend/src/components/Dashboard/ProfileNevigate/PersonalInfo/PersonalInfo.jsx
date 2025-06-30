@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 
-export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
+export const PersonalInfo = ({ handleInputChange, formData, setFormData, isOpen }) => {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditEmail, setIsEditEmail] = useState(false);
   const [isEditContact, setIsEditContact] = useState(false);
@@ -57,7 +57,7 @@ export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   };
 
   return (
-    <section className="profile-personal-secs">
+    <section className={`profile-personal-secs $}`}>
       <form className="profile-details">
         <div className="name-section mb-lg-5 mb-md-3 form-part">
           <span className="sections fw-semibold profile-text-size-b">Personal Information</span>
