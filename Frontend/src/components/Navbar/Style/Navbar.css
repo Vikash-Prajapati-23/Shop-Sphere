@@ -141,13 +141,17 @@
   background-color: #f8f9fa;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
   .navs:hover {
     border-bottom: 2px transparent;
   }
 
   .navs {
     padding: 0.5rem 0;
+  }
+
+  .navs-fs {
+    font-size: 14px;
   }
 
   .dropdown-menu {
@@ -159,6 +163,10 @@
   .custom-dropdown {
     width: 17%;
   }
+
+.user-log-in {
+  padding: 0.5rem 0;
+}
 
   .user-log-out {
     margin-top: 0;
@@ -198,17 +206,11 @@
 
   .user-log-out {
   justify-content: start;
-  }
-
-  .nav-link,
-  .material-symbols-outlined,
-  .wishlist-icon {
-    font-size: 1.25rem;
+  padding: 5px 0;
   }
 
   .btn,
   .nav-link.active.fw-bold {
-    font-size: 0.95rem;
     padding: 0.4rem 0.75rem;
   }
 
@@ -224,6 +226,10 @@
 
 @media screen and (max-width: 450px) {
   .navs-text-size {
+    font-size: 14px;
+  }
+
+  .navs-fs {
     font-size: 14px;
   }
 

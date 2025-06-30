@@ -84,7 +84,7 @@ const Navbar = ({
           <ul className="navbar-nav me-auto mb-0" data-bs-theme="dark">
             <li className="nav-item navs">
               <Link
-                className="nav-link py-0 fw-bold navs-text-size"
+                className="nav-link py-0 fw-semibold navs-fs"
                 aria-current="page"
                 to="/"
               >
@@ -92,13 +92,16 @@ const Navbar = ({
               </Link>
             </li>
             <li className="nav-item navs">
-              <Link className="nav-link py-0 fw-bold navs-text-size" to="/AboutUs">
+              <Link
+                className="nav-link py-0 fw-semibold navs-fs"
+                to="/AboutUs"
+              >
                 About Us
               </Link>
             </li>
             <li className="nav-item navs dropdown">
               <Link
-                className="nav-link py-0 dropdown-toggle fw-bold navs-text-size"
+                className="nav-link py-0 dropdown-toggle fw-semibold navs-fs"
                 to="/Categories"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -159,16 +162,16 @@ const Navbar = ({
 
           <ul className="navbar-nav">
             {/* // Login/Logout */}
-            <li 
+            <li
               className="custom-dropdown m-md-0"
               onMouseOver={() => setIsDropDown(true)}
               onMouseLeave={() => setIsDropDown(false)}
             >
               {isLoggedIn ? (
-                <div className="nav-item active fw-bold">
+                <div className="nav-item active fw-semibold">
                   <div className="user-log-out">
                     <i className="fa-regular fa-circle-user user-icon"></i>
-                    <span> {firstName ? firstName : name} </span>
+                    <span className="navs-text-size"> {firstName ? firstName : name.split(' ')[0]} </span>
                     <i className="fa-solid fa-chevron-down arrow-icon"></i>
                   </div>
                   {isDropDown && (
@@ -197,7 +200,7 @@ const Navbar = ({
                   )}
                 </div>
               ) : (
-                <Link className="nav-item active fw-bold" to="/LogInSignUp">
+                <Link className="nav-item active fw-semibold" to="/LogInSignUp">
                   <div className="user-log-in">
                     <i className="fa-regular fa-circle-user user-icon"></i>
                     <span className="navs-text-size"> Log In </span>
