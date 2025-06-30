@@ -170,6 +170,7 @@ p {
   }
 
   .profile-personal-secs {
+    padding-top: 1rem;
     max-width: 397px;
     min-width: 288px;
     width: 100%;
@@ -177,7 +178,18 @@ p {
   }
 
   .aside-user {
-    display: none;
+    /* display: none; */
+    /* z-index: 1000; */
+  }
+
+  .side-nav-icon {
+    position: absolute;
+    left: 4%;
+    top: 11%;
+    border: none;
+    background-color: #c7c4c4;
+    padding: 0rem .3rem;
+    border-radius: 3px;
   }
 }
 
@@ -196,5 +208,9 @@ p {
 
   .profile-text-size-s {
     font-size: 8px;
+  }
+
+  .side-nav-icon {
+    left: 5%;
   }
 }

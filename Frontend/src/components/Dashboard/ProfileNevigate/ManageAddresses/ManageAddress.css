@@ -181,6 +181,7 @@ button.cancle {
   }
 
   .manage-address-size {
+    padding-top: 1rem;
     font-size: 18px;
   }
 }
