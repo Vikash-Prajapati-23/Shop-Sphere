@@ -1,27 +1,17 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Style/Footer.css";
-import { themeContext } from "../../App";
 
 const Footer = () => {
-  const toggleMode = useContext(themeContext);
 
   return (
-    <div className="">
+    <div className="card">
       <div
-        style={{
-          backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff",
-          color: toggleMode.mode === true ? "#fff" : "black",
-        }}
         className={`py-2 text-center fw-bold`}
       >
-        Made with &#128151; by team shopsphare!
+        Made with &#128151; by Vikash!
       </div>
       <div
-        style={{
-          backgroundColor: toggleMode.mode === true ? "#121212" : "#EAECED",
-          color: toggleMode.mode === true ? "#fff" : "black",
-        }}
         className={`d-md-flex justify-content-center gap-5 p-4`}
       >
         <div className="d-flex row justify-content-center justify-content-md-evenly p-1 gap-4 gap-md-2 gap-lg-5">
@@ -146,14 +136,9 @@ const Footer = () => {
         </div>
       </div>
       <div
-        style={{
-          backgroundColor: toggleMode.mode === true ? "#35374B" : "#fff",
-          color: toggleMode.mode === true ? "#fff" : "black",
-        }}
         className={`text-center fw-bold`}
       >
-        {" "}
-        &copy; 2024 copyright || shopsphare.com
+        &copy; 2025 copyright || shopsphare.com
       </div>
     </div>
   );

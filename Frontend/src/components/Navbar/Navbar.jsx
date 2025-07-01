@@ -99,6 +99,14 @@ const Navbar = ({
                 About Us
               </Link>
             </li>
+            <li className="nav-item navs">
+              <Link
+                className="nav-link py-0 fw-semibold navs-fs"
+                to="/ContactUs"
+              >
+                Contact Us
+              </Link>
+            </li>
             <li className="nav-item navs dropdown">
               <Link
                 className="nav-link py-0 dropdown-toggle fw-semibold navs-fs"
