@@ -1,20 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Style/SubNav.css";
 
-const SubNav = ({
-  cart,
-  setCart,
-  setQuery,
-  isLoggedIn,
-  setIsLoggedIn,
-  name,
-  firstName,
-}) => {
+const SubNav = ({ cart, isLoggedIn, name, firstName }) => {
   return (
     <div className="sub-nav">
       <ul className="subnav-ul">
         <li className="subnav-lists">
-            <i class="fa-solid fa-house text-center subnav-icons"></i>
+          <i class="fa-solid fa-house text-center subnav-icons"></i>
           <Link className="subnav-links subnav-text fw-semibold" to="/">
             Home
           </Link>
@@ -27,11 +19,17 @@ const SubNav = ({
         </li>
         <li className="subnav-lists">
           <i class="fa-solid fa-user text-center subnav-icons"></i>
-          <Link className="subnav-links subnav-text fw-semibold" to={`${isLoggedIn ? "/Profile" :  "/LoginSignup"}`}>
+          <Link
+            className="subnav-links subnav-text fw-semibold"
+            to={`${isLoggedIn ? "/Profile" : "/LoginSignup"}`}
+          >
             Account
           </Link>
         </li>
         <li className="subnav-lists">
+          <div className="subnav-cart-length">
+            <span>{cart.length}</span>
+          </div>
           <i class="fa-solid fa-cart-shopping text-center subnav-icons"></i>
           <Link className="subnav-links subnav-text fw-semibold" to="/Cart">
             Cart

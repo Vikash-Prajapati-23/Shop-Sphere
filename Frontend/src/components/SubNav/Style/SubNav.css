@@ -21,6 +21,7 @@
 
 .subnav-lists {
   cursor: pointer;
+  position: relative;
 }
 
 .subnav-lists:active {
@@ -35,6 +36,22 @@
 .subnav-icons {
   display: block;
   color: rgb(125, 125, 125);
+}
+
+.subnav-cart-length {
+  position: absolute;
+  top: -18%;
+  right: -15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 10px;
+  background-color: rgb(8, 193, 8);
+  border: none;
+  border-radius: 50%;
+  height: 1rem;
+  width: 1rem;
 }
 
 @media screen and (max-width: 500px) {

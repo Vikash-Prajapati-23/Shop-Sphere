@@ -1,9 +1,5 @@
-import { createContext, useState, Suspense, lazy, useEffect } from "react";
-import {
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { useState, Suspense, lazy, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
 import { AddressProvider } from "./context/addressDetailsContext";
@@ -26,9 +22,6 @@ const Profile = lazy(() => import("./components/Dashboard/Profile/Profile"));
 const SingleProduct = lazy(() =>
   import("./components/SingleProduct/SingleProduct")
 );
-
-// Creating context
-const themeContext = createContext("");
 
 function App() {
   const [cartProductId, setCartProductId] = useState("");
@@ -383,7 +376,7 @@ function App() {
 
               <Route path="/TermsOfUse" element={<TermsOfUse />} />
             </Routes>
-            <Footer isLoggedIn={isLoggedIn} />
+            <Footer isLoggedIn={isLoggedIn} cart={cart} />
           </Suspense>
         </FormDataProvider>
       </AddressProvider>
@@ -392,4 +385,3 @@ function App() {
 }
 
 export default App;
-export { themeContext };
