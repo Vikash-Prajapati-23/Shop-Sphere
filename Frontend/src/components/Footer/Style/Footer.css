@@ -20,4 +20,10 @@
     margin-left: 1rem;
 }
 
+@media screen and (max-width: 500px) {
+    .footer-on-mobile {
+        display: none;
+    }
+}
+
 

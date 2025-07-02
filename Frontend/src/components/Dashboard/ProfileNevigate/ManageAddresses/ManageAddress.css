@@ -173,14 +173,15 @@ button.cancle {
 }
 
   .address-area {
-    padding: 1rem 0.5rem;
+    padding: .5rem;
     max-width: 397px;
     min-width: 288px;
     width: 100%;
-    margin: 1rem auto auto auto;
+    margin: .2rem auto auto auto;
   }
 
   .manage-address-size {
+    padding-top: 2rem ;
     font-size: 18px;
   }
 }

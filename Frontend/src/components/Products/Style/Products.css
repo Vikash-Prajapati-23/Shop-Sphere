@@ -8,6 +8,12 @@
   justify-content: center;
 }
 
+@media (max-width: 1025px) {
+  .product-page {
+    margin: 2rem 3rem;
+  }
+}
+
 @media (max-width: 768px) {
   .product-page {
     margin: 2rem 8rem;

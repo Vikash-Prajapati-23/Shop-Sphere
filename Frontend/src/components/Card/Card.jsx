@@ -35,7 +35,7 @@ const Card = ({
         </div>
         <div className="card-area">
           <h5 className="card-title-text-size">
-            {title ? title.slice(0, 17) : "No Title."}...
+            {title ? title.slice(0, 16) : "No Title."}...
           </h5>
           <p className="mb-1 fw-semibold form-text-size"> ${price}</p>
           <p className="mb-1 form-text-size review-rating">

@@ -1,0 +1,60 @@
+.sub-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* ensure it stays on top of content */
+  background-color: white; /* or your navbar color */
+  border-top: 1px solid #ccc;
+}
+
+.subnav-ul {
+  gap: 2rem;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0.5rem 0 0.5rem 0;
+  justify-content: center;
+  border: 1px solid grey;
+}
+
+.subnav-lists {
+  cursor: pointer;
+}
+
+.subnav-lists:active {
+  color: rgb(15, 34, 244);
+}
+
+.subnav-links {
+  color: black;
+  text-decoration: none;
+}
+
+.subnav-icons {
+  display: block;
+  color: rgb(125, 125, 125);
+}
+
+@media screen and (max-width: 500px) {
+  .sub-nav {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .subnav-text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .subnav-text {
+    font-size: 13px;
+  }
+
+  .subnav-ul {
+    gap: 1.3rem;
+  }
+}

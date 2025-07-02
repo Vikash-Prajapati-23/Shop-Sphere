@@ -355,7 +355,7 @@ function App() {
 
                 <Route path="/TermsOfUse" element={<TermsOfUse />} />
               </Routes>
-              <Footer />
+              <Footer isLoggedIn={isLoggedIn} />
             </Suspense>
           </FormDataProvider>
         </AddressProvider>

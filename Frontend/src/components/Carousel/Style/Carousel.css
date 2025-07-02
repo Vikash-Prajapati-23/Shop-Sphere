@@ -3,6 +3,13 @@
   width: 100%;
 }
 
+@media screen and (max-width: 800px) {
+  .carousel-img {
+    height: 200px;
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .carousel-img {
     height: 100px;
