@@ -36,24 +36,6 @@ const Navbar = ({
   }, [setCart]);
 
   const handleLogout = async () => {
-    // try {
-    //   const res = await fetch(
-    //     `${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`,
-    //     {
-    //       method: "GET",
-    //       credentials: "include", // sends cookie!
-    //     }
-    //   );
-    //   if (res.ok) {
-    //     setIsLoggedIn(false); // update local state
-    //     navigate("/LoginSignup");
-    //     toast.success("Logged out successfully!");
-    //   } else {
-    //     toast.error("Logout failed");
-    //   }
-    // } catch (error) {
-    //   toast.error("An error occurred");
-    // }
     handleUserLogout();
   };
 

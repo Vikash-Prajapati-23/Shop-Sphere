@@ -251,8 +251,8 @@ p {
   .side-nav-icon {
     display: block;
     position: absolute;
-    /* left: 10%; */
-    margin-left: 2%;
+    left: 5%;
+    /* margin-left: 2%; */
     top: 10%;
     border: none;
     background-color: #c7c4c4;
