@@ -275,7 +275,7 @@
     display: block;
     justify-content: center;
     gap: 15px;
-    margin: 0 auto;
+    margin: 0 auto 4rem auto;
     padding: 0 10px;
     background-color: #f9f8f8;
   }

@@ -2,7 +2,7 @@ import "./Style/AboutUs.css";
 
 const AboutUs = () => {
   return (
-    <div className="aboutus-main">
+    <div className="aboutus-main mb-md-0 mb-5">
       <span className="about-head fw-semibold">About Shop Sphare</span>
 
       <p className="text-justify font-size-s">

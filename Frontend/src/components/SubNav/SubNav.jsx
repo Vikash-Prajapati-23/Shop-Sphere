@@ -33,7 +33,7 @@ const SubNav = ({
         </li>
         <li className="subnav-lists">
           <i class="fa-solid fa-cart-shopping text-center subnav-icons"></i>
-          <Link className="subnav-links subnav-text fw-semibold" to="/MyOrders">
+          <Link className="subnav-links subnav-text fw-semibold" to="/Cart">
             Cart
           </Link>
         </li>

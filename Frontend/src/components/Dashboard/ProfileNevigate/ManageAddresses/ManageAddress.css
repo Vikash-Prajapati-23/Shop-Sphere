@@ -1,6 +1,7 @@
 .address-area {
   background-color: #fff;
   padding: 1.5rem 2rem;
+  /* width: 800px; */
 }
 
 .add-address-btn {
@@ -153,35 +154,35 @@ button.cancle {
 
 @media screen and (max-width: 500px) {
   .add-address {
-    padding: .5rem .3rem;
+    padding: 0.5rem 0.3rem;
   }
 
-.form-area {
-  display: flex;
-  flex-direction: column;
-  max-width: 550px;
-  gap: .3rem;
-}
+  .form-area {
+    display: flex;
+    flex-direction: column;
+    max-width: 550px;
+    gap: 0.3rem;
+  }
 
-.address-type-size {
-  font-size: 10px;
-}
+  .address-type-size {
+    font-size: 10px;
+  }
 
-.label-text {
-  padding: 0px 10px;
-  font-size: 10px;
-}
+  .label-text {
+    padding: 0px 10px;
+    font-size: 10px;
+  }
 
   .address-area {
-    padding: .5rem;
+    padding: 0.5rem;
     max-width: 397px;
     min-width: 288px;
     width: 100%;
-    margin: .2rem auto auto auto;
+    margin: 0.2rem auto auto auto;
   }
 
   .manage-address-size {
-    padding-top: 2rem ;
+    padding-top: 2rem;
     font-size: 18px;
   }
 }

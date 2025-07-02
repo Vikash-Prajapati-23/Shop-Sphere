@@ -29,9 +29,12 @@ export const FormDataProvider = ({ children }) => {
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch(api("/api/auth/savedAddress"), {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/savedAddress`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setSavedAddresses(data.addresses);
@@ -73,16 +76,19 @@ export const FormDataProvider = ({ children }) => {
       let response, data;
       if (!formData._id) {
         // This is for creating a new form.
-        response = await fetch(api("/api/auth/address"), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify(formData),
-        });
+        response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/auth/address`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(formData),
+          }
+        );
       } else {
         response = await fetch(
           // This is for editting the form.
-          api(`/api/auth/address/${formData._id}`),
+          `${process.env.REACT_APP_API_BASE_URL}/api/auth/address/${formData._id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -123,7 +129,7 @@ export const FormDataProvider = ({ children }) => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        api(`/api/auth/deleteAddress/${id}`),
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/deleteAddress/${id}`,
         {
           method: "DELETE",
           credentials: "include",

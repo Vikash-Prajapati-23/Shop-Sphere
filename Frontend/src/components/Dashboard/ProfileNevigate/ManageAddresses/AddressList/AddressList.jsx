@@ -8,7 +8,7 @@ export const AddressList = ({
   handleDelete,
 }) => {
   return (
-    <ul className="address-list">
+    <ul className="address-list mb-md-0 mb-b">
       {savedAddresses.map((data, index) => (
         <AddressItem
           key={index}

@@ -58,6 +58,7 @@
 @media screen and (max-width: 450px) {
   .wishlist-container {
     width: 100%;
+    margin-bottom: 2rem;
   }
 
   .opt-img {

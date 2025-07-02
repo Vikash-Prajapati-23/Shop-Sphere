@@ -223,7 +223,7 @@ const Navbar = ({
     //   </div>
     // </nav>
 
-    <nav className={`bg-white shadow sticky-top Nav`}>
+    <nav className={`bg-white shadow-md sticky-top Nav`}>
       <a className="navbar-brand-img">
         <img
           src="./images/logo1.png"

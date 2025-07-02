@@ -63,7 +63,7 @@ export const ManageAddresses = () => {
 
   return (
     <div className="address-area">
-      <h4 className="mb-4 manage-add-address-btn manage-address-size">Manage Addresses</h4>
+      <h4 className="mb-4 manage-add-address manage-address-size">Manage Addresses</h4>
       {!isVisible ? (
         <AddAddressButton setIsVisible={setIsVisible} />
       ) : (
