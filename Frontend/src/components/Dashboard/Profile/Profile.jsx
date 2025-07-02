@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { PersonalInfo } from "../ProfileNevigate/PersonalInfo/PersonalInfo";
 import { ManageAddresses } from "../ProfileNevigate/ManageAddresses/ManageAddresses";
 
-const Profile = ({ name, setIsLoggedIn }) => {
+const Profile = ({ name, setIsLoggedIn, handleUserLogout }) => {
   const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(
     location.state?.section === "manageAddresses" ? 2 : 1
@@ -21,24 +21,7 @@ const Profile = ({ name, setIsLoggedIn }) => {
   });
 
   const handleProfileLogout = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.REACT_APP_BASE_URL}//api/auth/logout`,
-        {
-          method: "GET",
-          credentials: "include", // sends cookie!
-        }
-      );
-      if (res.ok) {
-        setIsLoggedIn(false); // update local state
-        navigate("/LoginSignup");
-        toast.success("Logged out successfully!");
-      } else {
-        toast.error("Logout failed");
-      }
-    } catch (error) {
-      toast.error("An error occurred");
-    }
+    handleUserLogout()
   };
 
   const handleInputChange = (e) => {

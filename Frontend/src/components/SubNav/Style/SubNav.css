@@ -4,8 +4,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* ensure it stays on top of content */
-  background-color: white; /* or your navbar color */
+  z-index: 1100;
+  background-color: white;
   border-top: 1px solid #ccc;
 }
 
