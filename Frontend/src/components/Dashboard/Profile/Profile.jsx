@@ -81,7 +81,7 @@ const Profile = ({ name, handleUserLogout }) => {
               <li
                 onClick={() => {
                   if (currentIndex > 1) setCurrentIndex(currentIndex - 1);
-                  setIsOpen(true);
+                  setIsOpen(false);
                 }}
                 className={`lists ${currentIndex === 1 ? "disabled" : ""}`}
               >
@@ -90,7 +90,7 @@ const Profile = ({ name, handleUserLogout }) => {
               <li
                 onClick={() => {
                   if (currentIndex === 1) setCurrentIndex(currentIndex + 1);
-                  setIsOpen(true);
+                  setIsOpen(false);
                 }}
                 className={`lists ${currentIndex === 2 ? "disabled" : ""}`}
               >
@@ -105,7 +105,7 @@ const Profile = ({ name, handleUserLogout }) => {
               <h5 className="aside-heads aside-text-size-b">Payments</h5>
             </div>
 
-            <ul className="mb-0 ps-4 aside-ul-padding aside-text-size-s">
+            <ul onClick={() => setIsOpen(false)} className="mb-0 ps-4 aside-ul-padding aside-text-size-s">
               <li className="lists">Gift Cards</li>
               <li className="lists">Saved UPI</li>
               <li className="lists">Saved Cards</li>
