@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Style/SubNav.css";
 
-const SubNav = ({ cart, isLoggedIn, name, firstName }) => {
+const SubNav = ({ cart, isLoggedIn }) => {
   return (
     <div className="sub-nav">
       <ul className="subnav-ul">

@@ -22,7 +22,7 @@
 
 @media (max-width: 500px) {
   .product-page {
-    margin: 2rem 1rem;
+    margin: 2rem 1rem 4rem 1rem;
   }
 
   .card-location {

@@ -1,4 +1,39 @@
 .address-size {
+  display: none;
+}
+
+.address-type {
+    background-color: #d4d2d2;
+    padding: 0 .3rem;
+    border-radius: 2px;
+}
+
+.para-size {
+    font-size: 12px;
+}
+
+.home-add-address {
+    border: none;
+    font-size: 12px;
+    border-radius: 2px;
+    /* height: 20px; */
+    color: #fff;
+    padding: .2rem .4rem;
+    display: flex;
+    align-items: center;
+}
+
+.non-login-para {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .address-size {
+    display: flex;
+    gap: .5rem;
+    font-size: 12px;
     padding: 1rem;
-    font-size: 14px;
+  }
 }
