@@ -35,13 +35,12 @@ const Home = ({
             {savedAddresses && savedAddresses.length > 0
               ? savedAddresses[0].pincode
               : ""}
-            ,{" "}
+            ,
           </span>
           <span className="address-type">
-            {" "}
             {savedAddresses && savedAddresses.length > 0
               ? savedAddresses[0].addressType
-              : ""}{" "}
+              : ""}
           </span>
         </div>
       ) : (

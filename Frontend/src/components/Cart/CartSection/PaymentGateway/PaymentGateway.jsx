@@ -1,16 +1,13 @@
 import { useState } from "react";
 import Button from "../../../Button/Button";
-import "../PlaceOrderPart/PlaceOrderPart.css"
+import "../PlaceOrderPart/PlaceOrderPart.css";
+import "./Payment.css"
+import { useCartData } from "../../../../context/allCartData";
+import { useFormData } from "../../../../context/formDataContext";
 
-const PaymentGateway = ({
-  name,
-  setCart,
-  cart,
-  currentIndex,
-  setCurrentIndex,
-  selectedAddress,
-  user,
-}) => {
+const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
+  const { cart, setCart } = useCartData();
+    const { selectedAddress } = useFormData();
   const [paymentOption] = useState([
     {
       paymentType: "Net Banking",
@@ -92,9 +89,9 @@ const PaymentGateway = ({
           window.location.href = `/OrderSuccess?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
         },
         prefill: {
-          name: user.name || user.userName || "User",
-          email: user.email || "email@example.com",
-          contact: user.mobile || "9999999999",
+          name: user?.name || user?.userName || "User",
+          email: user?.email || "email@example.com",
+          contact: user?.mobile || "9999999999",
         },
         theme: { color: "#3399cc" },
       };
@@ -123,7 +120,9 @@ const PaymentGateway = ({
                 {currentIndex - 3}
               </div>
               <div>
-                <span className="text-secondary fw-bold text-size-b">LOGIN</span>
+                <span className="text-secondary fw-bold text-size-b">
+                  LOGIN
+                </span>
                 <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
               </div>
             </div>
@@ -131,7 +130,7 @@ const PaymentGateway = ({
 
           <div className="ordersummary-head mt-2 text-size-b">
             <span className="me-2 head-text-size"> {name} </span>
-            <span> {selectedAddress.mobile} </span>
+            <span> {selectedAddress?.mobile || ""} </span>
           </div>
         </div>
 
@@ -152,19 +151,18 @@ const PaymentGateway = ({
               </div>
             </div>
 
-            <div className="ordersummary-head mt-2 text-size-b">
+            <div className="ordersummary-head mt-2 text-size-s">
               <span className="me-2 head-text-size">
-                {" "}
-                {selectedAddress.name}{" "}
+                {selectedAddress?.name || ""}
               </span>
-              <span> {selectedAddress.address} </span>
+              <span> {selectedAddress?.address || ""} </span>
             </div>
           </div>
 
           <Button
             onClick={() => setCurrentIndex(2)}
             btnName="CHANGE"
-            className="fw-semibold px-md-5 px-md-3 px-2 py-md-2 py-1 me-md-3 me-2 change-btn text-size-b"
+            className="fw-semibold payment-change-btn"
           />
         </div>
 
@@ -177,7 +175,9 @@ const PaymentGateway = ({
                   {currentIndex - 1}
                 </div>
                 <div>
-                  <span className="text-secondary fw-bold text-size-b">ORDER SUMMARY</span>
+                  <span className="text-secondary fw-bold text-size-b">
+                    ORDER SUMMARY
+                  </span>
                   <i className="fa-solid fa-check text-primary ms-2 text-size-b"></i>
                 </div>
               </div>
@@ -185,14 +185,14 @@ const PaymentGateway = ({
 
             <div className="ordersummary-head mt-2">
               {/* <span className="me-2 head-text-size"> {selectedAddress.name} </span> */}
-              <span className="fw-bold text-size-b"> {cart.length} items </span>
+              <span className="fw-bold text-size-s"> {`${cart.length} ${cart.length == 1 ? "item" : "items"}`} </span>
             </div>
           </div>
 
           <Button
             onClick={() => setCurrentIndex(3)}
             btnName="CHANGE"
-            className="fw-semibold px-md-5 px-md-3 px-2 py-md-2 py-1 me-md-3 me-2 change-btn text-size-b"
+            className="fw-semibold payment-change-btn"
           />
         </div>
 
@@ -217,8 +217,14 @@ const PaymentGateway = ({
                     onChange={() => setSelectedPayment(data.paymentType)}
                   />
                   <div className="">
-                    <p className="m-0  payment-text text-size-b"> {data.paymentType} </p>
-                    <p className="m-0 pb-2 px-0 text-size-checkout text-size-b"> {data.para} </p>
+                    <p className="m-0  payment-text text-size-b">
+                      {" "}
+                      {data.paymentType}{" "}
+                    </p>
+                    <p className="m-0 pb-2 px-0 text-size-checkout text-size-b">
+                      {" "}
+                      {data.para}{" "}
+                    </p>
                   </div>
                 </div>
                 {selectedPayment === data.paymentType && (

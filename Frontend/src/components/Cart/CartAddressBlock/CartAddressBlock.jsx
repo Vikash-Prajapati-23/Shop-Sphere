@@ -2,14 +2,17 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
 import toast from "react-hot-toast";
 import "./CartAddressBlock.css";
+import { useFormData } from "../../../context/formDataContext";
 
 const CartAddressBlock = ({
   isLoggedIn,
-  selectedAddress,
-  savedAddresses,
-  setSelectedAddress,
 }) => {
   const nevigate = useNavigate();
+    const {
+      savedAddresses,
+      selectedAddress,
+      setSelectedAddress,
+    } = useFormData();
 
   const handleNevigateLogin = () => {
     if (!isLoggedIn) {

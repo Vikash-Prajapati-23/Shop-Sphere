@@ -66,14 +66,14 @@ export const AddressForm = ({
         {/* Address */}
         <div className="form-row ">
           <div className="form-group full-width">
-            <label className="label-text text-size-s">Address</label>
+            <label className="label-text text-size-b">Address</label>
             <textarea
               required
               name="address"
               value={formData.address}
               onChange={handleInputChange}
               rows={2}
-              className="form-inputs-address text-size-s"
+              className="form-inputs-address "
             />
           </div>
         </div>

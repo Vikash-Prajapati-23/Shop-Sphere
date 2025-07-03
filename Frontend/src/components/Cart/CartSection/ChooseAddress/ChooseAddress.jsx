@@ -2,6 +2,7 @@ import Button from "../../../Button/Button";
 import { AddressForm } from "../../../Dashboard/ProfileNevigate/ManageAddresses/AddressForm/AddressForm";
 import { AddAddressButton } from "../../../Dashboard/ProfileNevigate/ManageAddresses/AddAddressButton/AddAddressButton";
 import "../CartSection.css";
+import { useFormData } from "../../../../context/formDataContext";
 
 const ChooseAddress = ({
   name,
@@ -15,15 +16,16 @@ const ChooseAddress = ({
   handleInputChange,
   isVisible,
   setIsVisible,
-  selectedAddress,
-  setSelectedAddress,
-  savedAddresses,
+  // selectedAddress,
+  // setSelectedAddress,
+  // savedAddresses,
   showAll,
   setShowAll,
   visibleAddress,
   currentIndex,
   setCurrentIndex,
 }) => {
+  const { setSelectedAddress, selectedAddress, savedAddresses } = useFormData();
   return (
     <div className="">
       <div className="all-addresses-checkout">

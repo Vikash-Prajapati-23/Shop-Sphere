@@ -1,4 +1,8 @@
-const CartAside = ({ deliveryCost, cart, platformFee, displayCart }) => {
+import { useCartData } from "../../../context/allCartData";
+
+const CartAside = ({ deliveryCost, platformFee, displayCart }) => {
+  const { cart } = useCartData();
+
   return (
     <div className="aside-part fixed">
       <aside className=" bg-white">

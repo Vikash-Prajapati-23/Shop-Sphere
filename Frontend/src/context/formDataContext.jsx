@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { api } from "../utils/api";
 
 const FormDataContext = createContext();
 // I use an arrow function here because I want to create a function that returns the value from useContext(FormDataContext) when called.
@@ -11,6 +10,7 @@ export const useFormData = () => useContext(FormDataContext);
 // }
 
 export const FormDataProvider = ({ children }) => {
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const [savedAddresses, setSavedAddresses] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -155,6 +155,8 @@ export const FormDataProvider = ({ children }) => {
   return (
     <FormDataContext.Provider
       value={{
+        selectedAddress,
+        setSelectedAddress,
         savedAddresses,
         setSavedAddresses,
         formData,

@@ -1,5 +1,10 @@
+// import { useAddress } from "../../../../context/addressDetailsContext";
+import { useNavigate } from "react-router-dom";
+import { useCartData } from "../../../../context/allCartData";
+import { useFormData } from "../../../../context/formDataContext";
 import Button from "../../../Button/Button";
 import "../CartSection.css";
+import toast from "react-hot-toast";
 
 const OrderSummary = ({
   name,
@@ -7,14 +12,25 @@ const OrderSummary = ({
   isLoggedIn,
   currentIndex,
   setCurrentIndex,
-  selectedAddress,
   displayCart,
   deliveryCost,
-  handleProductDecrement,
-  handleProductIncrement,
-  handleAddToWishList,
-  handleProductDelete,
+  handleWishList,
 }) => {
+  const { selectedAddress } = useFormData();
+  const { handleDecrement, handleIncrement, handleDelete } = useCartData();
+  const navigate = useNavigate();
+
+  const handleAddToWishList = (product) => {
+    if (!isLoggedIn) {
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+      return;
+    }
+    handleWishList(product);
+    toast.success("Added to wishlist!");
+    handleDelete(product._id);
+  };
+
   return (
     <div className="">
       {/* Login Details...  */}
@@ -46,14 +62,19 @@ const OrderSummary = ({
                 {currentIndex - 1}
               </div>
               <div>
-                <span className="text-secondary fw-bold text-size-b">DELIVERY ADDRESS</span>
+                <span className="text-secondary fw-bold text-size-b">
+                  DELIVERY ADDRESS
+                </span>
                 <i className="fa-solid fa-check text-primary text-size-b ms-md-2 ms-1"></i>
               </div>
             </div>
           </div>
 
           <div className="ordersummary-head mt-2 text-size-b">
-            <span className="me-2 head-text-size "> {selectedAddress.name} </span>
+            <span className="me-2 head-text-size ">
+              {" "}
+              {selectedAddress.name}{" "}
+            </span>
             <span> {selectedAddress.address} </span>
           </div>
         </div>
@@ -96,7 +117,9 @@ const OrderSummary = ({
                     </p>
                   </div>
 
-                  <div className="fw-bold mb-2 text-size-b">₹{product.price}</div>
+                  <div className="fw-bold mb-2 text-size-b">
+                    ₹{product.price}
+                  </div>
                   <div className="d-flex align-items-center text-size-b">
                     <p>
                       <span className="fw-bold" style={{ color: "gold" }}>
@@ -123,7 +146,7 @@ const OrderSummary = ({
                   {isLoggedIn && (
                     <div className="d-flex me-3 me-md-1 text-size-b">
                       <Button
-                        onClick={() => handleProductDecrement(product._id)}
+                        onClick={() => handleDecrement(product._id)}
                         disabled={product.quantity <= 1}
                         className="fw-bold quantity-btns text-black"
                         btnName={"-"}
@@ -132,7 +155,7 @@ const OrderSummary = ({
                         {product.quantity}
                       </span>
                       <Button
-                        onClick={() => handleProductIncrement(product._id)}
+                        onClick={() => handleIncrement(product._id)}
                         className="quantity-btns-inc fw-bold"
                         btnName={"+"}
                       />
@@ -144,9 +167,7 @@ const OrderSummary = ({
                     btnName={"MOVE TO WISHLIST"}
                   />
                   <Button
-                    onClick={() =>
-                      handleProductDelete(product._id || product.id)
-                    }
+                    onClick={() => handleDelete(product._id || product.id)}
                     className="btn fw-bold text-size-s px-1"
                     btnName={"REMOVE"}
                   />
@@ -159,7 +180,7 @@ const OrderSummary = ({
 
       <div className="cart-summary d-flex justify-content-between mt-2">
         <p className="m-auto continueEmail-text-size text-secondary text-size-s">
-          Order confirmation email will be sent to  
+          Order confirmation email will be sent to
           <span className="text-black ms-2">{email}</span>
         </p>
         <Button

@@ -3,26 +3,49 @@ import Button from "../../../Button/Button";
 import CartAddressBlock from "../../CartAddressBlock/CartAddressBlock";
 import toast from "react-hot-toast";
 import "./PlaceOrderPart.css";
+import { useCartData } from "../../../../context/allCartData";
 
 const PlaceOrderPart = ({
-  selectedAddress,
-  setSelectedAddress,
   isLoggedIn,
   displayCart,
   deliveryCost,
   handleCardClick,
-  handleProductDelete,
-  handleAddToWishList,
-  handleProductIncrement,
-  handleProductDecrement,
-  savedAddresses,
+  handleWishList,
   setCurrentIndex,
 }) => {
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
+  const {
+    handleDecrement,
+    handleIncrement,
+    handleDelete,
+  } = useCartData();
 
-  const handleNevigate = () => {
+  const handleProductDelete = async (productId) => {
+    handleDelete(productId);
+  };
+
+  const handleProductIncrement = async (productId) => {
+    handleIncrement(productId);
+  };
+
+  const handleProductDecrement = async (productId) => {
+    handleDecrement(productId);
+  };
+
+  const handleAddToWishList = (product) => {
     if (!isLoggedIn) {
-      nevigate("/LoginSignup");
+      navigate("/LoginSignup");
+      toast.success("Please log in to add items to your wishlist");
+      return;
+    }
+    handleWishList(product);
+    toast.success("Added to wishlist!");
+    handleDelete(product._id);
+  };
+
+  const handleNavigate = () => {
+    if (!isLoggedIn) {
+      navigate("/LoginSignup");
       toast("Please login first to place orders.!");
     } else {
       setCurrentIndex(2);
@@ -32,9 +55,6 @@ const PlaceOrderPart = ({
   return (
     <div className="placeorder-part">
       <CartAddressBlock
-        selectedAddress={selectedAddress}
-        savedAddresses={savedAddresses}
-        setSelectedAddress={setSelectedAddress}
         isLoggedIn={isLoggedIn}
       />
 
@@ -134,7 +154,7 @@ const PlaceOrderPart = ({
       <div className="cart-total d-flex justify-content-end">
         <Button
           className="fw-bold place-order-btn text-sizes"
-          onClick={handleNevigate}
+          onClick={handleNavigate}
           btnName={"PLACE ORDER"}
         />
       </div>

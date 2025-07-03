@@ -1,3 +1,26 @@
-/* .payment-part {
+.payment-change-btn {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: rgb(39, 110, 234);
+  padding: 0.5rem 3rem;
+  margin-right: 1rem;
+  font-size: 14px;
+}
 
-} */
+@media screen and (max-width: 800px) {
+  .payment-change-btn {
+    padding: 0.5rem 3rem;
+    margin-right: .5rem;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .payment-change-btn {
+    padding: .2rem .3rem;
+    margin-right: .2rem;
+    margin-bottom: 2rem;
+    font-size: 10px;
+  }
+}

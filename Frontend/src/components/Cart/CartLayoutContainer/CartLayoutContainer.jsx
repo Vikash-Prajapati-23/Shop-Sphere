@@ -7,23 +7,15 @@ import OrderSummary from "../CartSection/OrderSummary/OrderSummary";
 import PaymentGateway from "../CartSection/PaymentGateway/PaymentGateway";
 
 const CartLayoutContainer = ({
-  handleProductIncrement,
-  handleProductDecrement,
-  handleAddToWishList,
-  handleProductDelete,
-  setSelectedAddress,
-  selectedAddress,
+  handleWishList,
   displayCart,
   isLoggedIn,
   deliveryCost,
   platformFee,
-  setCart,
-  cart,
   name,
   email,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
-  const { savedAddresses, setSavedAddresses } = useFormData();
   const [showAll, setShowAll] = useState(false);
   const [editAddressById, setEditAddressById] = useState(null);
   const {
@@ -34,20 +26,17 @@ const CartLayoutContainer = ({
     handleInputChange,
     handleSave,
     isSaving,
+    savedAddresses,
+    setSavedAddresses,
+    selectedAddress,
   } = useFormData();
 
   const visibleAddress = showAll ? savedAddresses : savedAddresses.slice(0, 3);
 
   const placeOrderProps = {
     displayCart,
-    selectedAddress,
-    setSelectedAddress,
     deliveryCost,
-    handleProductDelete,
-    handleAddToWishList,
-    handleProductIncrement,
-    handleProductDecrement,
-    savedAddresses,
+    handleWishList,
   };
 
   const addressProps = {
@@ -58,9 +47,6 @@ const CartLayoutContainer = ({
     setIsVisible,
     showAll,
     setShowAll,
-    savedAddresses,
-    selectedAddress,
-    setSelectedAddress,
     formData,
     setFormData,
     handleSave,
@@ -71,17 +57,20 @@ const CartLayoutContainer = ({
 
   const refreshAddresses = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/getAddresses`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/getAddresses`,
+        {
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setSavedAddresses([...data.addresses] || []);
       }
     } catch (err) {
-      if (process.env.REACT_APP_NODE_ENV !== 'production') {
-    console.error(err);
-  }
+      if (process.env.REACT_APP_NODE_ENV !== "production") {
+        console.error(err);
+      }
     }
   };
 
@@ -99,9 +88,6 @@ const CartLayoutContainer = ({
           <PlaceOrderPart
             {...placeOrderProps}
             isLoggedIn={isLoggedIn}
-            allAddresses={savedAddresses}
-            setAllAddresses={setSavedAddresses}
-            currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
           />
         )}
@@ -128,13 +114,8 @@ const CartLayoutContainer = ({
           <PaymentGateway
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
-            isLoggedIn={isLoggedIn}
-            handleProductDelete={handleProductDelete}
-            {...placeOrderProps}
             name={name}
             email={email}
-            cart={cart}
-            setCart={setCart}
             user={{
               name: name,
               email: email,
@@ -146,7 +127,6 @@ const CartLayoutContainer = ({
       </section>
       <CartAside
         displayCart={displayCart}
-        cart={cart}
         platformFee={platformFee}
         deliveryCost={deliveryCost}
       />

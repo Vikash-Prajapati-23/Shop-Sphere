@@ -24,7 +24,7 @@
 }
 
 .non-login-para {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 1rem;
 }
@@ -36,4 +36,8 @@
     font-size: 12px;
     padding: 1rem;
   }
+
+.non-login-para {
+    display: flex;
+}
 }
