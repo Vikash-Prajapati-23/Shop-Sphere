@@ -9,10 +9,10 @@ import { useCartData } from "../../../context/allCartData";
 const Men = ({ handleWishList, query }) => {
   const { isLoggedIn, handleCartAddition } = useCartData();
   const [menProduct, setMenProduct] = useState([]);
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
   const { categorySlug } = useParams();
 
-  const getManProduct = async (categorySlug) => {
+  const getProductByCategory = async (categorySlug) => {
     try {
       const url = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/products/category/${categorySlug}`
@@ -33,12 +33,12 @@ const Men = ({ handleWishList, query }) => {
   };
 
   useEffect(() => {
-    getManProduct(categorySlug);
+    getProductByCategory(categorySlug);
   }, [categorySlug]);
 
   const handleWishlist = (product) => {
     if (!isLoggedIn) {
-      nevigate("/LoginSignup");
+      navigate("/LoginSignup");
       toast.success("Please log in to add items to your wishlist");
       return;
     }
@@ -46,7 +46,11 @@ const Men = ({ handleWishList, query }) => {
   };
 
   const handleCardClick = (product) => {
-    nevigate(`/SingleProduct/${product.id}`);
+    if (product && product.productId) {
+      navigate(`/SingleProduct/${product.productId}`);
+    } else {
+      toast.error("Product ID not found");
+    }
   };
 
   if (!menProduct) {
@@ -64,7 +68,7 @@ const Men = ({ handleWishList, query }) => {
           {categorySlug
             .split("-")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")}{" "}
+            .join(" ")}
         </h3>
         <div className="card-location">
           {menProduct

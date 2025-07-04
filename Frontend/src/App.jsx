@@ -40,23 +40,6 @@ function App() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useCartData();
 
-  // const fetchCardQuantity = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`,
-  //       {
-  //         credentials: "include",
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       setCart(data);
-  //     }
-  //   } catch (error) {
-  //     toast.error("Something went wrong while getting the cart quantity.");
-  //   }
-  // };
-
   useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
