@@ -75,7 +75,7 @@ const SingleProduct = ({
   if (!singleProduct) return <Loading />;
 
   return (
-    <div className="mx-lg-5 mx-md-3 mx-3 card my-3">
+    <div className="mx-lg-5 mx-md-3 mx-3 card my-3 single-prod-main">
       <div className="m-lg-3 ">
         <div className="single-prod">
           <div className="prod-img prod-img-wishlist m-4">

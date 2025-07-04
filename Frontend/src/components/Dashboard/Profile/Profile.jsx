@@ -105,10 +105,41 @@ const Profile = ({ name, handleUserLogout }) => {
               <h5 className="aside-heads aside-text-size-b">Payments</h5>
             </div>
 
-            <ul onClick={() => setIsOpen(false)} className="mb-0 ps-4 aside-ul-padding aside-text-size-s">
+            <ul
+              onClick={() => setIsOpen(false)}
+              className="mb-0 ps-4 aside-ul-padding aside-text-size-s"
+            >
               <li className="lists">Gift Cards</li>
               <li className="lists">Saved UPI</li>
               <li className="lists">Saved Cards</li>
+            </ul>
+          </div>
+
+          <div className=" side-profile-secs">
+            <div className="d-flex">
+              <i class="fa-solid fa-address-book me-lg-3 me-2 mt-1 text-primary aside-text-size-s"></i>
+              <h5 className="aside-heads aside-text-size-b">Contact</h5>
+            </div>
+
+            <ul
+              onClick={() => setIsOpen(false)}
+              className="mb-0 ps-4 aside-ul-padding aside-text-size-s"
+            >
+              <li className="lists">
+                <Link to={"/AboutUs"} className=" profile-links">
+                  About Us
+                </Link>
+              </li>
+              <li className="lists">
+                <Link to={"/ContactUs"} className="lists profile-links">
+                  Contact Us
+                </Link>
+              </li>
+              <li className="lists">
+                <Link to={"/TermsOfUse"} className="lists profile-links">
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 

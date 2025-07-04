@@ -7,6 +7,7 @@
   z-index: 1100;
   background-color: white;
   border-top: 1px solid #ccc;
+  border-bottom: none;
 }
 
 .subnav-ul {

@@ -22,7 +22,7 @@ const Home = ({
 
   return (
     <div>
-      {isLoggedIn ? (
+      {isLoggedIn && savedAddresses === null ? (
         <div className="address-size">
           <i className="fa-solid fa-location-dot pt-1"></i>
           <p className="m-0">
@@ -31,17 +31,12 @@ const Home = ({
               : ""}
             ...,
           </p>
-          <span className="fw-semibold">
-            {savedAddresses && savedAddresses.length > 0
-              ? savedAddresses[0].pincode
-              : ""}
-            ,
-          </span>
           <span className="address-type">
             {savedAddresses && savedAddresses.length > 0
               ? savedAddresses[0].addressType
               : ""}
           </span>
+          {console.log(savedAddresses)}
         </div>
       ) : (
         <div className="non-login-para ms-3 mt-2">
@@ -53,6 +48,7 @@ const Home = ({
       )}
 
       <Carousel />
+
       <Products
         isLoggedIn={isLoggedIn}
         handleCartAddition={handleCartAddition}

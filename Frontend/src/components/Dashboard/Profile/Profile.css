@@ -127,6 +127,11 @@ p {
   background-color: #fff;
 }
 
+.profile-links {
+  text-decoration: none;
+  color: black;
+}
+
 @media screen and (max-width: 1025px) {
   .Profile {
     margin: 1rem 3rem;

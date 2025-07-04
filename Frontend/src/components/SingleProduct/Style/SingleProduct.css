@@ -38,6 +38,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .single-prod-main {
+    padding-bottom: 4rem;
+  }
+
   .single-prod {
     display: block;
   }
@@ -48,7 +52,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--image-bg);
     border-radius: 10px;
   }
 
