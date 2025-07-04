@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-// import { useAddress } from "./addressDetailsContext";
 import { useFormData } from "./formDataContext";
 
 const allCart = createContext();
@@ -10,7 +9,6 @@ export const useCartData = () => useContext(allCart);
 export const CartDataProvider = ({ children, isLoggedIn }) => {
   const [guestCart, setGuestCart] = useState([]);
   const [cart, setCart] = useState([]);
-  // const {  } = useAddress();
   const { savedAddresses, setSavedAddresses, selectedAddress, setSelectedAddress, } = useFormData();
 
   useEffect(() => {

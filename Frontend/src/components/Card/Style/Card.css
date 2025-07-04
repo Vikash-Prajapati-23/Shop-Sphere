@@ -69,9 +69,9 @@
     padding: .5rem 1.5rem;
   }
 
-  .prod-wishlist-btn {
+  /* .prod-wishlist-btn {
     font-size: 12px;
-  }
+  } */
 
   .prod-wishlist-icon {
     font-size: medium;
@@ -101,9 +101,9 @@
     padding: 0.5rem 1rem;
   }
 
-  .prod-wishlist-btn {
-    font-size: 10px;
-  }
+  /* .prod-wishlist-btn {
+    font-size: 8px;
+  } */
 
   .prod-wishlist-icon {
     font-size: medium;
