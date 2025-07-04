@@ -6,7 +6,6 @@ import "./PlaceOrderPart.css";
 import { useCartData } from "../../../../context/allCartData";
 
 const PlaceOrderPart = ({
-  isLoggedIn,
   displayCart,
   deliveryCost,
   handleCardClick,
@@ -14,11 +13,8 @@ const PlaceOrderPart = ({
   setCurrentIndex,
 }) => {
   const navigate = useNavigate();
-  const {
-    handleDecrement,
-    handleIncrement,
-    handleDelete,
-  } = useCartData();
+  const { handleDecrement, handleIncrement, handleDelete, isLoggedIn } =
+    useCartData();
 
   const handleProductDelete = async (productId) => {
     handleDelete(productId);
@@ -54,9 +50,7 @@ const PlaceOrderPart = ({
 
   return (
     <div className="placeorder-part">
-      <CartAddressBlock
-        isLoggedIn={isLoggedIn}
-      />
+      <CartAddressBlock isLoggedIn={isLoggedIn} />
 
       <ul className="ul-cart-list pt-2">
         {displayCart.map((product) => (

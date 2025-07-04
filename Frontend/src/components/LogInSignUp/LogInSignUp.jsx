@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Style/LogInSignUp.css";
 import { api } from "../../utils/api";
+import { useCartData } from "../../context/allCartData";
 
-const LogInSignUp = ({ setIsLoggedIn, setName }) => {
+const LogInSignUp = ({ setName }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     userName: "",
@@ -12,6 +13,7 @@ const LogInSignUp = ({ setIsLoggedIn, setName }) => {
     password: "",
   });
   const navigate = useNavigate(); // React Router's navigation hook
+    const { setIsLoggedIn } = useCartData();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`, {

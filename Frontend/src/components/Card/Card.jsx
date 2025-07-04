@@ -12,7 +12,6 @@ const Card = ({
   handleWishlist,
   handleAddToCart,
 }) => {
-  // const dispatch = useDispatch();
 
   return (
     <div className={`mx-lg-3 card-comp`} onClick={fetchSingleProduct}>

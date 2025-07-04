@@ -117,7 +117,7 @@ const Profile = ({ name, handleUserLogout }) => {
 
           <div className=" side-profile-secs">
             <div className="d-flex">
-              <i class="fa-solid fa-address-book me-lg-3 me-2 mt-1 text-primary aside-text-size-s"></i>
+              <i className="fa-solid fa-address-book me-lg-3 me-2 mt-1 text-primary aside-text-size-s"></i>
               <h5 className="aside-heads aside-text-size-b">Contact</h5>
             </div>
 

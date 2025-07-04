@@ -3,16 +3,12 @@ import Button from "../../Button/Button";
 import toast from "react-hot-toast";
 import "./CartAddressBlock.css";
 import { useFormData } from "../../../context/formDataContext";
+import { useCartData } from "../../../context/allCartData";
 
-const CartAddressBlock = ({
-  isLoggedIn,
-}) => {
+const CartAddressBlock = ({}) => {
   const nevigate = useNavigate();
-    const {
-      savedAddresses,
-      selectedAddress,
-      setSelectedAddress,
-    } = useFormData();
+  const { savedAddresses, selectedAddress, setSelectedAddress } = useFormData();
+  const { isLoggedIn } = useCartData();
 
   const handleNevigateLogin = () => {
     if (!isLoggedIn) {

@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 const OrderSummary = ({
   name,
   email,
-  isLoggedIn,
   currentIndex,
   setCurrentIndex,
   displayCart,
@@ -17,7 +16,8 @@ const OrderSummary = ({
   handleWishList,
 }) => {
   const { selectedAddress } = useFormData();
-  const { handleDecrement, handleIncrement, handleDelete } = useCartData();
+  const { handleDecrement, handleIncrement, handleDelete, isLoggedIn } =
+    useCartData();
   const navigate = useNavigate();
 
   const handleAddToWishList = (product) => {

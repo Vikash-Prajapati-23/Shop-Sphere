@@ -6,10 +6,11 @@ const allCart = createContext();
 
 export const useCartData = () => useContext(allCart);
 
-export const CartDataProvider = ({ children, isLoggedIn }) => {
+export const CartDataProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [guestCart, setGuestCart] = useState([]);
   const [cart, setCart] = useState([]);
-  const { savedAddresses, setSavedAddresses, selectedAddress, setSelectedAddress, } = useFormData();
+  const { setSavedAddresses, selectedAddress, setSelectedAddress, } = useFormData();
 
   useEffect(() => {
     const updateCart = () => {
@@ -209,6 +210,8 @@ export const CartDataProvider = ({ children, isLoggedIn }) => {
       value={{
         cart,
         setCart,
+        isLoggedIn,
+        setIsLoggedIn,
         guestCart,
         setGuestCart,
         handleCartAddition,

@@ -3,22 +3,22 @@ import Carousel from "../Carousel/Carousel";
 import Products from "../Products/Products";
 import { useFormData } from "../../context/formDataContext";
 import { useNavigate } from "react-router-dom";
+import { useCartData } from "../../context/allCartData";
 
 const Home = ({
-  handleCartAddition,
   handleRemoveWishlist,
   handleWishList,
   setClicked,
-  isLoggedIn,
   clicked,
   query,
 }) => {
   const { savedAddresses } = useFormData();
+  const { isLoggedIn } = useCartData();
   const navigate = useNavigate();
 
   const redirectLogin = () => {
-    navigate("/LoginSignup")
-  }
+    navigate("/LoginSignup");
+  };
 
   return (
     <div>
@@ -40,18 +40,19 @@ const Home = ({
         </div>
       ) : (
         <div className="non-login-para ms-3 mt-2">
-          <span className="para-size">
-            Add an address.
-          </span>
-          <button onClick={redirectLogin} className="home-add-address bg-success">Add address</button>
+          <span className="para-size">Add an address.</span>
+          <button
+            onClick={redirectLogin}
+            className="home-add-address bg-success"
+          >
+            Add address
+          </button>
         </div>
       )}
 
       <Carousel />
 
       <Products
-        isLoggedIn={isLoggedIn}
-        handleCartAddition={handleCartAddition}
         handleWishList={handleWishList}
         handleRemoveWishlist={handleRemoveWishlist}
         setClicked={setClicked}

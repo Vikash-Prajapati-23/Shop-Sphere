@@ -7,25 +7,26 @@ import { useFormData } from "../../../../context/formDataContext";
 const ChooseAddress = ({
   name,
   handleSaveAndRefresh,
-  handleSave,
   editAddressById,
   setEditAddressById,
-  isSaving,
-  formData,
-  setFormData,
-  handleInputChange,
-  isVisible,
-  setIsVisible,
-  // selectedAddress,
-  // setSelectedAddress,
-  // savedAddresses,
   showAll,
   setShowAll,
   visibleAddress,
   currentIndex,
   setCurrentIndex,
 }) => {
-  const { setSelectedAddress, selectedAddress, savedAddresses } = useFormData();
+  const {
+    formData,
+    setFormData,
+    isVisible,
+    setIsVisible,
+    handleInputChange,
+    isSaving,
+    savedAddresses,
+    selectedAddress,
+    setSelectedAddress,
+  } = useFormData();
+
   return (
     <div className="">
       <div className="all-addresses-checkout">

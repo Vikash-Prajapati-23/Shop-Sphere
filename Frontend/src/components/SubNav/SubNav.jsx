@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Style/SubNav.css";
+import { useCartData } from "../../context/allCartData";
 
-const SubNav = ({ cart, isLoggedIn }) => {
+const SubNav = () => {
+  const { isLoggedIn, cart } = useCartData();
+
   return (
     <div className="sub-nav">
       <ul className="subnav-ul">

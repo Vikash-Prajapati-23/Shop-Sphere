@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Button from "../../../Button/Button";
 import "../PlaceOrderPart/PlaceOrderPart.css";
-import "./Payment.css"
+import "./Payment.css";
 import { useCartData } from "../../../../context/allCartData";
 import { useFormData } from "../../../../context/formDataContext";
 
 const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
   const { cart, setCart } = useCartData();
-    const { selectedAddress } = useFormData();
+  const { selectedAddress } = useFormData();
   const [paymentOption] = useState([
     {
       paymentType: "Net Banking",
@@ -30,10 +30,10 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
   const [loading, setLoading] = useState(false);
 
   const placeOrder = async () => {
-    if (!selectedPayment) return alert("Please select a payment method.");
-    if (!user || !user._id) return alert("User not logged in!");
-    if (!selectedAddress) return alert("No address selected!");
-    if (!cart || cart.length === 0) return alert("Cart is empty!");
+    // if (!selectedPayment) return alert("Please select a payment method.");
+    // if (!user || !user._id) return alert("User not logged in!");
+    // if (!selectedAddress) return alert("No address selected!");
+    // if (!cart || cart.length === 0) return alert("Cart is empty!");
     setLoading(true);
     try {
       // Calculate total amount from cart
@@ -185,7 +185,9 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
 
             <div className="ordersummary-head mt-2">
               {/* <span className="me-2 head-text-size"> {selectedAddress.name} </span> */}
-              <span className="fw-bold text-size-s"> {`${cart.length} ${cart.length == 1 ? "item" : "items"}`} </span>
+              <span className="fw-bold text-size-s">
+                {`${cart.length} ${cart.length == 1 ? "item" : "items"}`}
+              </span>
             </div>
           </div>
 
@@ -218,12 +220,10 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
                   />
                   <div className="">
                     <p className="m-0  payment-text text-size-b">
-                      {" "}
-                      {data.paymentType}{" "}
+                      {data.paymentType}
                     </p>
                     <p className="m-0 pb-2 px-0 text-size-checkout text-size-b">
-                      {" "}
-                      {data.para}{" "}
+                      {data.para}
                     </p>
                   </div>
                 </div>

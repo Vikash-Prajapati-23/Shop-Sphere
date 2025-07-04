@@ -3,13 +3,15 @@ import "./Style/WishList.css";
 import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useCartData } from "../../context/allCartData";
 
 const WishList = ({
   wishlist,
   setWishlist,
-  handleCartAddition,
   handleRemoveWishlist,
 }) => {
+  const { handleCartAddition } = useCartData();
+
   // Fetch wishlist data on component mount
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -35,11 +37,6 @@ const WishList = ({
 
   const handleProductDelete = async (product) => {
     handleRemoveWishlist(product._id || product.id || product.productId);
-  };
-
-  const handleAddToCart = async (product) => {
-    handleCartAddition(product);
-    handleProductDelete(product._id); // Remove from wishlist after adding to cart
   };
 
   const navigate = useNavigate();
@@ -112,7 +109,7 @@ const WishList = ({
 
                     <Button
                       className="btn btn-success w-100 text-size-s"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() => handleCartAddition(product)}
                       btnName={"Move to cart"}
                     />
                   </div>

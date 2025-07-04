@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Style/Men.css";
 import Card from "../../../components/Card/Card";
 import Loading from "../../../components/Loading/Loading";
 import toast from "react-hot-toast";
+import { useCartData } from "../../../context/allCartData";
 
-const Men = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
+const Men = ({ handleWishList, query }) => {
+  const { isLoggedIn, handleCartAddition } = useCartData();
   const [menProduct, setMenProduct] = useState([]);
   const nevigate = useNavigate();
   const { categorySlug } = useParams();
@@ -33,10 +35,6 @@ const Men = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
   useEffect(() => {
     getManProduct(categorySlug);
   }, [categorySlug]);
-
-  const handleAddToCart = (product) => {
-    handleCartAddition(product);
-  };
 
   const handleWishlist = (product) => {
     if (!isLoggedIn) {
@@ -79,7 +77,7 @@ const Men = ({ handleCartAddition, handleWishList, query, isLoggedIn }) => {
               >
                 <Card
                   {...product}
-                  handleAddToCart={() => handleAddToCart(product)}
+                  handleAddToCart={() => handleCartAddition(product)}
                   handleWishlist={() => handleWishlist(product)}
                 />
               </div>

@@ -9,7 +9,6 @@ import PaymentGateway from "../CartSection/PaymentGateway/PaymentGateway";
 const CartLayoutContainer = ({
   handleWishList,
   displayCart,
-  isLoggedIn,
   deliveryCost,
   platformFee,
   name,
@@ -19,13 +18,8 @@ const CartLayoutContainer = ({
   const [showAll, setShowAll] = useState(false);
   const [editAddressById, setEditAddressById] = useState(null);
   const {
-    formData,
-    setFormData,
-    isVisible,
     setIsVisible,
-    handleInputChange,
     handleSave,
-    isSaving,
     savedAddresses,
     setSavedAddresses,
     selectedAddress,
@@ -43,16 +37,10 @@ const CartLayoutContainer = ({
     editAddressById,
     setEditAddressById,
     visibleAddress,
-    isVisible,
-    setIsVisible,
     showAll,
     setShowAll,
-    formData,
-    setFormData,
-    handleSave,
-    handleInputChange,
-    isSaving,
-    isLoggedIn,
+
+    
   };
 
   const refreshAddresses = async () => {
@@ -87,7 +75,6 @@ const CartLayoutContainer = ({
         {currentIndex === 1 && (
           <PlaceOrderPart
             {...placeOrderProps}
-            isLoggedIn={isLoggedIn}
             setCurrentIndex={setCurrentIndex}
           />
         )}
@@ -104,7 +91,6 @@ const CartLayoutContainer = ({
           <OrderSummary
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
-            isLoggedIn={isLoggedIn}
             {...placeOrderProps}
             name={name}
             email={email}

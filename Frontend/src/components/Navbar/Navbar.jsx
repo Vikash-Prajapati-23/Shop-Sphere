@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Style/Navbar.css";
+import { useCartData } from "../../context/allCartData";
 
 const Navbar = ({
-  cart,
-  setCart,
   setQuery,
-  isLoggedIn,
-  setIsLoggedIn,
+  // isLoggedIn,
+  // setIsLoggedIn,
   handleUserLogout,
   name,
   firstName,
@@ -17,6 +16,7 @@ const Navbar = ({
 }) => {
   const [guestCart, setGuestCart] = useState(0);
   const [isDropDown, setIsDropDown] = useState(false);
+  const { isLoggedIn, cart, setCart } = useCartData();
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -234,7 +234,10 @@ const Navbar = ({
       </a>
 
       <div className="main-navs">
-        <ul className="list-styls list-styles-home custom-dropdown" data-bs-theme="dark">
+        <ul
+          className="list-styls list-styles-home custom-dropdown"
+          data-bs-theme="dark"
+        >
           <li className="nav-item navs">
             <Link
               className="nav-link py-0 fw-semibold navs-fs"
@@ -328,7 +331,7 @@ const Navbar = ({
                   <i className="fa-regular fa-circle-user user-icon"></i>
                   <span className="navs-text-size">
                     {" "}
-                    {firstName ? firstName : name.split(" ")[0]}{" "}
+                    {firstName ? firstName : name.split(" ")[0]}
                   </span>
                   <i className="fa-solid fa-chevron-down arrow-icon"></i>
                 </div>
@@ -367,13 +370,13 @@ const Navbar = ({
               </Link>
             )}
           </li>
-            {/* // WishList */}
+          {/* // WishList */}
           <li className="nav-item m-lg-auto">
             <Link className="nav-link active" to="/WishList">
               <i className="fa-solid fa-heart wishlist-icon "></i>
             </Link>
           </li>
-            {/* // Cart */}
+          {/* // Cart */}
           <li className="nav-item m-lg-auto">
             <Link className="nav-link active" to="/Cart">
               <span className="material-symbols-outlined">shopping_bag</span>

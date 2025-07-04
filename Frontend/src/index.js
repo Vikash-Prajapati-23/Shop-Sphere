@@ -6,13 +6,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { CartDataProvider } from "./context/allCartData";
+import { FormDataProvider } from "./context/formDataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <FormDataProvider>
+          <CartDataProvider>
+            <App />
+          </CartDataProvider>
+        </FormDataProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

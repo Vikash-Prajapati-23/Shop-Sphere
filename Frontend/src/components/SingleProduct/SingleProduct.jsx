@@ -4,17 +4,17 @@ import "./Style/SingleProduct.css";
 import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
 import toast from "react-hot-toast";
+import { useCartData } from "../../context/allCartData";
 
 const SingleProduct = ({
-  handleCartAddition,
   handleRemoveWishlist,
   handleWishList,
   clicked,
   setClicked,
-  isLoggedIn,
   wishlist,
 }) => {
   const [singleProduct, setSingleProduct] = useState(null);
+  const { isLoggedIn, handleCartAddition } = useCartData();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -49,10 +49,6 @@ const SingleProduct = ({
 
     fetchSingleProduct(id);
   }, [id, wishlist]);
-
-  const handleAddToCart = (product) => {
-    handleCartAddition(product);
-  };
 
   const handleWishlistToggle = async (product) => {
     if (!isLoggedIn) {
@@ -112,7 +108,7 @@ const SingleProduct = ({
 
             <div className="prod-btn ms-lg-3 ms-0">
               <Button
-                onClick={() => handleAddToCart(singleProduct)}
+                onClick={() => handleCartAddition(singleProduct)}
                 className={"btn btn-success add-cart-btn login-text-size ms-0"}
                 btnName={"Add to cart"}
               />

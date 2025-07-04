@@ -4,16 +4,16 @@ import "./Style/Products.css";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import { toast } from "react-hot-toast";
+import { useCartData } from "../../context/allCartData";
 
 const Products = ({
-  handleCartAddition,
   handleWishList,
   handleRemoveWishlist,
   setClicked,
   clicked,
-  isLoggedIn,
   query,
 }) => {
+  const { isLoggedIn, handleCartAddition } = useCartData();
   const [products, setProducts] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [wishlisted, setWishlisted] = useState({});
@@ -40,10 +40,6 @@ const Products = ({
 
     fetchProducts();
   }, []);
-
-  const handleAddToCart = (product) => {
-    handleCartAddition(product);
-  };
 
   const handleWishlistToggle = async (product) => {
     if (!isLoggedIn) {
@@ -101,7 +97,7 @@ const Products = ({
               <Card
                 {...product}
                 clicked={!!wishlisted[product._id || product.id]}
-                handleAddToCart={() => handleAddToCart(product)} // Pass function reference
+                handleAddToCart={() => handleCartAddition(product)} // Pass function reference
                 handleWishlist={() => handleWishlistToggle(product)} // Pass function reference
               />
             </div>

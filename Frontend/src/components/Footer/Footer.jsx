@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Style/Footer.css";
 import SubNav from "../SubNav/SubNav";
 
-const Footer = ({ isLoggedIn, cart }) => {
+const Footer = () => {
   const [isMobile, setIsMibile] = useState(window.innerWidth >= 500);
 
   return (
@@ -138,7 +138,7 @@ const Footer = ({ isLoggedIn, cart }) => {
           &copy; 2025 copyright || shopsphare.com
         </div>
       </div>
-      <SubNav isLoggedIn={isLoggedIn} cart={cart} />
+      <SubNav />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 
-export const PersonalInfo = ({ handleInputChange, formData, setFormData, isOpen }) => {
+export const PersonalInfo = ({ handleInputChange, formData, setFormData }) => {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditEmail, setIsEditEmail] = useState(false);
   const [isEditContact, setIsEditContact] = useState(false);
