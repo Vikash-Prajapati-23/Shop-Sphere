@@ -12,7 +12,6 @@ import SingleProductRoute from "./routes/singleProductRoutes.js";
 import PaymentRoute from "./routes/paymentsRoutes.js";
 import { connectToMongoDB } from "./connectToMongoDB.js";
 
-
 // Load env variables
 dotenv.config();
 
@@ -27,8 +26,8 @@ const PORT = process.env.PORT || 3001;
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",                         // for local dev
-      "https://shop-sphere-jade.vercel.app"            // ✅ your Vercel frontend
+      "http://localhost:3000",            
+      "https://shop-sphere-jade.vercel.app"          
     ],
     credentials: true,
   })
@@ -45,7 +44,7 @@ app.use("/api/single", SingleProductRoute);
 app.use("/api/payments", PaymentRoute);
 
 // Fallback for unmatched API routes
-app.use((req, res) => {
+app.use((res) => {
   res.status(404).json({ error: "Route not found" });
 });
 

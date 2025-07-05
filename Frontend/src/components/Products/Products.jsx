@@ -67,7 +67,7 @@ const Products = ({
 
   const handleCardClick = (product) => {
     if (product && product.id) {
-      navigate(`/SingleProduct/${product.id}`); // Navigate to SingleProduct page.
+      navigate(`/SingleProduct/${product.id}`);
     } else {
       toast.error("Product ID not found");
     }
@@ -76,8 +76,7 @@ const Products = ({
   if (!products) {
     return (
       <div>
-        {" "}
-        <Loading />{" "}
+        <Loading />
       </div>
     ); // Added: Loading state to handle asynchronous fetch.
   }

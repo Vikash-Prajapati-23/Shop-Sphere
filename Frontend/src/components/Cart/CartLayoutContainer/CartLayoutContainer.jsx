@@ -102,6 +102,7 @@ const CartLayoutContainer = ({
             setCurrentIndex={setCurrentIndex}
             name={name}
             email={email}
+            platformFee={platformFee}
             user={{
               name: name,
               email: email,

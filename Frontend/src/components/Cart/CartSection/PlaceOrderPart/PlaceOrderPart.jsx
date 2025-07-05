@@ -8,7 +8,6 @@ import { useCartData } from "../../../../context/allCartData";
 const PlaceOrderPart = ({
   displayCart,
   deliveryCost,
-  handleCardClick,
   handleWishList,
   setCurrentIndex,
 }) => {
@@ -48,6 +47,14 @@ const PlaceOrderPart = ({
     }
   };
 
+  const handleCardClick = (product) => {
+    if (product && product.productId) {
+      navigate(`/SingleProduct/${product.productId}`);
+    } else {
+      toast.error("Product ID not found");
+    }
+  };
+
   return (
     <div className="placeorder-part">
       <CartAddressBlock isLoggedIn={isLoggedIn} />
@@ -57,8 +64,10 @@ const PlaceOrderPart = ({
           <li
             style={{ backgroundColor: "white" }}
             className="cart-list"
+
             key={product._id || product.id}
           >
+            {/* {console.log(displayCart)} */}
             <div className="middle-part">
               <div className="product mb-2">
                 <div className="product-details">

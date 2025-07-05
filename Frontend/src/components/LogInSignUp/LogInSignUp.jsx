@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Style/LogInSignUp.css";
-import { api } from "../../utils/api";
 import { useCartData } from "../../context/allCartData";
 
 const LogInSignUp = ({ setName }) => {
@@ -13,13 +12,16 @@ const LogInSignUp = ({ setName }) => {
     password: "",
   });
   const navigate = useNavigate(); // React Router's navigation hook
-    const { setIsLoggedIn } = useCartData();
+  const { setIsLoggedIn } = useCartData();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`, {
-      method: "GET",
-      credentials: "include",
-    })
+    fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-session-user`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.user) {
@@ -37,11 +39,14 @@ const LogInSignUp = ({ setName }) => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const createSignup = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const createSignup = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const signUp = await createSignup.json();
       if (createSignup.ok) {
         toast.success(signUp.message);
@@ -56,12 +61,15 @@ const LogInSignUp = ({ setName }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userLogin = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(formData),
-        credentials: "include", // Include cookies in the request
-      });
+      const userLogin = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(formData),
+          credentials: "include", // Include cookies in the request
+        }
+      );
       const loggedInUser = await userLogin.json();
       if (userLogin.ok) {
         setIsLoggedIn(true); // Set user as logged in
@@ -91,7 +99,9 @@ const LogInSignUp = ({ setName }) => {
           <ul className="nav nav-tabs card-header-tabs">
             <li className="nav-item">
               <button
-                className={`nav-link ${isLogin ? "active" : ""} login-text-size`}
+                className={`nav-link ${
+                  isLogin ? "active" : ""
+                } login-text-size`}
                 onClick={() => setIsLogin(true)}
               >
                 Log In
@@ -99,7 +109,9 @@ const LogInSignUp = ({ setName }) => {
             </li>
             <li className="nav-item">
               <button
-                className={`nav-link ${!isLogin ? "active" : ""} login-text-size`}
+                className={`nav-link ${
+                  !isLogin ? "active" : ""
+                } login-text-size`}
                 onClick={() => setIsLogin(false)}
               >
                 Sign Up

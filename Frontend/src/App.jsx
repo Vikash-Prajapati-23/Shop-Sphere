@@ -23,7 +23,6 @@ const SingleProduct = lazy(() =>
 );
 
 function App() {
-  const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [query, setQuery] = useState("");
   const [name, setName] = useState("");
@@ -36,9 +35,8 @@ function App() {
   const [platformFee, setPlatformFee] = useState(4);
   const [deliveryCost, setDeliveryCost] = useState(40);
   const [clicked, setClicked] = useState(false); // It is for wishlist.jsx
-  const [redirect, setRedirect] = useState();
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useCartData();
+  const { setIsLoggedIn } = useCartData();
 
   useEffect(() => {
     const verifyAndFetchUser = async () => {
@@ -71,13 +69,6 @@ function App() {
             setName(fetchedData.user.userName);
             setEmail(fetchedData.user.email);
             setGender(fetchedData.user.gender);
-            // const currentPathUrl = window.location.pathname;
-            // if (
-            //   !currentPathUrl.includes("/OrderSuccess") &&
-            //   currentPathUrl.includes("/OrderFaliure")
-            // ) {
-            //   await fetchCardQuantity();
-            // }
           }
         } else {
           setIsLoggedIn(false);
@@ -113,8 +104,6 @@ function App() {
       toast.error("An error occurred");
     }
   };
-
-  // const handleCartAddition = async (product) => {
   //   try {
   //     if (!isLoggedIn) {
   //       // Guest: store in localStorage
@@ -227,8 +216,6 @@ function App() {
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <Navbar
-          cart={cart}
-          setCart={setCart}
           setQuery={setQuery}
           handleUserLogout={handleUserLogout}
           name={name}
@@ -310,7 +297,6 @@ function App() {
               <Profile
                 name={name}
                 handleUserLogout={handleUserLogout}
-                cart={cart}
               />
             }
           />
@@ -319,7 +305,6 @@ function App() {
             path="/MyOrders"
             element={
               <MyOrders
-                cart={cart}
                 deliveryCost={deliveryCost}
                 platformFee={platformFee}
                 userId={userId}

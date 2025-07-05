@@ -115,6 +115,57 @@ export const CartDataProvider = ({ children }) => {
     }
   };
 
+  const handleClearCart = async () => {
+    try {
+      console.log("[handleClearCart] Sending request to clear cart...");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/productcart/clearcart`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      console.log("[handleClearCart] Response:", response.status, data);
+      if (response.ok) {
+        toast.success(data.message || "Cart cleared successfully");
+        // Refetch cart to ensure sync
+        try {
+          const refetch = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+          const cartData = await refetch.json();
+          setCart(Array.isArray(cartData) ? cartData : []);
+          console.log("[handleClearCart] Cart after refetch:", cartData);
+        } catch (fetchErr) {
+          console.error("[handleClearCart] Error refetching cart:", fetchErr);
+          setCart([]);
+        }
+      } else {
+        toast.error(data.message || "Failed to clear cart");
+        // Optionally refetch to sync state
+        try {
+          const refetch = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/api/productcart/cart`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+          const cartData = await refetch.json();
+          setCart(Array.isArray(cartData) ? cartData : []);
+        } catch {}
+      }
+    } catch (error) {
+      toast.error("Something went wrong while clearing the cart!");
+      console.error("[handleClearCart] Exception:", error);
+    }
+  }
+
   const handleDelete = async (productId) => {
     if (!isLoggedIn) {
       const filtered = guestCart.filter(
@@ -214,6 +265,7 @@ export const CartDataProvider = ({ children }) => {
         setIsLoggedIn,
         guestCart,
         setGuestCart,
+        handleClearCart,
         handleCartAddition,
         handleDecrement,
         handleIncrement,

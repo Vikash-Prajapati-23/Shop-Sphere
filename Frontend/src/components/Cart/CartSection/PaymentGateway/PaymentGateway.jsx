@@ -5,8 +5,14 @@ import "./Payment.css";
 import { useCartData } from "../../../../context/allCartData";
 import { useFormData } from "../../../../context/formDataContext";
 
-const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
-  const { cart, setCart } = useCartData();
+const PaymentGateway = ({
+  name,
+  currentIndex,
+  setCurrentIndex,
+  user,
+  platformFee,
+}) => {
+  const { cart, setCart, handleClearCart } = useCartData();
   const { selectedAddress } = useFormData();
   const [paymentOption] = useState([
     {
@@ -41,7 +47,7 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
         cart.reduce(
           (sum, item) => sum + item.price * (item.quantity || 1),
           0 * 100
-        )
+        ) + (platformFee || 0)
       );
       // Step 1: Create Razorpay order
       const res = await fetch(
@@ -64,7 +70,7 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
         description: "Order Payment",
         order_id: data.id,
         handler: async function (response) {
-          // Step 3: Send to backend to verify & save order/payment
+          // Save payment/order to backend
           const saveRes = await fetch(
             `${process.env.REACT_APP_API_BASE_URL}/api/payments/save-payment`,
             {
@@ -86,6 +92,11 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
           const saveData = await saveRes.json();
           if (!saveRes.ok)
             throw new Error(saveData.message || "Payment saving failed");
+
+          // Clear cart only after successful payment and order save
+          await handleClearCart();
+          setCart([]);
+
           window.location.href = `/OrderSuccess?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`;
         },
         prefill: {
@@ -97,7 +108,6 @@ const PaymentGateway = ({ name, currentIndex, setCurrentIndex, user }) => {
       };
       const rzp = new window.Razorpay(options);
       rzp.open();
-      setCart([]);
     } catch (err) {
       window.location.href = `/OrderFailure`;
       if (process.env.REACT_APP_NODE_ENV !== "production") {

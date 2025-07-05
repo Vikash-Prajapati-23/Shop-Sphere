@@ -88,6 +88,22 @@ export async function removeFromCart(req, res) {
   }
 }
 
+export async function clearCart(req, res) {
+  const userId = req.user.id;
+
+  try {
+    // const exists = await Cart.findOne({userId, productId});
+    const deleteFromCart = await Cart.deleteMany({userId});
+    if(deleteFromCart.deletedCount === 0) {
+      return res.status(400).json({ message: "No products here." })
+    }
+    return res.status(200).json({ message: "Cart cleared successfully!" });
+
+  } catch (error) {
+    return res.status(500).json({ messsage: "Something went wrong while clearing cart.!" });
+  }
+}
+
 export async function productDecrement(req, res) {
   try {
     const userId = req.user.id;
