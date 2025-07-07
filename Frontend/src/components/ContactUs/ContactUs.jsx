@@ -1,27 +1,64 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import "./Style/ContactUs.css";
+import toast from "react-hot-toast";
 
 const ContactUs = () => {
   const form = useRef();
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+
+  const handleFormClear = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
 
+    if (
+      !formData.name ||
+      !formData.phone ||
+      !formData.email ||
+      !formData.message
+    ) {
+      toast.error("Please fill out all fields.");
+      return;
+    }
+
+    // 1️⃣ Send main contact email
     emailjs
       .sendForm("service_4u1tybz", "template_ft26u5d", form.current, {
         publicKey: "g1hq_pQ8P2FLCdEpR",
       })
       .then(
         () => {
-          if (process.env.REACT_APP_NODE_ENV !== "production") {
-            console.log("Success");
-          }
+          toast.success("Message received. We will reply soon!");
+
+          // 2️⃣ Send auto-reply email to user
+          emailjs.send(
+            "service_4u1tybz", // same service ID
+            "template_p71tcxi", // your second template for auto-reply
+            {
+              user_name: formData.name,
+              user_email: formData.email,
+            },
+            "g1hq_pQ8P2FLCdEpR" // your public key again
+          );
+
+          // 3️⃣ Clear form
+          setFormData({ name: "", phone: "", email: "", message: "" });
         },
         (error) => {
-          if (process.env.REACT_APP_NODE_ENV !== "production") {
-            console.error(error);
-          }
+          console.error("EmailJS Error:", error);
+          toast.error("Something went wrong while submitting your message!");
         }
       );
   };
@@ -42,7 +79,12 @@ const ContactUs = () => {
       ></iframe>
 
       <div className="cont-item mt-3">
-        <form className="con-item-right my-2" ref={form} onSubmit={sendEmail}>
+        <form
+          className="con-item-right my-2"
+          onChange={handleFormClear}
+          ref={form}
+          onSubmit={sendEmail}
+        >
           <div className="">
             <div className="mb-3">
               <p className="form-title mb-1 contact-text-size-b">Name</p>
@@ -50,7 +92,9 @@ const ContactUs = () => {
                 placeholder="Full name"
                 className="form-control mb-2 ms-md-1 contact-text-size-s"
                 type="text"
-                name="from_name"
+                name="name"
+                value={formData.name}
+                required
               />
             </div>
 
@@ -63,6 +107,14 @@ const ContactUs = () => {
                 placeholder="Enter your phone number"
                 aria-label="Example text with button addon"
                 aria-describedby="button-addon1"
+                name="phone"
+                value={formData.phone}
+                maxLength={10}
+                pattern="[0-9]{10}"
+                onInput={(e) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Removes letters/symbols
+                }}
+                required
               />
             </div>
 
@@ -72,7 +124,9 @@ const ContactUs = () => {
                 placeholder="Email"
                 className="form-control mb-2 ms-md-1 contact-text-size-s"
                 type="email"
-                name="to_name"
+                name="email"
+                value={formData.email}
+                required
               />
             </div>
 
@@ -82,6 +136,8 @@ const ContactUs = () => {
                 placeholder="Enter your message!"
                 className="form-control mb-2 ms-md-1 contact-text-size-s"
                 name="message"
+                value={formData.message}
+                required
               />
             </div>
 
