@@ -55,7 +55,7 @@ const WishList = ({
       <Toaster />
       <div>
         {Array.isArray(wishlist) && wishlist.length === 0 ? (
-          <div className={"d-flex mx-auto align-items-center"}>
+          <div className={"d-flex mx-auto justify-content-center align-items-center"}>
             <img src={"./images/wish.gif"} className="opt-img" alt=""></img>
             <p>Your wishlist is empty.!</p>
           </div>

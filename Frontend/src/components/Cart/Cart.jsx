@@ -11,7 +11,7 @@ const Cart = ({ handleWishList, name, email, platformFee, deliveryCost }) => {
   return (
     <div className="main-cart">
       {displayCart.length === 0 ? (
-        <div className="d-flex align-items-center justify-content-center gap-5 py-4 w-100">
+        <div className="d-flex align-items-center justify-content-center gap-lg-5 gap-1 py-4 w-100">
           <img src="./images/empty-cart.png" alt="Empty Cart" />
           <h4>Your cart is empty.!</h4>
         </div>
