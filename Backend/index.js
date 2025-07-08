@@ -51,9 +51,9 @@ app.use("/api/single", SingleProductRoute);
 app.use("/api/payments", PaymentRoute);
 
 // Fallback for unmatched API routes
-app.use((res) => {
-  res.status(404).json({ error: "Route not found" });
-});
+// app.use((res) => {
+//   res.status(404).json({ error: "Route not found" });
+// });
 
 // Start server
 app.listen(PORT, () => {
