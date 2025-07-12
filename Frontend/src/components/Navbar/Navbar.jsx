@@ -46,7 +46,6 @@ const Navbar = ({
       <div className="main-navs">
         <ul
           className="list-styls list-styles-home custom-dropdown"
-          data-bs-theme="dark"
         >
           <li className="nav-item navs">
             <Link

@@ -88,7 +88,8 @@ export async function verifySessionLogin(req, res) {
 
     const user = await getUser(sessionUid);
     if (!user) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     return res.status(200).json({
@@ -108,7 +109,8 @@ export async function verifySessionLogout(req, res) {
   try {
     const sessionUid = req.cookies.sessionUid;
     if (!sessionUid) {
-      return res.status(401).json({ message: "No session found." });
+      return ;
+      // res.status(401).json({ message: "No session found." });
     }
 
     await deleteSession(sessionUid);
@@ -154,7 +156,8 @@ export async function updateProfile(req, res) {
   try {
     const user = await getUser(sessionUid);
     if (!user) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     const updateFields = {};
@@ -198,7 +201,8 @@ export async function addAddress(req, res) {
   try {
     const user = await getUser(sessionUid);
     if (!user) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     // Create a new address document for this user
@@ -223,7 +227,8 @@ export async function showSavedAddresses(req, res) {
   try {
     const user = await getUser(req.cookies.sessionUid);
     if (!user) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     // Fetch all addresses for this user from addressModel
@@ -251,7 +256,8 @@ export async function deleteAddress(req, res) {
     // It is the _id of a document in your addressModel collection (not the user).
 
     if (!userAddress) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     await addressModel.findOneAndDelete({
@@ -275,7 +281,8 @@ export async function editAddress(req, res) {
   try {
     const user = await getUser(sessionUid);
     if (!user) {
-      return res.status(401).json({ message: "Invalid session." });
+      return;
+      //  res.status(401).json({ message: "Invalid session." })
     }
 
     // Filter out undefined or empty string fields to avoid overwriting existing values

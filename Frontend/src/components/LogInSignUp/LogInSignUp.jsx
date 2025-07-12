@@ -49,7 +49,7 @@ const LogInSignUp = ({ setName }) => {
       );
       const signUp = await createSignup.json();
       if (createSignup.ok) {
-        toast.success(signUp.message);
+        toast.success(signUp.message + "Please login to coontinue.");
       } else {
         toast.error(signUp.message);
       }

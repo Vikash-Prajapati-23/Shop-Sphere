@@ -38,7 +38,7 @@ export const CartDataProvider = ({ children }) => {
         const data = await response.json();
         setCart(Array.isArray(data) ? data : []);
       } catch (error) {
-        toast.error("Failed to fetch cart items");
+        // toast.error("Failed to fetch cart items");
         setCart([]);
       }
     };

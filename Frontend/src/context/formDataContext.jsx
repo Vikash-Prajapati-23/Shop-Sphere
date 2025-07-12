@@ -40,7 +40,7 @@ export const FormDataProvider = ({ children }) => {
         setSavedAddresses(data.addresses);
       }
     } catch (err) {
-      toast.error("Could not refresh addresses");
+      // toast.error("Could not refresh addresses");
     }
   };
 

@@ -39,6 +39,10 @@ function App() {
   const { setIsLoggedIn } = useCartData();
 
   useEffect(() => {
+    toast("Please wait while the products are loading.!");
+  }, []);
+
+  useEffect(() => {
     const verifyAndFetchUser = async () => {
       try {
         const verifyUser = await fetch(
@@ -247,12 +251,7 @@ function App() {
 
           <Route
             path="/category/:categorySlug"
-            element={
-              <Men
-                handleWishList={handleWishList}
-                query={query}
-              />
-            }
+            element={<Men handleWishList={handleWishList} query={query} />}
           />
 
           <Route
@@ -294,10 +293,7 @@ function App() {
           <Route
             path="/Profile"
             element={
-              <Profile
-                name={name}
-                handleUserLogout={handleUserLogout}
-              />
+              <Profile name={name} handleUserLogout={handleUserLogout} />
             }
           />
 

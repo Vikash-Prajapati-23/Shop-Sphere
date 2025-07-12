@@ -10,6 +10,24 @@
   border-bottom: none;
 }
 
+.category-dropDown {
+  position: relative;
+}
+
+.subNav-dropdown-menu {
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  top: -260%;
+}
+
+.subnav_font_size {
+  font-size: 12px;
+}
+
 .subnav-ul {
   gap: 2rem;
   list-style: none;
