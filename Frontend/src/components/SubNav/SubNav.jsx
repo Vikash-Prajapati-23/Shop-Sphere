@@ -2,14 +2,23 @@ import { Link } from "react-router-dom";
 import "./Style/SubNav.css";
 import { useCartData } from "../../context/allCartData";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 
 const SubNav = () => {
   const { isLoggedIn, cart } = useCartData();
   const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+
 
   const handleToggle = () => {
     setIsVisible((visible) => (visible = !visible));
   };
+
+  useEffect(() => {
+  setIsVisible(false); // auto-close dropdown when navigating to another page.!
+}, [location.pathname]);
+
 
   useEffect(() => {
     setIsVisible(false);
